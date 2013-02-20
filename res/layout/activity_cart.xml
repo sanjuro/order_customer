@@ -1,0 +1,110 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context="com.vosto.customer.CartActivity">
+
+    <RelativeLayout
+        android:id="@+id/topSection"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5sp"
+        android:layout_marginRight="5sp">
+    
+      <TextView
+            android:id="@+id/lblCartHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="@string/yourcart"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="28sp" />
+    
+    </RelativeLayout>
+    
+  <LinearLayout
+      android:id="@+id/middleSection"
+   	android:layout_width="fill_parent"
+   	android:layout_height="wrap_content"
+   	android:layout_below="@+id/topSection"
+   	android:layout_above="@+id/bottomSection"
+   	android:orientation="vertical">   
+   	
+  <ListView
+        android:id="@+id/lstCartItems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        >
+  </ListView>
+  
+   <RelativeLayout
+       android:id="@+id/totalSection"
+      	android:orientation="horizontal"
+      	android:layout_width="wrap_content"
+      	android:layout_height="wrap_content"
+      	android:layout_marginLeft="5sp"
+      	android:layout_marginRight="5sp"
+      >
+           <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/lblCartTotal"
+            android:text="@string/total"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="22sp" />
+           
+             <TextView
+            android:id="@+id/lblCartTotal"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/total"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="22sp" />
+     </RelativeLayout>
+  
+  
+      
+      
+  </LinearLayout>  
+ 
+  
+ <RelativeLayout 
+     android:id="@+id/bottomSection"
+     android:layout_alignParentBottom="true"
+     android:layout_below="@+id/lstCartItems"
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+    >
+    
+    
+     <Button
+        android:id="@+id/confirmOrderButton"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="@string/confirmorder"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        />
+     
+     
+      <Button
+        android:id="@+id/discardOrderButton"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="@string/discardorder"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        />
+     
+     
+ </RelativeLayout>
+  
+ 
+
+</RelativeLayout>

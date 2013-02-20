@@ -1,0 +1,107 @@
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          android:id="@+id/linearLayout1"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignParentLeft="true"
+          android:layout_alignParentRight="true"
+          android:layout_alignParentTop="true"
+          android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_vosto_account"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+        <ScrollView  
+   			 android:id="@+id/scrollView"  
+    		android:layout_width="fill_parent"  
+    		android:layout_height="wrap_content"  
+  			 android:scrollbars="vertical">  
+  			 
+      <LinearLayout
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical" >
+          
+          <EditText  
+    android:id="@+id/textFirstName"  
+    android:layout_height="wrap_content"  
+    android:hint="@string/first_name"  
+    android:inputType="textPersonName"  
+    android:layout_width="fill_parent">  
+</EditText>  
+
+                    
+          <EditText  
+    android:id="@+id/textLastName"  
+    android:layout_height="wrap_content"  
+    android:hint="@string/last_name"  
+    android:inputType="textPersonName"  
+    android:layout_width="fill_parent">  
+</EditText>  
+
+                 <EditText
+                     android:id="@+id/textEmail"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:hint="@string/email"
+                     android:inputType="textEmailAddress" >
+  
+</EditText>  
+
+                  <EditText
+                      android:id="@+id/textMobileNumber"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:hint="@string/mobile_number"
+                      android:inputType="text|phone"
+                      android:maxLength="10" >
+  
+</EditText>
+
+                  <LinearLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content" >
+
+                      <TextView
+                          android:id="@+id/textBirthDate"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="@string/birthdate" />
+
+                      <Button
+                          android:id="@+id/buttonChooseBirthdate"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="@string/choose_birthdate" 
+                          android:onClick="showBirthDatePickerDialog"/>
+
+                  </LinearLayout>
+                  
+                     <EditText
+                      android:id="@+id/textUserPin"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:hint="@string/user_pin"
+                      android:inputType="numberPassword"
+                      android:maxLength="5" >
+  
+</EditText>
+                           
+<Button  
+    android:id="@+id/buttonCreateAccount"  
+    android:layout_height="wrap_content"  
+    android:text="@string/create_account_button"  
+    android:onClick="createAccount"  
+    android:layout_width="fill_parent">  
+</Button> 
+          
+       </LinearLayout>
+            
+       </ScrollView>
+
+    </LinearLayout>
+

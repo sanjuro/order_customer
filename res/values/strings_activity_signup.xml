@@ -1,0 +1,13 @@
+<resources>
+    <!-- Strings related to signup -->
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="sign_in_button">Sign In Button</string>
+     <string name="sign_up_button">Sign Up Button</string>
+     <string name="cancel_button">Cancel Button</string>
+       <string name="sign_up">SIGN UP</string>
+        <string name="sign_in">SIGN IN</string>
+       <string name="name">Name</string>
+        <string name="email">Email</string>
+         <string name="security_pin">Security Pin</string>
+         <string name="not_joined_yet">Haven\'t joined yet?</string>
+</resources>

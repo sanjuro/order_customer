@@ -1,0 +1,7 @@
+.classpath
+.project
+.settings/
+gen/
+project.properties
+proguard-project.txt
+bin/

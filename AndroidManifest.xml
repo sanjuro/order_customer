@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.vosto.customer"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  
+    <application
+        android:name="com.vosto.customer.VostoCustomerApp"
+        android:allowBackup="true"
+        android:icon="@drawable/vosto_logo"
+        android:label="@string/app_name"
+       android:theme="@android:style/Theme.NoTitleBar">
+        <activity
+            android:name="com.vosto.customer.StoresActivity"
+            android:label="@string/title_activity_stores" >
+             
+        </activity>
+        <activity
+            android:name="com.vosto.customer.StoreMenuActivity"
+            android:label="@string/title_activity_store_menu" >
+        </activity>
+        <activity
+            android:name="com.vosto.customer.CartActivity">
+        </activity>
+        <activity
+            android:name="com.vosto.customer.LoginMenuActivity"
+            android:label="@string/title_activity_main" > 
+        </activity>
+        <activity
+            android:name="com.vosto.customer.HomeActivity"
+    	> 
+    	</activity>
+        <activity
+            android:name="com.vosto.customer.accounts.SignUpActivity"
+    	> 
+        </activity>
+         <activity
+            android:name="com.vosto.customer.accounts.SignInActivity">
+        </activity>
+        <activity
+            android:name="com.vosto.customer.accounts.CreateAccountActivity"
+            android:label="@string/title_activity_create_account"
+            android:parentActivityName="com.vosto.customer.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vosto.customer.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.vosto.customer.SplashActivity">
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

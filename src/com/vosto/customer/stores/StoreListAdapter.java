@@ -1,0 +1,72 @@
+package com.vosto.customer.stores;
+
+import com.vosto.customer.R;
+import com.vosto.customer.services.vos.StoreVo;
+
+import android.app.Activity;
+import android.content.Context;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+public class StoreListAdapter extends ArrayAdapter<StoreVo>{
+
+    Context context; 
+    int layoutResourceId;    
+    StoreVo stores[] = null;
+    
+    public StoreListAdapter(Context context, int layoutResourceId, StoreVo[] stores) {
+        super(context, layoutResourceId, stores);
+        this.layoutResourceId = layoutResourceId;
+        this.context = context;
+        this.stores = stores;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+    	Log.d("StoresList", "Getting view at pos " + position);
+        View row = convertView;
+        StoreListItemHolder holder = null;
+        
+        if(row == null)
+        {
+            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+            row = inflater.inflate(layoutResourceId, parent, false);
+            
+            holder = new StoreListItemHolder();
+            holder.txtStoreName = (TextView)row.findViewById(R.id.txtTitle);
+           // holder.txtStoreNumber = (TextView)row.findViewById(R.id.txtDistance);
+            
+            row.setTag(holder);
+        }
+        else
+        {
+            holder = (StoreListItemHolder)row.getTag();
+        }
+        Log.d("POS", "position: " + position);
+        StoreVo store = stores[position];
+        if(holder == null){
+        	Log.d("ERROR", "holder is null");
+        }
+        if(store == null){
+        	Log.d("ERROR", "store is null");
+        }
+        Log.d("LEN", "Stores length: " + stores.length);
+        if(holder != null && holder.txtStoreName != null && store != null){
+        	holder.txtStoreName.setText(store.getName());
+        }
+        if(holder != null && holder.txtStoreNumber != null && store != null){
+        	holder.txtStoreNumber.setText("");
+        }
+        return row;
+    }
+    
+    static class StoreListItemHolder
+    {
+        TextView txtStoreName;
+        TextView txtStoreNumber;
+    }
+}
