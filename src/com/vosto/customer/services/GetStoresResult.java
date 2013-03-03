@@ -37,6 +37,7 @@ public class GetStoresResult extends RestResult implements IRestResult {
 			for(int i = 0; i<this.jsonArr.length(); i++){
 				JSONObject jsonObj = this.jsonArr.getJSONObject(i).getJSONObject("store");
 				StoreVo currentStore = new StoreVo();
+				currentStore.setUniqueId(jsonObj.getString("unique_id"));
 				currentStore.setName(jsonObj.getString("store_name"));
 				currentStore.setDescription(jsonObj.getString("store_description"));
 				currentStore.setAddress(jsonObj.getString("address"));

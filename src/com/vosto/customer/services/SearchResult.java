@@ -43,6 +43,10 @@ public class SearchResult extends RestResult implements IRestResult {
 				currentStore.setManagerContact(jsonObj.getString("manager_contact"));
 				currentStore.setUrl(jsonObj.getString("url"));
 				currentStore.setId(jsonObj.getInt("id"));
+				currentStore.setUniqueId(jsonObj.getString("unique_id"));
+				if(jsonObj.has("distance")){
+					currentStore.setDistance(jsonObj.getDouble("distance"));
+				}
 				this.stores[i] = currentStore;
 			}
 			return true;

@@ -35,6 +35,7 @@ import com.vosto.customer.services.GetVariantsResult;
 import com.vosto.customer.services.GetVariantsService;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
+import com.vosto.customer.services.SearchResult;
 import com.vosto.customer.services.vos.OptionValueVo;
 import com.vosto.customer.services.vos.ProductVo;
 import com.vosto.customer.services.vos.TaxonVo;
@@ -47,7 +48,7 @@ public class StoreMenuActivity extends VostoActivity implements OnRestReturn, On
 	private String storeName;
 	private String storeTel;
 	private String storeAddress;
-	private ArrayList<ProductVo> products;
+	private ProductVo[] products;
 	private ProductVo currentProduct;
 	private ArrayList<TaxonVo> taxons;
 	private TaxonVo currentTaxon;
@@ -85,7 +86,6 @@ public class StoreMenuActivity extends VostoActivity implements OnRestReturn, On
 	}
 	
 	private void loadProducts(int taxonId){
-		Log.d("TAX", "Getting products for taxon: " + taxonId);
 		GetProductsService service = new GetProductsService(this, taxonId);
 		service.execute();
 	}
@@ -113,12 +113,25 @@ public class StoreMenuActivity extends VostoActivity implements OnRestReturn, On
 		if(list == null){
 			Log.d("ERROR", "List is null");
 		}
-		this.products = result.getProducts();
-		Log.d("PROD", "Products: " + this.products.size());
-		list.setAdapter(new ProductListAdapter(this, R.layout.product_item_row, this.products));
-		list.setOnItemClickListener(this);
-		
+		//this.products = result.getProductsForStoreId();
+	
 		this.showingTaxons = false;
+	
+		Intent intent = new Intent(this, ProductResultsActivity.class);
+		ProductVo[] products =  result.getProducts();
+		if(products[0] == null){
+			Log.d("PRD", "First product is NULL before serializing.");
+		}else{
+			Log.d("PRD", "First product is NOT NULL before serializing.");
+		}
+		VariantVo[] variants = products[0].getVariants();
+		if(variants == null){
+			Log.d("VAR", "Variants NULL in StoreMenuActivity.");
+		}else{
+			Log.d("VAR", "Variants NOT NULL in StoreMenuActivity.");
+		}
+		intent.putExtra("products", products);
+    	startActivity(intent);
 	}
 	
 	private void processTaxonsResult(GetTaxonsResult result){
@@ -144,7 +157,7 @@ public class StoreMenuActivity extends VostoActivity implements OnRestReturn, On
 			this.currentTaxon = this.taxons.get(position);
 			this.loadProducts(this.currentTaxon.getId());
 		}else{
-			this.currentProduct = this.products.get(position);
+			this.currentProduct = this.products[position];
 			this.choseProduct(this.currentProduct.getId());
 		}
 	}
@@ -173,10 +186,10 @@ public class StoreMenuActivity extends VostoActivity implements OnRestReturn, On
 			
 					for(int i = 0; i<this.variants.size(); i++){
 						VariantVo variant = this.variants.get(i);
-						if(variant.getOptionValues().size() == 0){
+						if(variant.getOptionValues().length == 0){
 							continue;
 						}
-						OptionValueVo optionValue = variant.getOptionValues().get(0);
+						OptionValueVo optionValue = variant.getOptionValues()[0];
 						
 						RadioButton radioButton = new RadioButton(this);
 						radioButton.setText(optionValue.getPresentation() + " (R " + variant.getPrice() + " )");
@@ -224,7 +237,7 @@ public class StoreMenuActivity extends VostoActivity implements OnRestReturn, On
 					
 						@Override
 						public void onClick(View v) {
-							
+							/*
 							VostoCustomerApp context = (VostoCustomerApp)getApplicationContext();
 							Cart cart;
 							if(!context.hasOpenCart()){
@@ -262,6 +275,7 @@ public class StoreMenuActivity extends VostoActivity implements OnRestReturn, On
 							mainMenu.findItem(R.id.itemCart).setTitle(getResources().getString(R.string.cart) + " (" + cart.getNumberOfItems() + ")");
 						
 							//Toast.makeText(getApplicationContext(), "Cart Total: " + cart.getTotalPrice(), Toast.LENGTH_LONG).show();
+						*/
 						}	
 					});
 					
@@ -279,9 +293,9 @@ public class StoreMenuActivity extends VostoActivity implements OnRestReturn, On
 	}
 	
 	private void updateDialogPrice(){
-		TextView addToCartPrice = (TextView)dialog.findViewById(R.id.addToCartPrice);
-		double price = currentVariant.getPrice() * currentQuantity;
-		addToCartPrice.setText("Price: R" + price);
+	//	TextView addToCartPrice = (TextView)dialog.findViewById(R.id.addToCartPrice);
+		//double price = currentVariant.getPrice() * currentQuantity;
+		//addToCartPrice.setText("Price: R" + price);
 	}
 	
 	public void callStore(View view){

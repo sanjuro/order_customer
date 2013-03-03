@@ -3,9 +3,16 @@ package com.vosto.customer.orders;
 import java.util.Date;
 import java.util.ArrayList;
 
+import org.joda.money.Money;
+
+import com.vosto.customer.services.vos.StoreVo;
+
+import android.util.Log;
+
 
 public class Cart {
 	
+	private StoreVo store;
 	private ArrayList<CartItem> items;
 	private Date opened;
 	private Date closed;
@@ -15,9 +22,16 @@ public class Cart {
 		this.items = new ArrayList<CartItem>();
 	}
 	
-	public Cart(ArrayList<CartItem> items){
+	public Cart(StoreVo store){
+		this.opened = new Date();
+		this.items = new ArrayList<CartItem>();
+		this.store = store;
+	}
+	
+	public Cart(StoreVo store, ArrayList<CartItem> items){
 		this.opened = new Date();
 		this.items = items;
+		this.store = store;
 	}
 	
 	public void addItem(CartItem item){
@@ -25,25 +39,21 @@ public class Cart {
 	}
 	
 	public void removeItem(CartItem item){
-		removeItem(item.getId());
+		removeItem(this.items.indexOf(item));
 	}
 	
-	public void removeItem(int itemId){
-		for(int i = 0; i<this.items.size(); i++){
-			if(this.items.get(i).getId() == itemId){
-				this.items.remove(i);
-			}
-		}
+	public void removeItem(int index){
+		this.items.remove(index);
 	}
 	
 	public ArrayList<CartItem> getItems(){
 		return this.items;
 	}
 	
-	public double getTotalPrice(){
-		double total = 0.0d;
+	public Money getTotalPrice(){
+		Money total = Money.parse("ZAR 0.00");
 		for(int i = 0; i<this.items.size(); i++){
-			total += this.items.get(i).getSubtotal();
+			total = total.plus(this.items.get(i).getSubtotal());
 		}
 		return total;
 	}
@@ -71,4 +81,30 @@ public class Cart {
 		}
 		return numberOfItems;
 	}
+
+	public StoreVo getStore() {
+		return store;
+	}
+
+	public void setStore(StoreVo store) {
+		this.store = store;
+	}
+
+	public Date getOpened() {
+		return opened;
+	}
+
+	public void setOpened(Date opened) {
+		this.opened = opened;
+	}
+
+	public Date getClosed() {
+		return closed;
+	}
+
+	public void setClosed(Date closed) {
+		this.closed = closed;
+	}
+	
+	
 }

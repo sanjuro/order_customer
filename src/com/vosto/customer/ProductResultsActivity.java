@@ -13,44 +13,63 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.vosto.customer.orders.Cart;
+import com.vosto.customer.orders.CartItem;
+import com.vosto.customer.products.ProductListAdapter;
+import com.vosto.customer.services.GetProductsResult;
 import com.vosto.customer.services.GetStoresResult;
 import com.vosto.customer.services.GetStoresService;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
+import com.vosto.customer.services.vos.ProductVo;
 import com.vosto.customer.services.vos.StoreVo;
 import com.vosto.customer.stores.StoreListAdapter;
+import com.vosto.customer.utils.MoneyUtils;
 /**
  * @author flippiescholtz
  *
  */
-public class StoresActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener {
+public class ProductResultsActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener {
 	
-	private StoreVo[] stores;
+	private ProductVo[] products;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_stores);
-		ListView list = (ListView)findViewById(R.id.lstStores);
+		Log.d("RSM", "Products Activity creating");
+		setContentView(R.layout.activity_product_results);
+		ListView list = (ListView)findViewById(R.id.lstProducts);
 		list.setOnItemClickListener(this);
 		
 	
 
-		Object[] objects = (Object[]) this.getIntent().getSerializableExtra("stores");
-		this.stores = new StoreVo[objects.length];
+		Object[] objects = (Object[]) this.getIntent().getSerializableExtra("products");
+		this.products = new ProductVo[objects.length];
 		for(int i = 0; i<objects.length; i++){
-			this.stores[i] = (StoreVo)objects[i];
+			
+			this.products[i] = (ProductVo)objects[i];
+			if(this.products[i] == null){
+				Log.d("PRD", "Product " + i + " is null in results act.");
+			}else{
+				Log.d("PRD", "Product " + i + " is NOT NULL in results act.");
+			}
+			if(this.products[i].getVariants().length > 0){
+				Log.d("VAR", "Variant: " + this.products[i].getVariants()[0].getOptionValues()[0].getName());
+			}
 		}
 		
-		list.setAdapter(new StoreListAdapter(this, R.layout.store_item_row, this.stores));
-		
+		list.setAdapter(new ProductListAdapter(this, R.layout.product_item_row, this.products));
+		updateBuyButton();
 	}
 	
 	public void onResume(){
 		super.onResume();
+		Log.d("RSM", "Products Activity resuming");
+		updateBuyButton();
 		//GetStoresService service = new GetStoresService(this);
 		//service.execute();
 	}
@@ -70,23 +89,22 @@ public class StoresActivity extends VostoBaseActivity implements OnRestReturn, O
 		}else if(((GetStoresResult)result).getStores() == null){
 			Log.d("ERROR", "Stores is null");
 		}
-		this.stores = ((GetStoresResult)result).getStores();
-		list.setAdapter(new StoreListAdapter(this, R.layout.store_item_row, this.stores));
+		this.products = ((GetProductsResult)result).getProducts();
+		list.setAdapter(new ProductListAdapter(this, R.layout.product_item_row, this.products));
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-		  Cart cart = getCart();
-		  cart.setStore(this.stores[position]);
-		  saveCart(cart);
-		  Intent intent = new Intent(this, StoreMenuActivity.class);
-		  intent.putExtra("storeId", this.stores[position].getId());
-		  intent.putExtra("storeName", this.stores[position].getName());
-		  intent.putExtra("storeTel", this.stores[position].getManagerContact());
-		  intent.putExtra("storeAddress", this.stores[position].getAddress());
-		  intent.putExtra("callingActivity", "StoresActivity");
-      	   startActivity(intent);
-      	 // finish();
+		 
+	}
+	
+	public void addToCartClicked(View v){
+		ImageButton button = (ImageButton)v;
+		ProductVo product = (ProductVo)button.getTag();
+		Cart cart = getCart();
+		cart.addItem(new CartItem(product, 1));
+		saveCart(cart);
+		updateBuyButton();
 	}
 	
 	@Override
@@ -95,6 +113,22 @@ public class StoresActivity extends VostoBaseActivity implements OnRestReturn, O
 	    inflater.inflate(R.menu.mainmenu, menu);
 	    return true;
 	  } 
+	
+	private void updateBuyButton(){
+		TextView txtAmount = (TextView)findViewById(R.id.buy_button_price);
+		TextView txtQuantity = (TextView)findViewById(R.id.buy_button_quantity);
+		Cart cart = getCart();
+		if(cart == null){
+			Log.d("Cart", "Base activity returned a null cart!");
+		}
+		txtAmount.setText(MoneyUtils.getRandString(cart.getTotalPrice()));
+		txtQuantity.setText(cart.getNumberOfItems() + " items");
+	}
+	
+	public void buyButtonClicked(View v){
+		Intent intent = new Intent(this, CartActivity.class);
+    	startActivity(intent);
+	}
 	
 	
 	public void homeClicked(){
@@ -114,10 +148,16 @@ public class StoresActivity extends VostoBaseActivity implements OnRestReturn, O
 	    }
 
 	    return true;
-	  }
-
+	  } 
+	
 	@Override
 	public void storesPressed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void cartPressed() {
 		// TODO Auto-generated method stub
 		
 	}

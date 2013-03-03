@@ -2,12 +2,12 @@ package com.vosto.customer.services.vos;
 
 import java.io.Serializable;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 public class StoreVo implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+	
 	private int id;
+	private String uniqueId;
 	private String name;
 	private String description;
 	private String address;
@@ -15,6 +15,7 @@ public class StoreVo implements Serializable {
 	private String managerContact;
 	private String email;
 	private String url;
+	private double distance;
 	
 	public StoreVo(){
 	}
@@ -25,6 +26,14 @@ public class StoreVo implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getUniqueId() {
+		return uniqueId;
+	}
+
+	public void setUniqueId(String uniqueId) {
+		this.uniqueId = uniqueId;
 	}
 
 	public String getName() {
@@ -82,4 +91,13 @@ public class StoreVo implements Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
+	public double getDistance() {
+		return distance;
+	}
+
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}	
+	
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.vosto.customer.R;
 import com.vosto.customer.services.vos.StoreVo;
+import com.vosto.customer.utils.MoneyUtils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class CartItemAdapter extends ArrayAdapter<CartItem>{
@@ -40,7 +42,10 @@ public class CartItemAdapter extends ArrayAdapter<CartItem>{
             holder = new CartItemHolder();
             holder.lblProductName = (TextView)row.findViewById(R.id.lblProductName);
             holder.lblPrice = (TextView)row.findViewById(R.id.lblPrice);
-            holder.lblOptionValue = (TextView)row.findViewById(R.id.lblOptionValue);
+            holder.lblVariant = (TextView)row.findViewById(R.id.lblVariant);
+            holder.removeButton = (ImageButton)row.findViewById(R.id.remove_button);
+            holder.editButton = (ImageButton)row.findViewById(R.id.edit_button);
+            
             
             row.setTag(holder);
         }
@@ -52,21 +57,27 @@ public class CartItemAdapter extends ArrayAdapter<CartItem>{
         CartItem item = cartItems.get(position);
         
        
-        holder.lblProductName.setText(item.getQuantity() + " x " + item.getProduct().getName());
-        holder.lblPrice.setText("R " + item.getSubtotal());
-        if(item.getVariant() != null && item.getVariant().getOptionValues().size() > 0){
-        	holder.lblOptionValue.setText(item.getVariant().getOptionValues().get(0).getName());
+        holder.lblProductName.setText(item.getProduct().getName());
+        holder.lblPrice.setText(MoneyUtils.getRandString(item.getSubtotal()));
+        if(item.getVariant() != null && item.getVariant().getOptionValues().length > 0){
+        	holder.lblVariant.setText(item.getVariant().getOptionValues()[0].getName());
         }
         Log.d("CRT", "Returning row.");
+        
+        holder.editButton.setTag(item);
+        holder.removeButton.setTag(item);
+        
         return row;
     }
     
     static class CartItemHolder
     {
         TextView lblProductName;
-        TextView lblOptionValue;
+        TextView lblVariant;
        // TextView lblQuantity;
         TextView lblPrice;
+        ImageButton removeButton;
+        ImageButton editButton;
         
     }
 }

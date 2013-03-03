@@ -37,4 +37,5 @@
      <string name="findbynearestlocation">FIND <i>by nearest location</i></string>
      <string name="searchbyfoodtype">SEARCH <i>by food type</i></string>
      <string name="categories">CATEGORIES</string>
+     <string name="filter_button">Filter</string>
 </resources>

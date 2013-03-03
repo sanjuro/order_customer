@@ -11,7 +11,7 @@ import com.vosto.customer.services.vos.ProductVo;
 public class GetProductsResult extends RestResult implements IRestResult {
 	
 	private JSONArray jsonArr;
-	private ArrayList<ProductVo> products;
+	private ProductVo[] products;
 	private int storeId;
 	
 	 public GetProductsResult(){
@@ -34,25 +34,40 @@ public class GetProductsResult extends RestResult implements IRestResult {
 	public JSONArray getJSONArray(){
 		 return this.jsonArr;
 	 }
+	
+	public ProductVo[] getProducts(){
+		return this.products;
+	}
 	 
-	 public ArrayList<ProductVo> getProducts(){
+	 public ProductVo[] getProductsForStoreId(){
 		 ArrayList<ProductVo> requestedProducts = new ArrayList<ProductVo>();
-		 for(int i = 0; i<this.products.size(); i++){
-			 if(this.products.get(i).getStoreId() == this.storeId){
-				 requestedProducts.add(this.products.get(i));
+		 for(int i = 0; i<this.products.length; i++){
+			 if(this.products[i].getStoreId() == this.storeId){
+				 requestedProducts.add(this.products[i]);
 			 }
 		 }
-		 return requestedProducts;
+		 
+		 ProductVo[] requestedProductsArr = new ProductVo[requestedProducts.size()];
+		 for(int j = 0; j<requestedProducts.size(); j++){
+			 requestedProductsArr[j] = requestedProducts.get(j);
+		 }
+		 return requestedProductsArr;
 	 }
 	 
 	@Override
 	public boolean processJsonAndPopulate(){
+	
+		// Skip if products are already set:
+		if(this.products != null && this.products.length > 0 && this.products[0] != null){
+			return true;
+		}
+		
 		try{
 			this.jsonArr = new JSONArray(this.getResponseJson());
-			this.products = new ArrayList<ProductVo>();
+			this.products = new ProductVo[this.jsonArr.length()];
 		
 			for(int i = 0; i<this.jsonArr.length(); i++){
-				JSONObject jsonObj = this.jsonArr.getJSONObject(i).getJSONObject("product");
+				JSONObject jsonObj = this.jsonArr.getJSONObject(i);
 				
 				ProductVo currentProduct = new ProductVo();
 				currentProduct.setName(jsonObj.getString("name"));
@@ -61,7 +76,7 @@ public class GetProductsResult extends RestResult implements IRestResult {
 				currentProduct.setStoreId(jsonObj.getInt("store_id"));
 				currentProduct.setId(jsonObj.getInt("id"));
 				
-				this.products.add(currentProduct);
+				this.products[i] = currentProduct;
 			}
 			return true;
 		}catch(JSONException e){

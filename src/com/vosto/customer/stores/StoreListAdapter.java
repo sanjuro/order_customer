@@ -37,8 +37,9 @@ public class StoreListAdapter extends ArrayAdapter<StoreVo>{
             row = inflater.inflate(layoutResourceId, parent, false);
             
             holder = new StoreListItemHolder();
-            holder.txtStoreName = (TextView)row.findViewById(R.id.txtTitle);
-           // holder.txtStoreNumber = (TextView)row.findViewById(R.id.txtDistance);
+            holder.lblStoreName = (TextView)row.findViewById(R.id.lblStoreName);
+            holder.lblDistance = (TextView)row.findViewById(R.id.lblDistance);
+            holder.lblAddress = (TextView)row.findViewById(R.id.lblAddress);
             
             row.setTag(holder);
         }
@@ -55,18 +56,22 @@ public class StoreListAdapter extends ArrayAdapter<StoreVo>{
         	Log.d("ERROR", "store is null");
         }
         Log.d("LEN", "Stores length: " + stores.length);
-        if(holder != null && holder.txtStoreName != null && store != null){
-        	holder.txtStoreName.setText(store.getName());
+        if(holder != null && holder.lblStoreName != null && store != null){
+        	holder.lblStoreName.setText(store.getName());
         }
-        if(holder != null && holder.txtStoreNumber != null && store != null){
-        	holder.txtStoreNumber.setText("");
+        if(holder != null && holder.lblDistance != null && store != null){
+        	holder.lblDistance.setText(store.getDistance() + "km");
+        }
+        if(holder != null && holder.lblAddress != null && store != null){
+        	holder.lblAddress.setText(store.getAddress());
         }
         return row;
     }
     
     static class StoreListItemHolder
     {
-        TextView txtStoreName;
-        TextView txtStoreNumber;
+        TextView lblStoreName;
+        TextView lblDistance;
+        TextView lblAddress;
     }
 }

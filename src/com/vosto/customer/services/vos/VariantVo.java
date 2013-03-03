@@ -1,8 +1,12 @@
 package com.vosto.customer.services.vos;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
-public class VariantVo {
+import org.joda.money.Money;
+
+import com.vosto.customer.utils.MoneyUtils;
+
+public class VariantVo implements Serializable {
 	/*
 	 * 
 	 * {
@@ -19,13 +23,15 @@ public class VariantVo {
 	 * 
 	 */
 	
+	private static final long serialVersionUID = 1L;
+	
 	private int id;
 	private String sku;
 	private int product_id;
 	private boolean isMaster;
-	private double price;
+	private Money price;
 	private int position;
-	private ArrayList<OptionValueVo> optionValues;
+	private OptionValueVo[] optionValues;
 	
 	
 	
@@ -82,13 +88,21 @@ public class VariantVo {
 
 
 
-	public double getPrice() {
-		return price;
+	public Money getPrice() {
+		return this.price;
+	}
+	
+	public String getPriceString(){
+		return MoneyUtils.getRandString(this.price);
 	}
 
 
+	public void setPrice(double priceDouble){
+		this.price = Money.parse("ZAR " + priceDouble);
+		this.price = this.price.withAmount(priceDouble);
+	}
 
-	public void setPrice(double price) {
+	public void setPrice(Money price) {
 		this.price = price;
 	}
 
@@ -106,13 +120,13 @@ public class VariantVo {
 
 
 
-	public ArrayList<OptionValueVo> getOptionValues() {
+	public OptionValueVo[] getOptionValues() {
 		return optionValues;
 	}
 
 
 
-	public void setOptionValues(ArrayList<OptionValueVo> optionValues) {
+	public void setOptionValues(OptionValueVo[] optionValues) {
 		this.optionValues = optionValues;
 	}
 
