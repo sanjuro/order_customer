@@ -22,6 +22,10 @@ public abstract class VostoBaseActivity extends Activity implements IMainMenuLis
 		context.setLatestCart(cart);
 	}
 	
+	public VostoCustomerApp getContext(){
+		return (VostoCustomerApp)getApplicationContext();
+	}
+	
 	public Cart getCart(){
 		Log.d("Cart", "Getting cart in base activity.");
 		VostoCustomerApp context = (VostoCustomerApp)getApplicationContext();

@@ -65,11 +65,7 @@ public class StoresActivity extends VostoBaseActivity implements OnRestReturn, O
 		if(list == null){
 			Log.d("ERROR", "List is null");
 		}
-		if(result == null){
-			Log.d("ERROR", "Result is null");
-		}else if(((GetStoresResult)result).getStores() == null){
-			Log.d("ERROR", "Stores is null");
-		}
+		
 		this.stores = ((GetStoresResult)result).getStores();
 		list.setAdapter(new StoreListAdapter(this, R.layout.store_item_row, this.stores));
 	}
@@ -79,8 +75,8 @@ public class StoresActivity extends VostoBaseActivity implements OnRestReturn, O
 		  Cart cart = getCart();
 		  cart.setStore(this.stores[position]);
 		  saveCart(cart);
-		  Intent intent = new Intent(this, StoreMenuActivity.class);
-		  intent.putExtra("storeId", this.stores[position].getId());
+		  Intent intent = new Intent(this, TaxonsActivity.class);
+		  intent.putExtra("store", this.stores[position]);
 		  intent.putExtra("storeName", this.stores[position].getName());
 		  intent.putExtra("storeTel", this.stores[position].getManagerContact());
 		  intent.putExtra("storeAddress", this.stores[position].getAddress());

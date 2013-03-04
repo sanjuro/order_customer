@@ -3,6 +3,7 @@ package com.vosto.customer;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.vosto.customer.accounts.SignInActivity;
 import com.vosto.customer.orders.Cart;
 import com.vosto.customer.orders.CartItem;
 import com.vosto.customer.orders.CartItemAdapter;
@@ -35,9 +37,10 @@ import com.vosto.customer.utils.MoneyUtils;
  * @author flippiescholtz
  *
  */
-public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener {
+public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnDismissListener {
 	
 	private ListView list;
+	private boolean orderFinished;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -45,6 +48,7 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 		
 		this.list = (ListView)findViewById(R.id.lstCartItems);
 		list.setOnItemClickListener(this);
+		this.orderFinished = false;
 		
 		
 	
@@ -142,7 +146,15 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 		}
 		if(result instanceof PlaceOrderResult){
 			PlaceOrderResult orderResult = (PlaceOrderResult)result;
-			Toast.makeText(this, "Order " + orderResult.getOrderNumber(), Toast.LENGTH_LONG).show();
+			if(orderResult.wasOrderCreated()){
+				getContext().closeCart();
+				this.orderFinished = true;
+				this.showAlertDialog("Thank you", "Your order has been placed.");
+				Toast.makeText(this, "Order " + orderResult.getOrderNumber(), Toast.LENGTH_LONG).show();
+			}else{
+				this.showAlertDialog("Could not place order", orderResult.getErrorMessage());
+			}
+		
 		}
 	}
 
@@ -162,6 +174,7 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
             }
         });
         AlertDialog alert = builder.create();
+        alert.setOnDismissListener(this);
         alert.show();
 	}
 	
@@ -189,5 +202,12 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	public void settingsPressed() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void onDismiss(DialogInterface dialog) {
+		Intent intent = new Intent(this, HomeActivity.class);
+    	startActivity(intent);
+    	finish();
 	} 
 }

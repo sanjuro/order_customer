@@ -25,7 +25,7 @@
              
         </activity>
         <activity
-            android:name="com.vosto.customer.StoreMenuActivity"
+            android:name="com.vosto.customer.TaxonsActivity"
             android:label="@string/title_activity_store_menu" >
         </activity>
         <activity

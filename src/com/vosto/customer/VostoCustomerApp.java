@@ -1,12 +1,14 @@
 package com.vosto.customer;
 
 import com.vosto.customer.orders.Cart;
+import com.vosto.customer.services.vos.OrderVo;
 
 import android.app.Application;
 
 public class VostoCustomerApp extends Application {
 
   private Cart latestCart;
+  private OrderVo currentOrder;
   private String authenticationToken;
 
   public Cart getLatestCart(){
@@ -19,6 +21,16 @@ public class VostoCustomerApp extends Application {
   
   public boolean hasOpenCart(){
 	  return this.latestCart != null && this.latestCart.isOpen();
+  }
+  
+  public boolean hasClosedCart(){
+	  return this.latestCart != null && !this.latestCart.isOpen();
+  }
+  
+  public void closeCart(){
+	  if(this.hasOpenCart()){
+		  this.latestCart.close();
+	  }
   }
   
   public String getAuthenticationToken(){

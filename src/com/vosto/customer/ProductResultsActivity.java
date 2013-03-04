@@ -1,6 +1,8 @@
 package com.vosto.customer;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,6 +39,7 @@ import com.vosto.customer.utils.MoneyUtils;
 public class ProductResultsActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener {
 	
 	private ProductVo[] products;
+	private StoreVo store;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -45,21 +48,13 @@ public class ProductResultsActivity extends VostoBaseActivity implements OnRestR
 		ListView list = (ListView)findViewById(R.id.lstProducts);
 		list.setOnItemClickListener(this);
 		
+		this.store = (StoreVo) this.getIntent().getSerializableExtra("store");
 	
 
 		Object[] objects = (Object[]) this.getIntent().getSerializableExtra("products");
 		this.products = new ProductVo[objects.length];
 		for(int i = 0; i<objects.length; i++){
-			
 			this.products[i] = (ProductVo)objects[i];
-			if(this.products[i] == null){
-				Log.d("PRD", "Product " + i + " is null in results act.");
-			}else{
-				Log.d("PRD", "Product " + i + " is NOT NULL in results act.");
-			}
-			if(this.products[i].getVariants().length > 0){
-				Log.d("VAR", "Variant: " + this.products[i].getVariants()[0].getOptionValues()[0].getName());
-			}
 		}
 		
 		list.setAdapter(new ProductListAdapter(this, R.layout.product_item_row, this.products));
@@ -81,14 +76,8 @@ public class ProductResultsActivity extends VostoBaseActivity implements OnRestR
 			return;
 		}
 		ListView list = (ListView)findViewById(R.id.lstStores);
-		if(list == null){
-			Log.d("ERROR", "List is null");
-		}
-		if(result == null){
-			Log.d("ERROR", "Result is null");
-		}else if(((GetStoresResult)result).getStores() == null){
-			Log.d("ERROR", "Stores is null");
-		}
+		
+		
 		this.products = ((GetProductsResult)result).getProducts();
 		list.setAdapter(new ProductListAdapter(this, R.layout.product_item_row, this.products));
 	}
@@ -102,6 +91,14 @@ public class ProductResultsActivity extends VostoBaseActivity implements OnRestR
 		ImageButton button = (ImageButton)v;
 		ProductVo product = (ProductVo)button.getTag();
 		Cart cart = getCart();
+		
+		// Check if a cart is open with another store, and block this item:
+		if(cart.isOpen() && cart.getStore().getId() != product.getStore_id()){
+			this.showAlertDialog("Error", "You can only order from one store at a time.");
+			return;
+		}
+		
+		cart.setStore(this.store);
 		cart.addItem(new CartItem(product, 1));
 		saveCart(cart);
 		updateBuyButton();
@@ -149,6 +146,20 @@ public class ProductResultsActivity extends VostoBaseActivity implements OnRestR
 
 	    return true;
 	  } 
+	
+	public void showAlertDialog(String title, String message){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title)
+        .setMessage(message)
+        .setCancelable(false)
+        .setNegativeButton("Close",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+	}
 	
 	@Override
 	public void storesPressed() {
