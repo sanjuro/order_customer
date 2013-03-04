@@ -2,6 +2,7 @@ package com.vosto.customer.services;
 
 import java.util.Date;
 
+import org.apache.http.StatusLine;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -104,6 +105,14 @@ public class CreateAccountService extends RestService {
 		 * 
 		 * 
 		 */
+	}
+	
+	@Override
+	protected CreateAccountResult getRestResult(StatusLine statusLine, String responseJson){
+		CreateAccountResult result = new CreateAccountResult(200, responseJson);
+		result.setUserPin(this.userPin);
+		result.processJsonAndPopulate();	
+		return result;
 	}
 	
 	

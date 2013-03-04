@@ -2,6 +2,7 @@ package com.vosto.customer.services;
 
 import java.util.Date;
 
+import org.apache.http.StatusLine;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -53,6 +54,14 @@ public class AuthenticationService extends RestService {
 		 * 
 		 * 
 		 */
+	}
+	
+	@Override
+	protected AuthenticateResult getRestResult(StatusLine statusLine, String responseJson){
+		AuthenticateResult result = new AuthenticateResult(200, responseJson);
+		result.processJsonAndPopulate();	
+		result.getCustomer().user_pin = this.pin;
+		return result;
 	}
 	
 	
