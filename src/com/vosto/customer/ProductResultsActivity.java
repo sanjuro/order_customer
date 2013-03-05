@@ -93,7 +93,8 @@ public class ProductResultsActivity extends VostoBaseActivity implements OnRestR
 		Cart cart = getCart();
 		
 		// Check if a cart is open with another store, and block this item:
-		if(cart.isOpen() && cart.getStore().getId() != product.getStore_id()){
+		if(cart.isOpen() && cart.getStore() != null && cart.getStore().getId() != product.getStore_id()){
+			Log.d("STO", "cart store: " + cart.getStore().getId() + ", product store: " + product.getStore_id());
 			this.showAlertDialog("Error", "You can only order from one store at a time.");
 			return;
 		}
@@ -161,27 +162,11 @@ public class ProductResultsActivity extends VostoBaseActivity implements OnRestR
         alert.show();
 	}
 	
-	@Override
-	public void storesPressed() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void cartPressed() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
+	
 	public void ordersPressed() {
-		// TODO Auto-generated method stub
-		
+		Intent intent = new Intent(this, MyOrdersActivity.class);
+		startActivity(intent);
 	}
 
-	@Override
-	public void settingsPressed() {
-		// TODO Auto-generated method stub
-		
-	} 
+	
 }

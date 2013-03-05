@@ -32,6 +32,7 @@ public class GetStoresResult extends RestResult implements IRestResult {
 	@Override
 	public boolean processJsonAndPopulate(){
 		try{
+			
 			this.jsonArr = new JSONArray(this.getResponseJson());
 			this.stores = new StoreVo[this.jsonArr.length()];
 			for(int i = 0; i<this.jsonArr.length(); i++){
@@ -49,9 +50,32 @@ public class GetStoresResult extends RestResult implements IRestResult {
 			}
 			return true;
 		}catch(JSONException e){
+			// Maybe it's a single store, so try that:
+			Log.d("ARR", "Array exception. trying single object...");
+			return processJsonAndPopulateSingleStore();
+		}
+	}
+	
+	public boolean processJsonAndPopulateSingleStore(){
+		try{
+			this.stores = new StoreVo[1];
+			JSONObject jsonObj = new JSONObject(this.getResponseJson());
+			StoreVo currentStore = new StoreVo();
+			currentStore.setUniqueId(jsonObj.getString("unique_id"));
+			currentStore.setName(jsonObj.getString("store_name"));
+			currentStore.setDescription(jsonObj.getString("store_description"));
+			currentStore.setAddress(jsonObj.getString("address"));
+			currentStore.setEmail(jsonObj.getString("email"));
+			currentStore.setManagerContact(jsonObj.getString("manager_contact"));
+			currentStore.setUrl(jsonObj.getString("url"));
+			currentStore.setId(jsonObj.getInt("id"));
+			this.stores[0] = currentStore;
+			return true;
+		}catch(JSONException e){
 			e.printStackTrace();
 			return false;
 		}
+		
 	}
 	
 }

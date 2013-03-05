@@ -230,6 +230,7 @@
           	android:layout_marginRight="20dp"
           	android:src="@drawable/pencil"
           	android:background="@null"
+          	android:onClick="ordersPressed"
           	android:contentDescription="@string/sign_in_button"   
           />
           

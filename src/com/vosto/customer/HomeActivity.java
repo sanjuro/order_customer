@@ -26,13 +26,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 
-
-public class HomeActivity extends Activity implements OnRestReturn {
+public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
 	
 	private ProgressDialog pleaseWaitDialog;
 	
 	@Override
-    protected void onCreate(Bundle args)
+    public void onCreate(Bundle args)
     {
         super.onCreate(args);
         setContentView(R.layout.activity_home);
@@ -102,7 +101,7 @@ public class HomeActivity extends Activity implements OnRestReturn {
 		
 		this.pleaseWaitDialog = ProgressDialog.show(this, "Searching", "Please wait...", true);
 		
-		SearchService service = new SearchService(this);
+		SearchService service = new SearchService(this, this);
 		service.setSearchTerm(txtSearch.getText().toString().trim());
 		if(hasLocation){
 			service.setHasLocation(true);
@@ -147,10 +146,24 @@ public class HomeActivity extends Activity implements OnRestReturn {
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putString("userToken", "");
 		editor.putString("userName", "");
+		editor.putString("userPin", "");
 		editor.commit();
+		deleteCart();
 		Intent intent = new Intent(this, SignInActivity.class);
     	startActivity(intent);
     	finish();
 	}
+
+
+	
+
+
+	public void ordersPressed(View v) {
+		Intent intent = new Intent(this, MyOrdersActivity.class);
+		startActivity(intent);
+	}
+
+
+
 	
 }

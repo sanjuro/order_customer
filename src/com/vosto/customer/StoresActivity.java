@@ -1,24 +1,18 @@
 package com.vosto.customer;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import com.vosto.customer.orders.Cart;
 import com.vosto.customer.services.GetStoresResult;
-import com.vosto.customer.services.GetStoresService;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
 import com.vosto.customer.services.vos.StoreVo;
@@ -72,9 +66,12 @@ public class StoresActivity extends VostoBaseActivity implements OnRestReturn, O
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+		/*
 		  Cart cart = getCart();
 		  cart.setStore(this.stores[position]);
 		  saveCart(cart);
+		  */
+		Log.d("STO", "Passing store to TaxonActivity: " + this.stores[position].getId());
 		  Intent intent = new Intent(this, TaxonsActivity.class);
 		  intent.putExtra("store", this.stores[position]);
 		  intent.putExtra("storeName", this.stores[position].getName());
@@ -112,21 +109,12 @@ public class StoresActivity extends VostoBaseActivity implements OnRestReturn, O
 	    return true;
 	  }
 
-	@Override
-	public void storesPressed() {
-		// TODO Auto-generated method stub
-		
+	
+	public void ordersPressed(View v) {
+		Intent intent = new Intent(this, MyOrdersActivity.class);
+		startActivity(intent);
+		finish();
 	}
 
-	@Override
-	public void ordersPressed() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void settingsPressed() {
-		// TODO Auto-generated method stub
-		
-	} 
+	
 }

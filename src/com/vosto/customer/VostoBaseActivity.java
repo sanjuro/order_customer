@@ -1,6 +1,7 @@
 package com.vosto.customer;
 
 import com.vosto.customer.orders.Cart;
+import com.vosto.customer.services.vos.OrderVo;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -9,7 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
-public abstract class VostoBaseActivity extends Activity implements IMainMenuListener {
+public abstract class VostoBaseActivity extends Activity {
 	
 	protected ProgressDialog pleaseWaitDialog;
 	
@@ -20,6 +21,10 @@ public abstract class VostoBaseActivity extends Activity implements IMainMenuLis
 	public void saveCart(Cart cart){
 		VostoCustomerApp context = (VostoCustomerApp)getApplicationContext();
 		context.setLatestCart(cart);
+	}
+	
+	public void deleteCart(){
+		((VostoCustomerApp)getApplicationContext()).clearCart();
 	}
 	
 	public VostoCustomerApp getContext(){
@@ -48,8 +53,22 @@ public abstract class VostoBaseActivity extends Activity implements IMainMenuLis
 	
 	public String getAuthenticationToken(){
 		SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
-		return settings.getString("userToken", "CXTTTTED2ASDBSD4");
+		String token = settings.getString("userToken", "CXTTTTED2ASDBSD4");
+		Log.d("AUTH", "Returning token: " + token);
+		return token;
 	}
+	
+	public void saveCurrentOrder(OrderVo order){
+		VostoCustomerApp context = (VostoCustomerApp)getApplicationContext();
+		context.saveCurrentOrder(order);
+	}
+	
+	public OrderVo getCurrentOrder(){
+		VostoCustomerApp context = (VostoCustomerApp)getApplicationContext();
+		return context.getCurrentOrder();
+	}
+	
+	/*
 	
 	public abstract void storesPressed();
 
@@ -61,5 +80,7 @@ public abstract class VostoBaseActivity extends Activity implements IMainMenuLis
 	public abstract void ordersPressed();
 
 	public abstract void settingsPressed();
+	
+	*/
 	
 }

@@ -153,6 +153,10 @@ protected RestResult getRestResult(StatusLine statusLine, String responseJson){
 		result = new PlaceOrderResult(200, responseJson);
 	}
 	
+	if(this.resultType == ResultType.GET_PREVIOUS_ORDERS){
+		result = new GetPreviousOrdersResult(200, responseJson);
+	}
+	
 	if(result != null){
 		if(statusLine != null){
 			result.setStatusCode(statusLine.getStatusCode());

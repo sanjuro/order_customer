@@ -150,7 +150,8 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 				getContext().closeCart();
 				this.orderFinished = true;
 				this.showAlertDialog("Thank you", "Your order has been placed.");
-				Toast.makeText(this, "Order " + orderResult.getOrderNumber(), Toast.LENGTH_LONG).show();
+				saveCurrentOrder(orderResult.getOrder());
+				Toast.makeText(this, "Order " + orderResult.getOrder().getNumber(), Toast.LENGTH_LONG).show();
 			}else{
 				this.showAlertDialog("Could not place order", orderResult.getErrorMessage());
 			}
@@ -180,29 +181,17 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	
 
 
-	@Override
-	public void storesPressed() {
-		// TODO Auto-generated method stub
-		
+	
+
+	
+
+	
+	public void ordersPressed(View v) {
+		Intent intent = new Intent(this, MyOrdersActivity.class);
+		startActivity(intent);
 	}
 
-	@Override
-	public void cartPressed() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void ordersPressed() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void settingsPressed() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public void onDismiss(DialogInterface dialog) {

@@ -49,6 +49,9 @@
          <activity
             android:name="com.vosto.customer.ProductResultsActivity">
         </activity>
+         <activity
+            android:name="com.vosto.customer.MyOrdersActivity">
+        </activity>
         <activity
             android:name="com.vosto.customer.accounts.CreateAccountActivity"
             android:label="@string/title_activity_create_account"

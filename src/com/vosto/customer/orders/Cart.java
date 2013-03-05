@@ -71,6 +71,8 @@ public class Cart {
 	}
 	
 	public boolean isOpen(){
+		Log.d("CRT", "Cart opened: " + this.opened);
+		Log.d("CRT", "Cart closed: " + (this.closed == null ? "null" : this.closed));
 		return this.opened != null && this.closed == null;
 	}
 	

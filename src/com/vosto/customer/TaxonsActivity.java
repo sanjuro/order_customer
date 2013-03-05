@@ -32,10 +32,11 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_store_menu);
+		setContentView(R.layout.activity_taxons);
 		this.store = (StoreVo) this.getIntent().getSerializableExtra("store");
 		
 		this.pleaseWaitDialog = ProgressDialog.show(this, "Loading Categories", "Please wait...", true);
+		Log.d("STO", "Loading taxons for store: " + this.store.getId());
 		GetTaxonsService service = new GetTaxonsService(this, this.store.getId());
 		service.execute();
 	}
@@ -109,23 +110,12 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
     	finish();
 	}
 	
-	@Override
-	public void storesPressed() {
-		// TODO Auto-generated method stub
-		
-	}
 	
-	@Override
-	public void ordersPressed() {
-		// TODO Auto-generated method stub
+	public void ordersPressed(View v) {
+		Intent intent = new Intent(this, MyOrdersActivity.class);
+		startActivity(intent);
+		finish();
 	}
 
-	@Override
-	public void settingsPressed() {
-		// TODO Auto-generated method stub	
-	}
-	
-	
-	
-		
+
 }
