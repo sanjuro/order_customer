@@ -95,6 +95,7 @@ public class ProductResultsActivity extends VostoBaseActivity implements OnRestR
 		
 		TextView lblCategoryName = (TextView)findViewById(R.id.lblCategoryName);
 		intent.putExtra("categoryName", lblCategoryName.getText().toString());
+		intent.putExtra("store", this.store);
     	startActivity(intent);
 	}
 	

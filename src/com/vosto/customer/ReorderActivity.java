@@ -6,11 +6,17 @@ import java.util.Locale;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.DialogInterface.OnDismissListener;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,6 +30,7 @@ import com.vosto.customer.services.RestResult;
 import com.vosto.customer.services.vos.OrderVo;
 import com.vosto.customer.services.vos.StoreVo;
 import com.vosto.customer.utils.MoneyUtils;
+
 /**
  * @author flippiescholtz
  *
@@ -84,7 +91,10 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 				updateStoreDetails(storesResult.getStores()[0]);
 			}
 		}else if(result instanceof PlaceOrderResult){
-			showAlertDialog("Order Placed", ((PlaceOrderResult)result).getOrder().getNumber());
+			saveCurrentOrder(((PlaceOrderResult)result).getOrder());
+			Intent intent = new Intent(this, MyOrdersActivity.class);
+			startActivity(intent);
+			finish();
 		}
 	}
 
@@ -121,6 +131,10 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 	}
 	
 	public void reorderClicked(View v){
+		promptForPin();
+	}
+	
+	public void sendOrder(){
 		if(this.order == null || this.store == null){
 			return;
 		}
@@ -129,6 +143,46 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 		service.setOrder(this.order);
 		service.setStore(this.store);
 		service.execute();
+	}
+	
+	public void promptForPin(){
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+		alert.setTitle("Enter Pin");
+		alert.setMessage("Pin:");
+
+		// Set an EditText view to get user input 
+		final EditText pinInput = new EditText(this);
+		pinInput.setInputType(InputType.TYPE_CLASS_NUMBER);
+		pinInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
+		InputFilter[] FilterArray = new InputFilter[1];
+		FilterArray[0] = new InputFilter.LengthFilter(5);
+		pinInput.setFilters(FilterArray);
+		
+		alert.setView(pinInput);
+
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		public void onClick(DialogInterface dialog, int whichButton) {
+		  String value = pinInput.getText().toString().trim();
+		  	SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+			String storedPin = settings.getString("userPin", "").trim();
+			if(storedPin.equals(value)){
+				sendOrder();
+			}else{
+				// Invalid pin:
+				showAlertDialog("Invalid Pin", "Please enter a valid pin.");
+			}
+		  }
+		});
+
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		  public void onClick(DialogInterface dialog, int whichButton) {
+		    // Canceled.
+		  }
+		});
+
+		alert.show();
+		
 	}
 	
 	

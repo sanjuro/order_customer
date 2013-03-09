@@ -23,6 +23,7 @@ import com.vosto.customer.orders.CartItem;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
 import com.vosto.customer.services.vos.ProductVo;
+import com.vosto.customer.services.vos.StoreVo;
 import com.vosto.customer.services.vos.VariantVo;
 import com.vosto.customer.utils.MoneyUtils;
 /**
@@ -31,6 +32,7 @@ import com.vosto.customer.utils.MoneyUtils;
  */
 public class ProductDetailsActivity extends VostoBaseActivity implements OnRestReturn, OnSeekBarChangeListener {
 	
+	private StoreVo store;
 	private ProductVo product;
 	private VariantVo chosenVariant;
 	private int quantity;
@@ -39,6 +41,8 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_product_details);
+		
+		this.store = (StoreVo)getIntent().getSerializableExtra("store");
 		
 		TextView lblSpecialInstructions = (TextView)findViewById(R.id.lblSpecialInstructions);
 		lblSpecialInstructions.setText(Html.fromHtml("<u>Special Instructions</u>"));
@@ -76,6 +80,8 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 	
 	public void addToCartClicked(View v){
 		Cart cart = getCart();
+		
+		cart.setStore(this.store);
 		
 		CartItem item;
 		if(this.chosenVariant != null){

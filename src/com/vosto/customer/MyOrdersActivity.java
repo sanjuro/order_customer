@@ -81,12 +81,6 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 			storesService.execute();
 		}
 		
-	
-		
-		
-		
-	
-
 		this.previousOrders = new OrderVo[0];
 		
 		this.pleaseWaitDialog = ProgressDialog.show(this, "Fetching Orders", "Please wait...", true);

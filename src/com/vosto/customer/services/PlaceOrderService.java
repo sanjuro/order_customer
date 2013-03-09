@@ -47,6 +47,11 @@ public class PlaceOrderService extends RestService {
 			JSONObject root = new JSONObject();
 			root.put("authentication_token", this.context.getAuthenticationToken());
 			JSONObject order = new JSONObject();
+			if(this.cart.getStore() == null){
+				Log.d("ERR", "Cart's store is null");
+			}else if(this.cart.getStore().getUniqueId() == null){
+				Log.d("ERR", "Unique id is null");
+			}
 			order.put("unique_id", this.cart.getStore().getUniqueId());
 			order.put("device_type", "android");
 			order.put("device_identifier", Secure.getString(context.getContentResolver(),
