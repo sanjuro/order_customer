@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,8 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.vosto.customer.orders.Cart;
-import com.vosto.customer.orders.CartItemAdapter;
 import com.vosto.customer.orders.CurrentOrderItemAdapter;
 import com.vosto.customer.orders.PreviousOrderAdapter;
 import com.vosto.customer.services.GetPreviousOrdersResult;
@@ -115,6 +114,7 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 			this.previousOrders = ordersResult.getOrders();
 			Log.d("PREV","Num previous orders: " + this.previousOrders.length);
 			this.lstPreviousOrders.setAdapter(new PreviousOrderAdapter(this, R.layout.previous_order_row, this.previousOrders));
+			this.lstPreviousOrders.setOnItemClickListener(this);
 		}else if(result instanceof GetStoresResult){
 			GetStoresResult storesResult = (GetStoresResult)result;
 			if(storesResult.getStores().length > 0){
@@ -125,7 +125,9 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-		 
+		 Intent intent = new Intent(this, ReorderActivity.class);
+		 intent.putExtra("order", this.previousOrders[position]);
+		 startActivity(intent);
 	}
 	
 	public void showAlertDialog(String title, String message){

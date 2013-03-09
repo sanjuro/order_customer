@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Locale;
 
+import org.joda.money.Money;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.vosto.customer.services.vos.LineItemVo;
 import com.vosto.customer.services.vos.OrderVo;
 
 public class GetPreviousOrdersResult extends RestResult implements IRestResult {
@@ -54,6 +56,29 @@ public class GetPreviousOrdersResult extends RestResult implements IRestResult {
 	            	currentOrder = new OrderVo();
 	            	currentOrder.setNumber(currentObj.getString("number"));
 	            	currentOrder.setCreatedAt(dateFormat.parse(currentObj.getString("created_at")));
+	            	currentOrder.setTotal(Money.parse("ZAR " + currentObj.getDouble("total")));
+	            	currentOrder.setStore_id(currentObj.getInt("store_id"));
+	            	
+	            	//Add line items:
+	            	JSONArray lineItemsArr = currentObj.getJSONArray("line_items");
+	    			LineItemVo[] lineItems = new LineItemVo[lineItemsArr.length()];
+	    			for(int i = 0; i<lineItemsArr.length(); i++){
+	    				JSONObject lineItemObj = lineItemsArr.getJSONObject(i);
+	    				LineItemVo lineItem = new LineItemVo();
+	    				lineItem.setId(lineItemObj.getInt("id"));
+	    				lineItem.setName(lineItemObj.getString("name"));
+	    				lineItem.setOption_values(lineItemObj.getString("option_values"));
+	    				lineItem.setOrder_id(lineItemObj.getInt("order_id"));
+	    				lineItem.setQuantity(lineItemObj.getInt("quantity"));
+	    				lineItem.setPrice(lineItemObj.getDouble("price"));
+	    				lineItem.setSku(lineItemObj.getString("sku"));
+	    				lineItem.setSpecial_instructions(lineItemObj.getString("special_instructions"));
+	    				lineItem.setVariant_id(lineItemObj.getInt("variant_id"));
+	    				lineItems[i] = lineItem;
+	    			}
+	    			
+	    			currentOrder.setLineItems(lineItems);
+	            	
 	            	ordersList.add(currentOrder);
 	            }
 	        }

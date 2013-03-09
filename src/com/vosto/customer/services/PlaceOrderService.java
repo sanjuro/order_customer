@@ -12,10 +12,15 @@ import android.util.Log;
 import com.vosto.customer.VostoBaseActivity;
 import com.vosto.customer.orders.Cart;
 import com.vosto.customer.orders.CartItem;
+import com.vosto.customer.services.vos.LineItemVo;
+import com.vosto.customer.services.vos.OrderVo;
+import com.vosto.customer.services.vos.StoreVo;
 
 public class PlaceOrderService extends RestService {
 	
 	private Cart cart;
+	private OrderVo previousOrder;
+	private StoreVo store;
 	private VostoBaseActivity context;
 	
 	public PlaceOrderService(OnRestReturn listener, VostoBaseActivity context){
@@ -25,6 +30,19 @@ public class PlaceOrderService extends RestService {
 
 
 	public String getRequestJson(){
+		if(this.cart != null && this.previousOrder == null){
+			return this.getNewOrderRequestJson();
+		}else if(this.previousOrder != null && this.store != null && this.cart == null){
+			return this.getPreviousOrderRequestJson();
+		}else{
+			return "";
+		}
+	}
+	
+	private String getNewOrderRequestJson(){
+		if(this.cart == null){
+			return "";
+		}
 		try{
 			JSONObject root = new JSONObject();
 			root.put("authentication_token", this.context.getAuthenticationToken());
@@ -70,6 +88,39 @@ public class PlaceOrderService extends RestService {
 		 * 
 		 */
 	}
+	
+	private String getPreviousOrderRequestJson(){
+		if(this.previousOrder == null || this.store == null){
+			return "";
+		}
+		try{
+			JSONObject root = new JSONObject();
+			root.put("authentication_token", this.context.getAuthenticationToken());
+			JSONObject order = new JSONObject();
+			order.put("unique_id", this.store.getUniqueId());
+			order.put("device_type", "android");
+			order.put("device_identifier", Secure.getString(context.getContentResolver(),
+                    Secure.ANDROID_ID));
+			JSONArray lineItemsArr = new JSONArray();
+			LineItemVo[] items = this.previousOrder.getLineItems();
+			for(int i = 0; i<items.length; i++){
+				JSONObject lineItemObj = new JSONObject();
+				LineItemVo item = items[i];
+				lineItemObj.put("variant_id", item.getVariant_id());
+				lineItemObj.put("quantity", item.getQuantity());
+				lineItemObj.put("special_instructions", item.getSpecial_instructions());
+				lineItemsArr.put(lineItemObj);
+			}
+			order.put("line_items", lineItemsArr);
+			
+			root.put("order", order);
+			Log.d("jsontest", "Order Request JSON: " + root.toString());
+			return root.toString();
+		}catch(JSONException e){
+			e.printStackTrace();
+			return "";
+		}
+	}
 
 
 	public Cart getCart() {
@@ -79,6 +130,14 @@ public class PlaceOrderService extends RestService {
 
 	public void setCart(Cart cart) {
 		this.cart = cart;
+	}
+	
+	public void setOrder(OrderVo order){
+		this.previousOrder = order;
+	}
+	
+	public void setStore(StoreVo store){
+		this.store = store;
 	}
 	
 	
