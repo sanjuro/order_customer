@@ -124,11 +124,13 @@
                >
    		    
    		     <TextView 
+   		        android:id="@+id/lblStoresListHeading"
    		     	android:text="Close to You"
    		     	android:layout_width="wrap_content"
    		     	android:layout_height="wrap_content"
-   		     	android:textSize="30sp"   
+   		     	android:textSize="22sp"   
    		     	android:textColor="#3b3830" 
+   		     	android:layout_gravity="center_vertical"
    		     />
    		    
    		     </LinearLayout>

@@ -18,6 +18,7 @@ public class StoreVo implements Serializable {
 	private double distance;
 	
 	public StoreVo(){
+		this.distance = -1;
 	}
 
 	public int getId() {

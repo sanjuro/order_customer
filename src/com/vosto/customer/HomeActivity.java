@@ -1,15 +1,5 @@
 package com.vosto.customer;
 
-import com.vosto.customer.R;
-import com.vosto.customer.accounts.SignInActivity;
-import com.vosto.customer.services.CreateAccountResult;
-import com.vosto.customer.services.CreateAccountService;
-import com.vosto.customer.services.OnRestReturn;
-import com.vosto.customer.services.RestResult;
-import com.vosto.customer.services.SearchResult;
-import com.vosto.customer.services.SearchService;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -18,12 +8,17 @@ import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.vosto.customer.accounts.SignInActivity;
+import com.vosto.customer.services.OnRestReturn;
+import com.vosto.customer.services.RestResult;
+import com.vosto.customer.services.SearchResult;
+import com.vosto.customer.services.SearchService;
 
 
 public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
@@ -72,20 +67,17 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
 		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 		boolean enabled = locationManager
 		  .isProviderEnabled(LocationManager.GPS_PROVIDER);
+		
 
-		if (!enabled) {
-			showAlertDialog("GPS Required", "Please turn on your phone's GPS.");
-			return;
-		} 
-		
-		
+	    double latitude = 0;
+	    double longitude = 0;
+	    boolean hasLocation = false;
+	    
+		if(enabled){
 		 Criteria criteria = new Criteria();
 		   String provider = locationManager.getBestProvider(criteria, false);
 		    Location location = locationManager.getLastKnownLocation(provider);
 
-		    double latitude = 0;
-		    double longitude = 0;
-		    boolean hasLocation = false;
 		    
 		    // Initialize the location fields
 		    if (location != null) {
@@ -94,11 +86,9 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
 		     hasLocation = true;
 		    } else {
 		    	hasLocation = false;
-		    	showAlertDialog("ERROR", "Location not available.");
 		    }
+		}
 		  
-		
-		
 		this.pleaseWaitDialog = ProgressDialog.show(this, "Searching", "Please wait...", true);
 		
 		SearchService service = new SearchService(this, this);
@@ -121,6 +111,7 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
 			SearchResult searchResult = (SearchResult)result;
 			Intent intent = new Intent(this, StoresActivity.class);
 			intent.putExtra("stores", searchResult.getStores());
+			intent.putExtra("hasLocation", searchResult.hasLocation());
 	    	startActivity(intent);
 	    	//finish();
 		}

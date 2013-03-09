@@ -27,7 +27,7 @@
       	android:id="@+id/lblStoreName"
       	android:layout_width="175dp"
       	android:layout_height="wrap_content"
-      	android:textSize="25sp"
+      	android:textSize="20sp"
       	android:textColor="#676357"
       	android:layout_alignParentTop="true"
       	android:layout_alignParentLeft="true"   
@@ -52,7 +52,7 @@
     android:layout_height="wrap_content"
     android:background="#d8d5ce"   
     android:text="10 km"
-    android:textSize="20sp"
+    android:textSize="16sp"
     android:textColor="#676357"
     android:layout_toLeftOf="@id/selection_arrow"
    />

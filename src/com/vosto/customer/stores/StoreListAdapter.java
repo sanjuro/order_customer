@@ -59,8 +59,11 @@ public class StoreListAdapter extends ArrayAdapter<StoreVo>{
         if(holder != null && holder.lblStoreName != null && store != null){
         	holder.lblStoreName.setText(store.getName());
         }
-        if(holder != null && holder.lblDistance != null && store != null){
+        if(holder != null && holder.lblDistance != null && store != null && store.getDistance() >= 0){
         	holder.lblDistance.setText(store.getDistance() + "km");
+        	holder.lblDistance.setVisibility(View.VISIBLE);
+        }else{
+        	holder.lblDistance.setVisibility(View.INVISIBLE);
         }
         if(holder != null && holder.lblAddress != null && store != null){
         	holder.lblAddress.setText(store.getAddress());

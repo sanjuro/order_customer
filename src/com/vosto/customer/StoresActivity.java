@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.vosto.customer.orders.Cart;
 import com.vosto.customer.services.GetStoresResult;
@@ -41,6 +42,10 @@ public class StoresActivity extends VostoBaseActivity implements OnRestReturn, O
 		
 		list.setAdapter(new StoreListAdapter(this, R.layout.store_item_row, this.stores));
 		
+		boolean hasLocation = getIntent().getBooleanExtra("hasLocation", false);
+		TextView lblStoresListHeading = (TextView)findViewById(R.id.lblStoresListHeading);
+		lblStoresListHeading.setText(hasLocation ? "Close to you" : "Search Results");
+		
 	}
 	
 	public void onResume(){
@@ -62,6 +67,7 @@ public class StoresActivity extends VostoBaseActivity implements OnRestReturn, O
 		
 		this.stores = ((GetStoresResult)result).getStores();
 		list.setAdapter(new StoreListAdapter(this, R.layout.store_item_row, this.stores));
+	
 	}
 
 	@Override

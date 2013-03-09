@@ -11,13 +11,16 @@ public class SearchResult extends RestResult implements IRestResult {
 	
 	private JSONArray jsonArr;
 	private StoreVo[] stores;
+	private boolean hasLocation;
 	 
 	 public SearchResult(){
 		 super();
+		 this.hasLocation = false;
 	 }
 	 
 	 public SearchResult(int responseCode, String responseJson){
 		 super(responseCode, responseJson);
+		 this.hasLocation = false;
 	 }
 	 
 	 public JSONArray getJSONArray(){
@@ -28,9 +31,14 @@ public class SearchResult extends RestResult implements IRestResult {
 		 return this.stores;
 	 }
 	 
+	 public boolean hasLocation(){
+		 return this.hasLocation;
+	 }
+	 
 	@Override
 	public boolean processJsonAndPopulate(){
 		try{
+			this.hasLocation = false;
 			this.jsonArr = new JSONArray(this.getResponseJson());
 			this.stores = new StoreVo[this.jsonArr.length()];
 			for(int i = 0; i<this.jsonArr.length(); i++){
@@ -46,6 +54,9 @@ public class SearchResult extends RestResult implements IRestResult {
 				currentStore.setUniqueId(jsonObj.getString("unique_id"));
 				if(jsonObj.has("distance")){
 					currentStore.setDistance(jsonObj.getDouble("distance"));
+					this.hasLocation = true;
+				}else{
+					currentStore.setDistance(-1);
 				}
 				this.stores[i] = currentStore;
 			}
