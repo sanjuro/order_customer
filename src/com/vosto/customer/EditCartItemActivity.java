@@ -2,7 +2,6 @@ package com.vosto.customer;
 
 import org.joda.money.Money;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,36 +28,32 @@ import com.vosto.customer.utils.MoneyUtils;
  * @author flippiescholtz
  *
  */
-public class ProductDetailsActivity extends VostoBaseActivity implements OnRestReturn, OnSeekBarChangeListener {
+public class EditCartItemActivity extends VostoBaseActivity implements OnRestReturn, OnSeekBarChangeListener {
 	
 	private ProductVo product;
+	private int cartItemIndex;
+	private CartItem cartItem;
 	private VariantVo chosenVariant;
 	private int quantity;
 	private Money total;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_product_details);
+		setContentView(R.layout.activity_edit_cart_item);
 		
 		TextView lblSpecialInstructions = (TextView)findViewById(R.id.lblSpecialInstructions);
 		lblSpecialInstructions.setText(Html.fromHtml("<u>Special Instructions</u>"));
 		
-		String categoryName = this.getIntent().getStringExtra("categoryName");
-		if(categoryName == null){
-			categoryName = "";
-		}
-		TextView lblCategoryName = (TextView)findViewById(R.id.lblCategory);
-		lblCategoryName.setText(categoryName);
-		
-		this.quantity = 1;
+		this.cartItemIndex = getIntent().getIntExtra("cartItemIndex", 0);
+		this.cartItem = getCart().getItems().get(this.cartItemIndex);
+		this.product = this.cartItem.getProduct();
+		this.chosenVariant = this.cartItem.getVariant();
+		this.quantity = this.cartItem.getQuantity();
+		this.total = this.cartItem.getSubtotal();
 		
 		SeekBar quantitySlider = (SeekBar)findViewById(R.id.quantity_slider);
+		quantitySlider.setProgress(this.quantity);
 		quantitySlider.setOnSeekBarChangeListener(this);
-		
-		this.product = (ProductVo)getIntent().getSerializableExtra("product");
-		this.total = this.product.getPrice();
-		
-		this.chosenVariant = this.product.getVariants().length > 0 ? this.product.getVariants()[0] : null;
 		
 		TextView lblProductName = (TextView)findViewById(R.id.product_name);
 		lblProductName.setText(this.product.getName());
@@ -69,31 +64,32 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 		TextView lblProductPrice = (TextView)findViewById(R.id.product_price);
 		lblProductPrice.setText(MoneyUtils.getRandString(this.total));
 		
-		updateDisplay(1);
+		EditText txtSpecialInstructions = (EditText)findViewById(R.id.txtSpecialInstructions);
+		txtSpecialInstructions.setText(this.cartItem.getSpecialInstructions());
+		
+		updateDisplay(this.quantity);
 		drawVariants();
 	}
 	
 	
-	public void addToCartClicked(View v){
+	public void saveClicked(View v){
 		Cart cart = getCart();
 		
-		CartItem item;
-		if(this.chosenVariant != null){
-			item = new CartItem(this.product, this.chosenVariant, this.quantity);
-		}else{
-			item = new CartItem(this.product, this.quantity);
-		}
+		this.cartItem.setQuantity(this.quantity);
+		this.cartItem.setVariant(this.chosenVariant);
+		this.cartItem.setProduct(this.product);
+		
 		
 		EditText txtSpecialInstructions = (EditText)findViewById(R.id.txtSpecialInstructions);
 		if(!txtSpecialInstructions.getText().toString().trim().equals("")){
-			item.setSpecialInstructions(txtSpecialInstructions.getText().toString().trim());
+			this.cartItem.setSpecialInstructions(txtSpecialInstructions.getText().toString().trim());
+		}else{
+			this.cartItem.setSpecialInstructions("");
 		}
 		
-		cart.addItem(item);
+		cart.editItem(this.cartItemIndex, this.cartItem);
 		saveCart(cart);
 		
-		Intent intent = new Intent(this, CartActivity.class);
-		startActivity(intent);
 		finish();
 	}
 	
@@ -131,6 +127,7 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 		
 		lblBuyButtonPrice.setText(MoneyUtils.getRandString(cart.getTotalPrice()));
 		lblBuyButtonQuantity.setText(cart.getNumberOfItems() + " items");
+		
 	}
 	
 	public void drawVariants(){
@@ -187,16 +184,16 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
         alert.show();
 	}
 	
-	
-	public void ordersPressed(View v) {
-		Intent intent = new Intent(this, MyOrdersActivity.class);
-		startActivity(intent);
-	}
-	
 	public void buyButtonClicked(View v){
 		Intent intent = new Intent(this, CartActivity.class);
 		startActivity(intent);
 		finish();
+	}
+	
+	
+	public void ordersPressed(View v) {
+		Intent intent = new Intent(this, MyOrdersActivity.class);
+		startActivity(intent);
 	}
 
 
@@ -213,7 +210,6 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 		// TODO Auto-generated method stub
 		
 	}
-
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {

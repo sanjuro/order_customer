@@ -55,6 +55,9 @@
         <activity
             android:name="com.vosto.customer.ProductDetailsActivity">
         </activity>
+          <activity
+            android:name="com.vosto.customer.EditCartItemActivity">
+        </activity>
         <activity
             android:name="com.vosto.customer.accounts.CreateAccountActivity"
             android:label="@string/title_activity_create_account"

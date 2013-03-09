@@ -378,7 +378,6 @@
                android:id="@+id/txtSpecialInstructions"
                android:layout_width="fill_parent"
                android:layout_height="80dp"
-               android:inputType="text"
                android:singleLine="false"
                android:maxLines="5"
               	
@@ -405,21 +404,19 @@
                   
               </RelativeLayout> <!-- total section -->
               
-              <ImageButton
-                  android:id="@+id/add_to_cart_button"
+              <Button
+                  android:id="@+id/save_button"
                   android:layout_width="214.5dp"
                   android:layout_height="39.5dp"
                  android:scaleType="fitXY"
-                 android:src="@drawable/add_to_cart_button"
-                 android:background="@null"
+                 android:background="@drawable/green_button_background"
                  android:layout_gravity="center_horizontal|center_vertical"
-                 android:onClick="addToCartClicked"
+                 android:onClick="saveClicked"
+                 android:text="Save"
+                 android:textSize="20sp"
+                 android:textColor="#FFFFFF"
                   />
               
               </LinearLayout> <!-- bottom section -->
    </RelativeLayout> <!-- main section -->
-   
-      
-    
-    
 </RelativeLayout>

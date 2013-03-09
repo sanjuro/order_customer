@@ -108,5 +108,16 @@ public class Cart {
 		this.closed = closed;
 	}
 	
+	public void editItem(int itemIndex, CartItem newItem){
+		if(itemIndex < 0 || itemIndex > this.getNumberOfItems()-1){
+			return;
+		}
+		this.items.set(itemIndex, newItem);
+	}
+	
+	public int getIndexForItem(CartItem item){
+		return this.items.indexOf(item);
+	}
+	
 	
 }

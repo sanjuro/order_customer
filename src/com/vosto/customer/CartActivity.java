@@ -45,23 +45,15 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cart);
-		
+		refreshCart();
+	}
+	
+	private void refreshCart(){
 		this.list = (ListView)findViewById(R.id.lstCartItems);
 		list.setOnItemClickListener(this);
 		this.orderFinished = false;
-		
-		
-	
-		
-	
-		
 		list.setAdapter(new CartItemAdapter(this, R.layout.cart_item_row, getCart().getItems()));
-		Log.d("CRT", "Cart Adapter set.");
-		
 		updateTotals();
-		
-		
-		
 	}
 	
 	private void updateTotals(){
@@ -80,6 +72,12 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 		cart.removeItem(item);
 		this.list.setAdapter(new CartItemAdapter(this, R.layout.cart_item_row, cart.getItems()));
 		updateTotals();
+	}
+	
+	public void editButtonClicked(View v){
+		Intent intent = new Intent(this, EditCartItemActivity.class);
+		intent.putExtra("cartItemIndex", getCart().getIndexForItem((CartItem)v.getTag()));
+		startActivity(intent);
 	}
 	
 	public void promptForPin(){
@@ -144,6 +142,7 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	
 	public void onResume(){
 		super.onResume();
+		refreshCart();
 	}
 
 	
@@ -189,12 +188,6 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	}
 	
 
-
-	
-
-	
-
-	
 	public void ordersPressed(View v) {
 		Intent intent = new Intent(this, MyOrdersActivity.class);
 		startActivity(intent);

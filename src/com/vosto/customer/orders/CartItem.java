@@ -100,6 +100,25 @@ public class CartItem {
 		}
 	}
 	
+	public boolean equals(CartItem otherItem){
+		if(otherItem.getProduct().getId() != this.getProduct().getId()){
+			return false;
+		}
+		if(otherItem.getVariant().getId() != this.getVariant().getId()){
+			return false;
+		}
+		if(otherItem.getQuantity() != this.getQuantity()){
+			return false;
+		}
+		if(!otherItem.getSpecialInstructions().equals(this.getSpecialInstructions())){
+			return false;
+		}
+		if(!otherItem.getSubtotal().equals(this.getSubtotal())){
+			return false;
+		}
+		return true;
+	}
+	
 	
 	
 }
