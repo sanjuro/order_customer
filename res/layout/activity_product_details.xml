@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:background="#ede9e1"
+  android:orientation="vertical"
+  >
+  
+   <RelativeLayout
+       android:id="@+id/top_bar"
+       android:layout_width="match_parent"
+       android:layout_height="65dp"
+       android:background="@drawable/top_bar_orange" 
+       android:orientation="horizontal"
+       android:layout_alignParentTop="true"
+       android:paddingLeft="15dp"
+       android:paddingRight="15dp">
+ 
+      <LinearLayout
+         android:id="@+id/category_button"
+         android:layout_width="116dp"
+         android:layout_height="38dp"
+         android:background="@drawable/category_button_background"
+         android:scaleType="fitXY"
+         android:layout_centerVertical="true"
+         android:layout_alignParentLeft="true"
+         android:paddingLeft="5dp"
+         android:layout_marginRight="10dp"
+        >
+        
+           <TextView
+               android:id="@+id/lblCategory"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center_vertical"
+               android:textSize="22sp"
+               android:textColor="#000000"
+               android:text="Breakfast"
+           /> <!-- category label -->
+           
+       </LinearLayout> <!-- category button -->
+       
+       <LinearLayout
+           android:id="@+id/buy_section"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentRight="true"
+           	android:layout_centerVertical="true"
+           	android:orientation="horizontal"
+           >
+           
+           <ImageButton 
+           	android:id="@+id/cart_button"
+           	android:src="@drawable/cart_button"
+           	android:layout_width="39dp"
+           	android:layout_height="39dp"    
+           	android:scaleType="fitXY"
+           	android:background="@null"
+           />
+           
+             <RelativeLayout 
+          	android:id="@+id/buy_button"
+          	android:layout_width="135dp"
+          	android:layout_height="40dp"
+          	android:scaleType="fitXY"
+          	android:layout_marginLeft="7dp"
+          	android:paddingRight="10dp"
+          	android:background="@drawable/buy_button"
+          	android:contentDescription="@string/filter_button" 
+          	android:onClick="buyButtonClicked"
+          >
+               <TextView
+               	android:id="@+id/buy_button_price"
+               	android:layout_width="wrap_content"
+               	android:layout_height="wrap_content"
+               	android:textSize="16sp"
+               	android:textColor="#000000"
+               	android:text="R100"   
+               	android:layout_alignParentRight="true"
+               	android:layout_alignParentTop="true" 
+               ></TextView>
+         
+               
+               <TextView
+               	android:id="@+id/buy_button_quantity"
+               	android:layout_width="wrap_content"
+               	android:layout_height="wrap_content"
+               	android:textSize="14sp"
+               	android:textColor="#000000"
+               	android:text="3 items"    
+               	android:layout_alignParentRight="true"
+               	android:layout_alignParentBottom="true" 
+               ></TextView>
+               
+           </RelativeLayout>
+           
+       </LinearLayout> <!-- buy section -->
+    
+       
+        
+        
+       
+            
+            
+  
+       
+   </RelativeLayout> <!-- top bar -->
+   
+   <LinearLayout
+       android:id="@+id/bottom_bar"
+       android:layout_width="fill_parent"
+       android:layout_height="65dp"
+       android:background="@drawable/bottom_bar_gray" 
+       android:orientation="horizontal"
+       android:paddingLeft="10dp"
+       android:paddingRight="10dp"
+       android:layout_alignParentBottom="true"
+       android:gravity="center_vertical">    
+       
+         
+          <ImageButton 
+          	android:id="@+id/house_button"
+          	android:layout_width="40dp"
+          	android:layout_height="25dp"
+          	android:scaleType="fitXY"
+          	android:layout_marginRight="20dp"
+          	android:src="@drawable/house"
+          	android:background="@null"
+          	android:contentDescription="@string/sign_in_button" 
+          />
+          
+          <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1" >
+    </View>
+          
+          <ImageButton 
+          	android:id="@+id/pencil_button"
+          	android:layout_width="40dp"
+          	android:layout_height="25dp"
+          	android:scaleType="fitXY"
+          	android:layout_marginRight="20dp"
+          	android:src="@drawable/pencil"
+          	android:background="@null"
+          	android:onClick="ordersPressed"
+          	android:contentDescription="@string/sign_in_button"   
+          />
+          
+          <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1" >
+    </View>
+    
+          <ImageButton 
+          	android:id="@+id/star_button"
+          	android:layout_width="40dp"
+          	android:layout_height="25dp"
+          	android:scaleType="fitXY"
+          	android:layout_marginRight="20dp"
+          	android:src="@drawable/star"
+          	android:background="@null"
+          	android:contentDescription="@string/sign_in_button"   
+          />
+          <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1" >
+    </View>
+    
+          <ImageButton 
+          	android:id="@+id/wrench_button"
+          	android:layout_width="40dp"
+          	android:layout_height="25dp"
+          	android:scaleType="fitXY"
+          	android:layout_marginRight="20dp"
+          	android:src="@drawable/wrench"
+          	android:background="@null"
+          	android:contentDescription="@string/sign_in_button"   
+          />
+          
+   </LinearLayout> <!-- bottom bar -->
+   
+   
+   <RelativeLayout
+    android:id="@+id/main_section"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_below="@id/top_bar"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginTop="5dp"
+    android:orientation="vertical"   
+    >
+          
+       
+       <LinearLayout 
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:layout_alignParentLeft="true"
+           android:layout_alignParentTop="true"
+           android:orientation="vertical"
+           >
+           
+           <RelativeLayout 
+           	android:layout_width="fill_parent"
+           	android:layout_height="wrap_content"
+           >
+               <TextView
+                   android:id="@+id/product_name"
+                   android:layout_width="220dp"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentLeft="true"
+                   android:layout_alignParentTop="true"
+                   android:textSize="22sp"
+                   android:textColor="#000000"
+                   android:singleLine="false"
+                   android:maxLines="2"
+                   android:text="Breakfast Burrito"
+                   />
+               
+               <TextView
+                   android:id="@+id/product_price"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentRight="true"
+                   android:layout_alignParentTop="true"
+                   android:textSize="22sp"
+                   android:textColor="#000000"
+                   android:text="R35.00"
+                   />
+               
+           </RelativeLayout> <!-- Product name / price -->
+           
+           <ImageView
+               android:layout_width="fill_parent"
+               android:layout_height="3dp"
+               android:src="@drawable/divider_gray"
+               android:layout_marginTop="5dp"
+               />
+           
+             <LinearLayout
+           android:id="@+id/description_block"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="8dp"
+           android:orientation="horizontal"
+           >
+           
+            <ImageView 
+        android:id="@+id/product_image"
+    	android:layout_width="75dp"
+    	android:layout_height="75dp"
+    	android:src="@drawable/burrito"   
+    	android:background="@drawable/image_border_white"
+    />
+            
+            <TextView
+             android:id="@+id/lblProductDescription"
+             android:layout_width="fill_parent"
+             android:layout_height="95dp"
+             android:layout_gravity="center_vertical"
+             android:layout_marginLeft="5dp"
+             android:singleLine="false"
+             android:maxLines="6"
+             android:textSize="16sp"
+             android:textColor="#000000"  
+             android:text="Scrambled eggs with avocado and bacon, wrapped in a burrito with cheese and mayonaisse" 
+             />
+            
+       </LinearLayout> <!-- description block -->
+           
+           <RelativeLayout
+               android:id="@+id/quantity_block"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               >
+               
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentLeft="true"
+                   android:layout_alignParentTop="true"
+                   android:textSize="20sp"
+                   android:textColor="#000000"
+                   android:text="Amount:"
+                   />
+               
+               <LinearLayout
+                   android:id="@+id/seekbar_section"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentRight="true"
+                   android:orientation="horizontal"
+                   >
+                   
+                   <SeekBar
+        android:id="@+id/quantity_slider"
+        android:layout_width="125dp"
+        android:layout_height="25dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:max="10"
+        android:progress="0"
+        android:secondaryProgress="0"
+        android:progressDrawable="@drawable/quantity_scrollbar_progress"
+        android:thumb="@drawable/scrollbox_handle"
+/>
+                   
+                   <LinearLayout 
+                       android:layout_width="25dp"
+                       android:layout_height="25dp"
+                       android:background="@drawable/quantity_circle"
+                       android:layout_marginLeft="10dp"
+                       android:gravity="center"
+                       >
+                       
+                       <TextView
+                           android:id="@+id/lblQuantity"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:textColor="#FFFFFF"
+                           android:textSize="18sp"
+                           android:layout_gravity="center_vertical|center_horizontal"
+                           android:text="1"
+                           />
+               
+                   </LinearLayout> <!-- Quantity Circle -->
+                   
+               </LinearLayout> <!-- Seekbar section -->
+               
+               
+           </RelativeLayout> <!-- Quantity block -->
+           
+           <LinearLayout
+               android:id="@+id/variants_block"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:gravity="center_horizontal"
+               android:layout_marginTop="15dp"
+               >
+               
+               
+               
+           </LinearLayout> <!-- Variants block -->
+           
+       </LinearLayout> <!-- product details block -->
+       
+     
+        
+   
+       
+     
+          <LinearLayout
+              android:id="@+id/bottom_section"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_alignParentLeft="true"
+              android:layout_alignParentBottom="true"
+            	android:layout_marginBottom="68dp"
+            >
+              
+              <TextView
+                 android:id="@+id/lblSpecialInstructions"
+              	 android:layout_width="wrap_content"
+              	 android:layout_height="wrap_content"
+              	 android:textSize="20sp"
+              	 android:textColor="#000000"
+       			 android:text="Special Instructions:"    
+                  />
+              
+              
+              <EditText
+               android:id="@+id/txtSpecialInstructions"
+               android:layout_width="fill_parent"
+               android:layout_height="80dp"
+               android:singleLine="false"
+               android:maxLines="5"
+              	
+               />
+              
+              <RelativeLayout 
+              	android:layout_width="fill_parent"
+              	android:layout_height="35dp" 
+              	android:background="@drawable/total_background_bar"
+              	android:layout_marginBottom="10dp"
+              	android:paddingRight="10dp"
+              >
+                  <TextView 
+                      android:id="@+id/lblTotal"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_centerVertical="true"
+                      android:layout_alignParentRight="true"
+                      android:textSize="22sp"
+                      android:textColor="#000000"
+                      android:text="Total: R70.00"
+                      
+                      />
+                  
+              </RelativeLayout> <!-- total section -->
+              
+              <ImageButton
+                  android:id="@+id/add_to_cart_button"
+                  android:layout_width="214.5dp"
+                  android:layout_height="39.5dp"
+                 android:scaleType="fitXY"
+                 android:src="@drawable/add_to_cart_button"
+                 android:background="@null"
+                 android:layout_gravity="center_horizontal|center_vertical"
+                 android:onClick="addToCartClicked"
+                  />
+              
+              </LinearLayout> <!-- bottom section -->
+   </RelativeLayout> <!-- main section -->
+   
+      
+    
+    
+</RelativeLayout>

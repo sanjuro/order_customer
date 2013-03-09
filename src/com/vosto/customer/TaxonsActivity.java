@@ -26,6 +26,7 @@ import com.vosto.customer.services.vos.TaxonVo;
 public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener {
 	private StoreVo store;
 	private ArrayList<TaxonVo> taxons;
+	private TaxonVo selectedTaxon;
 	
 	private ProgressDialog pleaseWaitDialog;
 	
@@ -67,6 +68,7 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
 		Intent intent = new Intent(this, ProductResultsActivity.class);
 		ProductVo[] products =  result.getProducts();
 		intent.putExtra("store", this.store);
+		intent.putExtra("categoryName", this.selectedTaxon.getName());
 		intent.putExtra("products", products);
     	startActivity(intent);
 	}
@@ -90,6 +92,7 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		this.pleaseWaitDialog = ProgressDialog.show(this, "Loading Products", "Please wait...", true);
+		this.selectedTaxon = this.taxons.get(position);
 		GetProductsService service = new GetProductsService(this, this.taxons.get(position).getId());
 		service.execute();
 	}

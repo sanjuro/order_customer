@@ -42,7 +42,7 @@
                	android:text="R100"   
                	android:layout_alignParentRight="true"
                	android:layout_alignParentTop="true" 
-               ></TextView>
+               />
          
                
                <TextView
@@ -54,7 +54,7 @@
                	android:text="3 items"    
                	android:layout_alignParentRight="true"
                	android:layout_alignParentBottom="true" 
-               ></TextView>
+               />
                
            </RelativeLayout>
            
@@ -75,6 +75,7 @@
            	android:id="@+id/lblCategoryName"
            	android:layout_width="wrap_content"
            	android:layout_height="wrap_content"
+           	android:layout_marginRight="10dp"
            	android:textSize="20sp"
            	android:textColor="#FFFFFF"
            	android:text="Breakfast"
@@ -107,8 +108,7 @@
    			android:layout_marginTop="20dp"
    			android:divider="@android:color/transparent"
   			android:dividerHeight="38.0sp"
-  			android:focusable="false"
-   		></ListView>
+   		/>
    
        
    </LinearLayout>

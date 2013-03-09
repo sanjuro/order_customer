@@ -34,14 +34,14 @@ public class ProductListAdapter extends ArrayAdapter<ProductVo>{
     public View getView(int position, View convertView, ViewGroup parent) {
     	Log.d("StoresList", "Getting view at pos " + position);
         View row = convertView;
-        StoreListItemHolder holder = null;
+        ProductListItemHolder holder = null;
         
-        if(row == null)
+        if(row == null || !(row.getTag() instanceof ProductListItemHolder))
         {
             LayoutInflater inflater = ((Activity)context).getLayoutInflater();
             row = inflater.inflate(layoutResourceId, parent, false);
             
-            holder = new StoreListItemHolder();
+            holder = new ProductListItemHolder();
             holder.lblProductName = (TextView)row.findViewById(R.id.lblProductName);
             holder.lblPrice = (TextView)row.findViewById(R.id.lblPrice);
             holder.addToCartButton = (ImageButton)row.findViewById(R.id.add_to_cart_button);
@@ -50,7 +50,7 @@ public class ProductListAdapter extends ArrayAdapter<ProductVo>{
         }
         else
         {
-            holder = (StoreListItemHolder)row.getTag();
+            holder = (ProductListItemHolder)row.getTag();
         }
         Log.d("POS", "position: " + position);
         ProductVo product = products[position];
@@ -64,10 +64,12 @@ public class ProductListAdapter extends ArrayAdapter<ProductVo>{
         holder.lblProductName.setText(product.getName());
         holder.lblPrice.setText(MoneyUtils.getRandString(product.getPrice()));
         holder.addToCartButton.setTag(product);
+        
+        row.setTag(product);
         return row;
     }
     
-    static class StoreListItemHolder
+    static class ProductListItemHolder
     {
         TextView lblProductName;
         TextView lblPrice;

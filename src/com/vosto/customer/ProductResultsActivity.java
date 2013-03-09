@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,7 +37,7 @@ import com.vosto.customer.utils.MoneyUtils;
  * @author flippiescholtz
  *
  */
-public class ProductResultsActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener {
+public class ProductResultsActivity extends VostoBaseActivity implements OnRestReturn {
 	
 	private ProductVo[] products;
 	private StoreVo store;
@@ -46,9 +47,14 @@ public class ProductResultsActivity extends VostoBaseActivity implements OnRestR
 		Log.d("RSM", "Products Activity creating");
 		setContentView(R.layout.activity_product_results);
 		ListView list = (ListView)findViewById(R.id.lstProducts);
-		list.setOnItemClickListener(this);
 		
 		this.store = (StoreVo) this.getIntent().getSerializableExtra("store");
+		String categoryName = this.getIntent().getStringExtra("categoryName");
+		if(categoryName == null){
+			categoryName = "";
+		}
+		TextView lblCategoryName = (TextView)findViewById(R.id.lblCategoryName);
+		lblCategoryName.setText(categoryName);
 	
 
 		Object[] objects = (Object[]) this.getIntent().getSerializableExtra("products");
@@ -81,10 +87,15 @@ public class ProductResultsActivity extends VostoBaseActivity implements OnRestR
 		this.products = ((GetProductsResult)result).getProducts();
 		list.setAdapter(new ProductListAdapter(this, R.layout.product_item_row, this.products));
 	}
-
-	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-		 
+	
+	public void productSelected(View v){
+		ProductVo selectedProduct = (ProductVo)v.getTag();
+		Intent intent = new Intent(this, ProductDetailsActivity.class);
+		intent.putExtra("product", selectedProduct);
+		
+		TextView lblCategoryName = (TextView)findViewById(R.id.lblCategoryName);
+		intent.putExtra("categoryName", lblCategoryName.getText().toString());
+    	startActivity(intent);
 	}
 	
 	public void addToCartClicked(View v){

@@ -123,14 +123,23 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	}
 	
 	public void sendOrder(){
+		Cart cart = getCart();
+		if(cart.getNumberOfItems() == 0){
+			return;
+		}
 		this.pleaseWaitDialog = ProgressDialog.show(this, "Sending Order", "Please wait...", true);
 		PlaceOrderService service = new PlaceOrderService(this, this);
-		service.setCart(this.getCart());
+		service.setCart(cart);
 		service.execute();
 	}
 	
 	public void placeOrderClicked(View v){
-		promptForPin();
+		Cart cart = getCart();
+		if(cart.getNumberOfItems() > 0){
+			promptForPin();
+		}else{
+			this.showAlertDialog("Cart Empty", "Please add some items to your cart.");
+		}
 	}
 	
 	public void onResume(){
