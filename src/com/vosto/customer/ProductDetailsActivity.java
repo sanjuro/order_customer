@@ -146,13 +146,19 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 		}
 		
 		LinearLayout variantsBlock = (LinearLayout)findViewById(R.id.variants_block);
+		variantsBlock.removeAllViews();
 		
 		 LayoutInflater inflater = getLayoutInflater();
 		 
 		for(int i = 0; i<variants.length; i++){
 			Log.d("DRAW", "Drawing variant: " + variants[i].getOptionValues()[0].getName());
 	        LinearLayout variantButton = (LinearLayout)inflater.inflate(R.layout.variant_button, (ViewGroup)variantsBlock, false);
-			TextView lblVariantName = (TextView)variantButton.findViewById(R.id.lblVariantName);
+			if(this.chosenVariant != null && this.chosenVariant.getId() == variants[i].getId()){
+				// Highlight the selected variant:
+				variantButton.setBackgroundResource(R.drawable.variant_button_background_highlighted);
+			}
+	        
+	        TextView lblVariantName = (TextView)variantButton.findViewById(R.id.lblVariantName);
 			lblVariantName.setText(variants[i].getOptionValues()[0].getName());
 			variantButton.setTag(variants[i]);
 			variantsBlock.addView(variantButton);
@@ -163,6 +169,7 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 		Log.d("VAR", "Variant change clicked.");
 		VariantVo variant = (VariantVo)v.getTag();
 		this.updateDisplay(variant);
+		this.drawVariants();
 	}
 	
 	public void onResume(){
