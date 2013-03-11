@@ -1,7 +1,6 @@
 package com.vosto.customer.orders;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 
 import com.vosto.customer.R;
 import com.vosto.customer.orders.vos.OrderVo;
-import com.vosto.customer.utils.MoneyUtils;
 
 public class PreviousOrderAdapter extends ArrayAdapter<OrderVo>{
 

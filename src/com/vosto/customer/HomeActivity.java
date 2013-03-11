@@ -22,7 +22,13 @@ import com.vosto.customer.stores.activities.StoresActivity;
 import com.vosto.customer.stores.services.SearchResult;
 import com.vosto.customer.stores.services.SearchService;
 
-
+/**
+ * 
+ * @author Flippie Scholtz <flippiescholtz@gmail.com>
+ * 
+ * This is the home screen containing the search box. It is where the user starts searching for stores.
+ *
+ */
 public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
 	
 	private ProgressDialog pleaseWaitDialog;
@@ -38,6 +44,8 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
         userNameLabel.setVisibility(View.GONE);
         
         ImageButton signInButton = (ImageButton)findViewById(R.id.sign_in_arrow_button);
+        
+        // Display either a sign in button or the user's name depending if someone is logged in:
         SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
         if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
         	//User logged in:
@@ -45,6 +53,7 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
         	userNameLabel.setText("Hi, " + settings.getString("userName", "user"));
         	userNameLabel.setVisibility(View.VISIBLE);
         }else{
+        	//User not logged in:
         	userNameLabel.setVisibility(View.GONE);
         	signInButton.setVisibility(View.VISIBLE);
         	
@@ -58,14 +67,18 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
     	finish();
 	}
 	
-	
+	/**
+	 * Assigned in the layout xml, called by android when search button is clicked.
+	 * 
+	 * @param v The button instance that was clicked.
+	 */
 	public void searchClicked(View v){
 		EditText txtSearch = (EditText)findViewById(R.id.txtSearch);
 		if(txtSearch.getText().toString().trim().equals("")){
 			return;
 		}
 		
-		// Prompt user if the GPS is not enabled:
+		// Try to get a location. If we don't have a location we just leave it blank in the search.
 		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 		boolean enabled = locationManager
 		  .isProviderEnabled(LocationManager.GPS_PROVIDER);
@@ -76,8 +89,9 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
 	    boolean hasLocation = false;
 	    
 		if(enabled){
-		 Criteria criteria = new Criteria();
-		   String provider = locationManager.getBestProvider(criteria, false);
+			//GPS is turned on.
+			Criteria criteria = new Criteria();
+			String provider = locationManager.getBestProvider(criteria, false);
 		    Location location = locationManager.getLastKnownLocation(provider);
 
 		    
@@ -96,6 +110,7 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
 		SearchService service = new SearchService(this, this);
 		service.setSearchTerm(txtSearch.getText().toString().trim());
 		if(hasLocation){
+			//We have a location, so pass the coordinates on to the search service:
 			service.setHasLocation(true);
 			service.setLatitude(latitude);
 			service.setLongitude(longitude);
@@ -106,11 +121,17 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
 	
 	
 
+	/**
+	 * Called from within the base RestService after a rest call completes.
+	 * @param result Can be any result type. This function should check the type and handle accordingly. 
+	 */
 	@Override
 	public void onRestReturn(RestResult result) {
 		this.pleaseWaitDialog.dismiss();
 		if(result != null && result instanceof SearchResult){
 			SearchResult searchResult = (SearchResult)result;
+			
+			//Pass the returned stores on to the stores list activity, and redirect:
 			Intent intent = new Intent(this, StoresActivity.class);
 			intent.putExtra("stores", searchResult.getStores());
 			intent.putExtra("hasLocation", searchResult.hasLocation());
@@ -134,6 +155,12 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
         alert.show();
 	}
 	
+	/**
+	 * Clears all the locally stored data (auth token, pin, username, cart, order)
+	 * 
+	 * @param v The logout button, at the moment it's just the user name label for debugging purposes,
+	 * the design doesn't have a real logout button yet.
+	 */
 	public void logout(View v){
 		SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
 		SharedPreferences.Editor editor = settings.edit();
@@ -142,6 +169,8 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
 		editor.putString("userPin", "");
 		editor.commit();
 		deleteCart();
+		
+		//Blank slate, redirect to signin page for new user signin:
 		Intent intent = new Intent(this, SignInActivity.class);
     	startActivity(intent);
     	finish();
@@ -149,8 +178,11 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
 
 
 	
-
-
+    /**
+     * Called when the main bottom menu bar's orders button is pressed.
+     * Simply opens the orders activity
+     * @param v
+     */
 	public void ordersPressed(View v) {
 		Intent intent = new Intent(this, MyOrdersActivity.class);
 		startActivity(intent);

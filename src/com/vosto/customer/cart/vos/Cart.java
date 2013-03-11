@@ -9,10 +9,19 @@ import com.vosto.customer.stores.vos.StoreVo;
 
 import android.util.Log;
 
-
+/**
+ * Models the shopping cart.
+ * An instance of this is stored in the app context so the cart is available throughout the session.
+ *
+ */
 public class Cart {
 	
+	/*
+	 * The user can only order from one store per order.
+	 * Once this store variable is set, it can't be changed until the cart is closed.
+	 */
 	private StoreVo store;
+	
 	private ArrayList<CartItem> items;
 	private Date opened;
 	private Date closed;
@@ -71,8 +80,6 @@ public class Cart {
 	}
 	
 	public boolean isOpen(){
-		Log.d("CRT", "Cart opened: " + this.opened);
-		Log.d("CRT", "Cart closed: " + (this.closed == null ? "null" : this.closed));
 		return this.opened != null && this.closed == null;
 	}
 	

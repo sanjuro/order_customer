@@ -4,6 +4,12 @@ import java.io.Serializable;
 
 import org.joda.money.Money;
 
+/**
+ * Models an order line item.
+ * This is different from a CartItem because a LineItem is part of a completed order, fetched from the server
+ * whereas a CartItem is created by the application before the order is placed.
+ *
+ */
 public class LineItemVo implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
