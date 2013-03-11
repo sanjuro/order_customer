@@ -3,7 +3,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
-  android:background="#ede9e1"
+  android:background="#edeae2"
   android:orientation="vertical"
   >
   
@@ -14,33 +14,136 @@
        android:background="@drawable/top_bar_orange" 
        android:orientation="horizontal"
        android:layout_alignParentTop="true"
+       android:gravity="center_vertical"
        android:paddingLeft="15dp"
-       android:paddingRight="15dp">
+       android:paddingRight="10dp">
 
        
        
-        
-       
+           <ImageButton 
+          	android:id="@+id/filter_button"
+          	android:layout_width="103dp"
+          	android:layout_height="30dp"
+          	android:layout_alignParentRight="true"
+          	android:scaleType="fitXY"
+          	android:layout_marginRight="8dp"
+          	android:src="@drawable/filter_button"
+          	android:background="@null"
+          	android:onClick="homeClicked"
+          	android:contentDescription="@string/filter_button" 
+          />
+           
+           
        
    </RelativeLayout>
    
    
    <LinearLayout
+    android:id="@+id/middle_section"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_below="@id/top_bar"
-    android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp"
-    android:layout_marginTop="50dp"
+    android:layout_above="@id/bottom_bar"
+    android:layout_marginLeft="0dp"
+    android:layout_marginRight="0dp"
+    android:layout_marginTop="15dp"
     android:orientation="vertical"   
     >
         
-   
-        <ListView
-        android:id="@+id/lstStores"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-  		</ListView>
+   		<RelativeLayout 
+   		    android:id="@+id/listMapSection"
+   		    android:layout_width="fill_parent"
+   		    android:layout_height="wrap_content"
+   		    android:layout_marginRight="10dp"
+   		    android:orientation="horizontal"
+   		    android:layout_gravity="center_vertical"
+   		>
+   		    
+   		    <ImageView 
+   		    	android:layout_width="89.7dp"
+   		    	android:layout_height="50dp"
+   		    	android:layout_alignParentRight="true"
+   		    	android:src="@drawable/map"
+   		    	android:layout_centerVertical="true"    
+   		    />
+   		    
+   		    <LinearLayout 
+   		       android:id="@+id/listMapBar"
+               android:orientation="horizontal"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_centerHorizontal="true"
+               >
+               
+                 <ImageButton 
+          	android:id="@+id/list_button"
+          	android:layout_width="60dp"
+          	android:layout_height="38dp"
+          	android:scaleType="fitXY"
+          	android:layout_marginRight="0dp"
+          	android:src="@drawable/list_button"
+          	android:background="@null"
+          />
+                 
+                 <ImageButton 
+          	android:id="@+id/map_button"
+          	android:layout_width="60dp"
+          	android:layout_height="38dp"
+          	android:scaleType="fitXY"
+          	android:layout_marginRight="0dp"
+          	android:src="@drawable/map_button"
+          	android:background="@null"
+          />
+                 
+                        <ImageView 
+          	android:id="@+id/magnifying_glass"
+          	android:layout_width="17dp"
+          	android:layout_height="15dp"
+          	android:scaleType="fitXY"
+          	android:layout_marginRight="5dp"
+          	android:layout_marginLeft="3dp"
+          	android:layout_gravity="center_vertical"
+          	android:src="@drawable/magnifying_glass"
+          	android:background="@null"
+          />
+               
+           </LinearLayout>
+           
+   		    
+       
+   		    
+   		</RelativeLayout>
+   		
+   		 <LinearLayout 
+   		       android:id="@+id/closeToYouBar"
+               android:orientation="horizontal"
+               android:layout_width="fill_parent"
+               android:layout_height="42dp"
+   			   android:background="#d8d5ce"
+			   android:paddingLeft="15dp"
+               >
+   		    
+   		     <TextView 
+   		        android:id="@+id/lblStoresListHeading"
+   		     	android:text="Close to You"
+   		     	android:layout_width="wrap_content"
+   		     	android:layout_height="wrap_content"
+   		     	android:textSize="22sp"   
+   		     	android:textColor="#3b3830" 
+   		     	android:layout_gravity="center_vertical"
+   		     />
+   		    
+   		     </LinearLayout>
+   		
+   		<ListView 
+   			android:id="@+id/lstStores"
+   			android:layout_width="fill_parent"
+   			android:layout_height="wrap_content"   
+   			android:layout_marginLeft="17dp" 
+   			android:layout_marginTop="20dp"
+   			android:divider="@android:color/transparent"
+  			android:dividerHeight="38.0sp"
+   		></ListView>
    
        
    </LinearLayout>
@@ -83,6 +186,7 @@
           	android:layout_marginRight="20dp"
           	android:src="@drawable/pencil"
           	android:background="@null"
+          	android:onClick="ordersPressed"
           	android:contentDescription="@string/sign_in_button"   
           />
           

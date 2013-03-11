@@ -3,6 +3,9 @@ package com.vosto.customer.services;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.vosto.customer.VostoBaseActivity;
+
+import android.content.Context;
 import android.util.Log;
 
 public class SearchService extends RestService {
@@ -11,9 +14,11 @@ public class SearchService extends RestService {
 	public double latitude;
 	public double longitude;
 	public boolean hasLocation;
+	private VostoBaseActivity context;
 	
-	public SearchService(OnRestReturn listener){
+	public SearchService(OnRestReturn listener, VostoBaseActivity context){
 		super("http://107.22.211.58:9000/api/v1/stores/search", RequestMethod.POST, ResultType.SEARCH_STORES, listener);
+		this.context = context;
 		this.hasLocation = false;
 	}
 
@@ -56,7 +61,7 @@ public class SearchService extends RestService {
 	public String getRequestJson(){
 		try{
 			JSONObject root = new JSONObject();
-			root.put("authentication_token", "CXTTTTED2ASDBSD4");
+			root.put("authentication_token", context.getAuthenticationToken());
 			root.put("query_term", this.searchTerm);
 			if(this.hasLocation){
 				root.put("latitude", this.latitude);

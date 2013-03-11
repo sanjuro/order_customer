@@ -14,6 +14,7 @@ public class CreateAccountResult extends RestResult implements IRestResult {
 	 private CreateAccountResponseWrapper responseWrapper;
 	 private boolean accountCreated;
 	 private String errorMessage;
+	 private String userPin;
 	
 	 
 	 public CreateAccountResult(){
@@ -67,4 +68,14 @@ public class CreateAccountResult extends RestResult implements IRestResult {
 	public CreateAccountResponseWrapper getAccountResponseWrapper(){
 		return this.responseWrapper;
 	}
+
+	public String getUserPin() {
+		return userPin;
+	}
+
+	public void setUserPin(String userPin) {
+		this.userPin = userPin;
+	}
+	
+	
 }

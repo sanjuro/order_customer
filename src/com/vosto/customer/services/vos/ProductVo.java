@@ -1,12 +1,21 @@
 package com.vosto.customer.services.vos;
 
-public class ProductVo {
-	
+import java.io.Serializable;
+
+import org.joda.money.Money;
+import org.joda.money.format.MoneyFormatException;
+
+import com.vosto.customer.utils.MoneyUtils;
+
+public class ProductVo implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private int store_id;
 	private String name;
 	private String description;
-	private double price;
+	private Money price;
+	private VariantVo[] variants;
 	
 	
 	public ProductVo(){
@@ -53,14 +62,49 @@ public class ProductVo {
 	}
 
 
-	public double getPrice() {
+	public Money getPrice() {
 		return price;
 	}
+	
+	public String getPriceString(){
+		return MoneyUtils.getRandString(this.price);
+	}
 
+	public void setPrice(double price){
+		Money money = Money.parse("ZAR " + price);
+		this.price = money.withAmount(price);	
+	}
 
-	public void setPrice(double price) {
+	public void setPrice(Money price) {
 		this.price = price;
 	}
+
+
+	public int getStore_id() {
+		return store_id;
+	}
+
+
+	public void setStore_id(int store_id) {
+		this.store_id = store_id;
+	}
+
+
+	public VariantVo[] getVariants() {
+		return variants;
+	}
+
+
+	public void setVariants(VariantVo[] variants) {
+		this.variants = variants;
+	}
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
 
 	
 }

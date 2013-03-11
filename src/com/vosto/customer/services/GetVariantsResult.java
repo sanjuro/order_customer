@@ -60,7 +60,7 @@ public class GetVariantsResult extends RestResult implements IRestResult {
 				currentVariant.setSku(variantObj.getString("sku"));
 				currentVariant.setMaster(variantObj.getBoolean("is_master"));
 				
-				ArrayList<OptionValueVo> optionValues = new ArrayList<OptionValueVo>();
+				OptionValueVo[] optionValues = new OptionValueVo[optionValuesArr.length()];
 				
 				for(int j = 0; j<optionValuesArr.length(); j++){
 					JSONObject optionValueObj = optionValuesArr.getJSONObject(j).getJSONObject("option_value");
@@ -70,7 +70,7 @@ public class GetVariantsResult extends RestResult implements IRestResult {
 					currentOptionValue.setOptionTypeId(optionValueObj.getInt("option_type_id"));
 					currentOptionValue.setPresentation(optionValueObj.getString("presentation"));
 					currentOptionValue.setPosition(optionValueObj.getInt("position"));
-					optionValues.add(currentOptionValue);
+					optionValues[j] = currentOptionValue;
 				}
 				
 				currentVariant.setOptionValues(optionValues);

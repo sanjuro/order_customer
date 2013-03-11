@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="10"
         android:targetSdkVersion="17" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -25,7 +25,7 @@
              
         </activity>
         <activity
-            android:name="com.vosto.customer.StoreMenuActivity"
+            android:name="com.vosto.customer.TaxonsActivity"
             android:label="@string/title_activity_store_menu" >
         </activity>
         <activity
@@ -45,6 +45,21 @@
         </activity>
          <activity
             android:name="com.vosto.customer.accounts.SignInActivity">
+        </activity>
+         <activity
+            android:name="com.vosto.customer.ProductResultsActivity">
+        </activity>
+         <activity
+            android:name="com.vosto.customer.MyOrdersActivity">
+        </activity>
+          <activity
+            android:name="com.vosto.customer.ReorderActivity">
+        </activity>
+        <activity
+            android:name="com.vosto.customer.ProductDetailsActivity">
+        </activity>
+          <activity
+            android:name="com.vosto.customer.EditCartItemActivity">
         </activity>
         <activity
             android:name="com.vosto.customer.accounts.CreateAccountActivity"

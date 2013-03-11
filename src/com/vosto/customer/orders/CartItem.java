@@ -1,5 +1,9 @@
 package com.vosto.customer.orders;
 
+import org.joda.money.Money;
+
+import android.util.Log;
+
 import com.vosto.customer.services.vos.ProductVo;
 import com.vosto.customer.services.vos.VariantVo;
 
@@ -10,32 +14,39 @@ public class CartItem {
 	private ProductVo product;
 	private VariantVo variant;
 	private int quantity;
-	private String comments;
+	private String specialInstructions;
 	
 	public CartItem(){
 		this.quantity = 1;
-		this.comments = "";
+		this.specialInstructions = "";
 	}
 	
 	public CartItem(ProductVo product, VariantVo variant){
 		this.product = product;
 		this.variant = variant;
 		this.quantity = 1;
-		this.comments = "";
+		this.specialInstructions = "";
 	}
 	
 	public CartItem(ProductVo product, VariantVo variant, int quantity){
 		this.product = product;
 		this.variant = variant;
 		this.quantity = quantity;
-		this.comments = "";
+		this.specialInstructions = "";
 	}
 	
 	public CartItem(ProductVo product, int quantity){
 		this.product = product;
-		this.variant = null;
+		
+		// Default to first variant:
+		if(product.getVariants().length > 0){
+			Log.d("CRT", "Defaulting to first variant.");
+			this.variant = product.getVariants()[0];
+		}else{
+			Log.d("CRT", "NO variants for the product. Can't default.");
+		}
 		this.quantity = quantity;
-		this.comments = "";
+		this.specialInstructions = "";
 	}
 
 
@@ -71,22 +82,41 @@ public class CartItem {
 		this.quantity = quantity;
 	}
 
-	public String getComments() {
-		return comments;
+	public String getSpecialInstructions() {
+		return specialInstructions != null ? specialInstructions.trim() : "";
 	}
 
-	public void setComments(String comments) {
-		this.comments = comments;
+	public void setSpecialInstructions(String specialInstructions) {
+		this.specialInstructions = specialInstructions.trim();
 	}
 
-	public double getSubtotal() {
+	public Money getSubtotal() {
 		if(this.variant != null){
-			return this.quantity * this.variant.getPrice();
+			return this.variant.getPrice().multipliedBy(this.quantity);
 		}else if(this.product != null){
-			return this.quantity * this.product.getPrice();
+			return this.product.getPrice().multipliedBy(this.quantity);
 		}else{
-			return 0.0d;
+			return Money.parse("ZAR 0.00");
 		}
+	}
+	
+	public boolean equals(CartItem otherItem){
+		if(otherItem.getProduct().getId() != this.getProduct().getId()){
+			return false;
+		}
+		if(otherItem.getVariant().getId() != this.getVariant().getId()){
+			return false;
+		}
+		if(otherItem.getQuantity() != this.getQuantity()){
+			return false;
+		}
+		if(!otherItem.getSpecialInstructions().equals(this.getSpecialInstructions())){
+			return false;
+		}
+		if(!otherItem.getSubtotal().equals(this.getSubtotal())){
+			return false;
+		}
+		return true;
 	}
 	
 	

@@ -1,35 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" 
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:padding="10dp">
+<LinearLayout
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/product_row_main_layout"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:clickable="true"
+      android:onClick="productSelected"
+ >
     
-    <LinearLayout 
-        android:layout_width="wrap_content"
-         android:layout_height="fill_parent"
-        >
-        
-     <ImageView android:id="@+id/imgIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:gravity="center_vertical"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp" />
-        
-     <TextView android:id="@+id/txtProductName"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:gravity="center_vertical"
-        android:textStyle="bold"
-        android:textSize="22sp"
-        android:textColor="#000000"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp" />
+    
+
+<LinearLayout
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal"
+	android:layout_marginLeft="17dp"
+	android:paddingBottom="10dp"
+>
+
+    <ImageView 
+    	android:layout_width="50dp"
+    	android:layout_height="50dp"
+    	android:src="@drawable/burrito"   
+    	android:background="@drawable/image_border_white"
+    />
+    
+    <RelativeLayout
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"  
+    	android:layout_marginLeft="15dp"  
+    	android:layout_marginRight="15dp" 
+    >
+    
+      <TextView
+      	android:id="@+id/lblProductName"
+      	android:layout_width="115dp"
+      	android:layout_height="wrap_content"
+      	android:textSize="18sp"
+      	android:textColor="#676357"
+      	android:layout_alignParentTop="true"
+      	android:layout_alignParentLeft="true"   
+      	 
+      />
+          
+          
+   <ImageButton 
+    android:id="@+id/add_to_cart_button"
+   	android:src="@drawable/add_to_cart_button"
+   	android:scaleType="fitXY"
+   	android:layout_width="105dp"
+   	android:layout_height="30dp"
+   	android:layout_alignParentRight="true"
+   	android:onClick="addToCartClicked"
+   	android:background="@null"
+   />
+   
   
-        </LinearLayout>
-      
+   
+   <View
+    android:id="@+id/divider_line"
+    android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:color/darker_gray"
+    android:layout_below="@id/lblProductName"
+    android:layout_alignParentLeft="true"
+    />
+   
+   <TextView 
+   	android:id="@+id/lblPrice"
+   	android:layout_width="fill_parent"
+   	android:layout_height="wrap_content"
+   	android:layout_alignParentLeft="true"
+   	android:layout_below="@id/divider_line"
+   	android:textSize="14sp"
+   	android:gravity="fill"
+   	android:textColor="#7b7461"
+   	android:text="R 35.00"
+   	
+   	    
+       
+   />
+   
+   
+   
+   
         
-</RelativeLayout>
+        
+        
+    </RelativeLayout>
+    
+    
+    
+</LinearLayout>   
+   <ImageView
+   	android:layout_width="fill_parent"
+   	android:layout_height="wrap_content"
+   	android:src="@drawable/orange_divider"
+   />
+   
+   </LinearLayout>

@@ -43,8 +43,7 @@
 <Button  
     android:id="@+id/buttonExistingUser"  
     android:layout_height="wrap_content"  
-    android:text="@string/existing_user"  
-    android:onClick="existingUser"  
+    android:text="@string/existing_user" 
     android:layout_width="fill_parent">  
 </Button> 
         

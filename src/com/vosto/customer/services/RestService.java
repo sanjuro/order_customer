@@ -26,18 +26,18 @@ import android.os.AsyncTask;
 
 public class RestService extends AsyncTask <Void, Void, RestResult> {
 	
-	private OnRestReturn listener;
-	private String url;
-	private ResultType resultType;
+	protected OnRestReturn listener;
+	protected String url;
+	protected ResultType resultType;
 	
-	private HttpClient httpClient;
-	private HttpContext localContext;
-	private HttpGet httpGet;
-	private HttpPost httpPost;
-	private HttpResponse response;
-	private List<NameValuePair> nameValuePairs; 
+	protected HttpClient httpClient;
+	protected HttpContext localContext;
+	protected HttpGet httpGet;
+	protected HttpPost httpPost;
+	protected HttpResponse response;
+	protected List<NameValuePair> nameValuePairs; 
 	
-	private RequestMethod requestMethod;
+	protected RequestMethod requestMethod;
 	
 	
 	
@@ -123,7 +123,7 @@ protected void onPostExecute(RestResult result) {
 	this.listener.onRestReturn(result);
 }
 
-private RestResult getRestResult(StatusLine statusLine, String responseJson){
+protected RestResult getRestResult(StatusLine statusLine, String responseJson){
 	RestResult result = null;
 	if(this.resultType == ResultType.CREATE_CUSTOMER){
 		result = new CreateAccountResult(200, responseJson);
@@ -147,6 +147,14 @@ private RestResult getRestResult(StatusLine statusLine, String responseJson){
 	
 	if(this.resultType == ResultType.GET_VARIANTS){
 		result = new GetVariantsResult(200, responseJson);
+	}
+	
+	if(this.resultType == ResultType.PLACE_ORDER){
+		result = new PlaceOrderResult(200, responseJson);
+	}
+	
+	if(this.resultType == ResultType.GET_PREVIOUS_ORDERS){
+		result = new GetPreviousOrdersResult(200, responseJson);
 	}
 	
 	if(result != null){

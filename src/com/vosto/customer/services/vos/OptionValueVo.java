@@ -1,6 +1,8 @@
 package com.vosto.customer.services.vos;
 
-public class OptionValueVo {
+import java.io.Serializable;
+
+public class OptionValueVo implements Serializable {
 	
 	
 	/*
@@ -12,6 +14,9 @@ public class OptionValueVo {
                         "presentation": "green noodles"
                     }
 	 */
+	
+	
+	private static final long serialVersionUID = 1L;
 	
 	private int id;
 	private String name;

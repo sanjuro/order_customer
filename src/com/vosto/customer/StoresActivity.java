@@ -1,23 +1,19 @@
 package com.vosto.customer;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.vosto.customer.orders.Cart;
 import com.vosto.customer.services.GetStoresResult;
-import com.vosto.customer.services.GetStoresService;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
 import com.vosto.customer.services.vos.StoreVo;
@@ -26,7 +22,7 @@ import com.vosto.customer.stores.StoreListAdapter;
  * @author flippiescholtz
  *
  */
-public class StoresActivity extends Activity implements OnRestReturn, OnItemClickListener {
+public class StoresActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener {
 	
 	private StoreVo[] stores;
 	
@@ -46,6 +42,10 @@ public class StoresActivity extends Activity implements OnRestReturn, OnItemClic
 		
 		list.setAdapter(new StoreListAdapter(this, R.layout.store_item_row, this.stores));
 		
+		boolean hasLocation = getIntent().getBooleanExtra("hasLocation", false);
+		TextView lblStoresListHeading = (TextView)findViewById(R.id.lblStoresListHeading);
+		lblStoresListHeading.setText(hasLocation ? "Close to you" : "Search Results");
+		
 	}
 	
 	public void onResume(){
@@ -64,19 +64,22 @@ public class StoresActivity extends Activity implements OnRestReturn, OnItemClic
 		if(list == null){
 			Log.d("ERROR", "List is null");
 		}
-		if(result == null){
-			Log.d("ERROR", "Result is null");
-		}else if(((GetStoresResult)result).getStores() == null){
-			Log.d("ERROR", "Stores is null");
-		}
+		
 		this.stores = ((GetStoresResult)result).getStores();
 		list.setAdapter(new StoreListAdapter(this, R.layout.store_item_row, this.stores));
+	
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-		  Intent intent = new Intent(this, StoreMenuActivity.class);
-		  intent.putExtra("storeId", this.stores[position].getId());
+		/*
+		  Cart cart = getCart();
+		  cart.setStore(this.stores[position]);
+		  saveCart(cart);
+		  */
+		Log.d("STO", "Passing store to TaxonActivity: " + this.stores[position].getId());
+		  Intent intent = new Intent(this, TaxonsActivity.class);
+		  intent.putExtra("store", this.stores[position]);
 		  intent.putExtra("storeName", this.stores[position].getName());
 		  intent.putExtra("storeTel", this.stores[position].getManagerContact());
 		  intent.putExtra("storeAddress", this.stores[position].getAddress());
@@ -110,5 +113,14 @@ public class StoresActivity extends Activity implements OnRestReturn, OnItemClic
 	    }
 
 	    return true;
-	  } 
+	  }
+
+	
+	public void ordersPressed(View v) {
+		Intent intent = new Intent(this, MyOrdersActivity.class);
+		startActivity(intent);
+		finish();
+	}
+
+	
 }

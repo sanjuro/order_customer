@@ -1,14 +1,5 @@
 package com.vosto.customer.accounts;
 
-import com.vosto.customer.HomeActivity;
-import com.vosto.customer.MainTabActivity;
-import com.vosto.customer.R;
-import com.vosto.customer.services.AuthenticateResult;
-import com.vosto.customer.services.AuthenticationService;
-import com.vosto.customer.services.OnRestReturn;
-import com.vosto.customer.services.RestResult;
-import com.vosto.customer.utils.StringUtils;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -19,7 +10,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.vosto.customer.HomeActivity;
+import com.vosto.customer.R;
+import com.vosto.customer.services.AuthenticateResult;
+import com.vosto.customer.services.AuthenticationService;
+import com.vosto.customer.services.OnRestReturn;
+import com.vosto.customer.services.RestResult;
 
 
 public class SignInActivity extends Activity implements OnRestReturn {
@@ -76,6 +73,8 @@ public class SignInActivity extends Activity implements OnRestReturn {
 			SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
 			SharedPreferences.Editor editor = settings.edit();
 			editor.putString("userToken", "");
+			editor.putString("userName", "");
+			editor.putString("userPin", "");
 			editor.commit();
 			AuthenticateResult authResult = (AuthenticateResult)result;
 			
@@ -87,6 +86,7 @@ public class SignInActivity extends Activity implements OnRestReturn {
 				   editor = settings.edit();
 				   editor.putString("userToken", authResult.getCustomer().authentication_token);
 				   editor.putString("userName", authResult.getCustomer().first_name);
+				   editor.putString("userPin", authResult.getCustomer().user_pin);
 				   editor.commit();
 				   Intent intent = new Intent(this, HomeActivity.class);
 			    	startActivity(intent);

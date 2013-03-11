@@ -1,110 +1,230 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    tools:context="com.vosto.customer.CartActivity">
-
-    <RelativeLayout
-        android:id="@+id/topSection"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="5sp"
-        android:layout_marginRight="5sp">
-    
-      <TextView
-            android:id="@+id/lblCartHeading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="@string/yourcart"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="28sp" />
-    
-    </RelativeLayout>
-    
-  <LinearLayout
-      android:id="@+id/middleSection"
-   	android:layout_width="fill_parent"
-   	android:layout_height="wrap_content"
-   	android:layout_below="@+id/topSection"
-   	android:layout_above="@+id/bottomSection"
-   	android:orientation="vertical">   
-   	
-  <ListView
-        android:id="@+id/lstCartItems"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        >
-  </ListView>
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:background="#ede9e1"
+  android:orientation="vertical"
+  >
   
    <RelativeLayout
-       android:id="@+id/totalSection"
-      	android:orientation="horizontal"
-      	android:layout_width="wrap_content"
-      	android:layout_height="wrap_content"
-      	android:layout_marginLeft="5sp"
-      	android:layout_marginRight="5sp"
-      >
-           <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/lblCartTotal"
-            android:text="@string/total"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="22sp" />
-           
-             <TextView
-            android:id="@+id/lblCartTotal"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/total"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="22sp" />
-     </RelativeLayout>
-  
-  
-      
-      
-  </LinearLayout>  
+       android:id="@+id/top_bar"
+       android:layout_width="match_parent"
+       android:layout_height="65dp"
+       android:background="@drawable/top_bar_orange" 
+       android:orientation="horizontal"
+       android:layout_alignParentTop="true"
+       android:paddingLeft="15dp"
+       android:paddingRight="15dp">
  
+       <ImageButton
+         android:id="@+id/store_button"
+         android:layout_width="116dp"
+         android:layout_height="38dp"
+         android:src="@drawable/store_button"
+         android:scaleType="fitXY"
+         android:layout_centerVertical="true"
+         android:layout_alignParentLeft="true"
+         android:background="@null"
+        />
+       
+       <TextView
+  			android:layout_width="wrap_content"
+  			android:layout_height="wrap_content"
+  			android:textSize="20sp"
+  			android:textColor="#FFFFFF"
+  			android:text="Your Order"
+  			android:layout_centerHorizontal="true"
+  			android:layout_centerVertical="true"         
+       />
+       
+        
+        
+       
+            
+            
   
- <RelativeLayout 
-     android:id="@+id/bottomSection"
-     android:layout_alignParentBottom="true"
-     android:layout_below="@+id/lstCartItems"
-     android:layout_width="fill_parent"
-     android:layout_height="wrap_content"
+       
+   </RelativeLayout>
+   
+   <LinearLayout
+       android:id="@+id/bottom_bar"
+       android:layout_width="fill_parent"
+       android:layout_height="65dp"
+       android:background="@drawable/bottom_bar_gray" 
+       android:orientation="horizontal"
+       android:paddingLeft="10dp"
+       android:paddingRight="10dp"
+       android:layout_alignParentBottom="true"
+       android:gravity="center_vertical">    
+       
+         
+          <ImageButton 
+          	android:id="@+id/house_button"
+          	android:layout_width="40dp"
+          	android:layout_height="25dp"
+          	android:scaleType="fitXY"
+          	android:layout_marginRight="20dp"
+          	android:src="@drawable/house"
+          	android:background="@null"
+          	android:contentDescription="@string/sign_in_button" 
+          />
+          
+          <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1" >
+    </View>
+          
+          <ImageButton 
+          	android:id="@+id/pencil_button"
+          	android:layout_width="40dp"
+          	android:layout_height="25dp"
+          	android:scaleType="fitXY"
+          	android:layout_marginRight="20dp"
+          	android:src="@drawable/pencil"
+          	android:background="@null"
+          	android:onClick="ordersPressed"
+          	android:contentDescription="@string/sign_in_button"   
+          />
+          
+          <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1" >
+    </View>
+    
+          <ImageButton 
+          	android:id="@+id/star_button"
+          	android:layout_width="40dp"
+          	android:layout_height="25dp"
+          	android:scaleType="fitXY"
+          	android:layout_marginRight="20dp"
+          	android:src="@drawable/star"
+          	android:background="@null"
+          	android:contentDescription="@string/sign_in_button"   
+          />
+          <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1" >
+    </View>
+    
+          <ImageButton 
+          	android:id="@+id/wrench_button"
+          	android:layout_width="40dp"
+          	android:layout_height="25dp"
+          	android:scaleType="fitXY"
+          	android:layout_marginRight="20dp"
+          	android:src="@drawable/wrench"
+          	android:background="@null"
+          	android:contentDescription="@string/sign_in_button"   
+          />
+          
+   </LinearLayout>
+   
+   
+   <RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_below="@id/top_bar"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginTop="5dp"
+    android:orientation="vertical"   
     >
-    
-    
-     <Button
-        android:id="@+id/confirmOrderButton"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text="@string/confirmorder"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
-        />
+        
+   
+       
+      <ListView 
+          android:id="@+id/lstCartItems"
+          android:layout_width="fill_parent"
+          android:layout_height="300dp"
+          android:divider="@android:color/transparent"
+  			android:dividerHeight="18.0sp"
+          />
+      
+      <TextView
+           android:id="@+id/lblSubtotal"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentRight="true"
+           android:layout_below="@id/lstCartItems"
+           android:textSize="20sp"
+           android:textColor="#000000"
+           android:text="Subtotal: R70.00"
+           />
+      
      
-     
-      <Button
-        android:id="@+id/discardOrderButton"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:text="@string/discardorder"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
-        />
-     
-     
- </RelativeLayout>
+          
+          
+          
+          
+          <LinearLayout
+              android:id="@+id/bottom_section"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_alignParentLeft="true"
+              android:layout_alignParentBottom="true"
+            	android:layout_marginBottom="68dp"
+            >
+              
+              <EditText
+               android:id="@+id/txtVoucherCode"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:singleLine="true"
+                android:hint="Enter voucher code"
+              	
+               />
+              
+              <RelativeLayout 
+              	android:layout_width="fill_parent"
+              	android:layout_height="wrap_content" 
+              	
+              >
+                  <TextView 
+                      android:id="@+id/lblTotal"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_alignParentTop="true"
+                      android:layout_alignParentRight="true"
+                      android:textSize="18sp"
+                      android:textColor="#000000"
+                      android:text="Total: R70.00"
+                      
+                      />
+                  
+              </RelativeLayout>
+              
+              <ImageButton
+                  android:id="@+id/place_order_button"
+                  android:layout_width="214.5dp"
+                  android:layout_height="39.5dp"
+                 android:scaleType="fitXY"
+                 android:src="@drawable/place_order_button"
+                 android:background="@null"
+                 android:layout_gravity="center_horizontal"
+                 android:onClick="placeOrderClicked"
+                  />
+              
+              </LinearLayout>
+              
+              
+          
+          
+          
   
- 
-
+       
+       
+       
+       
+      
+       
+   </RelativeLayout>
+   
+      
+    
+    
 </RelativeLayout>
