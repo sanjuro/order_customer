@@ -78,7 +78,10 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 		super.onResume();
 	}
 
-	
+	/**
+	 * Called from within the base RestService after a rest call completes.
+	 * @param result Can be any result type. This function should check the type and handle accordingly. 
+	 */
 	@Override
 	public void onRestReturn(RestResult result) {
 		if(this.pleaseWaitDialog != null){

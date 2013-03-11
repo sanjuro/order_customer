@@ -7,10 +7,14 @@ import android.util.Log;
 import com.vosto.customer.products.vos.ProductVo;
 import com.vosto.customer.products.vos.VariantVo;
 
-
+/**
+ * Models a cart item. Not to be confused with LineItem which is an item inside a completed order.
+ * CartItems are inside the cart before the order is placed, LineItems are returned from the server as part
+ * of an existing order's data.
+ */
 public class CartItem {
 	
-	private int id;
+	private int id; // Not actually used...we just access the items by index.
 	private ProductVo product;
 	private VariantVo variant;
 	private int quantity;
@@ -40,10 +44,7 @@ public class CartItem {
 		
 		// Default to first variant:
 		if(product.getVariants().length > 0){
-			Log.d("CRT", "Defaulting to first variant.");
 			this.variant = product.getVariants()[0];
-		}else{
-			Log.d("CRT", "NO variants for the product. Can't default.");
 		}
 		this.quantity = quantity;
 		this.specialInstructions = "";

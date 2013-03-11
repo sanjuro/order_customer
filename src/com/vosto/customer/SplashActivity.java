@@ -1,14 +1,16 @@
 package com.vosto.customer;
 
-import com.vosto.customer.accounts.activities.SignInActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
 
-
+/**
+ * Just shows the splash screen on startup, and then redirects to home. Nothing fancy.
+ * DELAY can be tweaked as necessary.
+ *
+ */
 public class SplashActivity extends Activity
 {
     private final static int MSG_CONTINUE = 1234;

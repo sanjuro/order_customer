@@ -63,6 +63,10 @@ public class StoresActivity extends VostoBaseActivity implements OnRestReturn, O
 	}
 
 	
+	/**
+	 * Called from within the base RestService after a rest call completes.
+	 * @param result Can be any result type. This function should check the type and handle accordingly. 
+	 */
 	@Override
 	public void onRestReturn(RestResult result) {
 		if(result == null){

@@ -23,10 +23,11 @@ import com.vosto.customer.accounts.services.ResetPasswordService;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
 
-
+/**
+ * The Sign In screen where an existing user logs in.
+ *
+ */
 public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
-
-	private ProgressDialog pleaseWaitDialog;
 	
 	@Override
     public void onCreate(Bundle args)
@@ -38,14 +39,23 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
         lblForgotPin.setText(Html.fromHtml("<u>Forgot Pin?</u>"));        
     }
 	
+	/**
+	 * Redirects the user to signup if she does not have an account yet.
+	 * @param v The signup button instance.
+	 */
 	public void signUpClicked(View v){
 		Intent intent = new Intent(this, SignUpActivity.class);
     	startActivity(intent);
     	finish();
 	}
 	
+	/**
+	 * Validates the input fields and makes the REST call to authenticate.
+	 * @param v the sign in button instance
+	 */
 	public void signInClicked(View v){
 		this.pleaseWaitDialog = ProgressDialog.show(this, "Authenticating", "Please wait...", true);
+		
 		TextView txtEmail = (TextView)findViewById(R.id.txtEmail);
 		TextView txtPin = (TextView)findViewById(R.id.txtSecurityPin);
 		String email = txtEmail.getText().toString().trim();
@@ -65,20 +75,24 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 			return;
 		}
 		
+		//Make the REST call:
 		AuthenticationService service = new AuthenticationService(this);
 		service.setEmail(email);
 		service.setPin(pin);
-		Log.d("auth", "Request json: " + service.getRequestJson());
 		service.execute();
 	}
 
+	/**
+	 * Prompts for an email and then calls the reset pin service.
+	 * @param v The forgot pin link instance
+	 */
 	public void forgotPinClicked(View v){
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
 		alert.setTitle("Enter your e-mail");
 		alert.setMessage("E-mail:");
 
-		// Set an EditText view to get user input 
+		// Space to enter email address:
 		final EditText emailInput = new EditText(this);
 		emailInput.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
 		alert.setView(emailInput);
@@ -100,12 +114,20 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 		
 	}
 	
+	/**
+	 * Called after the user has entered an email and confirmed to reset pin.
+	 * @param email
+	 */
 	public void confirmResetPassword(String email){  
 		this.pleaseWaitDialog = ProgressDialog.show(this, "Sending Password", "Please wait...", true);
 		ResetPasswordService service = new ResetPasswordService(this, this, email);
 		service.execute();
 	}
 	
+	/**
+	 * Called from within the base RestService after a rest call completes.
+	 * @param result Can be any result type. This function should check the type and handle accordingly. 
+	 */
 	@Override
 	public void onRestReturn(RestResult result) {
 		this.pleaseWaitDialog.dismiss();
@@ -120,6 +142,11 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 		}
 	}
 	
+	/**
+	 * Called when the authentication rest call returns.
+	 * If the auth is successful, save the token, etc and redirect to the home screen.
+	 * @param authResult
+	 */
 	private void processAuthenticateResult(AuthenticateResult authResult){
 		SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
 		SharedPreferences.Editor editor = settings.edit();
@@ -131,8 +158,7 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 		if(!authResult.wasAuthenticationSuccessful()){
 			this.showAlertDialog("Login Failed", authResult.getErrorMessage());
 		}else{
-			 // Save the auth token:
-		       
+			 // Save the auth token in the app's shared preferences.
 			   editor = settings.edit();
 			   editor.putString("userToken", authResult.getCustomer().authentication_token);
 			   editor.putString("userName", authResult.getCustomer().first_name);
@@ -141,10 +167,13 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 			   Intent intent = new Intent(this, HomeActivity.class);
 		    	startActivity(intent);
 		    	finish();
-			 //  this.showAlertDialog("Login Successful!", "Authtoken: " + authResult.getCustomer().authentication_token);
 		}
 	}
 	
+	/**
+	 * Called when the reset pin rest call returns. Asks the user to check their email for a new pin.
+	 * @param result
+	 */
 	private void processResetPasswordResult(ResetPasswordResult result){
 		if(result.getResponseMessage() != null && result.getResponseMessage().trim().toLowerCase().equals("new pin sent")){
 			this.showAlertDialog("Pin reset", "Please check your e-mail");
