@@ -1,6 +1,7 @@
 package com.vosto.customer;
 
-import com.vosto.customer.services.GetTaxonsService;
+import com.vosto.customer.cart.activities.CartActivity;
+import com.vosto.customer.products.services.GetTaxonsService;
 
 import android.app.Activity;
 import android.content.Intent;

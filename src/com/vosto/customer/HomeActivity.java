@@ -14,11 +14,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.vosto.customer.accounts.SignInActivity;
+import com.vosto.customer.accounts.activities.SignInActivity;
+import com.vosto.customer.orders.activities.MyOrdersActivity;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
-import com.vosto.customer.services.SearchResult;
-import com.vosto.customer.services.SearchService;
+import com.vosto.customer.stores.activities.StoresActivity;
+import com.vosto.customer.stores.services.SearchResult;
+import com.vosto.customer.stores.services.SearchService;
 
 
 public class HomeActivity extends VostoBaseActivity implements OnRestReturn {

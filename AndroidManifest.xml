@@ -19,49 +19,45 @@
         android:label="@string/app_name"
        android:theme="@android:style/Theme.NoTitleBar">
         <activity
-            android:name="com.vosto.customer.StoresActivity"
+            android:name="com.vosto.customer.stores.activities.StoresActivity"
             android:label="@string/title_activity_stores" >
              
         </activity>
         <activity
-            android:name="com.vosto.customer.TaxonsActivity"
+            android:name="com.vosto.customer.products.activities.TaxonsActivity"
             android:label="@string/title_activity_store_menu" >
         </activity>
         <activity
-            android:name="com.vosto.customer.CartActivity">
-        </activity>
-        <activity
-            android:name="com.vosto.customer.LoginMenuActivity"
-            android:label="@string/title_activity_main" > 
+            android:name="com.vosto.customer.cart.activities.CartActivity">
         </activity>
         <activity
             android:name="com.vosto.customer.HomeActivity"
     	> 
     	</activity>
         <activity
-            android:name="com.vosto.customer.accounts.SignUpActivity"
+            android:name="com.vosto.customer.accounts.activities.SignUpActivity"
     	> 
         </activity>
          <activity
-            android:name="com.vosto.customer.accounts.SignInActivity">
+            android:name="com.vosto.customer.accounts.activities.SignInActivity">
         </activity>
          <activity
-            android:name="com.vosto.customer.ProductResultsActivity">
+            android:name="com.vosto.customer.products.activities.ProductResultsActivity">
         </activity>
          <activity
-            android:name="com.vosto.customer.MyOrdersActivity">
+            android:name="com.vosto.customer.orders.activities.MyOrdersActivity">
         </activity>
           <activity
-            android:name="com.vosto.customer.ReorderActivity">
+            android:name="com.vosto.customer.orders.activities.ReorderActivity">
         </activity>
         <activity
-            android:name="com.vosto.customer.ProductDetailsActivity">
+            android:name="com.vosto.customer.products.activities.ProductDetailsActivity">
         </activity>
           <activity
-            android:name="com.vosto.customer.EditCartItemActivity">
+            android:name="com.vosto.customer.cart.activities.EditCartItemActivity">
         </activity>
         <activity
-            android:name="com.vosto.customer.accounts.CreateAccountActivity"
+            android:name="com.vosto.customer.accounts.activities.CreateAccountActivity"
             android:label="@string/title_activity_create_account"
             android:parentActivityName="com.vosto.customer.MainActivity" >
             <meta-data

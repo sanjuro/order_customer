@@ -3,8 +3,8 @@ package com.vosto.customer.products;
 import java.util.ArrayList;
 
 import com.vosto.customer.R;
-import com.vosto.customer.services.vos.ProductVo;
-import com.vosto.customer.services.vos.TaxonVo;
+import com.vosto.customer.products.vos.ProductVo;
+import com.vosto.customer.products.vos.TaxonVo;
 
 import android.app.Activity;
 import android.content.Context;

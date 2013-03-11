@@ -1,7 +1,7 @@
 package com.vosto.customer;
 
-import com.vosto.customer.orders.Cart;
-import com.vosto.customer.services.vos.OrderVo;
+import com.vosto.customer.cart.vos.Cart;
+import com.vosto.customer.orders.vos.OrderVo;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

@@ -14,7 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.vosto.customer.R;
-import com.vosto.customer.services.vos.OrderVo;
+import com.vosto.customer.orders.vos.OrderVo;
 import com.vosto.customer.utils.MoneyUtils;
 
 public class PreviousOrderAdapter extends ArrayAdapter<OrderVo>{

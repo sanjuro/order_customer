@@ -1,6 +1,6 @@
 package com.vosto.customer;
 
-import com.vosto.customer.accounts.SignInActivity;
+import com.vosto.customer.accounts.activities.SignInActivity;
 
 import android.app.Activity;
 import android.content.Intent;
