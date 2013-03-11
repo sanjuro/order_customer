@@ -131,6 +131,9 @@ protected RestResult getRestResult(StatusLine statusLine, String responseJson){
 	if(this.resultType == ResultType.AUTHENTICATE_CUSTOMER){
 		result = new AuthenticateResult(200, responseJson);
 	}
+	if(this.resultType == ResultType.RESET_PIN){
+		result = new ResetPasswordResult(200, responseJson);
+	}
 	if(this.resultType == ResultType.GET_STORES){
 		result = new GetStoresResult(200, responseJson);
 	}

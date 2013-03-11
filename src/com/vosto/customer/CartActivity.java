@@ -132,6 +132,12 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	}
 	
 	public void placeOrderClicked(View v){
+		if(!isUserSignedIn()){
+			Intent intent = new Intent(this, SignInActivity.class);
+			startActivity(intent);
+			finish();
+			return;
+		}
 		Cart cart = getCart();
 		if(cart.getNumberOfItems() > 0){
 			promptForPin();

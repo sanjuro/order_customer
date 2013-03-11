@@ -58,6 +58,12 @@ public abstract class VostoBaseActivity extends Activity {
 		return token;
 	}
 	
+	public boolean isUserSignedIn(){
+		SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+		String token = settings.getString("userToken", "");
+		return !token.trim().equals("");
+	}
+	
 	public void saveCurrentOrder(OrderVo order){
 		VostoCustomerApp context = (VostoCustomerApp)getApplicationContext();
 		context.saveCurrentOrder(order);
