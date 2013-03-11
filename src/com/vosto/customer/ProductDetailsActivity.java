@@ -81,6 +81,13 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 	public void addToCartClicked(View v){
 		Cart cart = getCart();
 		
+		// Check if a cart is open with another store, and block this item:
+		if(cart.isOpen() && cart.getStore() != null && cart.getStore().getId() != this.product.getStore_id()){
+				Log.d("STO", "cart store: " + cart.getStore().getId() + ", product store: " + product.getStore_id());
+				this.showAlertDialog("Error", "You can only order from one store at a time.");
+				return;
+		}
+		
 		cart.setStore(this.store);
 		
 		CartItem item;
@@ -227,11 +234,9 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 		
 	}
 
-
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
 		// TODO Auto-generated method stub
-		
 	}
 
 }
