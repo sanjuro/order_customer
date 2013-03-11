@@ -92,7 +92,18 @@
           />
         </RelativeLayout>
         
-        
+        <TextView 
+         	android:id="@+id/lblForgotPin"
+         	android:layout_width="wrap_content"
+         	android:layout_height="wrap_content"
+         	android:layout_gravity="center_horizontal"
+         	android:layout_marginTop="10dp"
+         	android:textColor="#FFFFFF"
+         	android:textSize="18sp"
+         	android:clickable="true"
+         	android:onClick="forgotPinClicked"
+         	android:text="Forgot Pin?"   
+         />
         
    </LinearLayout>
    
