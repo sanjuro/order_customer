@@ -170,15 +170,6 @@
             	android:layout_marginBottom="68dp"
             >
               
-              <EditText
-               android:id="@+id/txtVoucherCode"
-               android:layout_width="fill_parent"
-               android:layout_height="wrap_content"
-               android:singleLine="true"
-                android:hint="Enter voucher code"
-              	
-               />
-              
               <RelativeLayout 
               	android:layout_width="fill_parent"
               	android:layout_height="wrap_content" 

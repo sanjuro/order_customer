@@ -1,7 +1,7 @@
 package com.vosto.customer.stores;
 
 import com.vosto.customer.R;
-import com.vosto.customer.services.vos.StoreVo;
+import com.vosto.customer.stores.vos.StoreVo;
 
 import android.app.Activity;
 import android.content.Context;
