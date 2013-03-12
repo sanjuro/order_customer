@@ -20,49 +20,49 @@
       <LinearLayout
          android:id="@+id/category_button"
          android:layout_width="116dp"
-         android:layout_height="38dp"
+         android:layout_height="30dp"
          android:background="@drawable/category_button_background"
          android:scaleType="fitXY"
          android:layout_centerVertical="true"
          android:layout_alignParentLeft="true"
          android:paddingLeft="5dp"
          android:layout_marginRight="10dp"
-        >
+         >
         
            <TextView
                android:id="@+id/lblCategory"
                android:layout_width="fill_parent"
                android:layout_height="wrap_content"
                android:layout_gravity="center_vertical"
-               android:textSize="22sp"
+               android:textSize="14sp"
                android:textColor="#000000"
                android:text="Breakfast"
            /> <!-- category label -->
            
-       </LinearLayout> <!-- category button -->
+      </LinearLayout> <!-- category button -->
        
-       <LinearLayout
+      <LinearLayout
            android:id="@+id/buy_section"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_alignParentRight="true"
-           	android:layout_centerVertical="true"
-           	android:orientation="horizontal"
+           android:layout_centerVertical="true"
+           android:orientation="horizontal"
            >
-           
 
-             <RelativeLayout 
-          	android:id="@+id/buy_button"
-          	android:layout_width="100dp"
-          	android:layout_height="30dp"
-          	android:scaleType="fitXY"
-          	android:layout_marginLeft="7dp"
-          	android:paddingRight="10dp"
-          	android:background="@drawable/buy_button"
-          	android:contentDescription="@string/filter_button" 
-          	android:onClick="buyButtonClicked"
-          >
-               <TextView
+           <RelativeLayout
+           android:id="@+id/buy_button"
+           android:layout_width="100dp"
+           android:layout_height="30dp"
+           android:scaleType="fitXY"
+           android:layout_marginLeft="7dp"
+           android:paddingRight="10dp"
+           android:background="@drawable/buy_button"
+           android:contentDescription="@string/filter_button"
+           android:onClick="buyButtonClicked"
+           >
+
+                <TextView
                	android:id="@+id/buy_button_price"
                	android:layout_width="wrap_content"
                	android:layout_height="wrap_content"
@@ -71,10 +71,9 @@
                	android:text="R100"   
                	android:layout_alignParentRight="true"
                	android:layout_alignParentTop="true" 
-               ></TextView>
-         
+                />
                
-               <TextView
+                <TextView
                	android:id="@+id/buy_button_quantity"
                	android:layout_width="wrap_content"
                	android:layout_height="wrap_content"
@@ -83,11 +82,11 @@
                	android:text="3 items"    
                	android:layout_alignParentRight="true"
                	android:layout_alignParentBottom="true" 
-               ></TextView>
+                />
                
            </RelativeLayout>
            
-       </LinearLayout> <!-- buy section -->
+      </LinearLayout> <!-- buy section -->
 
    </RelativeLayout> <!-- top bar -->
 
@@ -102,53 +101,54 @@
         >
           
        
-       <LinearLayout
-           android:id="@+id/product_details_section"
-           android:layout_width="fill_parent"
-           android:layout_height="wrap_content"
-           android:layout_alignParentLeft="true"
-           android:layout_alignParentTop="true"
-           android:layout_marginLeft="15dp"
-           android:layout_marginRight="15dp"
-           android:orientation="vertical"
-           >
+        <LinearLayout
+            android:id="@+id/product_details_section"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:orientation="vertical"
+            >
            
-           <RelativeLayout 
-           	android:layout_width="fill_parent"
-           	android:layout_height="wrap_content"
-           >
-               <TextView
-                   android:id="@+id/product_name"
-                   android:layout_width="220dp"
-                   android:layout_height="wrap_content"
-                   android:layout_alignParentLeft="true"
-                   android:layout_alignParentTop="true"
-                   android:textSize="16sp"
-                   android:textColor="#000000"
-                   android:singleLine="false"
-                   android:maxLines="2"
-                   android:text="Breakfast Burrito"
-                   />
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <TextView
+                    android:id="@+id/product_name"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:singleLine="false"
+                    android:maxLines="2"
+                    android:text="Breakfast Burrito"
+                    />
                
-               <TextView
-                   android:id="@+id/product_price"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_alignParentRight="true"
-                   android:layout_alignParentTop="true"
-                   android:textSize="16sp"
-                   android:textColor="#000000"
-                   android:text="R35.00"
-                   />
+                <TextView
+                    android:id="@+id/product_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:text="R35.00"
+                    />
                
-           </RelativeLayout> <!-- Product name / price -->
+            </RelativeLayout> <!-- Product name / price -->
            
-           <ImageView
-               android:layout_width="fill_parent"
-               android:layout_height="3dp"
-               android:src="@drawable/divider_gray"
-               android:layout_marginTop="5dp"
-               />
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="3dp"
+                android:src="@drawable/divider_gray"
+                android:layout_marginTop="5dp"
+                />
            
            <LinearLayout
                 android:id="@+id/description_block"
@@ -313,53 +313,52 @@
            android:id="@+id/bottom_bar"
            android:layout_width="fill_parent"
            android:layout_height="wrap_content"
-
            android:layout_alignParentBottom="true"
            >
 
-       <LinearLayout
-               android:id="@+id/bottom_section"
-               android:orientation="vertical"
-               android:layout_width="fill_parent"
-               android:layout_height="wrap_content"
-               android:layout_alignParentLeft="true"
-               android:layout_alignParentBottom="true"
-               android:layout_marginBottom="68dp"
-               >
+        <LinearLayout
+            android:id="@+id/bottom_section"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="68dp"
+            >
 
-       <RelativeLayout
-               android:layout_width="fill_parent"
-               android:layout_height="35dp"
-               android:background="@drawable/total_background_bar"
-               android:layout_marginBottom="10dp"
-               android:paddingRight="10dp"
-               >
-           <TextView
-                   android:id="@+id/lblTotal"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_centerVertical="true"
-                   android:layout_alignParentRight="true"
-                   android:textSize="22sp"
-                   android:textColor="#000000"
-                   android:text="Total: R70.00"
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/total_background_bar"
+                android:layout_marginBottom="10dp"
+                android:paddingRight="10dp"
+                >
 
-                   />
+                <TextView
+                    android:id="@+id/lblTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textSize="22sp"
+                    android:textColor="#000000"
+                    android:text="Total: R70.00"
+                    />
 
-       </RelativeLayout> <!-- total section -->
+            </RelativeLayout> <!-- total section -->
 
-       <ImageButton
-               android:id="@+id/add_to_cart_big_button"
-               android:layout_width="190dp"
-               android:layout_height="30dp"
-               android:scaleType="fitXY"
-               android:src="@drawable/add_to_cart_big_button"
-               android:background="@null"
-               android:layout_gravity="center_horizontal|center_vertical"
-               android:onClick="addToCartClicked"
-               android:layout_marginBottom="10dp"
-               />
-    </LinearLayout>
+            <ImageButton
+                android:id="@+id/add_to_cart_big_button"
+                android:layout_width="190dp"
+                android:layout_height="30dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/add_to_cart_big_button"
+                android:background="@null"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:onClick="addToCartClicked"
+                android:layout_marginBottom="10dp"
+                />
+        </LinearLayout>
 
    </RelativeLayout> <!-- bottom section -->
 
