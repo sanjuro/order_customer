@@ -96,7 +96,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@id/top_bar"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical"
         >
           
@@ -305,52 +306,60 @@
 
        </LinearLayout> <!-- product details block -->
 
-
    </RelativeLayout> <!-- main section -->
 
 
    <RelativeLayout
-       android:id="@+id/bottom_section"
-       android:layout_width="fill_parent"
-       android:layout_height="fill_parent"
-       android:layout_below="@id/main_section"
-       android:layout_marginTop="5dp"
-       android:layout_alignParentLeft="true"
-       android:layout_alignParentBottom="true"
-       android:orientation="vertical"
-       >
+           android:id="@+id/bottom_bar"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+
+           android:layout_alignParentBottom="true"
+           >
 
        <LinearLayout
-            android:id="@+id/bottom_section"
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/product_details_section"
-            >
+               android:id="@+id/bottom_section"
+               android:orientation="vertical"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:layout_alignParentLeft="true"
+               android:layout_alignParentBottom="true"
+               android:layout_marginBottom="68dp"
+               >
 
-            <TextView
-                android:id="@+id/lblTotal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:textSize="22sp"
-                android:textColor="#000000"
-                android:text="Total: R70.00"
-                />
+       <RelativeLayout
+               android:layout_width="fill_parent"
+               android:layout_height="35dp"
+               android:background="@drawable/total_background_bar"
+               android:layout_marginBottom="10dp"
+               android:paddingRight="10dp"
+               >
+           <TextView
+                   android:id="@+id/lblTotal"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerVertical="true"
+                   android:layout_alignParentRight="true"
+                   android:textSize="22sp"
+                   android:textColor="#000000"
+                   android:text="Total: R70.00"
 
-            <ImageButton
-                android:id="@+id/add_to_cart_big_button"
-                android:layout_width="218dp"
-                android:layout_height="40dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/add_to_cart_big_button"
-                android:background="@null"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:onClick="addToCartClicked"
-                />
+                   />
 
-        </LinearLayout> <!-- bottom section -->
+       </RelativeLayout> <!-- total section -->
+
+       <ImageButton
+               android:id="@+id/add_to_cart_big_button"
+               android:layout_width="190dp"
+               android:layout_height="30dp"
+               android:scaleType="fitXY"
+               android:src="@drawable/add_to_cart_big_button"
+               android:background="@null"
+               android:layout_gravity="center_horizontal|center_vertical"
+               android:onClick="addToCartClicked"
+               android:layout_marginBottom="10dp"
+               />
+    </LinearLayout>
 
    </RelativeLayout> <!-- bottom section -->
 

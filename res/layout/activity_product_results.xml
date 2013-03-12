@@ -58,8 +58,8 @@
            
            <ImageButton 
           	android:id="@+id/back_arrow"
-          	android:layout_width="100dp"
-          	android:layout_height="35dp"
+          	android:layout_width="85dp"
+          	android:layout_height="30dp"
           	android:layout_alignParentLeft="true"
           	android:scaleType="fitXY"
           	android:layout_marginRight="8dp"

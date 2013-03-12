@@ -18,11 +18,11 @@
             />
 
     <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            >
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        >
 
         <TextView
                 android:id="@+id/lblStoreName"
@@ -59,7 +59,6 @@
                 android:layout_toLeftOf="@id/selection_arrow"
                 />
 
-
         <TextView
                 android:id="@+id/lblAddress"
                 android:singleLine="false"
@@ -74,9 +73,6 @@
                 android:text="21 Jumper Street,\nCalifornia, United States"
                 />
 
-
     </RelativeLayout>
-
-
 
 </LinearLayout>   
