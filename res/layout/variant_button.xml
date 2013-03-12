@@ -1,7 +1,7 @@
 <LinearLayout
      xmlns:android="http://schemas.android.com/apk/res/android"
-     android:layout_width="150dp"
-     android:layout_height="44dp"
+     android:layout_width="130dp"
+     android:layout_height="40dp"
      android:orientation="horizontal"
      android:background="@drawable/variant_button_background"
      android:paddingLeft="8dp"
@@ -12,8 +12,8 @@
     >
     
     <ImageView 
-        android:layout_width="17dp"
-        android:layout_height="17dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         android:src="@drawable/thumbs_up"
         />
     
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="14sp"
   		android:text="Variant"
         />
     

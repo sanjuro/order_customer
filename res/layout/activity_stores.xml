@@ -62,8 +62,8 @@
    			android:id="@+id/lstStores"
    			android:layout_width="fill_parent"
    			android:layout_height="wrap_content"   
-   			android:layout_marginLeft="17dp" 
-   			android:layout_marginTop="20dp"
+   			android:layout_marginLeft="0dp"
+   			android:layout_marginTop="0dp"
    			android:divider="@android:color/transparent"
   			android:dividerHeight="38.0sp"
    		></ListView>

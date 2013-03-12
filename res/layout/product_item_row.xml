@@ -16,7 +16,7 @@
 	android:layout_height="wrap_content"
 	android:orientation="horizontal"
 	android:layout_marginLeft="17dp"
-	android:paddingBottom="10dp"
+	android:paddingBottom="0dp"
 >
 
     <ImageView 
@@ -86,10 +86,5 @@
     
     </LinearLayout>
 
-   <ImageView
-   	android:layout_width="fill_parent"
-   	android:layout_height="wrap_content"
-   	android:src="@drawable/orange_divider"
-   />
    
 </LinearLayout>
