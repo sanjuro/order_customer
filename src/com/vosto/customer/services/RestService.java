@@ -20,7 +20,17 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.protocol.HttpContext;
 
+import com.vosto.customer.accounts.services.AuthenticateResult;
+import com.vosto.customer.accounts.services.CreateAccountResult;
+import com.vosto.customer.accounts.services.ResetPasswordResult;
+import com.vosto.customer.orders.services.GetPreviousOrdersResult;
+import com.vosto.customer.orders.services.PlaceOrderResult;
+import com.vosto.customer.products.services.GetProductsResult;
+import com.vosto.customer.products.services.GetTaxonsResult;
+import com.vosto.customer.products.services.GetVariantsResult;
 import com.vosto.customer.services.OnRestReturn;
+import com.vosto.customer.stores.services.GetStoresResult;
+import com.vosto.customer.stores.services.SearchResult;
 
 import android.os.AsyncTask;
 

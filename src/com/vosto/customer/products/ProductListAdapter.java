@@ -3,7 +3,7 @@ package com.vosto.customer.products;
 import java.util.ArrayList;
 
 import com.vosto.customer.R;
-import com.vosto.customer.services.vos.ProductVo;
+import com.vosto.customer.products.vos.ProductVo;
 import com.vosto.customer.utils.MoneyUtils;
 
 import android.app.Activity;

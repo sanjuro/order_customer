@@ -2,13 +2,18 @@ package com.vosto.customer;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.vosto.customer.orders.Cart;
-import com.vosto.customer.services.vos.OrderVo;
+import com.vosto.customer.cart.vos.Cart;
+import com.vosto.customer.orders.vos.OrderVo;
 
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+/**
+ * The overridden application context, so that we can store the cart, authtoken, order, etc in the app
+ * while it is running. This should be used whenever an application context is required.
+ *
+ */
 public class VostoCustomerApp extends Application {
 
   private Cart latestCart;
@@ -34,10 +39,7 @@ public class VostoCustomerApp extends Application {
   public void closeCart(){
 	  Log.d("CLO", "Closing cart.");
 	  if(this.hasOpenCart()){
-		  Log.d("CLO", "Cart is open, so closing it.");
 		  this.latestCart.close();
-	  }else{
-		  Log.d("CLO", "Cart is NOT open, so NOT closing it.");
 	  }
   }
   
