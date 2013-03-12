@@ -90,17 +90,15 @@
        </LinearLayout> <!-- buy section -->
 
    </RelativeLayout> <!-- top bar -->
-   
-
 
    <RelativeLayout
-    android:id="@+id/main_section"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_below="@id/top_bar"
-    android:layout_marginTop="5dp"
-    android:orientation="vertical"   
-    >
+        android:id="@+id/main_section"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/top_bar"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        >
           
        
        <LinearLayout
@@ -302,46 +300,46 @@
                            android:singleLine="false"
                            android:textSize="12sp"
                            android:maxLines="5"
-                           android:text="Special Instructions test withj long mesage"
                            />
            </LinearLayout> <!-- special instructions block -->
 
        </LinearLayout> <!-- product details block -->
-       
+
+
+   </RelativeLayout> <!-- main section -->
+
+
+   <RelativeLayout
+       android:id="@+id/bottom_section"
+       android:layout_width="fill_parent"
+       android:layout_height="fill_parent"
+       android:layout_below="@id/main_section"
+       android:layout_marginTop="5dp"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentBottom="true"
+       android:orientation="vertical"
+       >
 
        <LinearLayout
-           android:id="@+id/bottom_section"
-           android:orientation="vertical"
-           android:layout_width="fill_parent"
-           android:layout_height="wrap_content"
-           android:layout_alignParentLeft="true"
-           android:layout_alignParentBottom="true"
-           android:layout_below="@id/product_details_section"
-           android:layout_marginTop="30dp"
-           >
+            android:id="@+id/bottom_section"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/product_details_section"
+            >
 
-           <RelativeLayout
-                android:layout_width="fill_parent"
-              	android:layout_height="35dp" 
-              	android:background="@drawable/total_background_bar"
-              	android:layout_marginBottom="10dp"
-              	android:paddingRight="10dp"
-                >
+            <TextView
+                android:id="@+id/lblTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:textSize="22sp"
+                android:textColor="#000000"
+                android:text="Total: R70.00"
+                />
 
-                <TextView
-                      android:id="@+id/lblTotal"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_centerVertical="true"
-                      android:layout_alignParentRight="true"
-                      android:textSize="22sp"
-                      android:textColor="#000000"
-                      android:text="Total: R70.00"
-                      />
-                  
-           </RelativeLayout> <!-- total section -->
-              
-           <ImageButton
+            <ImageButton
                 android:id="@+id/add_to_cart_big_button"
                 android:layout_width="218dp"
                 android:layout_height="40dp"
@@ -351,9 +349,9 @@
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:onClick="addToCartClicked"
                 />
-              
-       </LinearLayout> <!-- bottom section -->
 
-   </RelativeLayout> <!-- main section -->
+        </LinearLayout> <!-- bottom section -->
+
+   </RelativeLayout> <!-- bottom section -->
 
 </RelativeLayout>
