@@ -1,98 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:orientation="horizontal"
-	android:layout_marginLeft="17dp"
-	android:paddingBottom="10dp"
->
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="0dp"
+        android:paddingBottom="0dp"
+        >
 
-    <ImageView 
-    	android:layout_width="50dp"
-    	android:layout_height="50dp"
-    	android:src="@drawable/storefront"   
-    	android:background="@drawable/image_border_white"
-    />
-    
+    <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/storefront"
+            android:background="@drawable/image_border_white"
+            />
+
     <RelativeLayout
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"  
-    	android:layout_marginLeft="15dp"  
-    	android:layout_marginRight="15dp" 
-    >
-    
-      <TextView
-      	android:id="@+id/lblStoreName"
-      	android:layout_width="175dp"
-      	android:layout_height="wrap_content"
-      	android:textSize="20sp"
-      	android:textColor="#676357"
-      	android:layout_alignParentTop="true"
-      	android:layout_alignParentLeft="true"   
-      	 
-      />
-          
-          
-   <ImageView 
-    android:id="@+id/selection_arrow"
-   	android:src="@drawable/selection_arrow"
-   	android:layout_width="10dp"
-   	android:layout_height="13dp"
-   	android:layout_alignParentRight="true"
-   	android:layout_alignParentTop="true"
-   	android:layout_marginLeft="5dp"
-   	android:layout_marginTop="10dp"
-   />
-   
-   <TextView
-    android:id="@+id/lblDistance"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="#d8d5ce"   
-    android:text="10 km"
-    android:textSize="16sp"
-    android:textColor="#676357"
-    android:layout_toLeftOf="@id/selection_arrow"
-   />
-   
-   <View
-    android:id="@+id/divider_line"
-    android:layout_width="fill_parent"
-    android:layout_height="1dp"
-    android:background="@android:color/darker_gray"
-    android:layout_below="@id/lblStoreName"
-    android:layout_alignParentLeft="true"
-    />
-   
-   <TextView 
-   	android:id="@+id/lblAddress"
-   	android:singleLine="false"
-   	android:maxLines="2"
-   	android:layout_width="fill_parent"
-   	android:layout_height="wrap_content"
-   	android:layout_alignParentLeft="true"
-   	android:layout_below="@id/divider_line"
-   	android:textSize="14sp"
-   	android:gravity="fill"
-   	android:textColor="#7b7461"
-   	android:text="21 Jumper Street,\nCalifornia, United States"
-   	
-   	    
-       
-   />
-   
-   
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            >
 
-   
-   
-   
-        
-        
-        
+        <TextView
+                android:id="@+id/lblStoreName"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="#676357"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                />
+
+
+        <ImageView
+                android:id="@+id/selection_arrow"
+                android:src="@drawable/selection_arrow"
+                android:layout_width="10dp"
+                android:layout_height="13dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="30dp"
+                />
+
+        <TextView
+                android:id="@+id/lblDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#d8d5ce"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="10 km"
+                android:textSize="12sp"
+                android:textColor="#676357"
+                android:layout_toLeftOf="@id/selection_arrow"
+                />
+
+
+        <TextView
+                android:id="@+id/lblAddress"
+                android:singleLine="false"
+                android:maxLines="2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/lblStoreName"
+                android:textSize="10sp"
+                android:gravity="fill"
+                android:textColor="#7b7461"
+                android:text="21 Jumper Street,\nCalifornia, United States"
+                />
+
+
     </RelativeLayout>
-    
-    
-    
+
+
+
 </LinearLayout>   

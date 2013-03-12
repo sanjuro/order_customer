@@ -35,68 +35,61 @@
     
       <TextView
       	android:id="@+id/lblProductName"
-      	android:layout_width="115dp"
+      	android:layout_width="145dp"
       	android:layout_height="wrap_content"
-      	android:textSize="18sp"
+      	android:textSize="12sp"
       	android:textColor="#676357"
       	android:layout_alignParentTop="true"
-      	android:layout_alignParentLeft="true"   
-      	 
+      	android:layout_alignParentLeft="true"
+        android:text="Spur's Famous Pork Ribs"
       />
+
+        <TextView
+                android:id="@+id/lblPrice"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:textSize="12sp"
+                android:gravity="fill"
+                android:textColor="#7b7461"
+                android:text="R 35.00"
+                />
+
+        <ImageView
+                android:id="@+id/selection_arrow"
+                android:src="@drawable/selection_arrow"
+                android:layout_width="10dp"
+                android:layout_height="13dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="30dp"
+                />
+
           
-          
-   <ImageButton 
-    android:id="@+id/add_to_cart_button"
-   	android:src="@drawable/add_to_cart_button"
-   	android:scaleType="fitXY"
-   	android:layout_width="105dp"
-   	android:layout_height="30dp"
-   	android:layout_alignParentRight="true"
-   	android:onClick="addToCartClicked"
-   	android:background="@null"
-   />
-   
-  
-   
-   <View
-    android:id="@+id/divider_line"
-    android:layout_width="fill_parent"
-    android:layout_height="1dp"
-    android:background="@android:color/darker_gray"
-    android:layout_below="@id/lblProductName"
-    android:layout_alignParentLeft="true"
-    />
-   
-   <TextView 
-   	android:id="@+id/lblPrice"
-   	android:layout_width="fill_parent"
-   	android:layout_height="wrap_content"
-   	android:layout_alignParentLeft="true"
-   	android:layout_below="@id/divider_line"
-   	android:textSize="14sp"
-   	android:gravity="fill"
-   	android:textColor="#7b7461"
-   	android:text="R 35.00"
-   	
-   	    
-       
-   />
-   
-   
-   
-   
-        
-        
-        
+        <ImageButton
+           android:id="@+id/add_to_cart_button"
+           android:src="@drawable/add_to_cart_button"
+           android:scaleType="fitXY"
+           android:layout_width="80dp"
+           android:layout_height="20dp"
+           android:layout_alignParentLeft="true"
+           android:layout_below="@id/lblProductName"
+           android:onClick="addToCartClicked"
+           android:background="@null"
+        />
+
     </RelativeLayout>
     
     
     
-</LinearLayout>   
+    </LinearLayout>
+
    <ImageView
    	android:layout_width="fill_parent"
    	android:layout_height="wrap_content"
    	android:src="@drawable/orange_divider"
    />
    
-   </LinearLayout>
+</LinearLayout>

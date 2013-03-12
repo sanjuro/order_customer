@@ -18,21 +18,8 @@
        android:paddingLeft="15dp"
        android:paddingRight="10dp">
 
-       
-       
-           <ImageButton 
-          	android:id="@+id/filter_button"
-          	android:layout_width="103dp"
-          	android:layout_height="30dp"
-          	android:layout_alignParentRight="true"
-          	android:scaleType="fitXY"
-          	android:layout_marginRight="8dp"
-          	android:src="@drawable/filter_button"
-          	android:background="@null"
-          	android:onClick="homeClicked"
-          	android:contentDescription="@string/filter_button" 
-          />
-           
+
+
            
        
    </RelativeLayout>
@@ -46,74 +33,10 @@
     android:layout_above="@id/bottom_bar"
     android:layout_marginLeft="0dp"
     android:layout_marginRight="0dp"
-    android:layout_marginTop="15dp"
+    android:layout_marginTop="0dp"
     android:orientation="vertical"   
     >
-        
-   		<RelativeLayout 
-   		    android:id="@+id/listMapSection"
-   		    android:layout_width="fill_parent"
-   		    android:layout_height="wrap_content"
-   		    android:layout_marginRight="10dp"
-   		    android:orientation="horizontal"
-   		    android:layout_gravity="center_vertical"
-   		>
-   		    
-   		    <ImageView 
-   		    	android:layout_width="89.7dp"
-   		    	android:layout_height="50dp"
-   		    	android:layout_alignParentRight="true"
-   		    	android:src="@drawable/map"
-   		    	android:layout_centerVertical="true"    
-   		    />
-   		    
-   		    <LinearLayout 
-   		       android:id="@+id/listMapBar"
-               android:orientation="horizontal"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_centerHorizontal="true"
-               >
-               
-                 <ImageButton 
-          	android:id="@+id/list_button"
-          	android:layout_width="60dp"
-          	android:layout_height="38dp"
-          	android:scaleType="fitXY"
-          	android:layout_marginRight="0dp"
-          	android:src="@drawable/list_button"
-          	android:background="@null"
-          />
-                 
-                 <ImageButton 
-          	android:id="@+id/map_button"
-          	android:layout_width="60dp"
-          	android:layout_height="38dp"
-          	android:scaleType="fitXY"
-          	android:layout_marginRight="0dp"
-          	android:src="@drawable/map_button"
-          	android:background="@null"
-          />
-                 
-                        <ImageView 
-          	android:id="@+id/magnifying_glass"
-          	android:layout_width="17dp"
-          	android:layout_height="15dp"
-          	android:scaleType="fitXY"
-          	android:layout_marginRight="5dp"
-          	android:layout_marginLeft="3dp"
-          	android:layout_gravity="center_vertical"
-          	android:src="@drawable/magnifying_glass"
-          	android:background="@null"
-          />
-               
-           </LinearLayout>
-           
-   		    
-       
-   		    
-   		</RelativeLayout>
-   		
+
    		 <LinearLayout 
    		       android:id="@+id/closeToYouBar"
                android:orientation="horizontal"
@@ -147,84 +70,7 @@
    
        
    </LinearLayout>
-   
-      <LinearLayout
-       android:id="@+id/bottom_bar"
-       android:layout_width="fill_parent"
-       android:layout_height="65dp"
-       android:background="@drawable/bottom_bar_gray" 
-       android:orientation="horizontal"
-       android:paddingLeft="10dp"
-       android:paddingRight="10dp"
-       android:layout_alignParentBottom="true"
-       android:gravity="center_vertical">    
-       
-         
-          <ImageButton 
-          	android:id="@+id/house_button"
-          	android:layout_width="40dp"
-          	android:layout_height="25dp"
-          	android:scaleType="fitXY"
-          	android:layout_marginRight="20dp"
-          	android:src="@drawable/house"
-          	android:background="@null"
-          	android:onClick="homeClicked"
-          	android:contentDescription="@string/sign_in_button" 
-          />
-          
-          <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="1" >
-    </View>
-          
-          <ImageButton 
-          	android:id="@+id/pencil_button"
-          	android:layout_width="40dp"
-          	android:layout_height="25dp"
-          	android:scaleType="fitXY"
-          	android:layout_marginRight="20dp"
-          	android:src="@drawable/pencil"
-          	android:background="@null"
-          	android:onClick="ordersPressed"
-          	android:contentDescription="@string/sign_in_button"   
-          />
-          
-          <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="1" >
-    </View>
-    
-          <ImageButton 
-          	android:id="@+id/star_button"
-          	android:layout_width="40dp"
-          	android:layout_height="25dp"
-          	android:scaleType="fitXY"
-          	android:layout_marginRight="20dp"
-          	android:src="@drawable/star"
-          	android:background="@null"
-          	android:contentDescription="@string/sign_in_button"   
-          />
-          <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="1" >
-    </View>
-    
-          <ImageButton 
-          	android:id="@+id/wrench_button"
-          	android:layout_width="40dp"
-          	android:layout_height="25dp"
-          	android:scaleType="fitXY"
-          	android:layout_marginRight="20dp"
-          	android:src="@drawable/wrench"
-          	android:background="@null"
-          	android:contentDescription="@string/sign_in_button"   
-          />
-          
-   </LinearLayout>
-    
+
     
 </RelativeLayout>
 
