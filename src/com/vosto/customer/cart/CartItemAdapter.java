@@ -75,7 +75,7 @@ public class CartItemAdapter extends ArrayAdapter<CartItem>{
     {
         TextView lblProductName;
         TextView lblVariant;
-       // TextView lblQuantity;
+        // TextView lblQuantity;
         TextView lblPrice;
         ImageButton removeButton;
         ImageButton editButton;

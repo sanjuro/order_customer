@@ -19,7 +19,7 @@
                 >
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/name_of_user"
+                      android:id="@+id/nameOfUser"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:drawablePadding="6dip"
@@ -36,7 +36,7 @@
                     />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/name_of_user"
+                      android:id="@+id/navOrdersButton"
                       android:layout_width="match_parent"
                       android:layout_height="40dp"
                       android:background="@drawable/nav_menu_heading"
@@ -48,6 +48,8 @@
                       android:singleLine="true"
                       android:textColor="@android:color/white"
                       android:text="MY ORDERS"
+                      android:onClick="myOrdersPressed"
+                      android:clickable="true"
                     />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -65,6 +67,8 @@
                       android:textAppearance="?android:attr/textAppearanceMedium"
                       android:textColor="@android:color/white"
                       android:text="Open Orders"
+                      android:onClick="myOrdersPressed"
+                      android:clickable="true"
                     />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -80,6 +84,8 @@
                       android:singleLine="true"
                       android:textColor="@android:color/white"
                       android:text="BACK TO STORES"
+                      android:onClick="storesPressed"
+                      android:clickable="true"
                     />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -159,7 +165,7 @@
                       android:singleLine="true"
                       android:textAppearance="?android:attr/textAppearanceMedium"
                       android:textColor="@android:color/white"
-                      android:text="Account Settins"
+                      android:text="Account Settings"
                     />
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                       android:id="@+id/name_of_user"
@@ -175,7 +181,7 @@
                       android:singleLine="true"
                       android:textAppearance="?android:attr/textAppearanceMedium"
                       android:textColor="@android:color/white"
-                      android:text="Terms and Polciies"
+                      android:text="Terms and Policies"
                     />
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                       android:id="@+id/name_of_user"
@@ -217,7 +223,8 @@
        android:paddingRight="15dp">
 
        
-       <ImageView 
+       <ImageView
+            android:id="@+id/menuButton"
         	android:layout_width="35dp"
         	android:layout_height="35dp"
         	android:src="@drawable/menu"

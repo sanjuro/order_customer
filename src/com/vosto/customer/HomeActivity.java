@@ -14,7 +14,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.agimind.widget.SlideHolder;
+
 import com.vosto.customer.accounts.activities.SignInActivity;
+import com.vosto.customer.cart.activities.CartActivity;
 import com.vosto.customer.orders.activities.MyOrdersActivity;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
@@ -32,6 +35,7 @@ import com.vosto.customer.stores.services.SearchService;
 public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
 	
 	private ProgressDialog pleaseWaitDialog;
+    private SlideHolder mSlideHolder;
 	
 	@Override
     public void onCreate(Bundle args)
@@ -44,19 +48,29 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
         userNameLabel.setVisibility(View.GONE);
         
         ImageButton signInButton = (ImageButton)findViewById(R.id.sign_in_arrow_button);
-        
+
+        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+
+        View toggleView = findViewById(R.id.menuButton);
+        toggleView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mSlideHolder.toggle();
+            }
+        });
+
+
         // Display either a sign in button or the user's name depending if someone is logged in:
         SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
         if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
         	//User logged in:
         	signInButton.setVisibility(View.GONE);
-        	userNameLabel.setText("Hi, " + settings.getString("userName", "user"));
-        	userNameLabel.setVisibility(View.VISIBLE);
+            TextView nameOfUser = (TextView)findViewById(R.id.name_of_user);
+            nameOfUser.setText(settings.getString("userName", "user"));
         }else{
         	//User not logged in:
         	userNameLabel.setVisibility(View.GONE);
-        	signInButton.setVisibility(View.VISIBLE);
-        	
         }
     }
 	
@@ -183,12 +197,15 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
      * Simply opens the orders activity
      * @param v
      */
-	public void ordersPressed(View v) {
+	public void myOrdersPressed(View v) {
 		Intent intent = new Intent(this, MyOrdersActivity.class);
 		startActivity(intent);
 	}
 
-
+    public void storesPressed(View v){
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+    }
 
 	
 }

@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.agimind.widget.SlideHolder;
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
 import com.vosto.customer.R.id;
@@ -51,10 +52,22 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 	private ListView lstPreviousOrders;
 	private LinearLayout orderHistorySection;
 	private LinearLayout currentOrderSection;
+    private SlideHolder mSlideHolder;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_orders);
+
+        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+
+        View toggleView = findViewById(R.id.menuButton);
+        toggleView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mSlideHolder.toggle();
+            }
+        });
 		
 		this.lstPreviousOrders = (ListView)findViewById(R.id.lstPreviousOrders);
 		this.orderHistorySection = (LinearLayout)findViewById(R.id.order_history_section);

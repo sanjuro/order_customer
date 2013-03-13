@@ -40,6 +40,7 @@ public class CurrentOrderItemAdapter extends ArrayAdapter<LineItemVo>{
             holder = new CartItemHolder();
             holder.lblProductName = (TextView)row.findViewById(R.id.lblProductName);
             holder.lblPrice = (TextView)row.findViewById(R.id.lblProductPrice);
+            // holder.lblQuantity = (TextView)row.findViewById(R.id.lblProductQuantity);
             
             row.setTag(holder);
         }
@@ -52,7 +53,8 @@ public class CurrentOrderItemAdapter extends ArrayAdapter<LineItemVo>{
 
         holder.lblProductName.setText(item.getName());
         holder.lblPrice.setText(MoneyUtils.getRandString(item.getPrice()));
-      
+        // holder.lblQuantity.setText(item.getQuantity());
+
         return row;
     }
     
@@ -60,5 +62,6 @@ public class CurrentOrderItemAdapter extends ArrayAdapter<LineItemVo>{
     {
         TextView lblProductName;
         TextView lblPrice;
+        TextView lblQuantity;
     }
 }
