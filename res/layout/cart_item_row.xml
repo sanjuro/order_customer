@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
       xmlns:android="http://schemas.android.com/apk/res/android"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
+      android:paddingTop="10dp"
+      android:paddingLeft="10dp"
+      android:paddingBottom="10dp"
       android:layout_marginBottom="15dp"
       android:background="#ede9e1"
- >
-    
+      >
     
 
-<LinearLayout
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:orientation="horizontal"
-	android:layout_marginLeft="17dp"
-	android:paddingBottom="10dp"
->
+      <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        >
 
     <ImageView 
     	android:layout_width="50dp"
@@ -28,8 +30,8 @@
     <LinearLayout
     	android:layout_width="fill_parent"
     	android:layout_height="wrap_content"  
-    	android:layout_marginLeft="15dp"  
-    	android:layout_marginRight="15dp" 
+    	android:layout_marginLeft="15dp"
+    	android:layout_marginRight="15dp"
     	android:orientation="vertical"
     >
     
@@ -37,17 +39,16 @@
       	android:id="@+id/lblProductName"
       	android:layout_width="fill_parent"
       	android:layout_height="wrap_content"
-      	android:textSize="22sp"
+      	android:textSize="14sp"
       	android:textColor="#676357"
-    
-      	 
+          android:text="Spur's Famous Pork Ribs"
       />
       
       <TextView
       	android:id="@+id/lblVariant"
       	android:layout_width="115dp"
       	android:layout_height="wrap_content"
-      	android:textSize="14sp"
+      	android:textSize="12sp"
       	android:textColor="#676357"
       
       	 
@@ -57,31 +58,12 @@
       	android:id="@+id/lblPrice"
       	android:layout_width="115dp"
       	android:layout_height="wrap_content"
-      	android:textSize="14sp"
+      	android:textSize="12sp"
       	android:textColor="#676357"
        
       	 
       />
-          
-          
-  
-   
-  
-   
-  
-   
-  
-   	
-   	    
-       
-   
-   
-   
-   
-   
-        
-        
-        
+
     </LinearLayout>
     
     
@@ -113,11 +95,11 @@
           <ImageButton
             android:id="@+id/remove_button"
             android:src="@drawable/remove_button"
-               android:scaleType="fitXY"
-             android:layout_width="70.5dp"
+            android:scaleType="fitXY"
+            android:layout_width="70.5dp"
             android:layout_height="21.45dp"
-              android:background="@null"
-              android:onClick="removeButtonClicked"
+            android:background="@null"
+            android:onClick="removeButtonClicked"
             />
         
     </LinearLayout>

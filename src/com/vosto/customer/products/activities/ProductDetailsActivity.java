@@ -96,19 +96,19 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 		}
 		
 		cart.setStore(this.store);
-		
+
 		CartItem item;
 		if(this.chosenVariant != null){
 			item = new CartItem(this.product, this.chosenVariant, this.quantity);
 		}else{
 			item = new CartItem(this.product, this.quantity);
 		}
-		
+
 		EditText txtSpecialInstructions = (EditText)findViewById(R.id.txtSpecialInstructions);
 		if(!txtSpecialInstructions.getText().toString().trim().equals("")){
 			item.setSpecialInstructions(txtSpecialInstructions.getText().toString().trim());
 		}
-		
+
 		cart.addItem(item);
 		saveCart(cart);
 		

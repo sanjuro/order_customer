@@ -47,87 +47,86 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@id/top_bar"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
         android:layout_marginTop="5dp"
         android:orientation="vertical"
         >
 
-        <ListView
-            android:id="@+id/lstCartItems"
-            android:layout_width="fill_parent"
-            android:layout_height="300dp"
-            android:divider="@android:color/transparent"
-  		    android:dividerHeight="18.0sp"
-            />
+        <ScrollView
+           android:layout_width="fill_parent"
+           android:layout_height="fill_parent"
+           >
+
+            <LinearLayout
+                    android:id="@+id/bottom_section"
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="68dp"
+                    >
+
+                <ListView
+                        android:id="@+id/lstCartItems"
+                        android:layout_width="fill_parent"
+                        android:layout_height="300dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:divider="@android:color/transparent"
+                        android:dividerHeight="18.0sp"
+                        />
+
+                <RelativeLayout
+                        android:id="@+id/totals_section"
+                        android:layout_width="fill_parent"
+                        android:layout_height="55dp"
+                        android:background="@drawable/total_background_bar"
+                        android:layout_marginBottom="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="5dp"
+                        >
+
+                    <TextView
+                            android:id="@+id/lblSubtotal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:textSize="16sp"
+                            android:textColor="#000000"
+                            android:text="Subtotal: R70.00"
+                            />
+
+                    <TextView
+                            android:id="@+id/lblTotal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@+id/lblSubtotal"
+                            android:paddingTop="5dp"
+                            android:textSize="20sp"
+                            android:textColor="#000000"
+                            android:text="Total: R70.00"
+                            />
+
+                </RelativeLayout> <!-- total section -->
+
+                <ImageButton
+                        android:id="@+id/place_order_button"
+                        android:layout_width="190dp"
+                        android:layout_height="30dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/place_order_button"
+                        android:layout_below="@+id/totals_section"
+                        android:background="@null"
+                        android:layout_gravity="center_horizontal"
+                        android:onClick="placeOrderClicked"
+                        />
+            </LinearLayout>
+
+        </ScrollView>
 
    </RelativeLayout>
 
-    <RelativeLayout
-            android:id="@+id/bottom_bar"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
-            >
-
-
-        <LinearLayout
-            android:id="@+id/bottom_section"
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="68dp"
-            >
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="55dp"
-                android:background="@drawable/total_background_bar"
-                android:layout_marginBottom="10dp"
-                android:paddingTop="5dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="5dp"
-                >
-
-                <TextView
-                    android:id="@+id/lblSubtotal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:textSize="16sp"
-                    android:textColor="#000000"
-                    android:text="Subtotal: R70.00"
-                    />
-
-                <TextView
-                    android:id="@+id/lblTotal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/lblSubtotal"
-                    android:paddingTop="5dp"
-                    android:textSize="20sp"
-                    android:textColor="#000000"
-                    android:text="Total: R70.00"
-                    />
-
-            </RelativeLayout> <!-- total section -->
-
-            <ImageButton
-                android:id="@+id/place_order_button"
-                android:layout_width="190dp"
-                android:layout_height="30dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/place_order_button"
-                android:background="@null"
-                android:layout_gravity="center_horizontal"
-                android:onClick="placeOrderClicked"
-                />
-        </LinearLayout>
-
-    </RelativeLayout> <!-- bottom section -->
 
 </RelativeLayout>
