@@ -32,6 +32,7 @@
                 android:textColor="#676357"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
+                android:text="Spur N1 City, Teax Spur"
                 />
 
 

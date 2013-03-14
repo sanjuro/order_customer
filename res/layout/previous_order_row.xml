@@ -4,43 +4,69 @@
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
+      android:layout_marginLeft="15dp"
+      android:layout_marginRight="15dp"
  >
  
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         >
         
         <TextView
-         	android:layout_width="wrap_content"
-         	android:layout_height="wrap_content"
-         	android:textSize="16sp"
-         	android:textColor="#6c675c"
-         	android:textStyle="bold"
-         	android:text="Order Number: "   
-         />
+            android:id="@+id/lblOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#6c675c"
+            android:textStyle="bold"
+            android:text="Order Number: "
+            />
         
-           <TextView
+        <TextView
             android:id="@+id/lblOrderNumber"
-         	android:layout_width="wrap_content"
-         	android:layout_height="wrap_content"
-         	android:textColor="#6c675c"
-         	android:textSize="16sp"
-         />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lblOrder"
+            android:textColor="#6c675c"
+            android:textSize="16sp"
+            android:text="R12341234"
+            />
+
+        <ImageView
+                android:id="@+id/selection_arrow"
+                android:src="@drawable/selection_arrow"
+                android:layout_width="10dp"
+                android:layout_height="13dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="30dp"
+                />
         
-    </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        >
     
-    <TextView 
-     	android:id="@+id/lblDateOrdered"
-     	android:layout_width="wrap_content"
-     	android:layout_height="wrap_content"
-     	android:textColor="#6c675c"
-     	android:textSize="16sp"   
-     	android:textStyle="italic"
-     />
-    
-    
+        <TextView
+            android:id="@+id/lblDateOrdered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#6c675c"
+            android:textSize="16sp"
+            android:textStyle="italic"
+             />
+
+
+    </RelativeLayout>
     
 </LinearLayout>
    
