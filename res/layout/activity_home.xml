@@ -296,6 +296,7 @@
           	android:src="@drawable/find_by_location_button"
           	android:background="@null"
           	android:contentDescription="@string/sign_up_button"   
+          	android:onClick="findByLocationClicked"
           />
          
          
@@ -318,6 +319,7 @@
           	android:src="@drawable/find_by_food_type_button"
           	android:background="@null"
           	android:contentDescription="@string/sign_up_button"   
+          	android:onClick="findByCategoryClicked"
           />
 
          
@@ -345,9 +347,8 @@
        
         <FrameLayout
          android:layout_width="fill_parent"
-        android:layout_height="65dp"
+        android:layout_height="50dp"
         android:background="@null"
-        
         android:gravity="center_horizontal"
         
         >
@@ -377,6 +378,17 @@
         </FrameLayout>
     
     </LinearLayout>
+    
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:singleLine="true"
+           android:textSize="18sp"
+           android:textAppearance="?android:attr/textAppearanceMedium"
+           android:textColor="#000000"
+           android:text="QUICKSEARCH stores"
+           android:layout_gravity="center_horizontal"
+           />
 
        <LinearLayout
                android:layout_width="fill_parent"

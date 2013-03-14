@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -17,7 +19,6 @@ import android.widget.TextView;
 import com.agimind.widget.SlideHolder;
 
 import com.vosto.customer.accounts.activities.SignInActivity;
-import com.vosto.customer.cart.activities.CartActivity;
 import com.vosto.customer.orders.activities.MyOrdersActivity;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
@@ -32,10 +33,19 @@ import com.vosto.customer.stores.services.SearchService;
  * This is the home screen containing the search box. It is where the user starts searching for stores.
  *
  */
-public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
+public class HomeActivity extends VostoBaseActivity implements OnRestReturn, LocationListener {
 	
 	private ProgressDialog pleaseWaitDialog;
     private SlideHolder mSlideHolder;
+    
+    /*
+     * If the gps is enabled, this activity will keep listening for location updates
+     * for the life of the activity, and it will keep updating this variable.
+     * When we do a search by location, it uses this, or else it just gets the location from
+     * the best available provider. (Remember that gps takes time to get a location fix, so we have to
+     * start listening for it before the user presses the search button).
+     */
+    private Location currentGpsLocation;
 	
 	@Override
     public void onCreate(Bundle args)
@@ -72,8 +82,25 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
         	//User not logged in:
         	userNameLabel.setVisibility(View.GONE);
         }
+        
+        //Start listening for gps updates:
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(
+				LocationManager.GPS_PROVIDER,
+				1000 * 5, // min 5 seconds between location updates (can't be too frequent...battery life)
+				20, // will only update for every 20 meters the device moves
+				this);
     }
 	
+	public void onResume(Bundle args){
+		//Start listening for gps updates (user has returned to this activity and might want to search soon):
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(
+				LocationManager.GPS_PROVIDER,
+				1000 * 5, // min 5 seconds between location updates (can't be too frequent...battery life)
+				20, // will only update for every 20 meters the device moves
+				this);
+	}
 	
 	public void signInClicked(View v){
 		Intent intent = new Intent(this, SignInActivity.class);
@@ -92,33 +119,36 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
 			return;
 		}
 		
-		// Try to get a location. If we don't have a location we just leave it blank in the search.
-		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-		boolean enabled = locationManager
-		  .isProviderEnabled(LocationManager.GPS_PROVIDER);
+		// Check if we have an updated GPS location, otherwise try to get a new one:
+		Location location = null;
+		if(this.currentGpsLocation != null){
+			location = this.currentGpsLocation;
+		}else{
+			// No gps location saved, so try to get a new one:
+			LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+			boolean gpsEnabled = locationManager
+			  .isProviderEnabled(LocationManager.GPS_PROVIDER);
+			if(gpsEnabled){
+				//GPS is turned on.
+				Criteria criteria = new Criteria();
+				String provider = locationManager.getBestProvider(criteria, false);
+			    location = locationManager.getLastKnownLocation(provider);
+			}
+		}
 		
-
-	    double latitude = 0;
+		double latitude = 0;
 	    double longitude = 0;
 	    boolean hasLocation = false;
 	    
-		if(enabled){
-			//GPS is turned on.
-			Criteria criteria = new Criteria();
-			String provider = locationManager.getBestProvider(criteria, false);
-		    Location location = locationManager.getLastKnownLocation(provider);
-
-		    
-		    // Initialize the location fields
-		    if (location != null) {
-		       latitude = location.getLatitude();
-		       longitude = location.getLongitude();
-		     hasLocation = true;
-		    } else {
-		    	hasLocation = false;
-		    }
-		}
-		  
+	    if (location != null) {
+	    	// We now have either the last updated gps location or a new one from the gps provider:
+	       latitude = location.getLatitude();
+	       longitude = location.getLongitude();
+	       hasLocation = true;
+	    } else {
+	    	hasLocation = false;
+	    }
+	
 		this.pleaseWaitDialog = ProgressDialog.show(this, "Searching", "Please wait...", true);
 		
 		SearchService service = new SearchService(this, this);
@@ -143,6 +173,10 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
 	public void onRestReturn(RestResult result) {
 		this.pleaseWaitDialog.dismiss();
 		if(result != null && result instanceof SearchResult){
+			// Stop listening for gps updates:
+			  LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+			  locationManager.removeUpdates(this);
+			
 			SearchResult searchResult = (SearchResult)result;
 			
 			//Pass the returned stores on to the stores list activity, and redirect:
@@ -189,6 +223,63 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
     	startActivity(intent);
     	finish();
 	}
+	
+	
+	/**
+	 * Called from the activity_home.xml when the find by location button is pressed.
+	 * Initiates the find by nearest location search, or prompts for gps.
+	 * @param v An instance of the button
+	 */
+	public void findByLocationClicked(View v){
+		// If the GPS is disabled, ask the user to enable it:
+		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+		if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+			this.showAlertDialog("Enable GPS", "Please turn on your GPS to search by location.");
+			return;
+		}
+		
+		/*
+		 * Check if we have a recent (less than 30 mins old) updated location from the gps provider, otherwise we just
+		 * try to get one from the best available provider:
+		 */
+		Location bestLocation = null;
+		if(this.currentGpsLocation != null && System.currentTimeMillis() - this.currentGpsLocation.getTime() <= 30 * 60 * 1000){
+			Log.d("GPS", "Current updated location is  NOT null");
+			// We have a recent location updated by the gps provider.
+			bestLocation = this.currentGpsLocation;
+		}else{
+			Log.d("GPS", "Current updated location is null");
+			// We don't have an updated gps location or it's older than 30 mins. Try to get a new one from the best available provider:
+			Criteria criteria = new Criteria();
+			String bestProvider = locationManager.getBestProvider(criteria, false);
+			bestLocation = locationManager.getLastKnownLocation(bestProvider);
+		}
+		
+		if(bestLocation == null){
+			// We've tried everything but couldn't get a location. Alert the user:
+			this.showAlertDialog("Location problem", "Could not determine your location. Please try again.");
+	    	return;
+		}
+	 
+	    // We have a location. Make the search call:
+	    this.pleaseWaitDialog = ProgressDialog.show(this, "Searching", "Please wait...", true);
+		SearchService service = new SearchService(this, this);
+		//Set the search term blank because we are searching by location only:
+		service.setSearchTerm("");
+		service.setHasLocation(true);
+		service.setLatitude(bestLocation.getLatitude());
+		service.setLongitude(bestLocation.getLongitude());
+		service.execute();
+	}
+	
+	
+	/**
+	 * Called from activity_home.xml when the find by category button is pressed.
+	 * @param v An instance of the button.
+	 */
+	public void findByCategoryClicked(View v){
+		
+	}
 
 
 	
@@ -206,6 +297,39 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
+
+
+	@Override
+	public void onLocationChanged(Location location) {
+		/* Location update received from the gps provider. 
+		*  Update the location variable so we have it when the user searches:
+		*/
+		this.currentGpsLocation = location;
+		Log.d("GPS", "Location updated: (" + location.getLatitude() + " , " + location.getLongitude() + " )");
+	}
+
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		if(provider.equals(LocationManager.GPS_PROVIDER)){
+			// GPS has been enabled:
+			Log.d("GPS", "GPS Disabled");
+		}
+	}
+
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		if(provider.equals(LocationManager.GPS_PROVIDER)){
+			// GPS has been enabled:
+			Log.d("GPS", "GPS enabled");
+		}
+	}
+
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+	}
 
 	
 }
