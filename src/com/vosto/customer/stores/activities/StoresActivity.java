@@ -52,7 +52,11 @@ public class StoresActivity extends VostoBaseActivity implements OnRestReturn, O
 		
 		boolean hasLocation = getIntent().getBooleanExtra("hasLocation", false);
 		TextView lblStoresListHeading = (TextView)findViewById(R.id.lblStoresListHeading);
-		lblStoresListHeading.setText(hasLocation ? "Close to you" : "Search Results");
+		if(this.stores.length > 0){
+			lblStoresListHeading.setText(hasLocation ? "Close to you" : "Search Results");
+		}else{
+			lblStoresListHeading.setText("No stores found");
+		}
 		
 	}
 	

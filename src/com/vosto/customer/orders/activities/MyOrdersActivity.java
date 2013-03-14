@@ -126,6 +126,9 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 		if(result instanceof GetPreviousOrdersResult){
 			GetPreviousOrdersResult ordersResult = (GetPreviousOrdersResult)result;
 			this.previousOrders = ordersResult.getOrders();
+			if(this.previousOrders == null){
+				this.previousOrders = new OrderVo[0];
+			}
             Log.d("PREV","Num previous orders: " + this.previousOrders.length);
 			this.lstPreviousOrders.setAdapter(new PreviousOrderAdapter(this, R.layout.previous_order_row, this.previousOrders));
 			this.lstPreviousOrders.setOnItemClickListener(this);

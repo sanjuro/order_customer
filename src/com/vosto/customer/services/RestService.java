@@ -30,6 +30,7 @@ import com.vosto.customer.products.services.GetTaxonsResult;
 import com.vosto.customer.products.services.GetVariantsResult;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.stores.services.GetStoresResult;
+import com.vosto.customer.stores.services.GetTagsResult;
 import com.vosto.customer.stores.services.SearchResult;
 
 import android.os.AsyncTask;
@@ -147,6 +148,11 @@ protected RestResult getRestResult(StatusLine statusLine, String responseJson){
 	if(this.resultType == ResultType.GET_STORES){
 		result = new GetStoresResult(200, responseJson);
 	}
+	
+	if(this.resultType == ResultType.GET_TAGS){
+		result = new GetTagsResult(200, responseJson);
+	}
+	
 	if(this.resultType == ResultType.SEARCH_STORES){
 		result = new SearchResult(200, responseJson);
 	}

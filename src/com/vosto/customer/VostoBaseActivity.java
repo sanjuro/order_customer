@@ -78,7 +78,9 @@ public abstract class VostoBaseActivity extends Activity {
 	public String getAuthenticationToken(){
 		SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
 		String token = settings.getString("userToken", "DXTTTTED2ASDBSD3");
-		Log.d("AUTH", "Returning token: " + token);
+		if(token.trim().equals("")){
+			token = "DXTTTTED2ASDBSD3";
+		}
 		return token;
 	}
 	
