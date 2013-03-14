@@ -6,6 +6,7 @@
                                 tools:context=".MainActivity" >
 
     <ScrollView
+            android:id="@+id/sideNavigation"
             android:layout_width="200dp"
             android:layout_height="fill_parent"
             android:background="@android:color/black"
@@ -32,7 +33,6 @@
                       android:singleLine="true"
                       android:textAppearance="?android:attr/textAppearanceMedium"
                       android:textColor="@android:color/white"
-                      android:text="Shadley Wentzel"
                     />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -72,7 +72,7 @@
                     />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/name_of_user"
+                      android:id="@+id/myOrders"
                       android:layout_width="match_parent"
                       android:layout_height="40dp"
                       android:background="@drawable/nav_menu_heading"
@@ -89,24 +89,7 @@
                     />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/name_of_user"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Spur N1 City"
-                    />
-
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/name_of_user"
+                      android:id="@+id/myFavourties"
                       android:layout_width="match_parent"
                       android:layout_height="40dp"
                       android:background="@drawable/nav_menu_heading"
@@ -120,22 +103,6 @@
                       android:text="MY FAVOURTIES"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/name_of_user"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Kauai"
-                    />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                       android:id="@+id/name_of_user"
@@ -152,7 +119,7 @@
                     />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/name_of_user"
+                      android:id="@+id/accountSettings"
                       android:layout_width="match_parent"
                       android:layout_height="30dp"
                       android:drawablePadding="6dip"
@@ -168,7 +135,7 @@
                       android:text="Account Settings"
                     />
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/name_of_user"
+                      android:id="@+id/termsPolicies"
                       android:layout_width="match_parent"
                       android:layout_height="30dp"
                       android:drawablePadding="6dip"
@@ -184,7 +151,7 @@
                       android:text="Terms and Policies"
                     />
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/name_of_user"
+                      android:id="@+id/logout"
                       android:layout_width="match_parent"
                       android:layout_height="30dp"
                       android:drawablePadding="6dip"
@@ -198,6 +165,8 @@
                       android:textAppearance="?android:attr/textAppearanceMedium"
                       android:textColor="@android:color/white"
                       android:text="Logout"
+                      android:onClick="logout"
+                      android:clickable="true"
                     />
         </LinearLayout>
 

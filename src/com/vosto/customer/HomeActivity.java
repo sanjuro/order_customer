@@ -37,7 +37,7 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 	
 	private ProgressDialog pleaseWaitDialog;
     private SlideHolder mSlideHolder;
-    
+
     /*
      * If the gps is enabled, this activity will keep listening for location updates
      * for the life of the activity, and it will keep updating this variable.
@@ -61,23 +61,25 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 
         mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
 
-        View toggleView = findViewById(R.id.menuButton);
-        toggleView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                mSlideHolder.toggle();
-            }
-        });
-
 
         // Display either a sign in button or the user's name depending if someone is logged in:
         SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
         if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
         	//User logged in:
         	signInButton.setVisibility(View.GONE);
-            TextView nameOfUser = (TextView)findViewById(R.id.name_of_user);
+            TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
             nameOfUser.setText(settings.getString("userName", "user"));
+
+            View toggleView = findViewById(R.id.menuButton);
+            toggleView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                    mSlideHolder.toggle();
+
+                }
+            });
         }else{
         	//User not logged in:
         	userNameLabel.setVisibility(View.GONE);
@@ -280,23 +282,6 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 	public void findByCategoryClicked(View v){
 		
 	}
-
-
-	
-    /**
-     * Called when the main bottom menu bar's orders button is pressed.
-     * Simply opens the orders activity
-     * @param v
-     */
-	public void myOrdersPressed(View v) {
-		Intent intent = new Intent(this, MyOrdersActivity.class);
-		startActivity(intent);
-	}
-
-    public void storesPressed(View v){
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
-    }
 
 
 	@Override

@@ -1,6 +1,9 @@
 package com.vosto.customer;
 
+import android.content.Intent;
+import android.view.View;
 import com.vosto.customer.cart.vos.Cart;
+import com.vosto.customer.orders.activities.MyOrdersActivity;
 import com.vosto.customer.orders.vos.OrderVo;
 
 import android.app.Activity;
@@ -94,6 +97,21 @@ public abstract class VostoBaseActivity extends Activity {
 		VostoCustomerApp context = (VostoCustomerApp)getApplicationContext();
 		return context.getCurrentOrder();
 	}
+
+    /**
+     * Called when the main bottom menu bar's orders button is pressed.
+     * Simply opens the orders activity
+     * @param v
+     */
+    public void myOrdersPressed(View v) {
+        Intent intent = new Intent(this, MyOrdersActivity.class);
+        startActivity(intent);
+    }
+
+    public void storesPressed(View v){
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+    }
 	
 	/*
 	

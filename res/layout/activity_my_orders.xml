@@ -445,6 +445,8 @@
            	android:layout_width="fill_parent"
            	android:layout_marginBottom="15dp"
            	android:layout_height="0dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
            	android:layout_weight="7"
            />
 
@@ -454,7 +456,7 @@
             	android:layout_width="fill_parent"
             	android:layout_height="0dp"
             	android:layout_weight="1"
-            >
+                >
 
                <TextView
                	android:id="@+id/lblOrderTotal"
@@ -463,8 +465,10 @@
                	android:textColor="#6c675c"
                	android:textSize="22sp"
                	android:layout_alignParentRight="true"
-               	android:layout_centerVertical="true"
-               />
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                />
 
            </RelativeLayout>
 
