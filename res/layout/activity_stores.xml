@@ -18,10 +18,16 @@
        android:paddingLeft="15dp"
        android:paddingRight="10dp">
 
-
-
-           
-       
+       <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginRight="10dp"
+               android:textSize="20sp"
+               android:textColor="#FFFFFF"
+               android:text="Stores"
+               android:layout_centerVertical="true"
+               android:layout_centerHorizontal="true"
+               />
    </RelativeLayout>
    
    
@@ -51,7 +57,7 @@
    		     	android:text="Close to You"
    		     	android:layout_width="wrap_content"
    		     	android:layout_height="wrap_content"
-   		     	android:textSize="22sp"   
+   		     	android:textSize="18sp"
    		     	android:textColor="#3b3830" 
    		     	android:layout_gravity="center_vertical"
    		     />
@@ -65,7 +71,7 @@
    			android:layout_marginLeft="0dp"
    			android:layout_marginTop="0dp"
    			android:divider="@android:color/transparent"
-  			android:dividerHeight="38.0sp"
+  			android:dividerHeight="1sp"
    		></ListView>
    
        

@@ -58,11 +58,8 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
     {
         super.onCreate(args);
         setContentView(R.layout.activity_home);
-        
-      
-        TextView userNameLabel = (TextView)findViewById(R.id.user_name_label);
-        userNameLabel.setVisibility(View.GONE);
-        
+
+
         ImageButton signInButton = (ImageButton)findViewById(R.id.sign_in_arrow_button);
 
         mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
@@ -88,7 +85,7 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
             });
         }else{
         	//User not logged in:
-        	userNameLabel.setVisibility(View.GONE);
+
         }
         
         //Start listening for gps updates:
@@ -214,7 +211,7 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 	
 	/**
 	 * Opens a pop-up list of store tags so the user can choose one to search for.
-	 * @param tags The array of tags returned from the GetTagsService.
+	 * @param
 	 */
 	private void promptForSearchTag(){
 		if(mStoreTags == null || mStoreTags.length == 0){

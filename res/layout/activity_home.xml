@@ -36,6 +36,23 @@
                     />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/navCartButton"
+                      android:layout_width="match_parent"
+                      android:layout_height="40dp"
+                      android:background="@drawable/nav_menu_heading"
+                      android:orientation="horizontal"
+                      android:gravity="center_vertical"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="20dp"
+                      android:textSize="16sp"
+                      android:singleLine="true"
+                      android:textColor="@android:color/white"
+                      android:text="MY CART"
+                      android:onClick="myCartPressed"
+                      android:clickable="true"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                       android:id="@+id/navOrdersButton"
                       android:layout_width="match_parent"
                       android:layout_height="40dp"
@@ -201,34 +218,30 @@
             android:layout_centerVertical="true"
             android:scaleType="fitXY"
         />
+
+
+       <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="18sp"
+               android:textColor="#FFFFFF"
+               android:text="Search"
+               android:layout_centerHorizontal="true"
+               android:layout_centerVertical="true"
+               />
        
-        <ImageButton 
-          	android:id="@+id/sign_in_arrow_button"
-          	android:layout_width="100dp"
-          	android:layout_height="35dp"
-          	android:layout_alignParentRight="true"
-          	android:layout_centerVertical="true"
-          	android:scaleType="fitXY"
-          	android:src="@drawable/sign_in_arrow_button"
-          	android:background="@null"
-          	android:onClick="signInClicked"
-          	android:contentDescription="@string/sign_up_button"   
-          />
-        
-        <TextView
-            android:id="@+id/user_name_label"
-            	android:layout_width="100dp"
-            	android:layout_height="30dp"
-            	android:textColor="#FFFFFF"
-            	android:layout_alignParentRight="true"
-          		android:layout_centerVertical="true"
-          		android:textSize="18sp"
-          		android:onClick="logout"
-          		android:clickable="true"
-            >
-            
-            
-        </TextView>
+       <ImageButton
+                android:id="@+id/sign_in_arrow_button"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/sign_in_arrow_button"
+                android:background="@null"
+                android:onClick="signInClicked"
+                android:contentDescription="@string/sign_up_button"
+                />
        
    </RelativeLayout>
    

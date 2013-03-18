@@ -48,7 +48,7 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_product_details);
-		
+
 		this.store = (StoreVo)getIntent().getSerializableExtra("store");
 		
 		TextView lblSpecialInstructions = (TextView)findViewById(R.id.lblSpecialInstructions);
@@ -58,8 +58,8 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 		if(categoryName == null){
 			categoryName = "";
 		}
-		TextView lblCategoryName = (TextView)findViewById(R.id.lblCategory);
-		lblCategoryName.setText(categoryName);
+//		TextView lblCategoryName = (TextView)findViewById(R.id.lblCategory);
+//		lblCategoryName.setText(categoryName);
 		
 		this.quantity = 1;
 		

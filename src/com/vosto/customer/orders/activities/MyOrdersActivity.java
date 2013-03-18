@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -59,6 +60,28 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 		setContentView(R.layout.activity_my_orders);
 
         mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+
+        // Display either a sign in button or the user's name depending if someone is logged in:
+        SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+        if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
+            //User logged in:
+            TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
+            nameOfUser.setText(settings.getString("userName", "user"));
+
+            View toggleView = findViewById(R.id.menuButton);
+            toggleView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                    mSlideHolder.toggle();
+
+                }
+            });
+        }else{
+            //User not logged in:
+
+        }
 
         View toggleView = findViewById(R.id.menuButton);
         toggleView.setOnClickListener(new View.OnClickListener() {

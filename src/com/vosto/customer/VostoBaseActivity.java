@@ -2,6 +2,7 @@ package com.vosto.customer;
 
 import android.content.Intent;
 import android.view.View;
+import com.vosto.customer.cart.activities.CartActivity;
 import com.vosto.customer.cart.vos.Cart;
 import com.vosto.customer.orders.activities.MyOrdersActivity;
 import com.vosto.customer.orders.vos.OrderVo;
@@ -114,7 +115,12 @@ public abstract class VostoBaseActivity extends Activity {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
-	
+
+    public void myCartPressed(View v) {
+        Intent intent = new Intent(this, CartActivity.class);
+        startActivity(intent);
+    }
+
 	/*
 	
 	public abstract void storesPressed();

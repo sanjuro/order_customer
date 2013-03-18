@@ -91,7 +91,7 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
 		}
 		this.taxons = result.getTaxons();
 		
-		TextView headerLabel = (TextView)findViewById(R.id.categories_header_label);
+		TextView headerLabel = (TextView)findViewById(R.id.categoriesHeaderLabel);
 		headerLabel.setText(this.taxons.size() > 0 ? "Categories:" : "No categories for this store.");
 		
 		list.setAdapter(new TaxonListAdapter(this, R.layout.taxon_item_row, this.taxons));
