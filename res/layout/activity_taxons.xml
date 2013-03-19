@@ -33,7 +33,7 @@
     </RelativeLayout>
    
    <LinearLayout
-       android:layout_below="@+id/top_bar"
+       android:layout_below="@+id/main_section"
        android:layout_width="fill_parent"
        android:layout_height="wrap_content"
        android:orientation="vertical"

@@ -39,7 +39,7 @@ public class AuthenticationService extends RestService {
 	public String getRequestJson(){
 		try{
 			JSONObject root = new JSONObject();
-			root.put("authentication_token", "CXTTTTED2ASDBSD4");
+			root.put("authentication_token", "DXTTTTED2ASDBSD3");
 			root.put("email", this.email);
 			root.put("pin", this.pin);
 			return root.toString();
@@ -51,7 +51,7 @@ public class AuthenticationService extends RestService {
 		/*
 		 * 
 	{
-    "authentication_token": "CXTTTTED2ASDBSD3",
+    "authentication_token": "DXTTTTED2ASDBSD3",
     "email": "test@gmail.com",
     "pin": "123456"
 }

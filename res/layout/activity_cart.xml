@@ -33,6 +33,8 @@
                       android:singleLine="true"
                       android:textAppearance="?android:attr/textAppearanceMedium"
                       android:textColor="@android:color/white"
+                      android:onClick="profilePressed"
+                      android:clickable="true"
                     />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -70,7 +72,7 @@
                     />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/name_of_user"
+                      android:id="@+id/openOrders"
                       android:layout_width="match_parent"
                       android:layout_height="30dp"
                       android:drawablePadding="6dip"
@@ -106,7 +108,7 @@
                     />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/myFavourties"
+                      android:id="@+id/navFavoritesButton"
                       android:layout_width="match_parent"
                       android:layout_height="40dp"
                       android:background="@drawable/nav_menu_heading"
@@ -120,9 +122,7 @@
                       android:text="MY FAVOURTIES"
                     />
 
-
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/name_of_user"
                       android:layout_width="match_parent"
                       android:layout_height="50dp"
                       android:background="@drawable/nav_menu_heading"
@@ -136,7 +136,7 @@
                     />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/accountSettings"
+                      android:id="@+id/navAccountSettingsButton"
                       android:layout_width="match_parent"
                       android:layout_height="30dp"
                       android:drawablePadding="6dip"
@@ -150,9 +150,12 @@
                       android:textAppearance="?android:attr/textAppearanceMedium"
                       android:textColor="@android:color/white"
                       android:text="Account Settings"
+                      android:onClick="profilePressed"
+                      android:clickable="true"
                     />
+
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/termsPolicies"
+                      android:id="@+id/navTermsButton"
                       android:layout_width="match_parent"
                       android:layout_height="30dp"
                       android:drawablePadding="6dip"
@@ -168,7 +171,7 @@
                       android:text="Terms and Policies"
                     />
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/logout"
+                      android:id="@+id/navLogoutButton"
                       android:layout_width="match_parent"
                       android:layout_height="30dp"
                       android:drawablePadding="6dip"

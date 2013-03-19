@@ -78,7 +78,7 @@ public class CreateAccountService extends RestService {
 	public String getRequestJson(){
 		try{
 			JSONObject root = new JSONObject();
-			root.put("authentication_token", "CXTTTTED2ASDBSD4");
+			root.put("authentication_token", "DXTTTTED2ASDBSD3");
 			JSONObject user = new JSONObject();
 			user.put("first_name", this.firstName);
 			user.put("last_name", this.lastName);

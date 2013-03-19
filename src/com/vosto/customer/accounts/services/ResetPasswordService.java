@@ -27,7 +27,7 @@ public class ResetPasswordService extends RestService {
 	public String getRequestJson(){
 		try{
 			JSONObject root = new JSONObject();
-			root.put("authentication_token", "CXTTTTED2ASDBSD4");
+			root.put("authentication_token", "DXTTTTED2ASDBSD3");
 			root.put("email", this.email);
 			return root.toString();
 		}catch(JSONException e){

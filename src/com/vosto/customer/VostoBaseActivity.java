@@ -6,6 +6,7 @@ import com.vosto.customer.cart.activities.CartActivity;
 import com.vosto.customer.cart.vos.Cart;
 import com.vosto.customer.orders.activities.MyOrdersActivity;
 import com.vosto.customer.orders.vos.OrderVo;
+import com.vosto.customer.accounts.activities.EditProfileActivity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -118,6 +119,11 @@ public abstract class VostoBaseActivity extends Activity {
 
     public void myCartPressed(View v) {
         Intent intent = new Intent(this, CartActivity.class);
+        startActivity(intent);
+    }
+
+    public void profilePressed(View v){
+        Intent intent = new Intent(this, EditProfileActivity.class);
         startActivity(intent);
     }
 

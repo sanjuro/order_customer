@@ -20,34 +20,34 @@
        android:theme="@android:style/Theme.NoTitleBar">
         <activity
             android:name="com.vosto.customer.stores.activities.StoresActivity"
-            android:label="@string/title_activity_stores" >
-             
+            android:label="@string/title_activity_stores">
         </activity>
         <activity
             android:name="com.vosto.customer.products.activities.TaxonsActivity"
-            android:label="@string/title_activity_store_menu" >
+            android:label="@string/title_activity_store_menu">
         </activity>
         <activity
             android:name="com.vosto.customer.cart.activities.CartActivity">
         </activity>
         <activity
-            android:name="com.vosto.customer.HomeActivity"
-    	> 
-    	</activity>
-        <activity
-            android:name="com.vosto.customer.accounts.activities.SignUpActivity"
-    	> 
+            android:name="com.vosto.customer.HomeActivity">
         </activity>
+        <activity
+            android:name="com.vosto.customer.accounts.activities.EditProfileActivity">
+        </activity>
+        <activity
+            android:name="com.vosto.customer.accounts.activities.SignUpActivity">
+    	</activity>
          <activity
             android:name="com.vosto.customer.accounts.activities.SignInActivity">
         </activity>
          <activity
             android:name="com.vosto.customer.products.activities.ProductResultsActivity">
         </activity>
-         <activity
+        <activity
             android:name="com.vosto.customer.orders.activities.MyOrdersActivity">
         </activity>
-          <activity
+        <activity
             android:name="com.vosto.customer.orders.activities.ReorderActivity">
         </activity>
         <activity

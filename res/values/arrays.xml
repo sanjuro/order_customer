@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="gendertypelist">
+        <item>@string/gender1</item>
+        <item>@string/gender2</item>
+    </string-array>
+</resources>

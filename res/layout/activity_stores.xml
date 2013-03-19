@@ -62,7 +62,7 @@
    		     	android:layout_gravity="center_vertical"
    		     />
    		    
-   		     </LinearLayout>
+   		 </LinearLayout>
    		
    		<ListView 
    			android:id="@+id/lstStores"
