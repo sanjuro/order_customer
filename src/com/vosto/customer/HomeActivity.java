@@ -95,6 +95,7 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 				1000 * 5, // min 5 seconds between location updates (can't be too frequent...battery life)
 				20, // will only update for every 20 meters the device moves
 				this);
+        Log.d("GPS", "Listening for GPS updates...");
     }
 	
 	public void onResume(Bundle args){
@@ -105,6 +106,7 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 				1000 * 5, // min 5 seconds between location updates (can't be too frequent...battery life)
 				20, // will only update for every 20 meters the device moves
 				this);
+        Log.d("GPS", "Listening for GPS updates...");
 	}
 	
 	public void signInClicked(View v){
@@ -193,6 +195,7 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 			// Stop listening for gps updates:
 			  LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 			  locationManager.removeUpdates(this);
+			  Log.d("GPS", "Not listening for GPS updates anymore.");
 			
 			SearchResult searchResult = (SearchResult)result;
 			
@@ -298,8 +301,8 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 		}
 		
 		if(bestLocation == null){
-			// We've tried everything but couldn't get a location. Alert the user:
-			this.showAlertDialog("Location problem", "Could not determine your location. Please try again.");
+			// We've tried everything but couldn't get a location. The gps could still be waiting for a location fix.
+			this.showAlertDialog("Location problem", "Please wait for your GPS to determine your location and try again.");
 	    	return;
 		}
 	 
