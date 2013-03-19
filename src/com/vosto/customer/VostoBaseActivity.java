@@ -2,6 +2,7 @@ package com.vosto.customer;
 
 import android.content.Intent;
 import android.view.View;
+import com.vosto.customer.accounts.activities.SignInActivity;
 import com.vosto.customer.cart.activities.CartActivity;
 import com.vosto.customer.cart.vos.Cart;
 import com.vosto.customer.orders.activities.MyOrdersActivity;
@@ -125,6 +126,29 @@ public abstract class VostoBaseActivity extends Activity {
     public void profilePressed(View v){
         Intent intent = new Intent(this, EditProfileActivity.class);
         startActivity(intent);
+    }
+
+    /**
+     * Clears all the locally stored data (auth token, pin, username, cart, order)
+     *
+     * @param v The logout button, at the moment it's just the user name label for debugging purposes,
+     * the design doesn't have a real logout button yet.
+     */
+    public void logout(View v){
+        SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("userToken", "");
+        editor.putString("userName", "");
+        editor.putString("userEmail", "");
+        editor.putString("userMobile", "");
+        editor.putString("userPin", "");
+        editor.commit();
+        deleteCart();
+
+        //Blank slate, redirect to signin page for new user signin:
+        Intent intent = new Intent(this, SignInActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 	/*

@@ -96,6 +96,7 @@ public class SignUpActivity extends Activity implements OnRestReturn {
 				  editor = settings.edit();
 				   editor.putString("userToken", createResult.getAccountResponseWrapper().authentication_token);
 				   editor.putString("userName", createResult.getAccountResponseWrapper().first_name);
+                   editor.putString("userEmail", createResult.getAccountResponseWrapper().email);
 				   editor.commit();
 				Intent intent = new Intent(this, HomeActivity.class);
 		    	startActivity(intent);

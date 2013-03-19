@@ -1,10 +1,10 @@
 package com.vosto.customer.accounts.services;
 
 import org.apache.http.StatusLine;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.vosto.customer.VostoBaseActivity;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RequestMethod;
 import com.vosto.customer.services.RestService;
@@ -17,9 +17,11 @@ public class UpdateCustomerService extends RestService {
     private String email;
 //    private String gender;
 //    private String birthday;
+private VostoBaseActivity context;
 
-    public UpdateCustomerService(OnRestReturn listener){
+    public UpdateCustomerService(OnRestReturn listener, VostoBaseActivity context){
         super("http://107.22.211.58:9000/api/v1/customers/update", RequestMethod.POST, ResultType.UPDATE_CUSTOMER, listener);
+        this.context = context;
     }
 
     public String getName() {
@@ -64,7 +66,7 @@ public class UpdateCustomerService extends RestService {
 //            user_object.put("gender", this.gender);
 //            user_object.put("birthday", this.birthday);
 
-            root.put("authentication_token", "b5a27178456753ba773d83666d276631");
+            root.put("authentication_token", this.context.getAuthenticationToken());
             root.put("user", user_object);
 
             return root.toString();

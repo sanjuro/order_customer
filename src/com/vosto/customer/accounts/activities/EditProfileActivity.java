@@ -1,28 +1,16 @@
 package com.vosto.customer.accounts.activities;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Calendar;
-import java.util.Locale;
-
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.InputType;
-import android.util.Log;
-import android.widget.Button;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.vosto.customer.HomeActivity;
+import com.agimind.widget.SlideHolder;
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
 import com.vosto.customer.accounts.services.*;
@@ -35,6 +23,7 @@ import com.vosto.customer.services.RestResult;
  */
 public class EditProfileActivity extends VostoBaseActivity implements OnRestReturn {
 
+    private SlideHolder mSlideHolder;
 //    private TextView tvDisplayDate;
 //    private DatePicker dpResult;
 //
@@ -49,6 +38,33 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
     {
         super.onCreate(args);
         setContentView(R.layout.activity_editprofile);
+
+        SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+
+        EditText txtName = (EditText)findViewById(R.id.txtName);
+        EditText txtEmail = (EditText)findViewById(R.id.txtEmail);
+        txtName.setText(settings.getString("userName", "user"));
+        txtEmail.setText(settings.getString("userEmail", "user"));
+
+        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+
+        if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
+            //User logged in:
+            TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
+            nameOfUser.setText(settings.getString("userName", "user"));
+
+            View toggleView = findViewById(R.id.menuButton);
+            toggleView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    mSlideHolder.toggle();
+                }
+            });
+        }else{
+            //User not logged in:
+
+        }
     }
 
     /**
@@ -91,7 +107,7 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
         }
 
         //Make the REST call:
-        UpdateCustomerService service = new UpdateCustomerService(this);
+        UpdateCustomerService service = new UpdateCustomerService(this, this);
         service.setName(name);
         service.setEmail(email);
 //        service.setGender(gender);
@@ -138,9 +154,14 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
             editor.putString("userName", authResult.getCustomer().first_name);
             editor.putString("userPin", authResult.getCustomer().user_pin);
             editor.commit();
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
-            finish();
+
+            // send toast message
+            CharSequence text = "You have successfully updated your profile.";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+            toast.show();
+
         }
     }
 

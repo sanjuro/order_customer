@@ -78,9 +78,7 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 
                 @Override
                 public void onClick(View v) {
-
                     mSlideHolder.toggle();
-
                 }
             });
         }else{
@@ -247,29 +245,7 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
         AlertDialog alert = builder.create();
         alert.show();
 	}
-	
-	/**
-	 * Clears all the locally stored data (auth token, pin, username, cart, order)
-	 * 
-	 * @param v The logout button, at the moment it's just the user name label for debugging purposes,
-	 * the design doesn't have a real logout button yet.
-	 */
-	public void logout(View v){
-		SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
-		SharedPreferences.Editor editor = settings.edit();
-		editor.putString("userToken", "");
-		editor.putString("userName", "");
-		editor.putString("userPin", "");
-		editor.commit();
-		deleteCart();
-		
-		//Blank slate, redirect to signin page for new user signin:
-		Intent intent = new Intent(this, SignInActivity.class);
-    	startActivity(intent);
-    	finish();
-	}
-	
-	
+
 	/**
 	 * Called from the activity_home.xml when the find by location button is pressed.
 	 * Initiates the find by nearest location search, or prompts for gps.

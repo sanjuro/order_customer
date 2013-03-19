@@ -54,7 +54,8 @@ public class AuthenticateResult extends RestResult implements IRestResult {
 			this.customer.authentication_token = this.jsonObj.getString("authentication_token");
 			this.customer.full_name = this.jsonObj.getString("full_name");
 			this.customer.first_name = this.jsonObj.getString("first_name");
-			
+            this.customer.email = this.jsonObj.getString("email");
+            this.customer.mobile_number = this.jsonObj.getString("mobile_number");
 			
 			return true;
 		}catch(JSONException e){
