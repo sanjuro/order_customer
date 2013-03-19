@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.agimind.widget.SlideHolder;
 import com.vosto.customer.HomeActivity;
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
@@ -47,10 +48,31 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	
 	private ListView list;
 	private boolean orderFinished;
+    private SlideHolder mSlideHolder;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cart);
+
+        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+        SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+        if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
+            //User logged in:
+            TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
+            nameOfUser.setText(settings.getString("userName", "user"));
+
+            View toggleView = findViewById(R.id.menuButton);
+            toggleView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    mSlideHolder.toggle();
+                }
+            });
+        }else{
+            //User not logged in:
+
+        }
 		refreshCart();
 	}
 	

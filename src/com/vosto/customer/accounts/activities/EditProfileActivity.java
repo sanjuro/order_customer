@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -177,6 +178,52 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    public void resetPinPressed(View v) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+        alert.setTitle("Enter your e-mail");
+        alert.setMessage("E-mail:");
+
+        // Space to enter email address:
+        final EditText emailInput = new EditText(this);
+        emailInput.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        alert.setView(emailInput);
+
+        alert.setPositiveButton("Reset Password", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String email = emailInput.getText().toString().trim();
+                confirmResetPassword(email);
+            }
+        });
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Canceled.
+            }
+        });
+
+        alert.show();
+
+    }
+
+    public void faqPressed(View v){
+
+    }
+
+    public void contactVostoPressed(View v) {
+
+    }
+
+    /**
+     * Called after the user has entered an email and confirmed to reset pin.
+     * @param email
+     */
+    public void confirmResetPassword(String email){
+        this.pleaseWaitDialog = ProgressDialog.show(this, "Sending Password", "Please wait...", true);
+        ResetPasswordService service = new ResetPasswordService(this, this, email);
+        service.execute();
     }
 
 //    @Override

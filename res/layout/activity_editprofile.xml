@@ -325,7 +325,7 @@
                     </LinearLayout>
 
                     <Button
-                            android:id="@+id/reorder_button"
+                            android:id="@+id/saveButton"
                             android:layout_width="214.5dp"
                             android:layout_height="39.5dp"
                             android:scaleType="fitXY"
@@ -340,16 +340,70 @@
                             />
 
                     <TextView
-                            android:id="@+id/lblUserName"
+                            android:id="@+id/lblHelpCenter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:textSize="14sp"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             android:singleLine="true"
                             android:textColor="#3b3b3b"
                             android:text="Help Center"
                             />
+
+                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:drawablePadding="6dip"
+                              android:background="#FFF"
+                              android:gravity="center_vertical"
+                              android:minHeight="40dp"
+                              android:layout_marginTop="10dp"
+                              android:paddingLeft="20dip"
+                              android:paddingRight="6dip"
+                              android:textSize="14sp"
+                              android:singleLine="true"
+                              android:textAppearance="?android:attr/textAppearanceMedium"
+                              android:onClick="resetPinPressed"
+                              android:clickable="true"
+                              android:text="Reset Pin"
+                            />
+                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:drawablePadding="6dip"
+                              android:background="#FFF"
+                              android:gravity="center_vertical"
+                              android:minHeight="40dp"
+                              android:layout_marginTop="5dp"
+                              android:paddingLeft="20dip"
+                              android:paddingRight="6dip"
+                              android:textSize="14sp"
+                              android:singleLine="true"
+                              android:textAppearance="?android:attr/textAppearanceMedium"
+                              android:onClick="faqPressed"
+                              android:clickable="true"
+                              android:text="FAQ"
+                            />
+                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:drawablePadding="6dip"
+                              android:background="#FFF"
+                              android:gravity="center_vertical"
+                              android:minHeight="40dp"
+                              android:layout_marginTop="5dp"
+                              android:paddingLeft="20dip"
+                              android:paddingRight="6dip"
+                              android:textSize="14sp"
+                              android:singleLine="true"
+                              android:textAppearance="?android:attr/textAppearanceMedium"
+                              android:onClick="contactVostoPressed"
+                              android:clickable="true"
+                              android:text="Contact Vosto"
+                            />
+
 
             </LinearLayout>
 

@@ -94,13 +94,13 @@ public class StoresActivity extends VostoBaseActivity implements OnRestReturn, O
 		  saveCart(cart);
 		  */
 		Log.d("STO", "Passing store to TaxonActivity: " + this.stores[position].getId());
-		  Intent intent = new Intent(this, TaxonsActivity.class);
-		  intent.putExtra("store", this.stores[position]);
-		  intent.putExtra("storeName", this.stores[position].getName());
-		  intent.putExtra("storeTel", this.stores[position].getManagerContact());
-		  intent.putExtra("storeAddress", this.stores[position].getAddress());
-		  intent.putExtra("callingActivity", "StoresActivity");
-      	   startActivity(intent);
+        Intent intent = new Intent(this, TaxonsActivity.class);
+        intent.putExtra("store", this.stores[position]);
+        intent.putExtra("storeName", this.stores[position].getName());
+        intent.putExtra("storeTel", this.stores[position].getManagerContact());
+        intent.putExtra("storeAddress", this.stores[position].getAddress());
+        intent.putExtra("callingActivity", "StoresActivity");
+        startActivity(intent);
       	 // finish();
 	}
 	
