@@ -22,6 +22,7 @@ import org.apache.http.protocol.HttpContext;
 
 import com.vosto.customer.accounts.services.AuthenticateResult;
 import com.vosto.customer.accounts.services.CreateAccountResult;
+import com.vosto.customer.accounts.services.RegisterDeviceResult;
 import com.vosto.customer.accounts.services.ResetPasswordResult;
 import com.vosto.customer.orders.services.GetPreviousOrdersResult;
 import com.vosto.customer.orders.services.PlaceOrderResult;
@@ -138,6 +139,9 @@ protected RestResult getRestResult(StatusLine statusLine, String responseJson){
 	RestResult result = null;
 	if(this.resultType == ResultType.CREATE_CUSTOMER){
 		result = new CreateAccountResult(200, responseJson);
+	}
+	if(this.resultType == ResultType.REGISTER_DEVICE){
+		result = new RegisterDeviceResult(200, responseJson);
 	}
 	if(this.resultType == ResultType.AUTHENTICATE_CUSTOMER){
 		result = new AuthenticateResult(200, responseJson);

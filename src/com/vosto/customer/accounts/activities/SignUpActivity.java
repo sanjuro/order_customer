@@ -35,6 +35,10 @@ public class SignUpActivity extends Activity implements OnRestReturn {
         	GCMRegistrar.checkDevice(this);
         	GCMRegistrar.checkManifest(this);
         	 this.gcmRegistrationId = GCMRegistrar.getRegistrationId(this);
+        	 if(!this.gcmRegistrationId.equals("")){
+        		 Log.d("GCM", "Device already registered with gcm. Not registering again.");
+        		 Log.d("GCM", "GCM id: " + this.gcmRegistrationId);
+        	 }
         }catch(Exception e){
         	// GCM is not supported or permissions not set up correctly.
         	Log.d("GCM", "GCM can't be initialized. GCM not supported or problem with manifest.");
@@ -118,7 +122,12 @@ public class SignUpActivity extends Activity implements OnRestReturn {
 				    */
 				   if(this.gcmRegistrationId != null && this.gcmRegistrationId.equals("")){
 					   // GCM is supported, but device has not been registered yet.
-					   GCMRegistrar.register(this, "1091536520954");
+					   Log.d("GCM", "Calling gcm register...");
+					   GCMRegistrar.register(this, "1091536520954"); // The Vosto project id as assigned by GCM at the beginning
+			            //1091536520954 - shadley's account: used for production
+					   //263607631818 - flippie test account
+				   }else{
+					   Log.d("GCM", "Not registering with gcm");
 				   }
 				   
 				Intent intent = new Intent(this, HomeActivity.class);

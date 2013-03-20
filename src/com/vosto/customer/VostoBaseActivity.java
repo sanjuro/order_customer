@@ -79,12 +79,8 @@ public abstract class VostoBaseActivity extends Activity {
 	 * Returns the stores user auth token, or returns the default Android token if there isn't a user token.
 	 */
 	public String getAuthenticationToken(){
-		SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
-		String token = settings.getString("userToken", "DXTTTTED2ASDBSD3");
-		if(token.trim().equals("")){
-			token = "DXTTTTED2ASDBSD3";
-		}
-		return token;
+		VostoCustomerApp context = (VostoCustomerApp)getApplicationContext();
+		return context.getAuthenticationToken();
 	}
 	
 	public boolean isUserSignedIn(){
