@@ -41,6 +41,14 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_taxons);
 		this.store = (StoreVo) this.getIntent().getSerializableExtra("store");
+
+        TextView txtStoreName = (TextView)findViewById(R.id.txtStoreName);
+        TextView txtStoreAddress = (TextView)findViewById(R.id.txtStoreAddress);
+        TextView txtStoreTelephone = (TextView)findViewById(R.id.txtStoreTelephone);
+
+        txtStoreName.setText(this.store.getName());
+        txtStoreAddress.setText(this.store.getAddress());
+        txtStoreTelephone.setText(this.store.getManagerContact());
 		
 		this.pleaseWaitDialog = ProgressDialog.show(this, "Loading Categories", "Please wait...", true);
 		Log.d("STO", "Loading taxons for store: " + this.store.getId());
@@ -90,10 +98,7 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
 			Log.d("ERROR", "List is null");
 		}
 		this.taxons = result.getTaxons();
-		
-		TextView headerLabel = (TextView)findViewById(R.id.categoriesHeaderLabel);
-		headerLabel.setText(this.taxons.size() > 0 ? "Categories:" : "No categories for this store.");
-		
+
 		list.setAdapter(new TaxonListAdapter(this, R.layout.taxon_item_row, this.taxons));
 		list.setOnItemClickListener(this);
 	
@@ -106,10 +111,6 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
 		GetProductsService service = new GetProductsService(this, this.taxons.get(position).getId());
 		service.execute();
 	}
-	
-	
-
-
 	
 
 	@Override
@@ -129,6 +130,5 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
 		startActivity(intent);
 		finish();
 	}
-
 
 }

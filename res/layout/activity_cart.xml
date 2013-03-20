@@ -302,16 +302,18 @@
 
                     </RelativeLayout> <!-- total section -->
 
-                    <ImageButton
+                    <Button
                             android:id="@+id/place_order_button"
+                            android:layout_below="@+id/totals_section"
+                            android:layout_gravity="center_horizontal"
                             android:layout_width="190dp"
                             android:layout_height="30dp"
                             android:scaleType="fitXY"
-                            android:src="@drawable/place_order_button"
-                            android:layout_below="@+id/totals_section"
-                            android:background="@null"
-                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/green_button_background"
                             android:onClick="placeOrderClicked"
+                            android:text="Place Order"
+                            android:textSize="18sp"
+                            android:textColor="#FFFFFF"
                             />
                 </LinearLayout>
 

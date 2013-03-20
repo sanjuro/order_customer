@@ -152,6 +152,8 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putString("userToken", "");
 		editor.putString("userName", "");
+        editor.putString("userEmail", "");
+        editor.putString("userMobile", "");
 		editor.putString("userPin", "");
 		editor.commit();
 		
@@ -159,14 +161,16 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 			this.showAlertDialog("Login Failed", authResult.getErrorMessage());
 		}else{
 			 // Save the auth token in the app's shared preferences.
-			   editor = settings.edit();
-			   editor.putString("userToken", authResult.getCustomer().authentication_token);
-			   editor.putString("userName", authResult.getCustomer().first_name);
-			   editor.putString("userPin", authResult.getCustomer().user_pin);
-			   editor.commit();
-			   Intent intent = new Intent(this, HomeActivity.class);
-		    	startActivity(intent);
-		    	finish();
+            editor = settings.edit();
+            editor.putString("userToken", authResult.getCustomer().authentication_token);
+            editor.putString("userName", authResult.getCustomer().full_name);
+            editor.putString("userEmail", authResult.getCustomer().email);
+            editor.putString("userMobileNumber", authResult.getCustomer().mobile_number);
+            editor.putString("userPin", authResult.getCustomer().user_pin);
+            editor.commit();
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            finish();
 		}
 	}
 	

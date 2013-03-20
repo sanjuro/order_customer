@@ -8,32 +8,31 @@
     >
 
     <RelativeLayout
-        android:id="@+id/top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:background="@drawable/top_bar_orange"
-        android:orientation="horizontal"
-        android:layout_alignParentTop="true"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+            android:id="@+id/top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="@drawable/top_bar_orange"
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
         <TextView
-                android:id="@+id/categoriesHeaderLabel"
+                android:id="@+id/pageHeading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:textSize="20sp"
                 android:textColor="#FFFFFF"
-                android:text="Breakfast"
+                android:text="Categories"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 />
-
     </RelativeLayout>
    
    <LinearLayout
-       android:layout_below="@+id/main_section"
+       android:layout_below="@+id/top_bar"
        android:layout_width="fill_parent"
        android:layout_height="wrap_content"
        android:orientation="vertical"
@@ -52,7 +51,7 @@
                    android:layout_width="fill_parent"
                    android:layout_height="wrap_content"
                    android:layout_marginTop="10dp"
-                   android:layout_marginBottom="10dp"
+                   android:layout_marginBottom="15dp"
                    android:layout_marginLeft="15dp"
                    android:layout_marginRight="15dp"
                    android:orientation="horizontal"
@@ -67,7 +66,7 @@
                        />
 
                <LinearLayout
-                       android:id="@+id/store_details_labels"
+                       android:id="@+id/storeDetails"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:orientation="vertical"
@@ -75,7 +74,7 @@
                        >
 
                    <TextView
-                           android:id="@+id/lblStoreName"
+                           android:id="@+id/txtStoreName"
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:textSize="12sp"
@@ -87,7 +86,7 @@
 
 
                    <TextView
-                           android:id="@+id/lblStoreAddress"
+                           android:id="@+id/txtStoreAddress"
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:textSize="10sp"
@@ -97,7 +96,7 @@
                            />
 
                    <TextView
-                           android:id="@+id/lblStoreTelephone"
+                           android:id="@+id/txtStoreTelephone"
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:textSize="10sp"
@@ -114,12 +113,12 @@
 
        </RelativeLayout>
 
-        <ListView
+            <ListView
             android:id="@+id/menuItems"
             android:layout_width="match_parent"
-            android:layout_height="0dp" 
+            android:layout_height="0dp"
             android:layout_weight="2">
-        </ListView>
+            </ListView>
 
    </LinearLayout>
 
