@@ -45,6 +45,9 @@ public class FoodCategoriesActivity extends VostoBaseActivity implements OnRestR
 		this.latitude = getIntent().getFloatExtra("latitude", -1.0f);
 		this.longitude = getIntent().getFloatExtra("longitude", -1.0f);
 		this.hasLocation = getIntent().getBooleanExtra("hasLocation", false);
+		if(!getIntent().hasExtra("latitude") || !getIntent().hasExtra("longitude")){
+			this.hasLocation = false;
+		}
 		
 		GetTagsService service = new GetTagsService(this, this);
 		service.execute();
