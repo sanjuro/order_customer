@@ -41,6 +41,7 @@ public class SignUpActivity extends Activity implements OnRestReturn {
         	 }
         }catch(Exception e){
         	// GCM is not supported or permissions not set up correctly.
+        	e.printStackTrace();
         	Log.d("GCM", "GCM can't be initialized. GCM not supported or problem with manifest.");
         }
     }
