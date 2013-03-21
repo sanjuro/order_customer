@@ -37,6 +37,9 @@
             android:name="com.vosto.customer.products.activities.TaxonsActivity"
             android:label="@string/title_activity_store_menu">
         </activity>
+         <activity
+                android:name="com.vosto.customer.stores.activities.FoodCategoriesActivity">
+        </activity>
         <activity
             android:name="com.vosto.customer.cart.activities.CartActivity">
         </activity>

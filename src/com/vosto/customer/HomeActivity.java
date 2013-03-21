@@ -12,21 +12,16 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.agimind.widget.SlideHolder;
-
 import com.vosto.customer.accounts.activities.SignInActivity;
-import com.vosto.customer.orders.activities.MyOrdersActivity;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
-import com.vosto.customer.stores.TagsListAdapter;
+import com.vosto.customer.stores.activities.FoodCategoriesActivity;
 import com.vosto.customer.stores.activities.StoresActivity;
-import com.vosto.customer.stores.services.GetTagsResult;
-import com.vosto.customer.stores.services.GetTagsService;
 import com.vosto.customer.stores.services.SearchResult;
 import com.vosto.customer.stores.services.SearchService;
 import com.vosto.customer.stores.vos.StoreTagVo;
@@ -128,55 +123,44 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 		
 	}
 	
+	private Location getBestLocation(){
+		Location location = null;
+		if(this.currentGpsLocation != null){
+			location = this.currentGpsLocation;
+		}else{
+			// No gps location saved, so try to get a new one:
+			LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+			boolean gpsEnabled = locationManager
+			  .isProviderEnabled(LocationManager.GPS_PROVIDER);
+			if(gpsEnabled){
+				//GPS is turned on.
+				Criteria criteria = new Criteria();
+				String provider = locationManager.getBestProvider(criteria, false);
+			    location = locationManager.getLastKnownLocation(provider);
+			}
+		}
+		return location;
+	}
+	
 	
 	/**
 	 * Makes a search call with the given query term, including a GPS location only if available.
 	 */
 	private void searchByQueryTerm(String queryTerm){
-		// Check if we have an updated GPS location, otherwise try to get a new one:
-				Location location = null;
-				if(this.currentGpsLocation != null){
-					location = this.currentGpsLocation;
-				}else{
-					// No gps location saved, so try to get a new one:
-					LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-					boolean gpsEnabled = locationManager
-					  .isProviderEnabled(LocationManager.GPS_PROVIDER);
-					if(gpsEnabled){
-						//GPS is turned on.
-						Criteria criteria = new Criteria();
-						String provider = locationManager.getBestProvider(criteria, false);
-					    location = locationManager.getLastKnownLocation(provider);
-					}
-				}
+		// Check if we have an updated GPS location, otherwise try to get a new one:	
+		Location location = getBestLocation(); 
+		this.pleaseWaitDialog = ProgressDialog.show(this, "Searching", "Please wait...", true);
 				
-				double latitude = 0;
-			    double longitude = 0;
-			    boolean hasLocation = false;
-			    
-			    if (location != null) {
-			    	// We now have either the last updated gps location or a new one from the gps provider:
-			       latitude = location.getLatitude();
-			       longitude = location.getLongitude();
-			       hasLocation = true;
-			    } else {
-			    	hasLocation = false;
-			    }
-			
-				this.pleaseWaitDialog = ProgressDialog.show(this, "Searching", "Please wait...", true);
-				
-				SearchService service = new SearchService(this, this);
-				service.setSearchTerm(queryTerm);
-				if(hasLocation){
-					//We have a location, so pass the coordinates on to the search service:
-					service.setHasLocation(true);
-					service.setLatitude(latitude);
-					service.setLongitude(longitude);
-				}
-				service.execute();
-		
+		SearchService service = new SearchService(this, this);
+		service.setSearchTerm(queryTerm);	
+		if(location != null){
+			//We have a location, so pass the coordinates on to the search service:
+			service.setHasLocation(true);
+			service.setLatitude(location.getLatitude());
+			service.setLongitude(location.getLongitude());
+		}
+		service.execute();
 	}
-	
 	
 
 	/**
@@ -203,33 +187,7 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 			intent.putExtra("hasLocation", searchResult.hasLocation());
 	    	startActivity(intent);
 	    	//finish();
-		}else if(result instanceof GetTagsResult){
-			mStoreTags = ((GetTagsResult) result).getTags();
-			promptForSearchTag();
 		}
-	}
-	
-	
-	/**
-	 * Opens a pop-up list of store tags so the user can choose one to search for.
-	 * @param
-	 */
-	private void promptForSearchTag(){
-		if(mStoreTags == null || mStoreTags.length == 0){
-			return;
-		}
-
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Choose a food category");
-		TagsListAdapter tagAdapter = new TagsListAdapter(this, R.layout.tag_item_row, mStoreTags);
-		builder.setAdapter(tagAdapter, new DialogInterface.OnClickListener() {
-		    public void onClick(DialogInterface dialog, int item) {
-		    	// perform the actual search. Same as the normal keyword search.
-		        searchByQueryTerm(mStoreTags[item].getTitle());
-		    }
-		});
-		AlertDialog alert = builder.create();
-		alert.show();
 	}
 	
 	public void showAlertDialog(String title, String message){
@@ -299,9 +257,14 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 	 * @param v An instance of the button.
 	 */
 	public void findByCategoryClicked(View v){
-		this.pleaseWaitDialog = ProgressDialog.show(this, "Loading categories", "Please wait...", true);
-		GetTagsService service = new GetTagsService(this, this);
-		service.execute();
+		Location location = getBestLocation(); 
+		Intent intent = new Intent(this, FoodCategoriesActivity.class);
+		intent.putExtra("hasLocation", location != null);
+		if(location != null){
+			intent.putExtra("latitude", location.getLatitude());
+			intent.putExtra("longitude", location.getLongitude());
+		}
+		startActivity(intent);
 	}
 
 
