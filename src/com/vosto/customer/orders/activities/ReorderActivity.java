@@ -127,14 +127,14 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 	
 	private void updateStoreDetails(StoreVo store){
 		this.store = store;
-		this.lblStoreName = (TextView)findViewById(R.id.lblStoreName);
-		this.lblStoreName.setText(store.getName());
-		
-		this.lblStoreTelephone = (TextView)findViewById(R.id.lblStoreTelephone);
-		this.lblStoreTelephone.setText(store.getManagerContact());
-		
-		this.lblStoreAddress = (TextView)findViewById(R.id.lblStoreAddress);
-		this.lblStoreAddress.setText(store.getAddress());
+
+        TextView txtStoreName = (TextView)findViewById(R.id.txtStoreName);
+        TextView txtStoreAddress = (TextView)findViewById(R.id.txtStoreAddress);
+        TextView txtStoreTelephone = (TextView)findViewById(R.id.txtStoreTelephone);
+
+        txtStoreName.setText(this.store.getName());
+        txtStoreAddress.setText(this.store.getAddress());
+        txtStoreTelephone.setText(this.store.getManagerContact());
 	}
 	
 	public void reorderClicked(View v){

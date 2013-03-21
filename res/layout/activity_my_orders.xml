@@ -201,7 +201,6 @@
   android:orientation="vertical"
   >
 
-  
    <RelativeLayout
        android:id="@+id/top_bar"
        android:layout_width="match_parent"
@@ -237,53 +236,51 @@
     <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="65dp"
             >
 
    <RelativeLayout
-    android:id="@+id/main_section"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_below="@id/top_bar"
-    android:layout_marginTop="5dp"
-    android:orientation="vertical"
-    >
+        android:id="@+id/main_section"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/top_bar"
+        android:orientation="vertical"
+        >
 
-  <RelativeLayout
+        <RelativeLayout
             android:id="@+id/tab_section"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
             android:orientation="horizontal"
             android:layout_gravity="center_vertical"
+            android:background="#d8d5ce"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             >
 
    		    <LinearLayout
-   		       android:id="@+id/modeSwitchButtonBar"
-               android:orientation="horizontal"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_centerHorizontal="true"
-               >
+                android:id="@+id/modeSwitchButtonBar"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                >
 
-             <Button
-             	android:id="@+id/current_order_button"
-             	android:layout_width="wrap_content"
-             	android:layout_height="38dp"
-             	android:onClick="currentOrderClicked"
-             	android:text="Current Order"
-             />
+                <Button
+                    android:id="@+id/current_order_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+                    android:onClick="currentOrderClicked"
+                    android:text="Current Order"
+                    />
 
-               <Button
-             	android:id="@+id/previous_orders_button"
-             	android:layout_width="wrap_content"
-             	android:layout_height="38dp"
-             	android:onClick="orderHistoryClicked"
-             	android:text="Previous Orders"
-             />
-
-
+                <Button
+                    android:id="@+id/previous_orders_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+                    android:onClick="orderHistoryClicked"
+                    android:text="Previous Orders"
+                    />
 
            </LinearLayout>
 

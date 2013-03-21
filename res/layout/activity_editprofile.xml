@@ -171,6 +171,8 @@
                       android:textAppearance="?android:attr/textAppearanceMedium"
                       android:textColor="@android:color/white"
                       android:text="Terms and Policies"
+                      android:onClick="termsPressed"
+                      android:clickable="true"
                     />
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                       android:id="@+id/logout"
@@ -202,6 +204,8 @@
             android:layout_height="fill_parent"
             android:background="#ede9e1"
             android:orientation="vertical"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
             >
 
         <RelativeLayout
@@ -242,40 +246,23 @@
                 android:id="@+id/pageSubHeading"
                 android:layout_below="@+id/top_bar"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="42dp"
+                android:background="#d8d5ce"
                 android:orientation="vertical"
+                android:paddingTop="10dp"
+                android:paddingLeft="15dp"
                 >
 
-                <RelativeLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#d8d5ce"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_vertical"
-                        >
+                <TextView
+                    android:id="@+id/lblProfileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="#3b3830"
+                    android:layout_gravity="center_vertical"
+                    android:text="Shadley Wenztel"
+                    />
 
-                    <LinearLayout
-                            android:id="@+id/closeToYouBar"
-                            android:orientation="horizontal"
-                            android:layout_width="fill_parent"
-                            android:layout_height="42dp"
-                            android:background="#d8d5ce"
-                            android:paddingLeft="15dp"
-                            >
-
-                        <TextView
-                                android:id="@+id/lblProfileName"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="18sp"
-                                android:textColor="#3b3830"
-                                android:layout_gravity="center_vertical"
-                                android:text="Shadley Wenztel"
-                                />
-
-                    </LinearLayout>
-
-                </RelativeLayout>
         </LinearLayout>
 
         <ScrollView
@@ -311,18 +298,8 @@
                             android:hint="email address"
                             android:inputType="textEmailAddress"
                             android:layout_width="fill_parent">
-                    </EditText>
+                            </EditText>
 
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#d8d5ce"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        >
-                    </LinearLayout>
 
                     <Button
                             android:id="@+id/saveButton"
@@ -351,8 +328,7 @@
                             android:text="Help Center"
                             />
 
-                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-
+                    <Button xmlns:android="http://schemas.android.com/apk/res/android"
                               android:layout_width="match_parent"
                               android:layout_height="wrap_content"
                               android:drawablePadding="6dip"
@@ -364,12 +340,11 @@
                               android:paddingRight="6dip"
                               android:textSize="14sp"
                               android:singleLine="true"
-                              android:textAppearance="?android:attr/textAppearanceMedium"
                               android:onClick="resetPinPressed"
                               android:clickable="true"
                               android:text="Reset Pin"
                             />
-                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                    <Button xmlns:android="http://schemas.android.com/apk/res/android"
                               android:layout_width="match_parent"
                               android:layout_height="wrap_content"
                               android:drawablePadding="6dip"
@@ -381,12 +356,12 @@
                               android:paddingRight="6dip"
                               android:textSize="14sp"
                               android:singleLine="true"
-                              android:textAppearance="?android:attr/textAppearanceMedium"
                               android:onClick="faqPressed"
                               android:clickable="true"
                               android:text="FAQ"
                             />
-                    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+
+                    <Button xmlns:android="http://schemas.android.com/apk/res/android"
                               android:layout_width="match_parent"
                               android:layout_height="wrap_content"
                               android:drawablePadding="6dip"
@@ -398,7 +373,23 @@
                               android:paddingRight="6dip"
                               android:textSize="14sp"
                               android:singleLine="true"
-                              android:textAppearance="?android:attr/textAppearanceMedium"
+                              android:onClick="termsPressed"
+                              android:clickable="true"
+                              android:text="Terms and Conditions"
+                            />
+
+                    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:drawablePadding="6dip"
+                              android:background="#FFF"
+                              android:gravity="center_vertical"
+                              android:minHeight="40dp"
+                              android:layout_marginTop="5dp"
+                              android:paddingLeft="20dip"
+                              android:paddingRight="6dip"
+                              android:textSize="14sp"
+                              android:singleLine="true"
                               android:onClick="contactVostoPressed"
                               android:clickable="true"
                               android:text="Contact Vosto"
