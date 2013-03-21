@@ -53,8 +53,11 @@
         <activity
             android:name="com.vosto.customer.products.activities.ProductDetailsActivity">
         </activity>
-          <activity
+        <activity
             android:name="com.vosto.customer.cart.activities.EditCartItemActivity">
+        </activity>
+        <activity
+                android:name="com.vosto.customer.pages.activities.TermsActivity">
         </activity>
         <activity
             android:name="com.vosto.customer.accounts.activities.CreateAccountActivity"

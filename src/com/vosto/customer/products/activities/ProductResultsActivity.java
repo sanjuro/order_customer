@@ -122,7 +122,7 @@ public class ProductResultsActivity extends VostoBaseActivity implements OnRestR
 		saveCart(cart);
 
         // send toast message
-        CharSequence text = "Propduct was added your cart.";
+        CharSequence text = "Product was added to your cart.";
         int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(getApplicationContext(), text, duration);

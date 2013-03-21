@@ -2,6 +2,7 @@ package com.vosto.customer.accounts.activities;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 import com.agimind.widget.SlideHolder;
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
+import com.vosto.customer.pages.activities.ContactActivity;
+import com.vosto.customer.pages.activities.TermsActivity;
 import com.vosto.customer.accounts.services.*;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
@@ -213,7 +216,13 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
     }
 
     public void contactVostoPressed(View v) {
+        Intent intent = new Intent(this, ContactActivity.class);
+        startActivity(intent);
+    }
 
+    public void termsPressed(View v){
+        Intent intent = new Intent(this, TermsActivity.class);
+        startActivity(intent);
     }
 
     /**

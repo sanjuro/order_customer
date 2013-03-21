@@ -1,0 +1,69 @@
+Terms and Conditions
+
+Introduction
+
+Vosto is a free application service for placing orders at your favourite restaurants and retail outlets (referred to below as “vendors”).  Vosto does not pay vendors on your behalf or act as a payment gateway.
+You should read these terms and conditions before using the Vosto service, including the terms that exclude our liability to you and that indemnify us where you breach these terms and conditions. By installing Vosto on your mobile device or using the Vosto service in any way, you are consenting to all of the terms and conditions set out below.
+
+Orders
+
+You agree that Vosto is authorised to act as your agent for placing orders and you acknowledge that the placement of an order will result in an agreement between you and the vendor. Accordingly, any claims that you may have in connection with an order shall be made against the vendor.
+
+All amounts reflected in Vosto are in Rand values and are inclusive of any VAT.
+
+Menu items, prices and trading hours of suppliers from which goods may be ordered are subject to change without prior notice and at the vendor's discretion. Vosto does not guarantee that menu items are complete and up to date, that orders will be fulfilled or that goods will be satisfactory or to your liking.
+
+Compatible Devices
+
+You are required to ensure that your mobile device is a supported device and for downloading the correct version of Vosto for your device. We do not guarantee that all mobile devices are supported or that the Vosto service will always be available or free from errors on your particular device.
+
+Disclaimers and Limitations of Liability
+
+To the maximum extent permitted in law, Vosto accepts no responsibility for the quantity or quality of any goods delivered or for any errors in any menus reflected in Vosto.
+
+Menu items, prices and trading hours of suppliers from which goods may be ordered are subject to change without prior notice and at the vendor's discretion.
+
+We do not guarantee that any goods made available via Vosto conform to any particular requirements, including religious or other dietary requirements.
+
+Alcoholic drinks and tobacco products will not be sold to persons under the age of 18 and proof of the age of a person ordering any alcoholic beverages or tobacco products may be required by a vendor. You agree not to place any order for alcoholic beverages or tobacco products unless you are of the required legal age.
+The delivery of notifications and other alerts may be largely dependent on the effective functioning of telecommunications networks, network coverage and the effective functioning of your communications devices.  Vosto does not and cannot guarantee the delivery of notifications and alerts.
+
+Vosto is provided "as is", without warranties of any kind, either express or implied, including, without limitation, implied warranties of freedom from defect, warranties of merchantability, fitness for a particular purpose or non-infringement. Vosto shall have no liability for any viruses or any other disabling features that affect your access to or use of your mobile device. Vosto shall not be liable for any delays or failures you may experience in initiating, conducting or completing any transmissions or transactions in connection with Vosto, nor for any modification, suspension or discontinuance of it services, nor arising in any way from use or inability to use Vosto including, without limitation, direct, indirect, incidental or consequential loss or damages or any loss of profits, loss of revenue, business interruption, or otherwise, however nothing in these terms and conditions shall exclude or limit Vosto liability for death or personal injury caused by negligence, fraud or misrepresentation or any liability which cannot be excluded or limited under law.
+
+Where an order you place is not fulfilled by a vendor within 20 minutes, we may cancel the order on your behalf and we shall have no liability to you should we do so.
+You agree to indemnify and hold Vosto harmless from all liabilities, claims and expenses that arise out of any content you submit or transmit via the App, or from your violation of these Terms and Conditions.
+You agree that the limitations and exclusions of liability provided for in these Terms and Conditions are fair and appropriate for a free application service such as Vosto.
+
+
+Acceptable Usage<
+
+You may not use, or knowingly allow others to use, Vosto for any purpose that is improper, immoral or undesirable or for any purpose that may prejudice or impede our legitimate interests or goodwill or the legitimate interest of a vendor, including but not limited to the placing of fictitious orders.
+If you fail to collect or pay for orders placed through Vosto, we may bar you from placing orders through Vosto in future.
+You may not use Vosto for any of the following purposes: disseminating any unlawful, harassing, defamatory, abusive, threatening, harmful, vulgar, obscene or otherwise objectionable material, transmitting material that is or which encourages conduct that constitutes a criminal offence, results in civil liability or otherwise breaches any relevant laws, regulations or code of practice, gaining unauthorized access to other computer systems, interfering with any other person's use or enjoyment of Vosto, breaching any laws concerning the use of public telecommunications networks, interfering or disrupting networks or websites, making, transmitting or storing electronic copies of materials protected by copyright without the permission of the owner, engaging in technically harmful behaviour, which includes but is not limited to: computer viruses, logic bombs, Trojan horses, worms, harmful components, corrupted data and other forms malicious software or harmful data.
+
+Privacy and Personal Information
+
+You consent to us providing vendors with your username and order information and to receiving notifications from us or vendors when your order is ready for collection.  Once you've installed and used Vosto personalised special offers may be communicated to you by vendors and Vosto over time.
+You agree that we may provide the restaurants with who we contract with summaries of orders placed by you in order to assist them to serve you better by creating offers that may be of interest to you.
+In the event that you fail to collect your order or to make payment for same, you agree that we may provide the vendor with the contact information you provide when registering as a Vosto user and that we may notify other vendors of your order behaviour.
+
+Termination of Services
+
+Your access to and use of Vosto may be interrupted from time to time for any of several reasons, including, without limitation, the malfunction of equipment, periodic updating, maintenance or repair of Vosto or other actions that Vosto, in its sole discretion, may elect to take.
+
+Vosto reserves the right, in its absolute discretion, to terminate your access to all or part of the Vosto services with or without notice. Vosto may change the service or delete features in any way, at any time and for any reason. While Vosto shall endeavour to ensure that Vosto is available 24 hours a day, we shall not be liable if for any reason the service is unavailable at any time or for any period.
+
+In the event of any transgression or the reasonable suspicion of any transgression of any applicable law, regulation, code of conduct, or any provision of these terms and conditions to which you may be subject, then you acknowledge and agree that we may suspend or terminate the provision of the Vosto service to you without prejudice to any other rights that we may have in law or in terms of these terms and conditions.
+
+Intellectual Property
+
+All content displayed in Vosto is protected by copyright, trademarks, database and other intellectual property rights. You may retrieve and display Vosto on appropriate devices for your own personal, non-commercial use, provided you keep intact all and any copyright and proprietary notices. You may not otherwise reproduce, modify, copy or distribute or use for commercial purposes any of the materials or content on the App without written permission from Vosto.
+
+Third Party Sites<
+
+Vosto may provide you with links to other websites not under the day to day control of Vosto. When you click through to these websites, or any other website not wholly owned by us, you leave the area controlled by us. We cannot accept responsibility for any issues arising in connection with their use of your information, the website content or the services offered to our customers by these websites. We advise you to consult the Privacy Policy on each website to see how each third party site may process your information.
+
+General
+
+The failure of either party to exercise in any respect any right provided for herein shall not be deemed a waiver of any further rights hereunder. If any provision of this agreement is found to be unenforceable or invalid, that provision shall be limited or eliminated to the minimum extent necessary so that this Agreement shall otherwise remain in full force and effect and enforceable. This Agreement shall be governed by and construed in accordance with the laws of the Republic of South Africa.
+
