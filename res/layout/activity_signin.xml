@@ -131,7 +131,7 @@
                   android:layout_centerHorizontal="true"
                   android:layout_centerVertical="true"
                   android:layout_gravity="center_horizontal|center_vertical"
-                  android:onClick="signInClicked"
+                  android:onClick="signUpClicked"
                   android:text="Sign up"
                   android:contentDescription="@string/sign_up_button"
                   android:layout_marginTop="10dp"

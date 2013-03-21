@@ -85,7 +85,7 @@
                     android:background="@drawable/green_button_background"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_horizontal|center_vertical"
-                    android:onClick="signInClicked"
+                    android:onClick="submitClicked"
                     android:text="Sign up"
                     android:contentDescription="@string/sign_up_button"
                     android:textSize="18sp"

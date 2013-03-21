@@ -1,5 +1,6 @@
 package com.vosto.customer.accounts.activities;
 
+import com.google.android.gcm.GCMRegistrar;
 import com.vosto.customer.HomeActivity;
 import com.vosto.customer.R;
 import com.vosto.customer.accounts.services.CreateAccountResult;
@@ -14,18 +15,34 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 public class SignUpActivity extends Activity implements OnRestReturn {
 	
 	private ProgressDialog pleaseWaitDialog;
+	private String gcmRegistrationId; // The id assigned by gcm for this app / device combination
 	
 	@Override
     protected void onCreate(Bundle args)
     {
         super.onCreate(args);
-        setContentView(R.layout.activity_signup);   
+        setContentView(R.layout.activity_signup);  
+        
+        // Check if GCM is OK and see if there's an existing registration id:
+        try{
+        	GCMRegistrar.checkDevice(this);
+        	GCMRegistrar.checkManifest(this);
+        	 this.gcmRegistrationId = GCMRegistrar.getRegistrationId(this);
+        	 if(!this.gcmRegistrationId.equals("")){
+        		 Log.d("GCM", "Device already registered with gcm. Not registering again.");
+        		 Log.d("GCM", "GCM id: " + this.gcmRegistrationId);
+        	 }
+        }catch(Exception e){
+        	// GCM is not supported or permissions not set up correctly.
+        	Log.d("GCM", "GCM can't be initialized. GCM not supported or problem with manifest.");
+        }
     }
 	
 	public void signInClicked(View v){
@@ -98,6 +115,21 @@ public class SignUpActivity extends Activity implements OnRestReturn {
 				   editor.putString("userName", createResult.getAccountResponseWrapper().first_name);
                    editor.putString("userEmail", createResult.getAccountResponseWrapper().email);
 				   editor.commit();
+				   
+				   /*
+				    *  Register the device with GCM if not already registered.
+				    *  GCM will respond and the callback in GCMIntentService will be called.
+				    */
+				   if(this.gcmRegistrationId != null && this.gcmRegistrationId.equals("")){
+					   // GCM is supported, but device has not been registered yet.
+					   Log.d("GCM", "Calling gcm register...");
+					   GCMRegistrar.register(this, "1091536520954"); // The Vosto project id as assigned by GCM at the beginning
+			            //1091536520954 - shadley's account: used for production
+					   //263607631818 - flippie test account
+				   }else{
+					   Log.d("GCM", "Not registering with gcm");
+				   }
+				   
 				Intent intent = new Intent(this, HomeActivity.class);
 		    	startActivity(intent);
 		    	finish();

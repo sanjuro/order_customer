@@ -1,8 +1,8 @@
 package com.vosto.customer.services;
 
 public enum ResultType {
-	
 	CREATE_CUSTOMER,
+	REGISTER_DEVICE,
 	AUTHENTICATE_CUSTOMER,
     UPDATE_CUSTOMER,
 	RESET_PIN,
