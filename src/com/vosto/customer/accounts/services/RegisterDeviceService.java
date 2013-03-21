@@ -3,6 +3,8 @@ package com.vosto.customer.accounts.services;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.provider.Settings.Secure;
+
 import com.vosto.customer.VostoBaseActivity;
 import com.vosto.customer.VostoCustomerApp;
 import com.vosto.customer.services.OnRestReturn;
@@ -31,7 +33,9 @@ public class RegisterDeviceService extends RestService {
 			root.put("authentication_token", this.context.getAuthenticationToken());
 			JSONObject device = new JSONObject();
 			device.put("device_type", "android");
-			device.put("device_identifier", this.gcmId);
+			device.put("device_token", this.gcmId);
+			device.put("device_identifier", Secure.getString(context.getContentResolver(),
+                    Secure.ANDROID_ID));
 			root.put("device", device);
 			return root.toString();
 		}catch(JSONException e){

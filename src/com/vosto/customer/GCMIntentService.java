@@ -33,7 +33,7 @@ public class GCMIntentService extends com.google.android.gcm.GCMBaseIntentServic
 		Log.d("GCM", "GCM message received.");
 		
 		Intent notificationIntent=new Intent(context, HomeActivity.class);
-		generateNotification(context, intent.getStringExtra("message"), notificationIntent);
+		generateNotification(context, intent.getStringExtra("msg"), notificationIntent);
 	}
 	
 	
