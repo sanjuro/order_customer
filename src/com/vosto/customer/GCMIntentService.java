@@ -2,6 +2,7 @@ package com.vosto.customer;
 
 import com.vosto.customer.accounts.services.RegisterDeviceResult;
 import com.vosto.customer.accounts.services.RegisterDeviceService;
+import com.vosto.customer.orders.activities.MyOrdersActivity;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
 
@@ -32,7 +33,10 @@ public class GCMIntentService extends com.google.android.gcm.GCMBaseIntentServic
 		// A message has been received from GCM.
 		Log.d("GCM", "GCM message received.");
 		
-		Intent notificationIntent=new Intent(context, HomeActivity.class);
+		// MyOrdersActivity will open when the notification is clicked, passing through the order id:
+		Intent notificationIntent = new Intent(context, MyOrdersActivity.class);
+		notificationIntent.putExtra("order_id", Integer.parseInt(intent.getStringExtra("order_id")));
+		Log.d("GCM", "order_id received from gcm: " + Integer.parseInt(intent.getStringExtra("order_id")));
 		generateNotification(context, intent.getStringExtra("msg"), notificationIntent);
 	}
 	
@@ -49,7 +53,7 @@ public class GCMIntentService extends com.google.android.gcm.GCMBaseIntentServic
 	    // set intent so it does not start a new activity
 	    notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
 	            Intent.FLAG_ACTIVITY_SINGLE_TOP);
-	    PendingIntent intent =PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+	    PendingIntent intent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 	    notification.setLatestEventInfo(context, title, message, intent);
 	    notification.flags |= Notification.FLAG_AUTO_CANCEL;
 	    notificationManager.notify(0, notification);
@@ -58,7 +62,7 @@ public class GCMIntentService extends com.google.android.gcm.GCMBaseIntentServic
 	@Override
 	protected void onRegistered(Context context, String gcmId) {
 		// Device has been registered with GCM. Save the id to the device preferences:
-		Log.d("GCM", "GCM onRegistered");
+		 Log.d("GCM", "GCM onRegistered : id = " + gcmId);
 		 SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
 		 SharedPreferences.Editor editor = settings.edit();
 		 editor.putString("gcmId", gcmId);

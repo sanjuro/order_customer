@@ -24,6 +24,7 @@ import com.vosto.customer.accounts.services.AuthenticateResult;
 import com.vosto.customer.accounts.services.CreateAccountResult;
 import com.vosto.customer.accounts.services.RegisterDeviceResult;
 import com.vosto.customer.accounts.services.ResetPasswordResult;
+import com.vosto.customer.orders.services.GetOrderByIdResult;
 import com.vosto.customer.orders.services.GetPreviousOrdersResult;
 import com.vosto.customer.orders.services.PlaceOrderResult;
 import com.vosto.customer.products.services.GetProductsResult;
@@ -178,6 +179,10 @@ protected RestResult getRestResult(StatusLine statusLine, String responseJson){
 	
 	if(this.resultType == ResultType.GET_PREVIOUS_ORDERS){
 		result = new GetPreviousOrdersResult(200, responseJson);
+	}
+	
+	if(this.resultType == ResultType.GET_ORDER_BY_ID){
+		result = new GetOrderByIdResult(200, responseJson);
 	}
 	
 	if(result != null){

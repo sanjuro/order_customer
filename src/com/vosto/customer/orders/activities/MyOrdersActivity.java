@@ -23,10 +23,10 @@ import android.widget.TextView;
 import com.agimind.widget.SlideHolder;
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
-import com.vosto.customer.R.id;
-import com.vosto.customer.R.layout;
 import com.vosto.customer.orders.CurrentOrderItemAdapter;
 import com.vosto.customer.orders.PreviousOrderAdapter;
+import com.vosto.customer.orders.services.GetOrderByIdResult;
+import com.vosto.customer.orders.services.GetOrderByIdService;
 import com.vosto.customer.orders.services.GetPreviousOrdersResult;
 import com.vosto.customer.orders.services.GetPreviousOrdersService;
 import com.vosto.customer.orders.vos.OrderVo;
@@ -36,13 +36,12 @@ import com.vosto.customer.stores.services.GetStoresResult;
 import com.vosto.customer.stores.services.GetStoresService;
 import com.vosto.customer.stores.vos.StoreVo;
 import com.vosto.customer.utils.MoneyUtils;
-/**
- * @author flippiescholtz
- *
- */
+
+
 public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnDismissListener, OnClickListener {
 	
 	private ListView currentOrderItemsList;
+	private OrderVo currentOrder;
 	private TextView lblOrderNumber;
 	private TextView lblOrderDate;
 	private TextView lblOrderTotal;
@@ -53,6 +52,7 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 	private ListView lstPreviousOrders;
 	private LinearLayout orderHistorySection;
 	private LinearLayout currentOrderSection;
+	private Button currentOrderButton;
     private SlideHolder mSlideHolder;
 	
 	public void onCreate(Bundle savedInstanceState){
@@ -95,42 +95,69 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 		this.lstPreviousOrders = (ListView)findViewById(R.id.lstPreviousOrders);
 		this.orderHistorySection = (LinearLayout)findViewById(R.id.order_history_section);
 		this.currentOrderSection = (LinearLayout)findViewById(R.id.current_order_section);
+		this.currentOrderButton = (Button)findViewById(R.id.current_order_button);
 		
 		assignModeButtonHandlers();
 		
 		this.currentOrderItemsList = (ListView)findViewById(R.id.current_order_items_list);
 		this.currentOrderItemsList.setOnItemClickListener(this);
 		
-		OrderVo currentOrder = getCurrentOrder();
-		Button currentOrderButton = (Button)findViewById(R.id.current_order_button);
-		if(currentOrder == null){
+		// Determine what order / order list we must show, and show it:
+		initialize();
+	}
+	
+	
+	/**
+	 * If an order_id has been passed through the intent, it means we are coming from a notification,
+	 * so we must fetch and display that specific order.
+	 * Otherwise, if we have an order stored on the device, we display that order.
+	 * Otherwise we have no order to display, so we just display the previous orders list.
+	 */
+	private void initialize(){
+		if(getIntent().hasExtra("order_id") && getIntent().getIntExtra("order_id", -1) > 0){
+			// User has clicked a notification. Load the specified order:
+			GetOrderByIdService service = new GetOrderByIdService(this, this, getIntent().getIntExtra("order_id", -1));
+			service.execute();
+		}else if(getCurrentOrder() != null){
+			// We have an order stored on the device. Display that:
+			this.currentOrder = getCurrentOrder();
+			showCurrentOrder();
+		}else{
+			// We have no specific order to display. Just show the previous orders list:
 			currentOrderButton.setVisibility(View.GONE);
 			showOrderHistorySection();
-		}else{
-			this.lblOrderTotal = (TextView)findViewById(R.id.lblOrderTotal);
-			this.lblOrderTotal.setText("Total: " + MoneyUtils.getRandString(currentOrder.getTotal()));
-			this.currentOrderItemsList.setAdapter(new CurrentOrderItemAdapter(this, R.layout.current_order_item_row, currentOrder.getLineItems()));
-			this.lblOrderNumber = (TextView)findViewById(R.id.lblOrderNumber);
-			this.lblOrderNumber.setText(currentOrder.getNumber());
-			this.lblOrderDate = (TextView)findViewById(R.id.lblOrderDate);
-			 SimpleDateFormat format = new SimpleDateFormat("HH:mm, d MMMM yyyy", Locale.US);
-			this.lblOrderDate.setText(format.format(currentOrder.getCreatedAt()));
-			currentOrderButton.setVisibility(View.VISIBLE);
-			showCurrentOrderSection();
-			GetStoresService storesService = new GetStoresService(this, currentOrder.getStore_id());
-			storesService.execute();
+			this.previousOrders = new OrderVo[0];
+			this.pleaseWaitDialog = ProgressDialog.show(this, "Fetching Orders", "Please wait...", true);
+			GetPreviousOrdersService service = new GetPreviousOrdersService(this, this);
+			service.execute();
 		}
-		
-		this.previousOrders = new OrderVo[0];
-		
-		this.pleaseWaitDialog = ProgressDialog.show(this, "Fetching Orders", "Please wait...", true);
-		GetPreviousOrdersService service = new GetPreviousOrdersService(this, this);
-		service.execute();
+	}
+	
+	/**
+	 * Takes the order info from the currentOrder member variable and populates the UI,
+	 * and then shows the current order section. Also fetches the store details associated with the order.
+	 */
+	private void showCurrentOrder(){
+		this.lblOrderTotal = (TextView)findViewById(R.id.lblOrderTotal);
+		this.lblOrderTotal.setText("Total: " + MoneyUtils.getRandString(currentOrder.getTotal()));
+		this.currentOrderItemsList.setAdapter(new CurrentOrderItemAdapter(this, R.layout.current_order_item_row, currentOrder.getLineItems()));
+		this.lblOrderNumber = (TextView)findViewById(R.id.lblOrderNumber);
+		this.lblOrderNumber.setText(currentOrder.getNumber());
+		this.lblOrderDate = (TextView)findViewById(R.id.lblOrderDate);
+		 SimpleDateFormat format = new SimpleDateFormat("HH:mm, d MMMM yyyy", Locale.US);
+		this.lblOrderDate.setText(format.format(currentOrder.getCreatedAt()));
+		this.currentOrderButton.setVisibility(View.VISIBLE);
+		showCurrentOrderSection();
+		GetStoresService storesService = new GetStoresService(this, currentOrder.getStore_id());
+		storesService.execute();
 	}
 	
 	
 	public void onResume(){
 		super.onResume();
+		
+		// Determine what order / order list we must show, and show it:
+		initialize();
 	}
 
 	/**
@@ -147,6 +174,7 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 		}
 		
 		if(result instanceof GetPreviousOrdersResult){
+			// We received a list of previous orders:
 			GetPreviousOrdersResult ordersResult = (GetPreviousOrdersResult)result;
 			this.previousOrders = ordersResult.getOrders();
 			if(this.previousOrders == null){
@@ -155,7 +183,12 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
             Log.d("PREV","Num previous orders: " + this.previousOrders.length);
 			this.lstPreviousOrders.setAdapter(new PreviousOrderAdapter(this, R.layout.previous_order_row, this.previousOrders));
 			this.lstPreviousOrders.setOnItemClickListener(this);
+		}else if(result instanceof GetOrderByIdResult){
+			// We received a specific order that we fetched by id:
+			this.currentOrder = ((GetOrderByIdResult)result).getOrder();
+			showCurrentOrder();
 		}else if(result instanceof GetStoresResult){
+			//We received the store details of the order we want to display:
 			GetStoresResult storesResult = (GetStoresResult)result;
 			if(storesResult.getStores().length > 0){
 				updateStoreDetails(storesResult.getStores()[0]);
