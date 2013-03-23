@@ -196,6 +196,8 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 			this.mOrderStatusBadge.setImageResource(R.drawable.cancelled_badge);
 		}else if(this.currentOrder.getState().toLowerCase(Locale.getDefault()).equals("not_collected")){
 			this.mOrderStatusBadge.setImageResource(R.drawable.not_collected_badge);
+		}else{
+			this.mOrderStatusBadge.setImageResource(R.drawable.in_progress_badge);
 		}
 		
 		showCurrentOrderSection();
