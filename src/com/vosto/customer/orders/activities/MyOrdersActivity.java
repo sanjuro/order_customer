@@ -135,10 +135,20 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 				//If the dialog is already showing, dismiss it otherwise we will have a duplicate dialog.
 				this.pleaseWaitDialog.dismiss();
 			}
-			this.pleaseWaitDialog = ProgressDialog.show(this, "Fetching Orders", "Please wait...", true);
-			GetPreviousOrdersService service = new GetPreviousOrdersService(this, this);
-			service.execute();
+			fetchPreviousOrders();
 		}
+	}
+	
+	/**
+	 * Reload the list of previous orders from Vosto.
+	 */
+	private void fetchPreviousOrders(){
+		if(this.pleaseWaitDialog != null && this.pleaseWaitDialog.isShowing()){
+			this.pleaseWaitDialog.dismiss();
+		}
+		this.pleaseWaitDialog = ProgressDialog.show(this, "Fetching Orders", "Please wait...", true);
+		GetPreviousOrdersService service = new GetPreviousOrdersService(this, this);
+		service.execute();
 	}
 	
 	/**
@@ -301,6 +311,7 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 		this.lstPreviousOrders.setVisibility(View.VISIBLE);
 		
 		assignModeButtonHandlers();
+		fetchPreviousOrders();
 	}
 	
 	private void updateStoreDetails(StoreVo store){
