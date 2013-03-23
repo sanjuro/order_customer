@@ -125,7 +125,7 @@
                   android:id="@+id/sign_up_button"
                   android:layout_alignParentRight="true"
                   android:layout_width="85dp"
-                  android:layout_height="25dp"
+                  android:layout_height="30dp"
                   android:scaleType="fitXY"
                   android:background="@drawable/green_button_background"
                   android:layout_centerHorizontal="true"

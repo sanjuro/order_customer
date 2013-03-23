@@ -14,10 +14,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.agimind.widget.SlideHolder;
 import com.vosto.customer.accounts.activities.SignInActivity;
+import com.vosto.customer.accounts.activities.SignUpActivity;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
 import com.vosto.customer.stores.activities.FoodCategoriesActivity;
@@ -56,6 +58,8 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 
 
         ImageButton signInButton = (ImageButton)findViewById(R.id.sign_in_arrow_button);
+        TextView notJoinedYet = (TextView)findViewById(R.id.notJoinedYet);
+        Button signUpButton = (Button)findViewById(R.id.signUpButton);
 
         mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
 
@@ -65,6 +69,9 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
         if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
         	//User logged in:
         	signInButton.setVisibility(View.GONE);
+            notJoinedYet.setVisibility(View.GONE);
+            signUpButton.setVisibility(View.GONE);
+
             TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
             nameOfUser.setText(settings.getString("userName", "user"));
 
@@ -122,6 +129,16 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 		searchByQueryTerm(txtSearch.getText().toString().trim());
 		
 	}
+
+    /**
+     * Redirects the user to signup if she does not have an account yet.
+     * @param v The signup button instance.
+     */
+    public void signUpClicked(View v){
+        Intent intent = new Intent(this, SignUpActivity.class);
+        startActivity(intent);
+        finish();
+    }
 	
 	private Location getBestLocation(){
 		Location location = null;

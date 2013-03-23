@@ -235,28 +235,13 @@
 
        </RelativeLayout>
 
-       <RelativeLayout
+       <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_below="@id/top_bar"
             android:layout_marginTop="5dp"
             android:orientation="vertical"
             >
-
-            <ScrollView
-               android:layout_width="fill_parent"
-               android:layout_height="fill_parent"
-               >
-
-                <LinearLayout
-                        android:id="@+id/bottom_section"
-                        android:orientation="vertical"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="68dp"
-                        >
 
                     <ListView
                             android:id="@+id/lstCartItems"
@@ -306,21 +291,21 @@
                     <Button
                             android:id="@+id/place_order_button"
                             android:layout_below="@+id/totals_section"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_width="190dp"
-                            android:layout_height="30dp"
+                            android:layout_width="214.5dp"
+                            android:layout_height="39.5dp"
                             android:scaleType="fitXY"
                             android:background="@drawable/green_button_background"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center_horizontal|center_vertical"
                             android:onClick="placeOrderClicked"
                             android:text="Place Order"
-                            android:textSize="18sp"
+                            android:layout_marginTop="10dp"
+                            android:textSize="20sp"
                             android:textColor="#FFFFFF"
                             />
-                </LinearLayout>
 
-            </ScrollView>
 
-       </RelativeLayout>
+       </LinearLayout>
 
 
     </RelativeLayout>

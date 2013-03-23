@@ -96,12 +96,12 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 		this.orderHistorySection = (LinearLayout)findViewById(R.id.order_history_section);
 		this.currentOrderSection = (LinearLayout)findViewById(R.id.current_order_section);
 		this.currentOrderButton = (Button)findViewById(R.id.current_order_button);
-		
+
 		assignModeButtonHandlers();
 		
 		this.currentOrderItemsList = (ListView)findViewById(R.id.current_order_items_list);
 		this.currentOrderItemsList.setOnItemClickListener(this);
-		
+
 		// Determine what order / order list we must show, and show it:
 		initialize();
 	}
@@ -172,7 +172,7 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 		if(result == null){
 			return;
 		}
-		
+
 		if(result instanceof GetPreviousOrdersResult){
 			// We received a list of previous orders:
 			GetPreviousOrdersResult ordersResult = (GetPreviousOrdersResult)result;
@@ -185,10 +185,12 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 			this.lstPreviousOrders.setOnItemClickListener(this);
 		}else if(result instanceof GetOrderByIdResult){
 			// We received a specific order that we fetched by id:
+            Log.d("PREV","Specific Order");
 			this.currentOrder = ((GetOrderByIdResult)result).getOrder();
 			showCurrentOrder();
 		}else if(result instanceof GetStoresResult){
 			//We received the store details of the order we want to display:
+            Log.d("PREV","Get Store Data ");
 			GetStoresResult storesResult = (GetStoresResult)result;
 			if(storesResult.getStores().length > 0){
 				updateStoreDetails(storesResult.getStores()[0]);

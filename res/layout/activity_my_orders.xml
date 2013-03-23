@@ -233,12 +233,6 @@
 
    </RelativeLayout> <!-- Top Bar -->
 
-    <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="65dp"
-            >
-
    <RelativeLayout
         android:id="@+id/main_section"
         android:layout_width="fill_parent"
@@ -431,8 +425,8 @@
            <ListView
            	android:id="@+id/current_order_items_list"
            	android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
            	android:layout_marginBottom="15dp"
-           	android:layout_height="0dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
            	android:layout_weight="7"
@@ -487,7 +481,6 @@
 
    </RelativeLayout> <!-- Main Section -->
 
-  </ScrollView>
 
 </RelativeLayout>
 

@@ -32,9 +32,10 @@ public class SignUpActivity extends Activity implements OnRestReturn {
         
         // Check if GCM is OK and see if there's an existing registration id:
         try{
-        	GCMRegistrar.checkDevice(this);
-        	GCMRegistrar.checkManifest(this);
-        	 this.gcmRegistrationId = GCMRegistrar.getRegistrationId(this);
+        	 GCMRegistrar.checkDevice(this);
+        	 GCMRegistrar.checkManifest(this);
+             // GCMRegistrar.unregister(this);
+             this.gcmRegistrationId = GCMRegistrar.getRegistrationId(this);
         	 if(!this.gcmRegistrationId.equals("")){
         		 Log.d("GCM", "Device already registered with gcm. Not registering again.");
         		 Log.d("GCM", "GCM id: " + this.gcmRegistrationId);
