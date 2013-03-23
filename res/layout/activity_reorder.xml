@@ -90,7 +90,7 @@
                </LinearLayout> <!-- order info labels -->
                
                <ImageView
-                    android:src="@drawable/in_progress_button"
+                    android:id="@+id/order_status_badge"
                     android:layout_width="80.6dp"
                     android:layout_height="20dp"
                     android:scaleType="fitXY"

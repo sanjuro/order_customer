@@ -48,12 +48,20 @@ public class VostoCustomerApp extends Application {
   }
   
   public void saveCurrentOrder(OrderVo order){
-	  this.currentOrder = order;
-	  Gson gson = new Gson();
-	  SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
-	  SharedPreferences.Editor editor = settings.edit();
-	  editor.putString("currentOrderJson", gson.toJson(this.currentOrder));
-      editor.commit();
+	  if(order != null){
+		  this.currentOrder = order;
+		  Gson gson = new Gson();
+		  SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+		  SharedPreferences.Editor editor = settings.edit();
+		  editor.putString("currentOrderJson", gson.toJson(this.currentOrder));
+		  editor.commit();
+	  }else{
+		  this.currentOrder = null;
+		  SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+		  SharedPreferences.Editor editor = settings.edit();
+		  editor.remove("currentOrderJson");
+		  editor.commit();
+	  }
   }
   
   public boolean hasPendingOrder(){

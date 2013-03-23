@@ -36,6 +36,12 @@ public class GetOrderByIdResult extends RestResult implements IRestResult {
 	@Override
 	public boolean processJsonAndPopulate(){
 		try{
+			
+			if(this.getResponseJson().toLowerCase(Locale.getDefault()).contains("couldn't find order")){
+				this.order = null;
+				return true;
+			}
+			
 			Log.d("ORD", "Order by id response json: " + this.getResponseJson());
 			
 			this.order = new OrderVo();
@@ -46,6 +52,7 @@ public class GetOrderByIdResult extends RestResult implements IRestResult {
 	        this.order.setCreatedAt(dateFormat.parse(orderObj.getString("created_at")));
 	        this.order.setTotal(Money.parse("ZAR " + orderObj.getDouble("total")));
 	        this.order.setStore_id(orderObj.getInt("store_id"));
+	        this.order.setState(orderObj.getString("state"));
 	            	
 	         //Add line items:
 	         JSONArray lineItemsArr = orderObj.getJSONArray("line_items");

@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -50,6 +51,7 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 	private TextView lblStoreName;
 	private TextView lblStoreTelephone;
 	private TextView lblStoreAddress;
+	private ImageView mOrderStatusBadge;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -68,7 +70,21 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 		this.lblOrderDate = (TextView)findViewById(R.id.lblOrderDate);
 		SimpleDateFormat format = new SimpleDateFormat("HH:mm, d MMMM yyyy", Locale.US);
 		this.lblOrderDate.setText(format.format(order.getCreatedAt()));
-				
+			
+		this.mOrderStatusBadge = (ImageView)findViewById(R.id.order_status_badge);
+		//Show the correct status badge based on the order state:
+		if(this.order.getState().toLowerCase(Locale.getDefault()).equals("ready")){
+			this.mOrderStatusBadge.setImageResource(R.drawable.ready_badge);
+		}else if(this.order.getState().toLowerCase(Locale.getDefault()).equals("collected")){
+			this.mOrderStatusBadge.setImageResource(R.drawable.collected_badge);
+		}else if(this.order.getState().toLowerCase(Locale.getDefault()).equals("in_progress")){
+			this.mOrderStatusBadge.setImageResource(R.drawable.in_progress_badge);
+		}else if(this.order.getState().toLowerCase(Locale.getDefault()).equals("cancelled")){
+			this.mOrderStatusBadge.setImageResource(R.drawable.cancelled_badge);
+		}else if(this.order.getState().toLowerCase(Locale.getDefault()).equals("not_collected")){
+			this.mOrderStatusBadge.setImageResource(R.drawable.not_collected_badge);
+		}
+		
 		GetStoresService storesService = new GetStoresService(this, order.getStore_id());
 		storesService.execute();
 	}

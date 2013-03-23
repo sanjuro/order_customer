@@ -1,5 +1,7 @@
 package com.vosto.customer.accounts.activities;
 
+import java.util.Locale;
+
 import com.google.android.gcm.GCMRegistrar;
 import com.vosto.customer.HomeActivity;
 import com.vosto.customer.R;
@@ -73,7 +75,7 @@ public class SignUpActivity extends Activity implements OnRestReturn {
 		}
 		lastName = lastName.trim();
 		
-		String email = txtEmail.getText().toString().trim().toLowerCase();
+		String email = txtEmail.getText().toString().trim().toLowerCase(Locale.getDefault());
 		if(email == ""){
 			txtEmail.setError("Please enter your email.");
 			return;
@@ -115,6 +117,7 @@ public class SignUpActivity extends Activity implements OnRestReturn {
 				   editor.putString("userToken", createResult.getAccountResponseWrapper().authentication_token);
 				   editor.putString("userName", createResult.getAccountResponseWrapper().first_name);
                    editor.putString("userEmail", createResult.getAccountResponseWrapper().email);
+                   editor.putString("userPin", createResult.getUserPin());
 				   editor.commit();
 				   
 				   /*

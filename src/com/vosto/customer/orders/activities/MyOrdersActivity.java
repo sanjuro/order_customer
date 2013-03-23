@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -54,6 +55,7 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 	private LinearLayout currentOrderSection;
 	private Button currentOrderButton;
     private SlideHolder mSlideHolder;
+    private ImageView mOrderStatusBadge;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -96,11 +98,11 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 		this.orderHistorySection = (LinearLayout)findViewById(R.id.order_history_section);
 		this.currentOrderSection = (LinearLayout)findViewById(R.id.current_order_section);
 		this.currentOrderButton = (Button)findViewById(R.id.current_order_button);
+		this.mOrderStatusBadge = (ImageView)findViewById(R.id.order_status_badge);
 		
 		assignModeButtonHandlers();
 		
 		this.currentOrderItemsList = (ListView)findViewById(R.id.current_order_items_list);
-		this.currentOrderItemsList.setOnItemClickListener(this);
 		
 		// Determine what order / order list we must show, and show it:
 		initialize();
@@ -116,19 +118,40 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 	private void initialize(){
 		if(getIntent().hasExtra("order_id") && getIntent().getIntExtra("order_id", -1) > 0){
 			// User has clicked a notification. Load the specified order:
+			if(this.pleaseWaitDialog != null && this.pleaseWaitDialog.isShowing()){
+				this.pleaseWaitDialog.dismiss();
+			}
+			this.pleaseWaitDialog = ProgressDialog.show(this, "Loading order", "Please wait...", true);
 			GetOrderByIdService service = new GetOrderByIdService(this, this, getIntent().getIntExtra("order_id", -1));
 			service.execute();
 		}else if(getCurrentOrder() != null){
-			// We have an order stored on the device. Display that:
-			this.currentOrder = getCurrentOrder();
-			showCurrentOrder();
+			// We have an order stored on the device. Reload and display:
+			reloadStoredOrder();
 		}else{
 			// We have no specific order to display. Just show the previous orders list:
 			currentOrderButton.setVisibility(View.GONE);
 			showOrderHistorySection();
 			this.previousOrders = new OrderVo[0];
+			if(this.pleaseWaitDialog != null && this.pleaseWaitDialog.isShowing()){
+				//If the dialog is already showing, dismiss it otherwise we will have a duplicate dialog.
+				this.pleaseWaitDialog.dismiss();
+			}
 			this.pleaseWaitDialog = ProgressDialog.show(this, "Fetching Orders", "Please wait...", true);
 			GetPreviousOrdersService service = new GetPreviousOrdersService(this, this);
+			service.execute();
+		}
+	}
+	
+	/**
+	 * Re-fetches the stored order's data from the service, so that we have the updated state.
+	 */
+	private void reloadStoredOrder(){
+		if(getCurrentOrder() != null){
+			if(this.pleaseWaitDialog != null && this.pleaseWaitDialog.isShowing()){
+				this.pleaseWaitDialog.dismiss();
+			}
+			this.pleaseWaitDialog = ProgressDialog.show(this, "Loading order", "Please wait...", true);
+			GetOrderByIdService service = new GetOrderByIdService(this, this, getCurrentOrder().getId());
 			service.execute();
 		}
 	}
@@ -138,16 +161,39 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 	 * and then shows the current order section. Also fetches the store details associated with the order.
 	 */
 	private void showCurrentOrder(){
+		if(this.currentOrder == null){
+			return;
+		}
 		this.lblOrderTotal = (TextView)findViewById(R.id.lblOrderTotal);
 		this.lblOrderTotal.setText("Total: " + MoneyUtils.getRandString(currentOrder.getTotal()));
 		this.currentOrderItemsList.setAdapter(new CurrentOrderItemAdapter(this, R.layout.current_order_item_row, currentOrder.getLineItems()));
 		this.lblOrderNumber = (TextView)findViewById(R.id.lblOrderNumber);
 		this.lblOrderNumber.setText(currentOrder.getNumber());
 		this.lblOrderDate = (TextView)findViewById(R.id.lblOrderDate);
-		 SimpleDateFormat format = new SimpleDateFormat("HH:mm, d MMMM yyyy", Locale.US);
+		SimpleDateFormat format = new SimpleDateFormat("HH:mm, d MMMM yyyy", Locale.US);
 		this.lblOrderDate.setText(format.format(currentOrder.getCreatedAt()));
 		this.currentOrderButton.setVisibility(View.VISIBLE);
+		
+		Log.d("STATE", "Order state: " + this.currentOrder.getState().toLowerCase(Locale.getDefault()));
+		
+		//Show the correct status badge based on the order state:
+		if(this.currentOrder.getState().toLowerCase(Locale.getDefault()).equals("ready")){
+			this.mOrderStatusBadge.setImageResource(R.drawable.ready_badge);
+		}else if(this.currentOrder.getState().toLowerCase(Locale.getDefault()).equals("collected")){
+			this.mOrderStatusBadge.setImageResource(R.drawable.collected_badge);
+		}else if(this.currentOrder.getState().toLowerCase(Locale.getDefault()).equals("in_progress")){
+			this.mOrderStatusBadge.setImageResource(R.drawable.in_progress_badge);
+		}else if(this.currentOrder.getState().toLowerCase(Locale.getDefault()).equals("cancelled")){
+			this.mOrderStatusBadge.setImageResource(R.drawable.cancelled_badge);
+		}else if(this.currentOrder.getState().toLowerCase(Locale.getDefault()).equals("not_collected")){
+			this.mOrderStatusBadge.setImageResource(R.drawable.not_collected_badge);
+		}
+		
 		showCurrentOrderSection();
+		if(this.pleaseWaitDialog != null && this.pleaseWaitDialog.isShowing()){
+			this.pleaseWaitDialog.dismiss();
+		}
+		this.pleaseWaitDialog = ProgressDialog.show(this, "Loading store", "Please wait...", true);
 		GetStoresService storesService = new GetStoresService(this, currentOrder.getStore_id());
 		storesService.execute();
 	}
@@ -186,6 +232,20 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 		}else if(result instanceof GetOrderByIdResult){
 			// We received a specific order that we fetched by id:
 			this.currentOrder = ((GetOrderByIdResult)result).getOrder();
+			
+			/*
+			 * If this order id is the same as the one stored on the device, 
+			 * update the stored order with this latest data.
+			 * Otherwise if the order was not found (is null) we just erase the stored order (save it as null)
+			 */
+			if(this.currentOrder == null || (getCurrentOrder() != null && getCurrentOrder().getId() == this.currentOrder.getId())){
+				saveCurrentOrder(this.currentOrder);
+			}
+			
+			if(this.currentOrder == null){
+				showOrderHistorySection();
+			}
+			
 			showCurrentOrder();
 		}else if(result instanceof GetStoresResult){
 			//We received the store details of the order we want to display:
@@ -220,7 +280,7 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 	
 	public void currentOrderClicked(View v){
 		Log.d("ORD", "Current Order Clicked");
-		showCurrentOrderSection();
+		showCurrentOrder();
 	}
 	
 	public void orderHistoryClicked(View v){
@@ -282,5 +342,5 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 		}else if(v.getId() == R.id.previous_orders_button){
 			orderHistoryClicked(v);
 		}
-	} 
+	}
 }
