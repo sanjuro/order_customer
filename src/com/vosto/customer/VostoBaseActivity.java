@@ -143,7 +143,6 @@ public abstract class VostoBaseActivity extends Activity {
         editor.putString("userName", "");
         editor.putString("userEmail", "");
         editor.putString("userMobile", "");
-        editor.putString("userPin", "");
         editor.commit();
         deleteCart();
 

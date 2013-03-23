@@ -118,7 +118,6 @@ public class SignUpActivity extends Activity implements OnRestReturn {
 				   editor.putString("userToken", createResult.getAccountResponseWrapper().authentication_token);
 				   editor.putString("userName", createResult.getAccountResponseWrapper().first_name);
                    editor.putString("userEmail", createResult.getAccountResponseWrapper().email);
-                   editor.putString("userPin", createResult.getUserPin());
 				   editor.commit();
 				   
 				   /*

@@ -146,7 +146,6 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("userToken", "");
         editor.putString("userName", "");
-        editor.putString("userPin", "");
         editor.commit();
 
         if(!authResult.wasUpdateSuccessful()){
@@ -156,7 +155,7 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
             editor = settings.edit();
             editor.putString("userToken", authResult.getCustomer().authentication_token);
             editor.putString("userName", authResult.getCustomer().first_name);
-            editor.putString("userPin", authResult.getCustomer().user_pin);
+            editor.putString("userEmail", authResult.getCustomer().email);
             editor.commit();
 
             // send toast message

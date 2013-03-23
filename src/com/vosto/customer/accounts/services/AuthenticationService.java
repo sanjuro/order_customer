@@ -1,7 +1,5 @@
 package com.vosto.customer.accounts.services;
 
-import java.util.Date;
-
 import org.apache.http.StatusLine;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,7 +11,6 @@ import com.vosto.customer.services.ResultType;
 
 public class AuthenticationService extends RestService {
 	
-	private String authToken;
 	private String email;
 	private String pin;
 	
@@ -64,8 +61,10 @@ public class AuthenticationService extends RestService {
 	@Override
 	protected AuthenticateResult getRestResult(StatusLine statusLine, String responseJson){
 		AuthenticateResult result = new AuthenticateResult(200, responseJson);
-		result.processJsonAndPopulate();	
-		result.getCustomer().user_pin = this.pin;
+		result.processJsonAndPopulate();
+		if(result.wasAuthenticationSuccessful()){
+			result.getCustomer().user_pin = this.pin;
+		}
 		return result;
 	}
 	
