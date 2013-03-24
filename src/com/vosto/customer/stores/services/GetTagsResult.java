@@ -42,7 +42,7 @@ public class GetTagsResult extends RestResult implements IRestResult {
 				JSONObject jsonObj = this.jsonArr.getJSONObject(i);
 				StoreTagVo currentTag = new StoreTagVo();
 				currentTag.setId(jsonObj.getInt("id"));
-				currentTag.setTitle(jsonObj.getString("title"));
+				currentTag.setName(jsonObj.getString("name"));
 				this.tags[i] = currentTag;
 			}
 			return true;

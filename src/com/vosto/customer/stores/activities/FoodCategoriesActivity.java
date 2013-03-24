@@ -3,6 +3,7 @@ package com.vosto.customer.stores.activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -85,11 +86,12 @@ public class FoodCategoriesActivity extends VostoBaseActivity implements OnRestR
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		this.pleaseWaitDialog = ProgressDialog.show(this, "Searching", "Please wait...", true);
 		
-		String queryTerm = this.storeTags[position].getTitle();
+		String queryTerm = this.storeTags[position].getName();
+        Log.d("SEA", "Query Term " + this.storeTags[position].getName());
 		SearchService service = new SearchService(this, this);
 		service.setSearchTerm(queryTerm);
 		if(this.hasLocation){
-			//We have a location, so pass the coordinates on to the search service:
+			// We have a location, so pass the coordinates on to the search service:
 			service.setHasLocation(true);
 			service.setLatitude(this.latitude);
 			service.setLongitude(this.longitude);

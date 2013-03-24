@@ -7,11 +7,11 @@ public class StoreTagVo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
-	private String title;
+	private String name;
 	
 	public StoreTagVo(){
 		this.id = -1;
-		this.title = "";
+		this.name = "";
 	}
 
 	public int getId() {
@@ -22,16 +22,16 @@ public class StoreTagVo implements Serializable {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public String toString(){
-		return this.title;
+		return this.name;
 	}
 	
 }

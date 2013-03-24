@@ -46,7 +46,7 @@ public class TagsListAdapter extends ArrayAdapter<StoreTagVo>{
         StoreTagVo tag = tags[position];
         
         if(holder != null && holder.lblTagTitle != null && tag != null){
-        	holder.lblTagTitle.setText(tag.getTitle());
+        	holder.lblTagTitle.setText(tag.getName());
         }
         return row;
     }
