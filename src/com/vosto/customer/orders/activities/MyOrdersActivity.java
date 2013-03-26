@@ -338,7 +338,8 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 		if(v.getId() == R.id.current_order_button){
 			currentOrderClicked(v);
 		}else if(v.getId() == R.id.previous_orders_button){
-			orderHistoryClicked(v);
+            Intent intent = new Intent(this, PreviousOrdersActivity.class);
+            startActivity(intent);
 		}
 	}
 }

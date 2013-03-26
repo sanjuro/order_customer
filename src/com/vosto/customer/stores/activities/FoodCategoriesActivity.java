@@ -43,8 +43,8 @@ public class FoodCategoriesActivity extends VostoBaseActivity implements OnRestR
 		
 		this.pleaseWaitDialog = ProgressDialog.show(this, "Loading Categories", "Please wait...", true);
 		
-		this.latitude = getIntent().getFloatExtra("latitude", -1.0f);
-		this.longitude = getIntent().getFloatExtra("longitude", -1.0f);
+		this.latitude = getIntent().getFloatExtra("latitude", 0.0f);
+		this.longitude = getIntent().getFloatExtra("longitude", 0.0f);
 		this.hasLocation = getIntent().getBooleanExtra("hasLocation", false);
 		if(!getIntent().hasExtra("latitude") || !getIntent().hasExtra("longitude")){
 			this.hasLocation = false;

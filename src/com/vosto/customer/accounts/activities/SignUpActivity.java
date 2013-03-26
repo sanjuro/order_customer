@@ -35,7 +35,7 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
         if(!GCMUtils.checkGCMAndAlert(this, false)){
         	return;
         }
-        
+        // GCMRegistrar.unregister(this);
         // Now we know we have GCM support and a Google account:
         this.gcmRegistrationId = GCMRegistrar.getRegistrationId(this);
         if(!this.gcmRegistrationId.equals("")){
