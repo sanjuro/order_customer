@@ -33,6 +33,7 @@ import com.vosto.customer.orders.services.PlaceOrderResult;
 import com.vosto.customer.orders.services.PlaceOrderService;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
+import com.vosto.customer.utils.GCMUtils;
 import com.vosto.customer.utils.MoneyUtils;
 /**
  * @author flippiescholtz
@@ -178,6 +179,11 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 			finish();
 			return;
 		}
+		
+		if(!GCMUtils.checkGCMAndAlert(this, true)){
+			return;
+		}
+		
 		Cart cart = getCart();
 		if(cart.getNumberOfItems() > 0){
 			promptForPin();
@@ -229,21 +235,6 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		 
-	}
-	
-	public void showAlertDialog(String title, String message){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title)
-        .setMessage(message)
-        .setCancelable(false)
-        .setNegativeButton("Close",new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.setOnDismissListener(this);
-        alert.show();
 	}
 	
 

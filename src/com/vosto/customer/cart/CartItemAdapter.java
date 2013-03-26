@@ -2,11 +2,6 @@ package com.vosto.customer.cart;
 
 import java.util.ArrayList;
 
-import com.vosto.customer.R;
-import com.vosto.customer.cart.vos.CartItem;
-import com.vosto.customer.stores.vos.StoreVo;
-import com.vosto.customer.utils.MoneyUtils;
-
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
@@ -16,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.vosto.customer.R;
+import com.vosto.customer.cart.vos.CartItem;
+import com.vosto.customer.utils.MoneyUtils;
 
 public class CartItemAdapter extends ArrayAdapter<CartItem>{
 

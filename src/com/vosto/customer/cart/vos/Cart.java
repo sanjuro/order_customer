@@ -1,13 +1,11 @@
 package com.vosto.customer.cart.vos;
 
-import java.util.Date;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.joda.money.Money;
 
 import com.vosto.customer.stores.vos.StoreVo;
-
-import android.util.Log;
 
 /**
  * Models the shopping cart.

@@ -18,7 +18,6 @@ public class VostoCustomerApp extends Application {
 
   private Cart latestCart;
   private OrderVo currentOrder;
-  private String authenticationToken;
   
   public Cart getLatestCart(){
     return this.latestCart;

@@ -2,10 +2,6 @@ package com.vosto.customer.products;
 
 import java.util.ArrayList;
 
-import com.vosto.customer.R;
-import com.vosto.customer.products.vos.ProductVo;
-import com.vosto.customer.products.vos.TaxonVo;
-
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
@@ -14,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.vosto.customer.R;
+import com.vosto.customer.products.vos.TaxonVo;
 
 public class TaxonListAdapter extends ArrayAdapter<TaxonVo>{
 

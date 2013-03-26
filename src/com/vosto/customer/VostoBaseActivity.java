@@ -1,20 +1,21 @@
 package com.vosto.customer;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.view.View;
+
+import com.vosto.customer.accounts.activities.EditProfileActivity;
 import com.vosto.customer.accounts.activities.SignInActivity;
 import com.vosto.customer.cart.activities.CartActivity;
 import com.vosto.customer.cart.vos.Cart;
 import com.vosto.customer.orders.activities.MyOrdersActivity;
 import com.vosto.customer.orders.vos.OrderVo;
-import com.vosto.customer.accounts.activities.EditProfileActivity;
 import com.vosto.customer.pages.activities.TermsActivity;
-
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.util.Log;
 
 /**
  * This is the base class from which all activities should inherit.
@@ -151,6 +152,25 @@ public abstract class VostoBaseActivity extends Activity {
         startActivity(intent);
         finish();
     }
+    
+    /** 
+     * Shows a standard alert dialog with Close button in this activity.
+     * @param title
+     * @param message
+     */
+    public void showAlertDialog(String title, String message){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title)
+        .setMessage(message)
+        .setCancelable(false)
+        .setNegativeButton("Close",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+	}
 
 	/*
 	

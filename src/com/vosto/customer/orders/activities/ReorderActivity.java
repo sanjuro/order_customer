@@ -6,9 +6,9 @@ import java.util.Locale;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -23,8 +23,6 @@ import android.widget.TextView;
 
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
-import com.vosto.customer.R.id;
-import com.vosto.customer.R.layout;
 import com.vosto.customer.accounts.services.AuthenticateResult;
 import com.vosto.customer.accounts.services.AuthenticationService;
 import com.vosto.customer.orders.CurrentOrderItemAdapter;
@@ -36,6 +34,7 @@ import com.vosto.customer.services.RestResult;
 import com.vosto.customer.stores.services.GetStoresResult;
 import com.vosto.customer.stores.services.GetStoresService;
 import com.vosto.customer.stores.vos.StoreVo;
+import com.vosto.customer.utils.GCMUtils;
 import com.vosto.customer.utils.MoneyUtils;
 
 /**
@@ -50,9 +49,6 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 	private TextView lblOrderNumber;
 	private TextView lblOrderDate;
 	private TextView lblOrderTotal;
-	private TextView lblStoreName;
-	private TextView lblStoreTelephone;
-	private TextView lblStoreAddress;
 	private ImageView mOrderStatusBadge;
 	
 	public void onCreate(Bundle savedInstanceState){
@@ -145,21 +141,6 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 		 
 	}
 	
-	public void showAlertDialog(String title, String message){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title)
-        .setMessage(message)
-        .setCancelable(false)
-        .setNegativeButton("Close",new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.setOnDismissListener(this);
-        alert.show();
-	}
-	
 	private void updateStoreDetails(StoreVo store){
 		this.store = store;
 
@@ -173,6 +154,9 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 	}
 	
 	public void reorderClicked(View v){
+		if(!GCMUtils.checkGCMAndAlert(this, true)){
+			return;
+		}
 		promptForPin();
 	}
 	

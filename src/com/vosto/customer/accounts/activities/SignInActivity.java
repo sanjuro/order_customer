@@ -1,5 +1,7 @@
 package com.vosto.customer.accounts.activities;
 
+import java.util.Locale;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -8,7 +10,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import com.vosto.customer.accounts.services.ResetPasswordResult;
 import com.vosto.customer.accounts.services.ResetPasswordService;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
+import com.vosto.customer.utils.GCMUtils;
 
 /**
  * The Sign In screen where an existing user logs in.
@@ -54,6 +56,10 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 	 * @param v the sign in button instance
 	 */
 	public void signInClicked(View v){
+		if(!GCMUtils.checkGCMAndAlert(this, false)){
+			return;
+		}
+		
 		this.pleaseWaitDialog = ProgressDialog.show(this, "Authenticating", "Please wait...", true);
 		
 		TextView txtEmail = (TextView)findViewById(R.id.txtEmail);
@@ -177,26 +183,12 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 	 * @param result
 	 */
 	private void processResetPasswordResult(ResetPasswordResult result){
-		if(result.getResponseMessage() != null && result.getResponseMessage().trim().toLowerCase().equals("new pin sent")){
+		if(result.getResponseMessage() != null && result.getResponseMessage().trim().toLowerCase(Locale.US).equals("new pin sent")){
 			this.showAlertDialog("Pin reset", "Please check your e-mail");
 		}else{
 			this.showAlertDialog("ERROR:", "Your pin could not be reset. Please check your e-mail address and try again.");
 		}
 		
-	}
-	
-	public void showAlertDialog(String title, String message){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title)
-        .setMessage(message)
-        .setCancelable(false)
-        .setNegativeButton("Close",new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
 	}
 	
 	

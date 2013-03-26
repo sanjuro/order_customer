@@ -2,18 +2,7 @@ package com.vosto.customer.accounts.activities;
 
 import java.util.Locale;
 
-import com.google.android.gcm.GCMRegistrar;
-import com.vosto.customer.HomeActivity;
-import com.vosto.customer.R;
-import com.vosto.customer.accounts.services.CreateAccountResult;
-import com.vosto.customer.accounts.services.CreateAccountService;
-import com.vosto.customer.services.OnRestReturn;
-import com.vosto.customer.services.RestResult;
-
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,32 +10,38 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-public class SignUpActivity extends Activity implements OnRestReturn {
+import com.google.android.gcm.GCMRegistrar;
+import com.vosto.customer.HomeActivity;
+import com.vosto.customer.R;
+import com.vosto.customer.VostoBaseActivity;
+import com.vosto.customer.accounts.services.CreateAccountResult;
+import com.vosto.customer.accounts.services.CreateAccountService;
+import com.vosto.customer.services.OnRestReturn;
+import com.vosto.customer.services.RestResult;
+import com.vosto.customer.utils.GCMUtils;
+
+public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
 	
 	private ProgressDialog pleaseWaitDialog;
 	private String gcmRegistrationId; // The id assigned by gcm for this app / device combination
 	
+	
 	@Override
-    protected void onCreate(Bundle args)
+    public void onCreate(Bundle args)
     {
         super.onCreate(args);
         setContentView(R.layout.activity_signup);  
         
-        // Check if GCM is OK and see if there's an existing registration id:
-        try{
-        	 GCMRegistrar.checkDevice(this);
-        	 GCMRegistrar.checkManifest(this);
-             // GCMRegistrar.unregister(this);
-             this.gcmRegistrationId = GCMRegistrar.getRegistrationId(this);
-        	 if(!this.gcmRegistrationId.equals("")){
-        		 Log.d("GCM", "Device already registered with gcm. Not registering again.");
-        		 Log.d("GCM", "GCM id: " + this.gcmRegistrationId);
-        	 }
-        }catch(Exception e){
-        	// GCM is not supported or permissions not set up correctly.
-        	e.printStackTrace();
-        	Log.d("GCM", "GCM can't be initialized. GCM not supported or problem with manifest.");
+        if(!GCMUtils.checkGCMAndAlert(this, false)){
+        	return;
         }
+        
+        // Now we know we have GCM support and a Google account:
+        this.gcmRegistrationId = GCMRegistrar.getRegistrationId(this);
+        if(!this.gcmRegistrationId.equals("")){
+        	Log.d("GCM", "Device already registered with gcm. Not registering again.");
+        	Log.d("GCM", "GCM id: " + this.gcmRegistrationId);
+        } 
     }
 	
 	public void signInClicked(View v){
@@ -56,6 +51,11 @@ public class SignUpActivity extends Activity implements OnRestReturn {
 	}
 	
 	public void submitClicked(View v){
+		
+		if(!GCMUtils.checkGCMAndAlert(this, false)){
+			return;
+		}
+		
 		CreateAccountService service = new CreateAccountService(this);
 		TextView txtName = (TextView)findViewById(R.id.txtName);
 		TextView txtEmail = (TextView)findViewById(R.id.txtEmail);
@@ -144,18 +144,6 @@ public class SignUpActivity extends Activity implements OnRestReturn {
 		
 	}
 	
-	public void showAlertDialog(String title, String message){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title)
-        .setMessage(message)
-        .setCancelable(false)
-        .setNegativeButton("Close",new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
-	}
+	
 	
 }

@@ -3,7 +3,6 @@ package com.vosto.customer.orders.activities;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
@@ -274,21 +273,6 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 		 Intent intent = new Intent(this, ReorderActivity.class);
 		 intent.putExtra("order", this.previousOrders[position]);
 		 startActivity(intent);
-	}
-	
-	public void showAlertDialog(String title, String message){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title)
-        .setMessage(message)
-        .setCancelable(false)
-        .setNegativeButton("Close",new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.setOnDismissListener(this);
-        alert.show();
 	}
 	
 	public void currentOrderClicked(View v){

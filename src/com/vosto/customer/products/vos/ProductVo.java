@@ -3,8 +3,6 @@ package com.vosto.customer.products.vos;
 import java.io.Serializable;
 
 import org.joda.money.Money;
-import org.joda.money.format.MoneyFormatException;
-
 import com.vosto.customer.utils.MoneyUtils;
 
 public class ProductVo implements Serializable {

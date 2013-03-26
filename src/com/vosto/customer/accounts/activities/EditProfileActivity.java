@@ -168,20 +168,6 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
         }
     }
 
-    public void showAlertDialog(String title, String message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title)
-                .setMessage(message)
-                .setCancelable(false)
-                .setNegativeButton("Close",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
     public void resetPinPressed(View v) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 

@@ -5,7 +5,6 @@ import org.json.JSONObject;
 
 import android.provider.Settings.Secure;
 
-import com.vosto.customer.VostoBaseActivity;
 import com.vosto.customer.VostoCustomerApp;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RequestMethod;

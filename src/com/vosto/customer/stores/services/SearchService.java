@@ -3,14 +3,13 @@ package com.vosto.customer.stores.services;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.vosto.customer.VostoBaseActivity;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RequestMethod;
 import com.vosto.customer.services.RestService;
 import com.vosto.customer.services.ResultType;
-
-import android.content.Context;
-import android.util.Log;
 
 public class SearchService extends RestService {
 	

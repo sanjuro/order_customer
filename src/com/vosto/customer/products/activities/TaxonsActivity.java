@@ -15,8 +15,6 @@ import android.widget.TextView;
 import com.vosto.customer.HomeActivity;
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
-import com.vosto.customer.R.id;
-import com.vosto.customer.R.layout;
 import com.vosto.customer.orders.activities.MyOrdersActivity;
 import com.vosto.customer.products.TaxonListAdapter;
 import com.vosto.customer.products.services.GetProductsResult;

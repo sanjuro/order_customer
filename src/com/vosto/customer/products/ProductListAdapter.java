@@ -1,11 +1,5 @@
 package com.vosto.customer.products;
 
-import java.util.ArrayList;
-
-import com.vosto.customer.R;
-import com.vosto.customer.products.vos.ProductVo;
-import com.vosto.customer.utils.MoneyUtils;
-
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
@@ -13,9 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.vosto.customer.R;
+import com.vosto.customer.products.vos.ProductVo;
+import com.vosto.customer.utils.MoneyUtils;
 
 public class ProductListAdapter extends ArrayAdapter<ProductVo>{
 

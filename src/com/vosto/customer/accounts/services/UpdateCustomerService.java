@@ -12,7 +12,6 @@ import com.vosto.customer.services.ResultType;
 
 public class UpdateCustomerService extends RestService {
 
-    private String authToken;
     private String name;
     private String email;
 //    private String gender;

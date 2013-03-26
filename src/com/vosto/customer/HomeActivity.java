@@ -1,8 +1,6 @@
 package com.vosto.customer;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Criteria;
@@ -12,9 +10,9 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.agimind.widget.SlideHolder;
@@ -26,7 +24,6 @@ import com.vosto.customer.stores.activities.FoodCategoriesActivity;
 import com.vosto.customer.stores.activities.StoresActivity;
 import com.vosto.customer.stores.services.SearchResult;
 import com.vosto.customer.stores.services.SearchService;
-import com.vosto.customer.stores.vos.StoreTagVo;
 
 /**
  * 
@@ -39,7 +36,6 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 	
 	private ProgressDialog pleaseWaitDialog;
     private SlideHolder mSlideHolder;
-    private StoreTagVo[] mStoreTags;
     
     /*
      * If the gps is enabled, this activity will keep listening for location updates
@@ -205,20 +201,6 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 	    	startActivity(intent);
 	    	//finish();
 		}
-	}
-	
-	public void showAlertDialog(String title, String message){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title)
-        .setMessage(message)
-        .setCancelable(false)
-        .setNegativeButton("Close",new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
 	}
 
 	/**
