@@ -150,6 +150,10 @@ public class ProductResultsActivity extends VostoBaseActivity implements OnRestR
 	}
 	
 	public void buyButtonClicked(View v){
+		if(getCart().getNumberOfItems() == 0){
+			showAlertDialog("Cart Empty", "Please add some items to your cart.");
+			return;
+		}
 		Intent intent = new Intent(this, CartActivity.class);
     	startActivity(intent);
 	}

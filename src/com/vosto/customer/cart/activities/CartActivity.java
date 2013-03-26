@@ -92,6 +92,10 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 		cart.removeItem(item);
 		this.list.setAdapter(new CartItemAdapter(this, R.layout.cart_item_row, cart.getItems()));
 		updateTotals();
+		if(cart.getNumberOfItems() == 0){
+			getContext().closeCart();
+			finish();
+		}
 	}
 	
 	public void editButtonClicked(View v){
