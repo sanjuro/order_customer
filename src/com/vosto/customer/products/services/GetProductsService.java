@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.vosto.customer.VostoBaseActivity;
 import com.vosto.customer.products.vos.OptionValueVo;
 import com.vosto.customer.products.vos.ProductVo;
 import com.vosto.customer.products.vos.VariantVo;
@@ -19,12 +20,12 @@ import com.vosto.customer.services.ResultType;
 
 public class GetProductsService extends RestService {
 	
-	public GetProductsService(OnRestReturn listener){
-		super("http://107.22.211.58:9000/api/v1/products", RequestMethod.GET, ResultType.GET_PRODUCTS, listener);
+	public GetProductsService(OnRestReturn listener, VostoBaseActivity context){
+		super("http://107.22.211.58:9000/api/v1/products", RequestMethod.GET, ResultType.GET_PRODUCTS, listener, context);
 	}
 	
-	public GetProductsService(OnRestReturn listener, int taxonId){
-		super("http://107.22.211.58:9000/api/v1/taxons/"+taxonId+"/products", RequestMethod.GET, ResultType.GET_PRODUCTS, listener);
+	public GetProductsService(OnRestReturn listener, VostoBaseActivity context, int taxonId){
+		super("http://107.22.211.58:9000/api/v1/taxons/"+taxonId+"/products", RequestMethod.GET, ResultType.GET_PRODUCTS, listener, context);
 	}
 	
 	@Override

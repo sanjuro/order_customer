@@ -70,7 +70,7 @@ public class GCMIntentService extends com.google.android.gcm.GCMBaseIntentServic
 	     
 	     // Now we register the device with Vosto, passing the new gcm id:
 	     Log.d("GCM", "Registering device with Vosto...");
-	     RegisterDeviceService service = new RegisterDeviceService(this, (VostoCustomerApp)context, gcmId);
+	     RegisterDeviceService service = new RegisterDeviceService(this,  (VostoBaseActivity)context, (VostoCustomerApp)context, gcmId);
 	     service.execute();
 	}
 

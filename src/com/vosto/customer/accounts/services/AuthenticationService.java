@@ -4,6 +4,7 @@ import org.apache.http.StatusLine;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.vosto.customer.VostoBaseActivity;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RequestMethod;
 import com.vosto.customer.services.RestService;
@@ -14,8 +15,8 @@ public class AuthenticationService extends RestService {
 	private String email;
 	private String pin;
 	
-	public AuthenticationService(OnRestReturn listener){
-		super("http://107.22.211.58:9000/api/v1/customers/authenticate", RequestMethod.POST, ResultType.AUTHENTICATE_CUSTOMER, listener);
+	public AuthenticationService(OnRestReturn listener, VostoBaseActivity activity){
+		super("http://107.22.211.58:9000/api/v1/customers/authenticate", RequestMethod.POST, ResultType.AUTHENTICATE_CUSTOMER, listener, activity);
 	}
 	public String getEmail() {
 		return email;

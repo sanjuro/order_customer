@@ -34,7 +34,6 @@ import com.vosto.customer.stores.services.SearchService;
  */
 public class HomeActivity extends VostoBaseActivity implements OnRestReturn, LocationListener {
 	
-	private ProgressDialog pleaseWaitDialog;
     private SlideHolder mSlideHolder;
     
     /*

@@ -22,6 +22,7 @@ import com.vosto.customer.services.RestResult;
 import com.vosto.customer.stores.StoreListAdapter;
 import com.vosto.customer.stores.services.GetStoresResult;
 import com.vosto.customer.stores.vos.StoreVo;
+import com.vosto.customer.utils.NetworkUtils;
 /**
  * @author flippiescholtz
  *
@@ -113,6 +114,10 @@ public class StoresActivity extends VostoBaseActivity implements OnRestReturn, O
 		  cart.setStore(this.stores[position]);
 		  saveCart(cart);
 		  */
+		if(!NetworkUtils.isNetworkAvailable(this)){
+			this.showAlertDialog("Connection Error", "Please connect to the internet.");
+			return;
+		}
 		Log.d("STO", "Passing store to TaxonActivity: " + this.stores[position].getId());
         Intent intent = new Intent(this, TaxonsActivity.class);
         intent.putExtra("store", this.stores[position]);

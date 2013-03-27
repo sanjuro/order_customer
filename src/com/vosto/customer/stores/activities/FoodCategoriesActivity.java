@@ -29,8 +29,6 @@ import com.vosto.customer.stores.vos.StoreTagVo;
 public class FoodCategoriesActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener {
 	private StoreTagVo[] storeTags;
 	
-	private ProgressDialog pleaseWaitDialog;
-	
 	//Passed from the HomeActivity:
 	private float latitude;
 	private float longitude;

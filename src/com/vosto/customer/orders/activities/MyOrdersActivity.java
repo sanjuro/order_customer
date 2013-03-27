@@ -204,7 +204,7 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 			this.pleaseWaitDialog.dismiss();
 		}
 		this.pleaseWaitDialog = ProgressDialog.show(this, "Loading store", "Please wait...", true);
-		GetStoresService storesService = new GetStoresService(this, currentOrder.getStore_id());
+		GetStoresService storesService = new GetStoresService(this, this, currentOrder.getStore_id());
 		storesService.execute();
 	}
 	

@@ -85,7 +85,7 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 			this.mOrderStatusBadge.setImageResource(R.drawable.in_progress_badge);
 		}
 		
-		GetStoresService storesService = new GetStoresService(this, order.getStore_id());
+		GetStoresService storesService = new GetStoresService(this, this, order.getStore_id());
 		storesService.execute();
 	}
 	
@@ -213,7 +213,7 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 	 */
 	public void authenticateWithVosto(String enteredPin){
 		SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
-		  AuthenticationService service = new AuthenticationService(this);
+		  AuthenticationService service = new AuthenticationService(this, this);
 		  String email = settings.getString("userEmail", "").trim();
 		  if(email.equals("")){
 			  showAlertDialog("Error", "Could not determine your e-mail address. Please log out and log in again.");

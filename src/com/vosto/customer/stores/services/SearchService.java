@@ -20,7 +20,7 @@ public class SearchService extends RestService {
 	private VostoBaseActivity context;
 	
 	public SearchService(OnRestReturn listener, VostoBaseActivity context){
-		super("http://107.22.211.58:9000/api/v1/stores/search", RequestMethod.POST, ResultType.SEARCH_STORES, listener);
+		super("http://107.22.211.58:9000/api/v1/stores/search", RequestMethod.POST, ResultType.SEARCH_STORES, listener, context);
 		this.context = context;
 		this.hasLocation = false;
 	}

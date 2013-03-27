@@ -22,7 +22,6 @@ import com.vosto.customer.utils.GCMUtils;
 
 public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
 	
-	private ProgressDialog pleaseWaitDialog;
 	private String gcmRegistrationId; // The id assigned by gcm for this app / device combination
 	
 	
@@ -56,7 +55,7 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
 			return;
 		}
 		
-		CreateAccountService service = new CreateAccountService(this);
+		CreateAccountService service = new CreateAccountService(this, this);
 		TextView txtName = (TextView)findViewById(R.id.txtName);
 		TextView txtEmail = (TextView)findViewById(R.id.txtEmail);
 		TextView txtPin = (TextView)findViewById(R.id.txtSecurityPin);

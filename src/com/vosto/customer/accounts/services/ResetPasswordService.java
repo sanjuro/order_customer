@@ -13,7 +13,7 @@ public class ResetPasswordService extends RestService {
 	private String email;
 	
 	public ResetPasswordService(OnRestReturn listener, VostoBaseActivity context, String email){
-		super("http://107.22.211.58:9000/api/v1/customers/reset_pin", RequestMethod.POST, ResultType.RESET_PIN, listener);
+		super("http://107.22.211.58:9000/api/v1/customers/reset_pin", RequestMethod.POST, ResultType.RESET_PIN, listener, context);
 		this.email = email;
 	}
 	

@@ -19,7 +19,7 @@ public class UpdateCustomerService extends RestService {
 private VostoBaseActivity context;
 
     public UpdateCustomerService(OnRestReturn listener, VostoBaseActivity context){
-        super("http://107.22.211.58:9000/api/v1/customers/update", RequestMethod.POST, ResultType.UPDATE_CUSTOMER, listener);
+        super("http://107.22.211.58:9000/api/v1/customers/update", RequestMethod.POST, ResultType.UPDATE_CUSTOMER, listener, context);
         this.context = context;
     }
 

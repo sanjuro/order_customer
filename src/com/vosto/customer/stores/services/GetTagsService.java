@@ -12,7 +12,7 @@ public class GetTagsService extends RestService {
 	
 	public GetTagsService(OnRestReturn listener, VostoBaseActivity context){
 		super("http://107.22.211.58:9000/api/v1/tags" +
-                "?authentication_token=" + context.getAuthenticationToken(), RequestMethod.GET, ResultType.GET_TAGS, listener);
+                "?authentication_token=" + context.getAuthenticationToken(), RequestMethod.GET, ResultType.GET_TAGS, listener, context);
 		Log.d("TAG", "Tags auth token: " + context.getAuthenticationToken());
 	}
 

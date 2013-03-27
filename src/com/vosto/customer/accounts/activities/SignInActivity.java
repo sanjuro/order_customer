@@ -82,7 +82,7 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 		}
 		
 		//Make the REST call:
-		AuthenticationService service = new AuthenticationService(this);
+		AuthenticationService service = new AuthenticationService(this, this);
 		service.setEmail(email);
 		service.setPin(pin);
 		service.execute();

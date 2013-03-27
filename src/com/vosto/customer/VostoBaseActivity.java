@@ -171,6 +171,15 @@ public abstract class VostoBaseActivity extends Activity {
         AlertDialog alert = builder.create();
         alert.show();
 	}
+    
+    /**
+     * Dismisses the please wait dialog if it is showing.
+     */
+    public void dismissPleaseWaitDialog(){
+    	if(this.pleaseWaitDialog != null && this.pleaseWaitDialog.isShowing()){
+    		this.pleaseWaitDialog.dismiss();
+    	}
+    }
 
 	/*
 	
