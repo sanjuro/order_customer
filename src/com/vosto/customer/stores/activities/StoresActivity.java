@@ -40,32 +40,6 @@ public class StoresActivity extends VostoBaseActivity implements OnRestReturn, O
 		Object[] objects = (Object[]) this.getIntent().getSerializableExtra("stores");
 		this.stores = new StoreVo[objects.length];
 		for(int i = 0; i<objects.length; i++){
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			this.stores[i] = (StoreVo)objects[i];
 		}
 		
