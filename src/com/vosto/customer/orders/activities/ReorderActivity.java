@@ -100,9 +100,6 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 	 */
 	@Override
 	public void onRestReturn(RestResult result) {
-		if(this.pleaseWaitDialog != null){
-			this.pleaseWaitDialog.dismiss();
-		}
 		if(result == null){
 			return;
 		}
@@ -164,7 +161,6 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 		if(this.order == null || this.store == null){
 			return;
 		}
-		this.pleaseWaitDialog = ProgressDialog.show(this, "Sending Order", "Please wait...", true);
 		PlaceOrderService service = new PlaceOrderService(this, this);
 		service.setOrder(this.order);
 		service.setStore(this.store);
@@ -219,7 +215,6 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 			  showAlertDialog("Error", "Could not determine your e-mail address. Please log out and log in again.");
 			  return;
 		  }
-		  this.pleaseWaitDialog = ProgressDialog.show(this, "Authenticating", "Please wait...", true);
 		  service.setEmail(email);
 		  service.setPin(enteredPin.trim());
 		  service.execute();

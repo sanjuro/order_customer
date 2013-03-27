@@ -39,8 +39,6 @@ public class FoodCategoriesActivity extends VostoBaseActivity implements OnRestR
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_food_categories);
 		
-		this.pleaseWaitDialog = ProgressDialog.show(this, "Loading Categories", "Please wait...", true);
-		
 		this.latitude = getIntent().getFloatExtra("latitude", 0.0f);
 		this.longitude = getIntent().getFloatExtra("longitude", 0.0f);
 		this.hasLocation = getIntent().getBooleanExtra("hasLocation", false);
@@ -58,7 +56,6 @@ public class FoodCategoriesActivity extends VostoBaseActivity implements OnRestR
 	 */
 	@Override
 	public void onRestReturn(RestResult result) {
-		this.pleaseWaitDialog.dismiss();
 		if(result == null){
 			return;
 		}
@@ -82,7 +79,6 @@ public class FoodCategoriesActivity extends VostoBaseActivity implements OnRestR
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-		this.pleaseWaitDialog = ProgressDialog.show(this, "Searching", "Please wait...", true);
 		
 		String queryTerm = this.storeTags[position].getName();
         Log.d("SEA", "Query Term " + this.storeTags[position].getName());
@@ -95,12 +91,6 @@ public class FoodCategoriesActivity extends VostoBaseActivity implements OnRestR
 			service.setLongitude(this.longitude);
 		}
 		service.execute();
-	}
-	
-
-	@Override
-	public void onBackPressed() {
-		finish();
 	}
 
 	public void homeClicked(){

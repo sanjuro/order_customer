@@ -161,7 +161,6 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 	private void searchByQueryTerm(String queryTerm){
 		// Check if we have an updated GPS location, otherwise try to get a new one:	
 		Location location = getBestLocation(); 
-		this.pleaseWaitDialog = ProgressDialog.show(this, "Searching", "Please wait...", true);
 				
 		SearchService service = new SearchService(this, this);
 		service.setSearchTerm(queryTerm);	
@@ -181,7 +180,6 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 	 */
 	@Override
 	public void onRestReturn(RestResult result) {
-		this.pleaseWaitDialog.dismiss();
 		if(result == null){
 			return;
 		}
@@ -239,7 +237,6 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 		}
 	 
 	    // We have a location. Make the search call:
-	    this.pleaseWaitDialog = ProgressDialog.show(this, "Searching", "Please wait...", true);
 		SearchService service = new SearchService(this, this);
 		//Set the search term blank because we are searching by location only:
 		service.setSearchTerm("");

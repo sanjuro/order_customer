@@ -155,7 +155,6 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 			  showAlertDialog("Error", "Could not determine your e-mail address. Please log out and log in again.");
 			  return;
 		  }
-		  this.pleaseWaitDialog = ProgressDialog.show(this, "Authenticating", "Please wait...", true);
 		  service.setEmail(email);
 		  service.setPin(enteredPin.trim());
 		  service.execute();
@@ -166,7 +165,6 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 		if(cart.getNumberOfItems() == 0){
 			return;
 		}
-		this.pleaseWaitDialog = ProgressDialog.show(this, "Sending Order", "Please wait...", true);
 		PlaceOrderService service = new PlaceOrderService(this, this);
 		service.setCart(cart);
 		service.execute();
@@ -204,7 +202,6 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	 */
 	@Override
 	public void onRestReturn(RestResult result) {
-		this.pleaseWaitDialog.dismiss();
 		if(result == null){
 			return;
 		}

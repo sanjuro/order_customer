@@ -37,6 +37,8 @@ import com.vosto.customer.stores.services.GetTagsResult;
 import com.vosto.customer.stores.services.SearchResult;
 import com.vosto.customer.utils.NetworkUtils;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -109,8 +111,15 @@ protected  void onPreExecute()
    // If we don't have an internet connection, cancel the task and alert the user:
 	if(!NetworkUtils.isNetworkAvailable(this.activity)){
 		cancel(false);
-		this.activity.dismissPleaseWaitDialog();
 		this.activity.showAlertDialog("Connection Error", "Please connect to the internet.");
+	}else{
+		// Everything looks OK. Service can run:
+		this.activity.pleaseWaitDialog = ProgressDialog.show(this.activity, "Loading", "Please wait...", true, true,  new DialogInterface.OnCancelListener(){
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                cancel(true);
+            }
+        });
 	}
 }
 
@@ -156,6 +165,7 @@ protected RestResult doInBackground(Void... params) {
 }
 
 protected void onPostExecute(RestResult result) {
+	this.activity.dismissPleaseWaitDialog();
 	if(this.executeException != null){
 		// An error occured during execution, most likely a loss of connectivity.
 		this.activity.dismissPleaseWaitDialog();

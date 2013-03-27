@@ -168,7 +168,6 @@ public class EditCartItemActivity extends VostoBaseActivity implements OnRestRet
 	 */
 	@Override
 	public void onRestReturn(RestResult result) {
-		this.pleaseWaitDialog.dismiss();
 		if(result == null){
 			return;
 		}

@@ -119,7 +119,6 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 			if(this.pleaseWaitDialog != null && this.pleaseWaitDialog.isShowing()){
 				this.pleaseWaitDialog.dismiss();
 			}
-			this.pleaseWaitDialog = ProgressDialog.show(this, "Loading order", "Please wait...", true);
 			GetOrderByIdService service = new GetOrderByIdService(this, this, getIntent().getIntExtra("order_id", -1));
 			service.execute();
 		}else if(getCurrentOrder() != null){
@@ -145,7 +144,6 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 		if(this.pleaseWaitDialog != null && this.pleaseWaitDialog.isShowing()){
 			this.pleaseWaitDialog.dismiss();
 		}
-		this.pleaseWaitDialog = ProgressDialog.show(this, "Fetching Orders", "Please wait...", true);
 		GetPreviousOrdersService service = new GetPreviousOrdersService(this, this);
 		service.execute();
 	}
@@ -158,7 +156,6 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 			if(this.pleaseWaitDialog != null && this.pleaseWaitDialog.isShowing()){
 				this.pleaseWaitDialog.dismiss();
 			}
-			this.pleaseWaitDialog = ProgressDialog.show(this, "Loading order", "Please wait...", true);
 			GetOrderByIdService service = new GetOrderByIdService(this, this, getCurrentOrder().getId());
 			service.execute();
 		}
@@ -203,7 +200,6 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 		if(this.pleaseWaitDialog != null && this.pleaseWaitDialog.isShowing()){
 			this.pleaseWaitDialog.dismiss();
 		}
-		this.pleaseWaitDialog = ProgressDialog.show(this, "Loading store", "Please wait...", true);
 		GetStoresService storesService = new GetStoresService(this, this, currentOrder.getStore_id());
 		storesService.execute();
 	}
@@ -222,9 +218,6 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 	 */
 	@Override
 	public void onRestReturn(RestResult result) {
-		if(this.pleaseWaitDialog != null){
-			this.pleaseWaitDialog.dismiss();
-		}
 		if(result == null){
 			return;
 		}

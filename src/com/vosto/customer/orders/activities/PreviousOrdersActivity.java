@@ -119,7 +119,6 @@ public class PreviousOrdersActivity extends VostoBaseActivity implements OnRestR
         if(this.pleaseWaitDialog != null && this.pleaseWaitDialog.isShowing()){
             this.pleaseWaitDialog.dismiss();
         }
-        this.pleaseWaitDialog = ProgressDialog.show(this, "Fetching Orders", "Please wait...", true);
         GetPreviousOrdersService service = new GetPreviousOrdersService(this, this);
         service.execute();
     }
@@ -138,9 +137,6 @@ public class PreviousOrdersActivity extends VostoBaseActivity implements OnRestR
      */
     @Override
     public void onRestReturn(RestResult result) {
-        if(this.pleaseWaitDialog != null){
-            this.pleaseWaitDialog.dismiss();
-        }
         if(result == null){
             return;
         }

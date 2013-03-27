@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.vosto.customer.accounts.activities.EditProfileActivity;
@@ -16,6 +17,7 @@ import com.vosto.customer.cart.vos.Cart;
 import com.vosto.customer.orders.activities.MyOrdersActivity;
 import com.vosto.customer.orders.vos.OrderVo;
 import com.vosto.customer.pages.activities.TermsActivity;
+import com.vosto.customer.services.RestService;
 
 /**
  * This is the base class from which all activities should inherit.
@@ -28,7 +30,7 @@ import com.vosto.customer.pages.activities.TermsActivity;
 public abstract class VostoBaseActivity extends Activity {
 	
 	// Subclasses can display a basic please wait dialog with spinner:
-	protected ProgressDialog pleaseWaitDialog;
+	public ProgressDialog pleaseWaitDialog;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -195,5 +197,5 @@ public abstract class VostoBaseActivity extends Activity {
 	public abstract void settingsPressed();
 	
 	*/
-	
+    
 }

@@ -45,8 +45,7 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
         txtStoreName.setText(this.store.getName());
         txtStoreAddress.setText(this.store.getAddress());
         txtStoreTelephone.setText(this.store.getManagerContact());
-		
-		this.pleaseWaitDialog = ProgressDialog.show(this, "Loading Categories", "Please wait...", true);
+	
 		Log.d("STO", "Loading taxons for store: " + this.store.getId());
 		GetTaxonsService service = new GetTaxonsService(this, this, this.store.getId());
 		service.execute();
@@ -58,7 +57,7 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
 	 */
 	@Override
 	public void onRestReturn(RestResult result) {
-		this.pleaseWaitDialog.dismiss();
+		
 		if(result == null){
 			Log.d("ERROR", "Result is null");
 		}
@@ -102,7 +101,6 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-		this.pleaseWaitDialog = ProgressDialog.show(this, "Loading Products", "Please wait...", true);
 		this.selectedTaxon = this.taxons.get(position);
 		GetProductsService service = new GetProductsService(this, this, this.taxons.get(position).getId());
 		service.execute();

@@ -76,7 +76,6 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
      * @param v The signup button instance.
      */
     public void saveClicked(View v){
-        this.pleaseWaitDialog = ProgressDialog.show(this, "Updating", "Please wait...", true);
 
         EditText txtName = (EditText)findViewById(R.id.txtName);
         EditText txtEmail = (EditText)findViewById(R.id.txtEmail);
@@ -126,7 +125,6 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
      */
     @Override
     public void onRestReturn(RestResult result) {
-        this.pleaseWaitDialog.dismiss();
         if(result == null){
             this.showAlertDialog("Login Failed", "Please try again.");
             return;
@@ -215,7 +213,6 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
      * @param email
      */
     public void confirmResetPassword(String email){
-        this.pleaseWaitDialog = ProgressDialog.show(this, "Sending Password", "Please wait...", true);
         ResetPasswordService service = new ResetPasswordService(this, this, email);
         service.execute();
     }

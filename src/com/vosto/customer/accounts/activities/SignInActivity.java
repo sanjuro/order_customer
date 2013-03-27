@@ -60,8 +60,6 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 			return;
 		}
 		
-		this.pleaseWaitDialog = ProgressDialog.show(this, "Authenticating", "Please wait...", true);
-		
 		TextView txtEmail = (TextView)findViewById(R.id.txtEmail);
 		TextView txtPin = (TextView)findViewById(R.id.txtSecurityPin);
 		String email = txtEmail.getText().toString().trim();
@@ -125,7 +123,6 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 	 * @param email
 	 */
 	public void confirmResetPassword(String email){  
-		this.pleaseWaitDialog = ProgressDialog.show(this, "Sending Password", "Please wait...", true);
 		ResetPasswordService service = new ResetPasswordService(this, this, email);
 		service.execute();
 	}
@@ -136,7 +133,6 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 	 */
 	@Override
 	public void onRestReturn(RestResult result) {
-		this.pleaseWaitDialog.dismiss();
 		if(result == null){
 			this.showAlertDialog("Login Failed", "Please try again.");
 			return;

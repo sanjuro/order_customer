@@ -88,8 +88,6 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
 			return;
 		}
 		
-		this.pleaseWaitDialog = ProgressDialog.show(this, "Creating Account", "Please wait...", true);
-		
 		service.setFirstName(firstName);
 		service.setLastName(lastName);
 		service.setEmail(email);
@@ -104,7 +102,6 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
 	 */
 	@Override
 	public void onRestReturn(RestResult result) {
-		this.pleaseWaitDialog.dismiss();
 		if(result != null && result instanceof CreateAccountResult){
 			CreateAccountResult createResult = (CreateAccountResult)result;
 			SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
