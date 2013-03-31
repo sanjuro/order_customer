@@ -2,14 +2,15 @@ package com.vosto.customer.accounts.activities;
 
 import java.util.Locale;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Button;
 
+import android.widget.Toast;
 import com.google.android.gcm.GCMRegistrar;
 import com.vosto.customer.HomeActivity;
 import com.vosto.customer.R;
@@ -20,34 +21,62 @@ import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
 import com.vosto.customer.utils.GCMUtils;
 
+import org.brickred.socialauth.Profile;
+import org.brickred.socialauth.android.DialogListener;
+import org.brickred.socialauth.android.SocialAuthAdapter;
+import org.brickred.socialauth.android.SocialAuthError;
+
+
 public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
 	
 	private String gcmRegistrationId; // The id assigned by gcm for this app / device combination
-	
-	
+
+    // SocialAuth Components
+    SocialAuthAdapter adapter;
+    Profile profileMap;
+    ResponseListener responseListener;
+
 	@Override
-    public void onCreate(Bundle args)
+    public void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate(args);
-        setContentView(R.layout.activity_signup);  
-        
-        if(!GCMUtils.checkGCMAndAlert(this, false)){
-        	return;
-        }
-        // GCMRegistrar.unregister(this);
-        // Now we know we have GCM support and a Google account:
-        this.gcmRegistrationId = GCMRegistrar.getRegistrationId(this);
-        if(!this.gcmRegistrationId.equals("")){
-        	Log.d("GCM", "Device already registered with gcm. Not registering again.");
-        	Log.d("GCM", "GCM id: " + this.gcmRegistrationId);
-        } 
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_signup);
+
+//        if(!GCMUtils.checkGCMAndAlert(this, false)){
+//        	return;
+//        }
+//        // GCMRegistrar.unregister(this);
+//        // Now we know we have GCM support and a Google account:
+//        this.gcmRegistrationId = GCMRegistrar.getRegistrationId(this);
+//        if(!this.gcmRegistrationId.equals("")){
+//        	Log.d("GCM", "Device already registered with gcm. Not registering again.");
+//        	Log.d("GCM", "GCM id: " + this.gcmRegistrationId);
+//        }
+
+        // Adapter initialization
+        adapter = new SocialAuthAdapter(responseListener);
     }
-	
+
 	public void signInClicked(View v){
 		Intent intent = new Intent(this, SignInActivity.class);
     	startActivity(intent);
     	finish();
 	}
+
+    public void facebookLoginClicked(View v){
+        adapter.authorize(this, SocialAuthAdapter.Provider.FACEBOOK);
+    }
+
+    public void createUserFromFacebook(String firstName, String lastName, String email, String userPin){
+
+        CreateAccountService service = new CreateAccountService(new SignUpActivity(), new SignUpActivity());
+        service.setFirstName(firstName);
+        service.setLastName(lastName);
+        service.setEmail(email);
+        service.setUserPin(userPin);
+        service.setMobileNumber("0718900136");
+        service.execute();
+    }
 	
 	public void submitClicked(View v){
 		
@@ -137,9 +166,48 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
 				this.showAlertDialog("Signup Failed", createResult.getErrorMessage());
 			}
 		}
-		
+
 	}
-	
-	
-	
+
+
+    // To receive the response after authentication
+    private final class ResponseListener implements DialogListener {
+
+        @Override
+        public void onComplete(Bundle values) {
+            Log.d("SOCIAL" , "Authentication Successful");
+
+            profileMap = adapter.getUserProfile();
+            Log.d("SOCIAL",  "First Name = "       + profileMap.getFirstName());
+            Log.d("SOCIAL", "Last Name  = " + profileMap.getLastName());
+            Log.d("SOCIAL",  "Email      = "       + profileMap.getEmail());
+
+            String firstName = profileMap.getFirstName();
+            String lastName = profileMap.getLastName();
+            String email = profileMap.getEmail();
+
+            String userPin = generateString();
+
+            createUserFromFacebook(firstName,lastName,email,userPin);
+        }
+
+        @Override
+        public void onError(SocialAuthError error) {
+            Log.d("SOCIAL", "Error");
+            error.printStackTrace();
+        }
+
+        @Override
+        public void onCancel() {
+            Log.d("SOCIAL", "Cancelled");
+        }
+
+        @Override
+        public void onBack() {
+            Log.d("SOCIAL", "Dialog Closed by pressing Back Key");
+
+        }
+    }
+
+
 }

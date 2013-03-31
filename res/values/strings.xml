@@ -41,4 +41,6 @@
     <string name="searchbyfoodtype">SEARCH <i>by food type</i></string>
     <string name="categories">CATEGORIES</string>
     <string name="filter_button">Filter</string>
+    <string name="app_id">317758478337773</string>
+    <string name="get_started">To get started, log in using Facebook</string>
 </resources>

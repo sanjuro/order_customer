@@ -1,5 +1,7 @@
 package com.vosto.customer;
 
+import java.util.Random;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -181,6 +183,18 @@ public abstract class VostoBaseActivity extends Activity {
     	if(this.pleaseWaitDialog != null && this.pleaseWaitDialog.isShowing()){
     		this.pleaseWaitDialog.dismiss();
     	}
+    }
+
+    public static String generateString()
+    {
+        char[] chars = "0123456789".toCharArray();
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 5; i++) {
+            char c = chars[random.nextInt(chars.length)];
+            sb.append(c);
+        }
+        return sb.toString();
     }
 
 	/*

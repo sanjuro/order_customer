@@ -23,13 +23,14 @@
 	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
 	<!-- Keeps the processor from sleeping when a message is received. -->
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
-  
+
     <application
         android:name="com.vosto.customer.VostoCustomerApp"
         android:allowBackup="true"
         android:icon="@drawable/vosto_logo"
         android:label="@string/app_name"
-       android:theme="@android:style/Theme.NoTitleBar">
+        android:theme="@android:style/Theme.NoTitleBar">
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id"/>
         <activity
             android:name="com.vosto.customer.stores.activities.StoresActivity"
             android:label="@string/title_activity_stores">
@@ -91,6 +92,9 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+                android:name="com.facebook.LoginActivity">
         </activity>
         
         <receiver android:name="com.google.android.gcm.GCMBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND" >
