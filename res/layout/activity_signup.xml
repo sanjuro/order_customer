@@ -16,7 +16,9 @@
        android:orientation="horizontal"
        android:layout_alignParentTop="true"
        android:paddingLeft="15dp"
-       android:paddingRight="15dp">
+       android:paddingRight="15dp"
+       android:configChanges="keyboardHidden|orientation"
+       >
        
        <TextView
            android:text="@string/sign_up"
@@ -102,7 +104,7 @@
                     android:scaleType="fitXY"
                     android:background="@drawable/green_button_background"
                     android:onClick="facebookLoginClicked"
-                    android:text="Login with FaceBook"
+                    android:text="Sign up using FaceBook"
                     android:textSize="14sp"
                     android:textColor="#FFFFFF"
                     />

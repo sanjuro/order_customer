@@ -8,9 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Button;
-
 import android.widget.Toast;
+
 import com.google.android.gcm.GCMRegistrar;
 import com.vosto.customer.HomeActivity;
 import com.vosto.customer.R;
@@ -20,6 +19,7 @@ import com.vosto.customer.accounts.services.CreateAccountService;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
 import com.vosto.customer.utils.GCMUtils;
+import com.vosto.customer.utils.ToastExpander;
 
 import org.brickred.socialauth.Profile;
 import org.brickred.socialauth.android.DialogListener;
@@ -28,13 +28,12 @@ import org.brickred.socialauth.android.SocialAuthError;
 
 
 public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
-	
+
 	private String gcmRegistrationId; // The id assigned by gcm for this app / device combination
 
     // SocialAuth Components
     SocialAuthAdapter adapter;
     Profile profileMap;
-    ResponseListener responseListener;
 
 	@Override
     public void onCreate(Bundle savedInstanceState)
@@ -54,7 +53,7 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
 //        }
 
         // Adapter initialization
-        adapter = new SocialAuthAdapter(responseListener);
+        adapter = new SocialAuthAdapter(new ResponseListener());
     }
 
 	public void signInClicked(View v){
@@ -69,7 +68,10 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
 
     public void createUserFromFacebook(String firstName, String lastName, String email, String userPin){
 
-        CreateAccountService service = new CreateAccountService(new SignUpActivity(), new SignUpActivity());
+        Toast aToast = Toast.makeText(this, "Your Order Pin is : " + userPin + " , please keep it on a safe place.", Toast.LENGTH_LONG);
+        ToastExpander.showFor(aToast, 6000);
+
+        CreateAccountService service = new CreateAccountService(this,this);
         service.setFirstName(firstName);
         service.setLastName(lastName);
         service.setEmail(email);
@@ -116,7 +118,7 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
 			txtPin.setError("Please choose a security PIN.");
 			return;
 		}
-		
+
 		service.setFirstName(firstName);
 		service.setLastName(lastName);
 		service.setEmail(email);
@@ -144,7 +146,7 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
 				   editor.putString("userName", createResult.getAccountResponseWrapper().first_name);
                    editor.putString("userEmail", createResult.getAccountResponseWrapper().email);
 				   editor.commit();
-				   
+
 				   /*
 				    *  Register the device with GCM if not already registered.
 				    *  GCM will respond and the callback in GCMIntentService will be called.
