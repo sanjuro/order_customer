@@ -1,32 +1,20 @@
 package com.vosto.customer.products.activities;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vosto.customer.HomeActivity;
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
-import com.vosto.customer.R.id;
-import com.vosto.customer.R.layout;
-import com.vosto.customer.R.menu;
 import com.vosto.customer.cart.activities.CartActivity;
 import com.vosto.customer.cart.vos.Cart;
 import com.vosto.customer.cart.vos.CartItem;
@@ -36,9 +24,6 @@ import com.vosto.customer.products.services.GetProductsResult;
 import com.vosto.customer.products.vos.ProductVo;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
-import com.vosto.customer.stores.StoreListAdapter;
-import com.vosto.customer.stores.services.GetStoresResult;
-import com.vosto.customer.stores.services.GetStoresService;
 import com.vosto.customer.stores.vos.StoreVo;
 import com.vosto.customer.utils.MoneyUtils;
 /**
@@ -111,7 +96,7 @@ public class ProductResultsActivity extends VostoBaseActivity implements OnRestR
 	}
 	
 	public void addToCartClicked(View v){
-		ImageButton button = (ImageButton)v;
+		Button button = (Button)v;
 		ProductVo product = (ProductVo)button.getTag();
 		Cart cart = getCart();
 		
@@ -125,6 +110,14 @@ public class ProductResultsActivity extends VostoBaseActivity implements OnRestR
 		cart.setStore(this.store);
 		cart.addItem(new CartItem(product, 1));
 		saveCart(cart);
+
+        // send toast message
+        CharSequence text = "Product was added to your cart.";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+        toast.show();
+
 		updateBuyButton();
 	}
 	
@@ -147,6 +140,10 @@ public class ProductResultsActivity extends VostoBaseActivity implements OnRestR
 	}
 	
 	public void buyButtonClicked(View v){
+		if(getCart().getNumberOfItems() == 0){
+			showAlertDialog("Cart Empty", "Please add some items to your cart.");
+			return;
+		}
 		Intent intent = new Intent(this, CartActivity.class);
     	startActivity(intent);
 	}
@@ -169,21 +166,7 @@ public class ProductResultsActivity extends VostoBaseActivity implements OnRestR
 	    }
 
 	    return true;
-	  } 
-	
-	public void showAlertDialog(String title, String message){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title)
-        .setMessage(message)
-        .setCancelable(false)
-        .setNegativeButton("Close",new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
-	}
+	  }
 	
 	
 	public void ordersPressed() {

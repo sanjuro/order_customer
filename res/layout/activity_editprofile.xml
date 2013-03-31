@@ -1,0 +1,405 @@
+<com.agimind.widget.SlideHolder xmlns:android="http://schemas.android.com/apk/res/android"
+                                xmlns:tools="http://schemas.android.com/tools"
+                                android:id="@+id/slideHolder"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                tools:context=".MainActivity" >
+
+    <ScrollView
+            android:id="@+id/sideNavigation"
+            android:layout_width="200dp"
+            android:layout_height="fill_parent"
+            android:background="@android:color/black"
+            >
+
+        <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:textSize="18sp"
+                >
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/nameOfUser"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:drawablePadding="6dip"
+                      android:background="#141213"
+                      android:gravity="center_vertical"
+                      android:minHeight="50dp"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="6dip"
+                      android:textSize="18sp"
+                      android:singleLine="true"
+                      android:textAppearance="?android:attr/textAppearanceMedium"
+                      android:textColor="@android:color/white"
+                      android:onClick="profilePressed"
+                      android:clickable="true"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/navCartButton"
+                      android:layout_width="match_parent"
+                      android:layout_height="40dp"
+                      android:background="@drawable/nav_menu_heading"
+                      android:orientation="horizontal"
+                      android:gravity="center_vertical"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="20dp"
+                      android:textSize="16sp"
+                      android:singleLine="true"
+                      android:textColor="@android:color/white"
+                      android:text="MY CART"
+                      android:onClick="myCartPressed"
+                      android:clickable="true"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/navOrdersButton"
+                      android:layout_width="match_parent"
+                      android:layout_height="40dp"
+                      android:background="@drawable/nav_menu_heading"
+                      android:orientation="horizontal"
+                      android:gravity="center_vertical"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="20dp"
+                      android:textSize="16sp"
+                      android:singleLine="true"
+                      android:textColor="@android:color/white"
+                      android:text="MY ORDERS"
+                      android:onClick="myOrdersPressed"
+                      android:clickable="true"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/name_of_user"
+                      android:layout_width="match_parent"
+                      android:layout_height="30dp"
+                      android:drawablePadding="6dip"
+                      android:background="#141213"
+                      android:gravity="center_vertical"
+                      android:minHeight="50dp"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="6dip"
+                      android:textSize="14sp"
+                      android:singleLine="true"
+                      android:textAppearance="?android:attr/textAppearanceMedium"
+                      android:textColor="@android:color/white"
+                      android:text="Open Orders"
+                      android:onClick="myOrdersPressed"
+                      android:clickable="true"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/myOrders"
+                      android:layout_width="match_parent"
+                      android:layout_height="40dp"
+                      android:background="@drawable/nav_menu_heading"
+                      android:orientation="horizontal"
+                      android:gravity="center_vertical"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="20dp"
+                      android:textSize="16sp"
+                      android:singleLine="true"
+                      android:textColor="@android:color/white"
+                      android:text="BACK TO SEARCH"
+                      android:onClick="storesPressed"
+                      android:clickable="true"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/myFavourties"
+                      android:layout_width="match_parent"
+                      android:layout_height="40dp"
+                      android:background="@drawable/nav_menu_heading"
+                      android:orientation="horizontal"
+                      android:gravity="center_vertical"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="20dp"
+                      android:textSize="16sp"
+                      android:singleLine="true"
+                      android:textColor="@android:color/white"
+                      android:text="MY FAVOURTIES"
+                    />
+
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/name_of_user"
+                      android:layout_width="match_parent"
+                      android:layout_height="50dp"
+                      android:background="@drawable/nav_menu_heading"
+                      android:orientation="horizontal"
+                      android:gravity="center_vertical"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="20dp"
+                      android:textSize="16sp"
+                      android:singleLine="true"
+                      android:textColor="@android:color/white"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/accountSettings"
+                      android:layout_width="match_parent"
+                      android:layout_height="30dp"
+                      android:drawablePadding="6dip"
+                      android:background="@drawable/top_bar_orange"
+                      android:gravity="center_vertical"
+                      android:minHeight="50dp"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="6dip"
+                      android:textSize="14sp"
+                      android:singleLine="true"
+                      android:textAppearance="?android:attr/textAppearanceMedium"
+                      android:textColor="@android:color/white"
+                      android:text="Account Settings"
+                      android:onClick="profilePressed"
+                      android:clickable="true"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/termsPolicies"
+                      android:layout_width="match_parent"
+                      android:layout_height="30dp"
+                      android:drawablePadding="6dip"
+                      android:background="#141213"
+                      android:gravity="center_vertical"
+                      android:minHeight="50dp"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="6dip"
+                      android:textSize="14sp"
+                      android:singleLine="true"
+                      android:textAppearance="?android:attr/textAppearanceMedium"
+                      android:textColor="@android:color/white"
+                      android:text="Terms and Policies"
+                      android:onClick="termsPressed"
+                      android:clickable="true"
+                    />
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/logout"
+                      android:layout_width="match_parent"
+                      android:layout_height="30dp"
+                      android:drawablePadding="6dip"
+                      android:background="#141213"
+                      android:gravity="center_vertical"
+                      android:minHeight="50dp"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="6dip"
+                      android:textSize="14sp"
+                      android:singleLine="true"
+                      android:textAppearance="?android:attr/textAppearanceMedium"
+                      android:textColor="@android:color/white"
+                      android:text="Logout"
+                      android:onClick="logout"
+                      android:clickable="true"
+                    />
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+    <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#ede9e1"
+            android:orientation="vertical"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
+            >
+
+        <RelativeLayout
+                android:id="@+id/top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:background="@drawable/top_bar_orange"
+                android:orientation="horizontal"
+                android:layout_alignParentTop="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+            <ImageView
+                    android:id="@+id/menuButton"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/menu"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    />
+
+            <TextView
+                    android:id="@+id/pageHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textSize="20sp"
+                    android:textColor="#FFFFFF"
+                    android:text="Your Profile"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    />
+        </RelativeLayout>
+
+        <LinearLayout
+                android:id="@+id/pageSubHeading"
+                android:layout_below="@+id/top_bar"
+                android:layout_width="fill_parent"
+                android:layout_height="42dp"
+                android:background="#d8d5ce"
+                android:orientation="vertical"
+                android:paddingTop="10dp"
+                android:paddingLeft="15dp"
+                >
+
+                <TextView
+                    android:id="@+id/lblProfileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="#3b3830"
+                    android:layout_gravity="center_vertical"
+                    android:text="Shadley Wenztel"
+                    />
+
+        </LinearLayout>
+
+        <ScrollView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/ScrollView01"
+                android:layout_below="@+id/pageSubHeading"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical">
+
+            <LinearLayout
+                    android:id="@+id/mainContent"
+                    android:layout_below="@+id/pageHeading"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    >
+
+                    <EditText
+                            android:id="@+id/txtName"
+                            android:layout_height="wrap_content"
+                            android:hint="full name"
+                            android:inputType="textCapWords"
+                            android:layout_width="fill_parent">
+                            </EditText>
+
+                    <EditText
+                            android:id="@+id/txtEmail"
+                            android:layout_height="wrap_content"
+                            android:hint="email address"
+                            android:inputType="textEmailAddress"
+                            android:layout_width="fill_parent">
+                            </EditText>
+
+
+                    <Button
+                            android:id="@+id/saveButton"
+                            android:layout_width="214.5dp"
+                            android:layout_height="39.5dp"
+                            android:scaleType="fitXY"
+                            android:background="@drawable/green_button_background"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:onClick="saveClicked"
+                            android:text="Save"
+                            android:layout_marginTop="10dp"
+                            android:textSize="20sp"
+                            android:textColor="#FFFFFF"
+                            />
+
+                    <TextView
+                            android:id="@+id/lblHelpCenter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:singleLine="true"
+                            android:textColor="#3b3b3b"
+                            android:text="Help Center"
+                            />
+
+                    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:drawablePadding="6dip"
+                              android:background="#FFF"
+                              android:gravity="center_vertical"
+                              android:minHeight="40dp"
+                              android:layout_marginTop="10dp"
+                              android:paddingLeft="20dip"
+                              android:paddingRight="6dip"
+                              android:textSize="14sp"
+                              android:singleLine="true"
+                              android:onClick="resetPinPressed"
+                              android:clickable="true"
+                              android:text="Reset Pin"
+                            />
+                    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:drawablePadding="6dip"
+                              android:background="#FFF"
+                              android:gravity="center_vertical"
+                              android:minHeight="40dp"
+                              android:layout_marginTop="5dp"
+                              android:paddingLeft="20dip"
+                              android:paddingRight="6dip"
+                              android:textSize="14sp"
+                              android:singleLine="true"
+                              android:onClick="faqPressed"
+                              android:clickable="true"
+                              android:text="FAQ"
+                            />
+
+                    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:drawablePadding="6dip"
+                              android:background="#FFF"
+                              android:gravity="center_vertical"
+                              android:minHeight="40dp"
+                              android:layout_marginTop="5dp"
+                              android:paddingLeft="20dip"
+                              android:paddingRight="6dip"
+                              android:textSize="14sp"
+                              android:singleLine="true"
+                              android:onClick="termsPressed"
+                              android:clickable="true"
+                              android:text="Terms and Conditions"
+                            />
+
+                    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:drawablePadding="6dip"
+                              android:background="#FFF"
+                              android:gravity="center_vertical"
+                              android:minHeight="40dp"
+                              android:layout_marginTop="5dp"
+                              android:paddingLeft="20dip"
+                              android:paddingRight="6dip"
+                              android:textSize="14sp"
+                              android:singleLine="true"
+                              android:onClick="contactVostoPressed"
+                              android:clickable="true"
+                              android:text="Contact Vosto"
+                            />
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+</com.agimind.widget.SlideHolder>

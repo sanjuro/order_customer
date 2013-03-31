@@ -6,6 +6,7 @@ import org.apache.http.StatusLine;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.vosto.customer.VostoBaseActivity;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RequestMethod;
 import com.vosto.customer.services.RestService;
@@ -22,8 +23,8 @@ public class CreateAccountService extends RestService {
 	private String mobileNumber;
 	private String userPin;
 	
-	public CreateAccountService(OnRestReturn listener){
-		super("http://107.22.211.58:9000/api/v1/users/create_customer", RequestMethod.POST, ResultType.CREATE_CUSTOMER, listener);
+	public CreateAccountService(OnRestReturn listener, VostoBaseActivity activity){
+		super("http://107.22.211.58:9000/api/v1/users/create_customer", RequestMethod.POST, ResultType.CREATE_CUSTOMER, listener, activity);
 	}
 
 	public String getFirstName() {
@@ -78,7 +79,7 @@ public class CreateAccountService extends RestService {
 	public String getRequestJson(){
 		try{
 			JSONObject root = new JSONObject();
-			root.put("authentication_token", "CXTTTTED2ASDBSD4");
+			root.put("authentication_token", "DXTTTTED2ASDBSD3");
 			JSONObject user = new JSONObject();
 			user.put("first_name", this.firstName);
 			user.put("last_name", this.lastName);

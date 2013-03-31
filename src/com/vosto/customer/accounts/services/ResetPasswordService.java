@@ -10,12 +10,10 @@ import com.vosto.customer.services.RestService;
 import com.vosto.customer.services.ResultType;
 
 public class ResetPasswordService extends RestService {
-	private VostoBaseActivity context;
 	private String email;
 	
 	public ResetPasswordService(OnRestReturn listener, VostoBaseActivity context, String email){
-		super("http://107.22.211.58:9000/api/v1/customers/reset_pin", RequestMethod.POST, ResultType.RESET_PIN, listener);
-		this.context = context;
+		super("http://107.22.211.58:9000/api/v1/customers/reset_pin", RequestMethod.POST, ResultType.RESET_PIN, listener, context);
 		this.email = email;
 	}
 	
@@ -27,7 +25,7 @@ public class ResetPasswordService extends RestService {
 	public String getRequestJson(){
 		try{
 			JSONObject root = new JSONObject();
-			root.put("authentication_token", "CXTTTTED2ASDBSD4");
+			root.put("authentication_token", "DXTTTTED2ASDBSD3");
 			root.put("email", this.email);
 			return root.toString();
 		}catch(JSONException e){

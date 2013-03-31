@@ -1,5 +1,7 @@
 package com.vosto.customer.accounts.activities;
 
+import java.util.Locale;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -8,7 +10,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import com.vosto.customer.accounts.services.ResetPasswordResult;
 import com.vosto.customer.accounts.services.ResetPasswordService;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
+import com.vosto.customer.utils.GCMUtils;
 
 /**
  * The Sign In screen where an existing user logs in.
@@ -54,7 +56,9 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 	 * @param v the sign in button instance
 	 */
 	public void signInClicked(View v){
-		this.pleaseWaitDialog = ProgressDialog.show(this, "Authenticating", "Please wait...", true);
+		if(!GCMUtils.checkGCMAndAlert(this, false)){
+			return;
+		}
 		
 		TextView txtEmail = (TextView)findViewById(R.id.txtEmail);
 		TextView txtPin = (TextView)findViewById(R.id.txtSecurityPin);
@@ -76,7 +80,7 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 		}
 		
 		//Make the REST call:
-		AuthenticationService service = new AuthenticationService(this);
+		AuthenticationService service = new AuthenticationService(this, this);
 		service.setEmail(email);
 		service.setPin(pin);
 		service.execute();
@@ -119,7 +123,6 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 	 * @param email
 	 */
 	public void confirmResetPassword(String email){  
-		this.pleaseWaitDialog = ProgressDialog.show(this, "Sending Password", "Please wait...", true);
 		ResetPasswordService service = new ResetPasswordService(this, this, email);
 		service.execute();
 	}
@@ -130,7 +133,6 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 	 */
 	@Override
 	public void onRestReturn(RestResult result) {
-		this.pleaseWaitDialog.dismiss();
 		if(result == null){
 			this.showAlertDialog("Login Failed", "Please try again.");
 			return;
@@ -152,21 +154,23 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putString("userToken", "");
 		editor.putString("userName", "");
-		editor.putString("userPin", "");
+        editor.putString("userEmail", "");
+        editor.putString("userMobile", "");
 		editor.commit();
 		
 		if(!authResult.wasAuthenticationSuccessful()){
 			this.showAlertDialog("Login Failed", authResult.getErrorMessage());
 		}else{
 			 // Save the auth token in the app's shared preferences.
-			   editor = settings.edit();
-			   editor.putString("userToken", authResult.getCustomer().authentication_token);
-			   editor.putString("userName", authResult.getCustomer().first_name);
-			   editor.putString("userPin", authResult.getCustomer().user_pin);
-			   editor.commit();
-			   Intent intent = new Intent(this, HomeActivity.class);
-		    	startActivity(intent);
-		    	finish();
+            editor = settings.edit();
+            editor.putString("userToken", authResult.getCustomer().authentication_token);
+            editor.putString("userName", authResult.getCustomer().full_name);
+            editor.putString("userEmail", authResult.getCustomer().email);
+            editor.putString("userMobileNumber", authResult.getCustomer().mobile_number);
+            editor.commit();
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            finish();
 		}
 	}
 	
@@ -175,26 +179,12 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 	 * @param result
 	 */
 	private void processResetPasswordResult(ResetPasswordResult result){
-		if(result.getResponseMessage() != null && result.getResponseMessage().trim().toLowerCase().equals("new pin sent")){
+		if(result.getResponseMessage() != null && result.getResponseMessage().trim().toLowerCase(Locale.US).equals("new pin sent")){
 			this.showAlertDialog("Pin reset", "Please check your e-mail");
 		}else{
 			this.showAlertDialog("ERROR:", "Your pin could not be reset. Please check your e-mail address and try again.");
 		}
 		
-	}
-	
-	public void showAlertDialog(String title, String message){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title)
-        .setMessage(message)
-        .setCancelable(false)
-        .setNegativeButton("Close",new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
 	}
 	
 	

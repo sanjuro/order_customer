@@ -15,17 +15,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
-import com.vosto.customer.HomeActivity;
+import com.agimind.widget.SlideHolder;
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
-import com.vosto.customer.R.id;
-import com.vosto.customer.R.layout;
 import com.vosto.customer.accounts.activities.SignInActivity;
+import com.vosto.customer.accounts.services.AuthenticateResult;
+import com.vosto.customer.accounts.services.AuthenticationService;
 import com.vosto.customer.cart.CartItemAdapter;
 import com.vosto.customer.cart.vos.Cart;
 import com.vosto.customer.cart.vos.CartItem;
@@ -34,10 +33,7 @@ import com.vosto.customer.orders.services.PlaceOrderResult;
 import com.vosto.customer.orders.services.PlaceOrderService;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
-import com.vosto.customer.stores.StoreListAdapter;
-import com.vosto.customer.stores.services.GetStoresResult;
-import com.vosto.customer.stores.services.GetStoresService;
-import com.vosto.customer.stores.vos.StoreVo;
+import com.vosto.customer.utils.GCMUtils;
 import com.vosto.customer.utils.MoneyUtils;
 /**
  * @author flippiescholtz
@@ -46,18 +42,37 @@ import com.vosto.customer.utils.MoneyUtils;
 public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnDismissListener {
 	
 	private ListView list;
-	private boolean orderFinished;
+    private SlideHolder mSlideHolder;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cart);
+
+        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+        SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+        if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
+            //User logged in:
+            TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
+            nameOfUser.setText(settings.getString("userName", "user"));
+
+            View toggleView = findViewById(R.id.menuButton);
+            toggleView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    mSlideHolder.toggle();
+                }
+            });
+        }else{
+            //User not logged in:
+
+        }
 		refreshCart();
 	}
 	
 	private void refreshCart(){
 		this.list = (ListView)findViewById(R.id.lstCartItems);
 		list.setOnItemClickListener(this);
-		this.orderFinished = false;
 		list.setAdapter(new CartItemAdapter(this, R.layout.cart_item_row, getCart().getItems()));
 		updateTotals();
 	}
@@ -78,6 +93,10 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 		cart.removeItem(item);
 		this.list.setAdapter(new CartItemAdapter(this, R.layout.cart_item_row, cart.getItems()));
 		updateTotals();
+		if(cart.getNumberOfItems() == 0){
+			getContext().closeCart();
+			finish();
+		}
 	}
 	
 	public void editButtonClicked(View v){
@@ -104,15 +123,14 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {
-		  String value = pinInput.getText().toString().trim();
-		  	SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
-			String storedPin = settings.getString("userPin", "").trim();
-			if(storedPin.equals(value)){
-				sendOrder();
-			}else{
-				// Invalid pin:
-				showAlertDialog("Invalid Pin", "Please enter a valid pin.");
-			}
+		  String enteredPin = pinInput.getText().toString().trim();
+		  if(enteredPin.equals("")){
+			  return;
+		  }
+		
+		  //Authenticate with Vosto using the entered pin and stored e-mail adress:
+		  authenticateWithVosto(enteredPin);
+		  
 		  }
 		});
 
@@ -126,12 +144,27 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 		
 	}
 	
+	/**
+	 * Authenticate with vosto using the entered pin and the stored e-mail address.
+	 */
+	public void authenticateWithVosto(String enteredPin){
+		SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+		  AuthenticationService service = new AuthenticationService(this, this);
+		  String email = settings.getString("userEmail", "").trim();
+		  if(email.equals("")){
+			  showAlertDialog("Error", "Could not determine your e-mail address. Please log out and log in again.");
+			  return;
+		  }
+		  service.setEmail(email);
+		  service.setPin(enteredPin.trim());
+		  service.execute();
+	}
+	
 	public void sendOrder(){
 		Cart cart = getCart();
 		if(cart.getNumberOfItems() == 0){
 			return;
 		}
-		this.pleaseWaitDialog = ProgressDialog.show(this, "Sending Order", "Please wait...", true);
 		PlaceOrderService service = new PlaceOrderService(this, this);
 		service.setCart(cart);
 		service.execute();
@@ -144,6 +177,11 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 			finish();
 			return;
 		}
+		
+		if(!GCMUtils.checkGCMAndAlert(this, true)){
+			return;
+		}
+		
 		Cart cart = getCart();
 		if(cart.getNumberOfItems() > 0){
 			promptForPin();
@@ -164,7 +202,6 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	 */
 	@Override
 	public void onRestReturn(RestResult result) {
-		this.pleaseWaitDialog.dismiss();
 		if(result == null){
 			return;
 		}
@@ -172,7 +209,6 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 			PlaceOrderResult orderResult = (PlaceOrderResult)result;
 			if(orderResult.wasOrderCreated()){
 				getContext().closeCart();
-				this.orderFinished = true;
 				this.showAlertDialog("Thank you", "Your order has been placed.");
 				saveCurrentOrder(orderResult.getOrder());
 			
@@ -183,27 +219,19 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 				this.showAlertDialog("Could not place order", orderResult.getErrorMessage());
 			}
 		
+		}else if(result instanceof AuthenticateResult){
+			AuthenticateResult authResult = (AuthenticateResult)result;
+			if(authResult.wasAuthenticationSuccessful()){
+				sendOrder();
+			}else{
+				this.showAlertDialog("Invalid PIN", "Please check your PIN and try again.");
+			}
 		}
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		 
-	}
-	
-	public void showAlertDialog(String title, String message){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title)
-        .setMessage(message)
-        .setCancelable(false)
-        .setNegativeButton("Close",new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.setOnDismissListener(this);
-        alert.show();
 	}
 	
 

@@ -2,8 +2,6 @@ package com.vosto.customer.cart.vos;
 
 import org.joda.money.Money;
 
-import android.util.Log;
-
 import com.vosto.customer.products.vos.ProductVo;
 import com.vosto.customer.products.vos.VariantVo;
 

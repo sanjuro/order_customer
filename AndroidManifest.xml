@@ -11,6 +11,18 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    
+    <permission android:name="com.vosto.customer.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+	<uses-permission android:name="com.vosto.customer.permission.C2D_MESSAGE" /> 
+	<!-- App receives GCM messages. -->
+	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+	<!-- GCM connects to Google Services. -->
+	<uses-permission android:name="android.permission.INTERNET" /> 
+	<!-- GCM requires a Google account. -->
+	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+	<!-- Keeps the processor from sleeping when a message is received. -->
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
   
     <application
         android:name="com.vosto.customer.VostoCustomerApp"
@@ -20,41 +32,50 @@
        android:theme="@android:style/Theme.NoTitleBar">
         <activity
             android:name="com.vosto.customer.stores.activities.StoresActivity"
-            android:label="@string/title_activity_stores" >
-             
+            android:label="@string/title_activity_stores">
         </activity>
         <activity
             android:name="com.vosto.customer.products.activities.TaxonsActivity"
-            android:label="@string/title_activity_store_menu" >
+            android:label="@string/title_activity_store_menu">
+        </activity>
+         <activity
+                android:name="com.vosto.customer.stores.activities.FoodCategoriesActivity">
         </activity>
         <activity
             android:name="com.vosto.customer.cart.activities.CartActivity">
         </activity>
         <activity
-            android:name="com.vosto.customer.HomeActivity"
-    	> 
-    	</activity>
-        <activity
-            android:name="com.vosto.customer.accounts.activities.SignUpActivity"
-    	> 
+            android:name="com.vosto.customer.HomeActivity">
         </activity>
+        <activity
+            android:name="com.vosto.customer.accounts.activities.EditProfileActivity">
+        </activity>
+        <activity
+            android:name="com.vosto.customer.accounts.activities.SignUpActivity">
+    	</activity>
          <activity
             android:name="com.vosto.customer.accounts.activities.SignInActivity">
         </activity>
          <activity
             android:name="com.vosto.customer.products.activities.ProductResultsActivity">
         </activity>
-         <activity
+        <activity
             android:name="com.vosto.customer.orders.activities.MyOrdersActivity">
         </activity>
-          <activity
+        <activity
+                android:name="com.vosto.customer.orders.activities.PreviousOrdersActivity">
+        </activity>
+        <activity
             android:name="com.vosto.customer.orders.activities.ReorderActivity">
         </activity>
         <activity
             android:name="com.vosto.customer.products.activities.ProductDetailsActivity">
         </activity>
-          <activity
+        <activity
             android:name="com.vosto.customer.cart.activities.EditCartItemActivity">
+        </activity>
+        <activity
+                android:name="com.vosto.customer.pages.activities.TermsActivity">
         </activity>
         <activity
             android:name="com.vosto.customer.accounts.activities.CreateAccountActivity"
@@ -71,6 +92,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <receiver android:name="com.google.android.gcm.GCMBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND" >
+  			<intent-filter>
+    			<action android:name="com.google.android.c2dm.intent.RECEIVE" />
+    			<action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+    			<category android:name="com.vosto.customer" />
+  			</intent-filter>
+		</receiver>
+		<service android:name=".GCMIntentService" />
     </application>
 
 </manifest>

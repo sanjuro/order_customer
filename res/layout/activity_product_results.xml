@@ -15,19 +15,17 @@
        android:orientation="horizontal"
        android:layout_alignParentTop="true"
        android:gravity="center_vertical"
-       android:paddingLeft="15dp"
+       android:paddingLeft="10dp"
        android:paddingRight="10dp">
-
-       
      
        
            <RelativeLayout 
           	android:id="@+id/buy_button"
-          	android:layout_width="135dp"
+          	android:layout_width="120dp"
           	android:layout_height="30dp"
           	android:layout_alignParentRight="true"
           	android:scaleType="fitXY"
-          	android:paddingRight="8dp"
+          	android:paddingRight="10dp"
           	android:background="@drawable/buy_button"
           	android:layout_centerVertical="true"
           	android:contentDescription="@string/filter_button" 
@@ -37,19 +35,18 @@
                	android:id="@+id/buy_button_price"
                	android:layout_width="wrap_content"
                	android:layout_height="wrap_content"
-               	android:textSize="15sp"
+               	android:textSize="14sp"
                	android:textColor="#000000"
                	android:text="R100"   
                	android:layout_alignParentRight="true"
                	android:layout_alignParentTop="true" 
                />
-         
-               
+
                <TextView
                	android:id="@+id/buy_button_quantity"
                	android:layout_width="wrap_content"
                	android:layout_height="wrap_content"
-               	android:textSize="12sp"
+               	android:textSize="10sp"
                	android:textColor="#000000"
                	android:text="3 items"    
                	android:layout_alignParentRight="true"
@@ -57,33 +54,7 @@
                />
                
            </RelativeLayout>
-           
-           <ImageButton 
-          	android:id="@+id/back_arrow"
-          	android:layout_width="35dp"
-          	android:layout_height="35dp"
-          	android:layout_alignParentLeft="true"
-          	android:scaleType="fitXY"
-          	android:layout_marginRight="8dp"
-          	android:src="@drawable/back_arrow"
-          	android:background="@null"
-          	android:layout_centerVertical="true"
-          	android:contentDescription="@string/filter_button" 
-          />
-           
-           <TextView
-           	android:id="@+id/lblCategoryName"
-           	android:layout_width="wrap_content"
-           	android:layout_height="wrap_content"
-           	android:layout_marginRight="10dp"
-           	android:textSize="20sp"
-           	android:textColor="#FFFFFF"
-           	android:text="Breakfast"
-           	android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-           />
-           
-           
+
        
    </RelativeLayout>
    
@@ -93,100 +64,43 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_below="@id/top_bar"
-    android:layout_above="@id/bottom_bar"
     android:layout_marginLeft="0dp"
     android:layout_marginRight="0dp"
-    android:layout_marginTop="15dp"
-    android:orientation="vertical"   
+    android:orientation="vertical"
     >
-   		
+       <RelativeLayout
+               android:id="@+id/listMapSection"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:background="#d8d5ce"
+               android:orientation="horizontal"
+               android:layout_gravity="center_vertical"
+               >
+
+           <TextView
+                   android:id="@+id/lblCategoryName"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginRight="10dp"
+                   android:textSize="20sp"
+                   android:textColor="#3b3830"
+                   android:text="Breakfast"
+                   android:layout_centerVertical="true"
+                   android:layout_centerHorizontal="true"
+                   />
+
+       </RelativeLayout>
+
    		<ListView 
    			android:id="@+id/lstProducts"
    			android:layout_width="fill_parent"
-   			android:layout_height="fill_parent"   
-   			android:layout_marginLeft="17dp" 
-   			android:layout_marginTop="20dp"
-   			android:divider="@android:color/transparent"
-  			android:dividerHeight="38.0sp"
+   			android:layout_height="fill_parent"
+   			android:layout_marginLeft="0dp"
+   			android:layout_marginTop="0dp"
+            android:divider="#CCCCCC"
+            android:dividerHeight="1sp"
    		/>
-   
-       
+
    </LinearLayout>
-   
-      <LinearLayout
-       android:id="@+id/bottom_bar"
-       android:layout_width="fill_parent"
-       android:layout_height="65dp"
-       android:background="@drawable/bottom_bar_gray" 
-       android:orientation="horizontal"
-       android:paddingLeft="10dp"
-       android:paddingRight="10dp"
-       android:layout_alignParentBottom="true"
-       android:gravity="center_vertical">    
-       
-         
-          <ImageButton 
-          	android:id="@+id/house_button"
-          	android:layout_width="40dp"
-          	android:layout_height="25dp"
-          	android:scaleType="fitXY"
-          	android:layout_marginRight="20dp"
-          	android:src="@drawable/house"
-          	android:background="@null"
-          	android:contentDescription="@string/sign_in_button" 
-          />
-          
-          <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="1" >
-    </View>
-          
-          <ImageButton 
-          	android:id="@+id/pencil_button"
-          	android:layout_width="40dp"
-          	android:layout_height="25dp"
-          	android:scaleType="fitXY"
-          	android:layout_marginRight="20dp"
-          	android:src="@drawable/pencil"
-          	android:background="@null"
-          	android:contentDescription="@string/sign_in_button"   
-          />
-          
-          <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="1" >
-    </View>
-    
-          <ImageButton 
-          	android:id="@+id/star_button"
-          	android:layout_width="40dp"
-          	android:layout_height="25dp"
-          	android:scaleType="fitXY"
-          	android:layout_marginRight="20dp"
-          	android:src="@drawable/star"
-          	android:background="@null"
-          	android:contentDescription="@string/sign_in_button"   
-          />
-          <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="1" >
-    </View>
-    
-          <ImageButton 
-          	android:id="@+id/wrench_button"
-          	android:layout_width="40dp"
-          	android:layout_height="25dp"
-          	android:scaleType="fitXY"
-          	android:layout_marginRight="20dp"
-          	android:src="@drawable/wrench"
-          	android:background="@null"
-          	android:contentDescription="@string/sign_in_button"   
-          />
-          
-   </LinearLayout>
-    
-    
+
 </RelativeLayout>

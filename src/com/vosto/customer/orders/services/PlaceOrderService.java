@@ -28,7 +28,7 @@ public class PlaceOrderService extends RestService {
 	private VostoBaseActivity context;
 	
 	public PlaceOrderService(OnRestReturn listener, VostoBaseActivity context){
-		super("http://107.22.211.58:9000/api/v1/orders", RequestMethod.POST, ResultType.PLACE_ORDER, listener);
+		super("http://107.22.211.58:9000/api/v1/orders", RequestMethod.POST, ResultType.PLACE_ORDER, listener, context);
 		this.context = context;
 	}
 

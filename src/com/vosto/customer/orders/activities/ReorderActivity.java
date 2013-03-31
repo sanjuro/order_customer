@@ -6,9 +6,9 @@ import java.util.Locale;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -17,13 +17,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
-import com.vosto.customer.R.id;
-import com.vosto.customer.R.layout;
+import com.vosto.customer.accounts.services.AuthenticateResult;
+import com.vosto.customer.accounts.services.AuthenticationService;
 import com.vosto.customer.orders.CurrentOrderItemAdapter;
 import com.vosto.customer.orders.services.PlaceOrderResult;
 import com.vosto.customer.orders.services.PlaceOrderService;
@@ -33,6 +34,7 @@ import com.vosto.customer.services.RestResult;
 import com.vosto.customer.stores.services.GetStoresResult;
 import com.vosto.customer.stores.services.GetStoresService;
 import com.vosto.customer.stores.vos.StoreVo;
+import com.vosto.customer.utils.GCMUtils;
 import com.vosto.customer.utils.MoneyUtils;
 
 /**
@@ -47,9 +49,7 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 	private TextView lblOrderNumber;
 	private TextView lblOrderDate;
 	private TextView lblOrderTotal;
-	private TextView lblStoreName;
-	private TextView lblStoreTelephone;
-	private TextView lblStoreAddress;
+	private ImageView mOrderStatusBadge;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -68,8 +68,24 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 		this.lblOrderDate = (TextView)findViewById(R.id.lblOrderDate);
 		SimpleDateFormat format = new SimpleDateFormat("HH:mm, d MMMM yyyy", Locale.US);
 		this.lblOrderDate.setText(format.format(order.getCreatedAt()));
-				
-		GetStoresService storesService = new GetStoresService(this, order.getStore_id());
+			
+		this.mOrderStatusBadge = (ImageView)findViewById(R.id.order_status_badge);
+		//Show the correct status badge based on the order state:
+		if(this.order.getState().toLowerCase(Locale.getDefault()).equals("ready")){
+			this.mOrderStatusBadge.setImageResource(R.drawable.ready_badge);
+		}else if(this.order.getState().toLowerCase(Locale.getDefault()).equals("collected")){
+			this.mOrderStatusBadge.setImageResource(R.drawable.collected_badge);
+		}else if(this.order.getState().toLowerCase(Locale.getDefault()).equals("in_progress")){
+			this.mOrderStatusBadge.setImageResource(R.drawable.in_progress_badge);
+		}else if(this.order.getState().toLowerCase(Locale.getDefault()).equals("cancelled")){
+			this.mOrderStatusBadge.setImageResource(R.drawable.cancelled_badge);
+		}else if(this.order.getState().toLowerCase(Locale.getDefault()).equals("not_collected")){
+			this.mOrderStatusBadge.setImageResource(R.drawable.not_collected_badge);
+		}else{
+			this.mOrderStatusBadge.setImageResource(R.drawable.in_progress_badge);
+		}
+		
+		GetStoresService storesService = new GetStoresService(this, this, order.getStore_id());
 		storesService.execute();
 	}
 	
@@ -84,9 +100,6 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 	 */
 	@Override
 	public void onRestReturn(RestResult result) {
-		if(this.pleaseWaitDialog != null){
-			this.pleaseWaitDialog.dismiss();
-		}
 		if(result == null){
 			return;
 		}
@@ -98,10 +111,25 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 				updateStoreDetails(storesResult.getStores()[0]);
 			}
 		}else if(result instanceof PlaceOrderResult){
-			saveCurrentOrder(((PlaceOrderResult)result).getOrder());
-			Intent intent = new Intent(this, MyOrdersActivity.class);
-			startActivity(intent);
-			finish();
+			PlaceOrderResult orderResult = (PlaceOrderResult)result;
+			if(orderResult.wasOrderCreated()){
+				getContext().closeCart();
+				this.showAlertDialog("Thank you", "Your order has been placed.");
+				saveCurrentOrder(orderResult.getOrder());
+			
+				Intent intent = new Intent(this, MyOrdersActivity.class);
+				startActivity(intent);
+				finish();
+			}else{
+				this.showAlertDialog("Could not place order", orderResult.getErrorMessage());
+			}
+		}else if(result instanceof AuthenticateResult){
+			AuthenticateResult authResult = (AuthenticateResult)result;
+			if(authResult.wasAuthenticationSuccessful()){
+				sendOrder();
+			}else{
+				this.showAlertDialog("Invalid PIN", "Please check your PIN and try again.");
+			}
 		}
 	}
 
@@ -110,34 +138,22 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 		 
 	}
 	
-	public void showAlertDialog(String title, String message){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title)
-        .setMessage(message)
-        .setCancelable(false)
-        .setNegativeButton("Close",new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.setOnDismissListener(this);
-        alert.show();
-	}
-	
 	private void updateStoreDetails(StoreVo store){
 		this.store = store;
-		this.lblStoreName = (TextView)findViewById(R.id.lblStoreName);
-		this.lblStoreName.setText(store.getName());
-		
-		this.lblStoreTelephone = (TextView)findViewById(R.id.lblStoreTelephone);
-		this.lblStoreTelephone.setText(store.getManagerContact());
-		
-		this.lblStoreAddress = (TextView)findViewById(R.id.lblStoreAddress);
-		this.lblStoreAddress.setText(store.getAddress());
+
+        TextView txtStoreName = (TextView)findViewById(R.id.txtStoreName);
+        TextView txtStoreAddress = (TextView)findViewById(R.id.txtStoreAddress);
+        TextView txtStoreTelephone = (TextView)findViewById(R.id.txtStoreTelephone);
+
+        txtStoreName.setText(this.store.getName());
+        txtStoreAddress.setText(this.store.getAddress());
+        txtStoreTelephone.setText(this.store.getManagerContact());
 	}
 	
 	public void reorderClicked(View v){
+		if(!GCMUtils.checkGCMAndAlert(this, true)){
+			return;
+		}
 		promptForPin();
 	}
 	
@@ -145,7 +161,6 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 		if(this.order == null || this.store == null){
 			return;
 		}
-		this.pleaseWaitDialog = ProgressDialog.show(this, "Sending Order", "Please wait...", true);
 		PlaceOrderService service = new PlaceOrderService(this, this);
 		service.setOrder(this.order);
 		service.setStore(this.store);
@@ -158,39 +173,55 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 		alert.setTitle("Enter Pin");
 		alert.setMessage("Pin:");
 
-		// Set an EditText view to get user input 
 		final EditText pinInput = new EditText(this);
 		pinInput.setInputType(InputType.TYPE_CLASS_NUMBER);
 		pinInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
 		InputFilter[] FilterArray = new InputFilter[1];
 		FilterArray[0] = new InputFilter.LengthFilter(5);
 		pinInput.setFilters(FilterArray);
-		
+			
 		alert.setView(pinInput);
 
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {
-		  String value = pinInput.getText().toString().trim();
-		  	SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
-			String storedPin = settings.getString("userPin", "").trim();
-			if(storedPin.equals(value)){
-				sendOrder();
-			}else{
-				// Invalid pin:
-				showAlertDialog("Invalid Pin", "Please enter a valid pin.");
-			}
-		  }
-		});
+			String enteredPin = pinInput.getText().toString().trim();
+			  	if(enteredPin.equals("")){
+			  		return;
+			  	}
+			
+			  //Authenticate with Vosto using the entered pin and stored e-mail adress:
+			  authenticateWithVosto(enteredPin);
+			  
+			  }
+			});
 
-		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-		  public void onClick(DialogInterface dialog, int whichButton) {
-		    // Canceled.
-		  }
-		});
+			alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			  public void onClick(DialogInterface dialog, int whichButton) {
+			    // Canceled.
+			  }
+			});
 
-		alert.show();
-		
+			alert.show();	
 	}
+	
+	/**
+	 * Authenticate with Vosto using the entered pin and the stored e-mail address.
+	 */
+	public void authenticateWithVosto(String enteredPin){
+		SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+		  AuthenticationService service = new AuthenticationService(this, this);
+		  String email = settings.getString("userEmail", "").trim();
+		  if(email.equals("")){
+			  showAlertDialog("Error", "Could not determine your e-mail address. Please log out and log in again.");
+			  return;
+		  }
+		  service.setEmail(email);
+		  service.setPin(enteredPin.trim());
+		  service.execute();
+	}
+	
+		
+	
 	
 	
 	public void ordersPressed() {

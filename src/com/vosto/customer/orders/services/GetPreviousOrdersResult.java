@@ -12,6 +12,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.vosto.customer.cart.vos.LineItemVo;
 import com.vosto.customer.orders.vos.OrderVo;
 import com.vosto.customer.services.IRestResult;
@@ -44,6 +46,7 @@ public class GetPreviousOrdersResult extends RestResult implements IRestResult {
 	public boolean processJsonAndPopulate(){
 		try{
 			JSONObject outerObj = new JSONObject(this.getResponseJson());
+			Log.d("ORD", "prev Orders response json: " + this.getResponseJson());
 			
 			ArrayList<OrderVo> ordersList = new ArrayList<OrderVo>();
 			
@@ -60,6 +63,7 @@ public class GetPreviousOrdersResult extends RestResult implements IRestResult {
 	            	currentOrder.setCreatedAt(dateFormat.parse(currentObj.getString("created_at")));
 	            	currentOrder.setTotal(Money.parse("ZAR " + currentObj.getDouble("total")));
 	            	currentOrder.setStore_id(currentObj.getInt("store_id"));
+	            	currentOrder.setState(currentObj.getString("state"));
 	            	
 	            	//Add line items:
 	            	JSONArray lineItemsArr = currentObj.getJSONArray("line_items");

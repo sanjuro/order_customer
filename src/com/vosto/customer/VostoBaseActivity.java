@@ -1,13 +1,23 @@
 package com.vosto.customer;
 
-import com.vosto.customer.cart.vos.Cart;
-import com.vosto.customer.orders.vos.OrderVo;
-
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+
+import com.vosto.customer.accounts.activities.EditProfileActivity;
+import com.vosto.customer.accounts.activities.SignInActivity;
+import com.vosto.customer.cart.activities.CartActivity;
+import com.vosto.customer.cart.vos.Cart;
+import com.vosto.customer.orders.activities.MyOrdersActivity;
+import com.vosto.customer.orders.vos.OrderVo;
+import com.vosto.customer.pages.activities.TermsActivity;
+import com.vosto.customer.services.RestService;
 
 /**
  * This is the base class from which all activities should inherit.
@@ -20,7 +30,7 @@ import android.util.Log;
 public abstract class VostoBaseActivity extends Activity {
 	
 	// Subclasses can display a basic please wait dialog with spinner:
-	protected ProgressDialog pleaseWaitDialog;
+	public ProgressDialog pleaseWaitDialog;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -73,10 +83,8 @@ public abstract class VostoBaseActivity extends Activity {
 	 * Returns the stores user auth token, or returns the default Android token if there isn't a user token.
 	 */
 	public String getAuthenticationToken(){
-		SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
-		String token = settings.getString("userToken", "CXTTTTED2ASDBSD4");
-		Log.d("AUTH", "Returning token: " + token);
-		return token;
+		VostoCustomerApp context = (VostoCustomerApp)getApplicationContext();
+		return context.getAuthenticationToken();
 	}
 	
 	public boolean isUserSignedIn(){
@@ -94,7 +102,87 @@ public abstract class VostoBaseActivity extends Activity {
 		VostoCustomerApp context = (VostoCustomerApp)getApplicationContext();
 		return context.getCurrentOrder();
 	}
-	
+
+    /**
+     * Called when the main bottom menu bar's orders button is pressed.
+     * Simply opens the orders activity
+     * @param v
+     */
+    public void myOrdersPressed(View v) {
+        Intent intent = new Intent(this, MyOrdersActivity.class);
+        startActivity(intent);
+    }
+
+    public void storesPressed(View v){
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+    }
+
+    public void myCartPressed(View v) {
+        Intent intent = new Intent(this, CartActivity.class);
+        startActivity(intent);
+    }
+
+    public void profilePressed(View v){
+        Intent intent = new Intent(this, EditProfileActivity.class);
+        startActivity(intent);
+    }
+
+    public void termsPressed(View v){
+        Intent intent = new Intent(this, TermsActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Clears all the locally stored data (auth token, pin, username, cart, order)
+     *
+     * @param v The logout button, at the moment it's just the user name label for debugging purposes,
+     * the design doesn't have a real logout button yet.
+     */
+    public void logout(View v){
+        SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("userToken", "");
+        editor.putString("userName", "");
+        editor.putString("userEmail", "");
+        editor.putString("userMobile", "");
+        editor.commit();
+        deleteCart();
+
+        //Blank slate, redirect to signin page for new user signin:
+        Intent intent = new Intent(this, SignInActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    
+    /** 
+     * Shows a standard alert dialog with Close button in this activity.
+     * @param title
+     * @param message
+     */
+    public void showAlertDialog(String title, String message){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title)
+        .setMessage(message)
+        .setCancelable(false)
+        .setNegativeButton("Close",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+	}
+    
+    /**
+     * Dismisses the please wait dialog if it is showing.
+     */
+    public void dismissPleaseWaitDialog(){
+    	if(this.pleaseWaitDialog != null && this.pleaseWaitDialog.isShowing()){
+    		this.pleaseWaitDialog.dismiss();
+    	}
+    }
+
 	/*
 	
 	public abstract void storesPressed();
@@ -109,5 +197,5 @@ public abstract class VostoBaseActivity extends Activity {
 	public abstract void settingsPressed();
 	
 	*/
-	
+    
 }

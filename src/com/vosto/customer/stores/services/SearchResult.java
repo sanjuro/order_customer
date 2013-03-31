@@ -62,6 +62,21 @@ public class SearchResult extends RestResult implements IRestResult {
 				}
 				this.stores[i] = currentStore;
 			}
+			
+			// Order by distance if we have a location:
+			if(this.hasLocation){
+				for(int i = 0; i<this.stores.length-1; i++){
+					for(int j = i; j<this.stores.length; j++){
+						if(this.stores[i].getDistance() > this.stores[j].getDistance()){
+							// Swap if first one is further than second one:
+							StoreVo temp = this.stores[i];
+							this.stores[i] = this.stores[j];
+							this.stores[j] = temp;
+						}
+					}
+				}
+			}
+			
 			return true;
 		}catch(JSONException e){
 			e.printStackTrace();

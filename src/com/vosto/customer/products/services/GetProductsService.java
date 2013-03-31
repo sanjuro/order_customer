@@ -1,17 +1,14 @@
 package com.vosto.customer.products.services;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.vosto.customer.VostoBaseActivity;
 import com.vosto.customer.products.vos.OptionValueVo;
 import com.vosto.customer.products.vos.ProductVo;
 import com.vosto.customer.products.vos.VariantVo;
@@ -23,12 +20,12 @@ import com.vosto.customer.services.ResultType;
 
 public class GetProductsService extends RestService {
 	
-	public GetProductsService(OnRestReturn listener){
-		super("http://107.22.211.58:9000/api/v1/products", RequestMethod.GET, ResultType.GET_PRODUCTS, listener);
+	public GetProductsService(OnRestReturn listener, VostoBaseActivity context){
+		super("http://107.22.211.58:9000/api/v1/products", RequestMethod.GET, ResultType.GET_PRODUCTS, listener, context);
 	}
 	
-	public GetProductsService(OnRestReturn listener, int taxonId){
-		super("http://107.22.211.58:9000/api/v1/taxons/"+taxonId+"/products", RequestMethod.GET, ResultType.GET_PRODUCTS, listener);
+	public GetProductsService(OnRestReturn listener, VostoBaseActivity context, int taxonId){
+		super("http://107.22.211.58:9000/api/v1/taxons/"+taxonId+"/products", RequestMethod.GET, ResultType.GET_PRODUCTS, listener, context);
 	}
 	
 	@Override

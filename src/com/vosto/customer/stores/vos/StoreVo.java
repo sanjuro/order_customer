@@ -14,6 +14,7 @@ public class StoreVo implements Serializable {
 	private String managerName;
 	private String managerContact;
 	private String email;
+    private String telephone;
 	private String url;
 	private double distance;
 	
@@ -84,6 +85,14 @@ public class StoreVo implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 
 	public String getUrl() {
 		return url;

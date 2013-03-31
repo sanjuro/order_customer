@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vosto.customer.R;
@@ -41,7 +42,7 @@ public class PreviousOrderAdapter extends ArrayAdapter<OrderVo>{
             holder = new OrderHolder();
             holder.lblOrderNumber = (TextView)row.findViewById(R.id.lblOrderNumber);
             holder.lblDateOrdered = (TextView)row.findViewById(R.id.lblDateOrdered);
-            
+            holder.lblOrderStatusBadge = (ImageView)row.findViewById(R.id.lblStatus);
             row.setTag(holder);
         }
         else
@@ -57,6 +58,21 @@ public class PreviousOrderAdapter extends ArrayAdapter<OrderVo>{
         
         holder.lblDateOrdered.setText("Ordered at: " + format.format(order.getCreatedAt()));
         holder.lblDateOrdered.setTypeface(null, Typeface.ITALIC);
+
+        //Show the correct status badge based on the order state:
+        if(order.getState().toLowerCase(Locale.getDefault()).equals("ready")){
+            holder.lblOrderStatusBadge.setImageResource(R.drawable.ready_badge);
+        }else if(order.getState().toLowerCase(Locale.getDefault()).equals("collected")){
+            holder.lblOrderStatusBadge.setImageResource(R.drawable.collected_badge);
+        }else if(order.getState().toLowerCase(Locale.getDefault()).equals("in_progress")){
+            holder.lblOrderStatusBadge.setImageResource(R.drawable.in_progress_badge);
+        }else if(order.getState().toLowerCase(Locale.getDefault()).equals("cancelled")){
+            holder.lblOrderStatusBadge.setImageResource(R.drawable.cancelled_badge);
+        }else if(order.getState().toLowerCase(Locale.getDefault()).equals("not_collected")){
+            holder.lblOrderStatusBadge.setImageResource(R.drawable.not_collected_badge);
+        }else{
+            holder.lblOrderStatusBadge.setImageResource(R.drawable.in_progress_badge);
+        }
       
         return row;
     }
@@ -65,5 +81,6 @@ public class PreviousOrderAdapter extends ArrayAdapter<OrderVo>{
     {
         TextView lblOrderNumber;
         TextView lblDateOrdered;
+        ImageView lblOrderStatusBadge;
     }
 }

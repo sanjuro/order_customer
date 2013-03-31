@@ -2,9 +2,6 @@ package com.vosto.customer.products.activities;
 
 import org.joda.money.Money;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -20,9 +17,6 @@ import android.widget.TextView;
 
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
-import com.vosto.customer.R.drawable;
-import com.vosto.customer.R.id;
-import com.vosto.customer.R.layout;
 import com.vosto.customer.cart.activities.CartActivity;
 import com.vosto.customer.cart.vos.Cart;
 import com.vosto.customer.cart.vos.CartItem;
@@ -48,7 +42,7 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_product_details);
-		
+
 		this.store = (StoreVo)getIntent().getSerializableExtra("store");
 		
 		TextView lblSpecialInstructions = (TextView)findViewById(R.id.lblSpecialInstructions);
@@ -58,8 +52,8 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 		if(categoryName == null){
 			categoryName = "";
 		}
-		TextView lblCategoryName = (TextView)findViewById(R.id.lblCategory);
-		lblCategoryName.setText(categoryName);
+//		TextView lblCategoryName = (TextView)findViewById(R.id.lblCategory);
+//		lblCategoryName.setText(categoryName);
 		
 		this.quantity = 1;
 		
@@ -96,19 +90,19 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 		}
 		
 		cart.setStore(this.store);
-		
+
 		CartItem item;
 		if(this.chosenVariant != null){
 			item = new CartItem(this.product, this.chosenVariant, this.quantity);
 		}else{
 			item = new CartItem(this.product, this.quantity);
 		}
-		
+
 		EditText txtSpecialInstructions = (EditText)findViewById(R.id.txtSpecialInstructions);
 		if(!txtSpecialInstructions.getText().toString().trim().equals("")){
 			item.setSpecialInstructions(txtSpecialInstructions.getText().toString().trim());
 		}
-		
+
 		cart.addItem(item);
 		saveCart(cart);
 		
@@ -196,25 +190,10 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 	 */
 	@Override
 	public void onRestReturn(RestResult result) {
-		this.pleaseWaitDialog.dismiss();
 		if(result == null){
 			return;
 		}
 	
-	}
-	
-	public void showAlertDialog(String title, String message){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title)
-        .setMessage(message)
-        .setCancelable(false)
-        .setNegativeButton("Close",new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
 	}
 	
 	

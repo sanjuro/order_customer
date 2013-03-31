@@ -11,8 +11,11 @@
     <string name="create_vosto_account">Create Vosto Account</string>
     <string name="first_name">First Name</string>
 	<string name="last_name">Last Name</string>
-	<string name="email">E-mail</string>
+    <string name="gender1">Male</string>
+    <string name="gender2">Female</string>
+    <string name="email">E-mail</string>
 	<string name="create_account_button">Create Account</string>
+    <string name="save_button">Save</string>
 	<string name="welcome_to_vosto">Welcome to Vosto</string>
 	<string name="existing_user">Existing User</string>
 	<string name="mobile_number">Mobile Number</string>
@@ -34,8 +37,8 @@
 	<string name="confirmorder">Confirm Order</string>
     <string name="discardorder">Discard Order</string>
     <string name="splashscreen">Splash Screen</string>
-     <string name="findbynearestlocation">FIND <i>by nearest location</i></string>
-     <string name="searchbyfoodtype">SEARCH <i>by food type</i></string>
-     <string name="categories">CATEGORIES</string>
-     <string name="filter_button">Filter</string>
+    <string name="findbynearestlocation">FIND <i>by nearest location</i></string>
+    <string name="searchbyfoodtype">SEARCH <i>by food type</i></string>
+    <string name="categories">CATEGORIES</string>
+    <string name="filter_button">Filter</string>
 </resources>
