@@ -10,29 +10,35 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import android.widget.Toast;
 import com.vosto.customer.HomeActivity;
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
-import com.vosto.customer.accounts.services.AuthenticateResult;
-import com.vosto.customer.accounts.services.AuthenticationService;
-import com.vosto.customer.accounts.services.ResetPasswordResult;
-import com.vosto.customer.accounts.services.ResetPasswordService;
+import com.vosto.customer.accounts.services.*;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
 import com.vosto.customer.utils.GCMUtils;
 
-
+import com.vosto.customer.utils.ToastExpander;
+import org.brickred.socialauth.Profile;
+import org.brickred.socialauth.android.DialogListener;
+import org.brickred.socialauth.android.SocialAuthAdapter;
+import org.brickred.socialauth.android.SocialAuthError;
 
 /**
  * The Sign In screen where an existing user logs in.
  *
  */
 public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
-	
+
+    SocialAuthAdapter adapter;
+    Profile profileMap;
+
 	@Override
     public void onCreate(Bundle args)
     {
@@ -40,7 +46,10 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
         setContentView(R.layout.activity_signin);
         
         TextView lblForgotPin = (TextView)findViewById(R.id.lblForgotPin);
-        lblForgotPin.setText(Html.fromHtml("<u>Forgot Pin?</u>"));        
+        lblForgotPin.setText(Html.fromHtml("<u>Forgot Pin?</u>"));
+
+        // Adapter initialization
+        adapter = new SocialAuthAdapter(new ResponseListener());
     }
 	
 	/**
@@ -87,6 +96,21 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 		service.setPin(pin);
 		service.execute();
 	}
+
+    public void facebookLoginClicked(View v){
+        adapter.authorize(this, SocialAuthAdapter.Provider.FACEBOOK);
+    }
+
+    public void signInUserFromFacebook(String email, String userPin){
+
+        Toast aToast = Toast.makeText(this, "You have successfully signed in using your Facebook Account.", Toast.LENGTH_LONG);
+        ToastExpander.showFor(aToast, 4000);
+
+        AuthenticationService service = new AuthenticationService(this, this);
+        service.setEmail(email);
+        service.setPin(userPin);
+        service.execute();
+    }
 
 	/**
 	 * Prompts for an email and then calls the reset pin service.
@@ -188,6 +212,43 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 		}
 		
 	}
-	
+
+    // To receive the response after authentication
+    private final class ResponseListener implements DialogListener {
+
+        @Override
+        public void onComplete(Bundle values) {
+            Log.d("SOCIAL", "Authentication Successful");
+
+            profileMap = adapter.getUserProfile();
+            Log.d("SOCIAL",  "ID = "       + profileMap.getValidatedId());
+            Log.d("SOCIAL",  "Email      = "       + profileMap.getEmail());
+
+            String email = profileMap.getEmail();
+            String validID = profileMap.getValidatedId();
+
+            String userPin = validID.substring(0,6);
+
+            signInUserFromFacebook(email,userPin);
+        }
+
+        @Override
+        public void onError(SocialAuthError error) {
+            Log.d("SOCIAL", "Error");
+            error.printStackTrace();
+        }
+
+        @Override
+        public void onCancel() {
+            Log.d("SOCIAL", "Cancelled");
+        }
+
+        @Override
+        public void onBack() {
+            Log.d("SOCIAL", "Dialog Closed by pressing Back Key");
+
+        }
+    }
+
 	
 }

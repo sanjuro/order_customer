@@ -279,7 +279,7 @@
          <ImageButton 
           	android:id="@+id/find_by_location_button"
           	android:layout_width="100dp"
-          	android:layout_height="100dp"
+          	android:layout_height="150dp"
           	android:scaleType="fitXY"
           	android:src="@drawable/find_by_location_button"
           	android:background="@null"
@@ -302,7 +302,7 @@
          <ImageButton 
           	android:id="@+id/find_by_category_button"
           	android:layout_width="100dp"
-          	android:layout_height="100dp"
+          	android:layout_height="150dp"
           	android:scaleType="fitXY"
           	android:src="@drawable/find_by_food_type_button"
           	android:background="@null"
@@ -331,7 +331,9 @@
            android:orientation="horizontal"
            android:layout_width="fill_parent"
            android:layout_height="wrap_content"
-           android:gravity="center_horizontal">
+           android:gravity="center_horizontal"
+           android:layout_marginTop="30dp"
+           >
        
         <FrameLayout
          android:layout_width="fill_parent"

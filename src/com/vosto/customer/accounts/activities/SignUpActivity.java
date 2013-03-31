@@ -68,7 +68,7 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
 
     public void createUserFromFacebook(String firstName, String lastName, String email, String userPin){
 
-        Toast aToast = Toast.makeText(this, "Your Order Pin is : " + userPin + " , please keep it on a safe place.", Toast.LENGTH_LONG);
+        Toast aToast = Toast.makeText(this, "Your Order Pin is : " + userPin + " , please keep it in a safe place.", Toast.LENGTH_LONG);
         ToastExpander.showFor(aToast, 6000);
 
         CreateAccountService service = new CreateAccountService(this,this);
@@ -180,6 +180,7 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
             Log.d("SOCIAL" , "Authentication Successful");
 
             profileMap = adapter.getUserProfile();
+            Log.d("SOCIAL",  "ID = "       + profileMap.getValidatedId());
             Log.d("SOCIAL",  "First Name = "       + profileMap.getFirstName());
             Log.d("SOCIAL", "Last Name  = " + profileMap.getLastName());
             Log.d("SOCIAL",  "Email      = "       + profileMap.getEmail());
@@ -187,8 +188,9 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
             String firstName = profileMap.getFirstName();
             String lastName = profileMap.getLastName();
             String email = profileMap.getEmail();
+            String validID = profileMap.getValidatedId();
 
-            String userPin = generateString();
+            String userPin = validID.substring(0,6);
 
             createUserFromFacebook(firstName,lastName,email,userPin);
         }
@@ -210,6 +212,5 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
 
         }
     }
-
 
 }
