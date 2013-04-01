@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.vosto.customer.accounts.activities.EditProfileActivity;
 import com.vosto.customer.accounts.activities.SignInActivity;
+import com.vosto.customer.accounts.activities.FavouritesActivity;
 import com.vosto.customer.cart.activities.CartActivity;
 import com.vosto.customer.cart.vos.Cart;
 import com.vosto.customer.orders.activities.MyOrdersActivity;
@@ -126,7 +127,7 @@ public abstract class VostoBaseActivity extends Activity {
     }
 
     public void myFavouritesPressed(View v){
-        Intent intent = new Intent(this, EditProfileActivity.class);
+        Intent intent = new Intent(this, FavouritesActivity.class);
         startActivity(intent);
     }
 

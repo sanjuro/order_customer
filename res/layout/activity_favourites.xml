@@ -23,7 +23,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
-                android:text="Categories"
+                android:text="My Favourites"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
     </RelativeLayout>
@@ -48,69 +48,43 @@
                     android:layout_marginBottom="15dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp" >
 
-                <ImageView
-                        android:id="@+id/store_thumbnail"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/image_border_white"
-                        android:src="@drawable/storefront" />
-
-                <LinearLayout
-                        android:id="@+id/storeDetails"
-                        android:layout_width="match_parent"
+                <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical" >
-
-                    <TextView
-                            android:id="@+id/txtStoreName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:singleLine="true"
-                            android:text="Kauai - Greenmarket Square"
-                            android:textColor="#3b3b3b"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                    <TextView
-                            android:id="@+id/txtStoreAddress"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:singleLine="false"
-                            android:text="21 Jump Street, \nLos Angeles, California"
-                            android:textColor="#3b3b3b"
-                            android:textSize="10sp" />
-
-                    <TextView
-                            android:id="@+id/txtStoreTelephone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:singleLine="true"
-                            android:text="555-1234"
-                            android:textColor="#3b3b3b"
-                            android:textSize="10sp" />
-                </LinearLayout>
+                        android:text="Filter by"
+                        android:textColor="#3b3b3b"
+                        android:textSize="20sp" />
 
                 <LinearLayout
-                        android:layout_width="35dp"
-                        android:layout_height="match_parent" >
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
 
                     <CheckBox
-                            android:id="@+id/star"
+                            android:id="@+id/products"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignRight="@+id/store_details_block"
-                            android:button="@drawable/favourite_button" />
+                            android:checked="true"
+                            android:text="Products"
+                            android:textColor="#3b3b3b" />
+
+                    <CheckBox
+                            android:id="@+id/stores"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="Stores"
+                            android:textColor="#3b3b3b" />
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
 
         <ListView
-                android:id="@+id/menuItems"
+                android:id="@+id/favourites"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"

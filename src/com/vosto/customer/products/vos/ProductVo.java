@@ -3,106 +3,112 @@ package com.vosto.customer.products.vos;
 import java.io.Serializable;
 
 import org.joda.money.Money;
+
+import com.google.common.base.Objects;
 import com.vosto.customer.utils.MoneyUtils;
 
 public class ProductVo implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private int id;
-	private int store_id;
-	private String name;
-	private String description;
-	private Money price;
-	private VariantVo[] variants;
-	
-	
-	public ProductVo(){
-	}
+    private static final long serialVersionUID = 1L;
+    private int id;
+    private int store_id;
+    private String name;
+    private String description;
+    private Money price;
+    private VariantVo[] variants;
 
 
-	public int getId() {
-		return id;
-	}
+    public ProductVo(){
+    }
 
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
 
-	public int getStoreId() {
-		return store_id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
 
-	public void setStoreId(int store_id) {
-		this.store_id = store_id;
-	}
+    public int getStoreId() {
+        return store_id;
+    }
 
 
-	public String getName() {
-		return name;
-	}
+    public void setStoreId(int store_id) {
+        this.store_id = store_id;
+    }
 
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
 
-	public String getDescription() {
-		return description;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
 
-	public Money getPrice() {
-		return price;
-	}
-	
-	public String getPriceString(){
-		return MoneyUtils.getRandString(this.price);
-	}
-
-	public void setPrice(double price){
-		Money money = Money.parse("ZAR " + price);
-		this.price = money.withAmount(price);	
-	}
-
-	public void setPrice(Money price) {
-		this.price = price;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
 
-	public int getStore_id() {
-		return store_id;
-	}
+    public Money getPrice() {
+        return price;
+    }
+
+    public String getPriceString(){
+        return MoneyUtils.getRandString(this.price);
+    }
+
+    public void setPrice(double price){
+        Money money = Money.parse("ZAR " + price);
+        this.price = money.withAmount(price);
+    }
+
+    public void setPrice(Money price) {
+        this.price = price;
+    }
 
 
-	public void setStore_id(int store_id) {
-		this.store_id = store_id;
-	}
+    public int getStore_id() {
+        return store_id;
+    }
 
 
-	public VariantVo[] getVariants() {
-		return variants;
-	}
+    public void setStore_id(int store_id) {
+        this.store_id = store_id;
+    }
 
 
-	public void setVariants(VariantVo[] variants) {
-		this.variants = variants;
-	}
+    public VariantVo[] getVariants() {
+        return variants;
+    }
 
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
-	
+    public void setVariants(VariantVo[] variants) {
+        this.variants = variants;
+    }
 
-	
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this).add("id", id).add("name", name).toString();
+    }
+
+
+
 }

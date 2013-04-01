@@ -35,6 +35,7 @@ import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.stores.services.GetStoresResult;
 import com.vosto.customer.stores.services.GetTagsResult;
 import com.vosto.customer.stores.services.SearchResult;
+import com.vosto.customer.utils.Constants;
 import com.vosto.customer.utils.NetworkUtils;
 
 import android.app.ProgressDialog;
