@@ -125,6 +125,11 @@ public abstract class VostoBaseActivity extends Activity {
         startActivity(intent);
     }
 
+    public void myFavouritesPressed(View v){
+        Intent intent = new Intent(this, EditProfileActivity.class);
+        startActivity(intent);
+    }
+
     public void profilePressed(View v){
         Intent intent = new Intent(this, EditProfileActivity.class);
         startActivity(intent);

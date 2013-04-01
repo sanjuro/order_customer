@@ -119,7 +119,7 @@
                       android:textSize="16sp"
                       android:singleLine="true"
                       android:textColor="@android:color/white"
-                      android:text="MY FAVOURTIES"
+                      android:text="MY FAVOURITES"
                     />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
