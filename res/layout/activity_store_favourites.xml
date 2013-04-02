@@ -14,7 +14,18 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp" >
+            android:paddingRight="10dp"
+            >
+
+        <ImageView
+                android:id="@+id/menuButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/menu"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                />
 
         <TextView
                 android:id="@+id/pageHeading"
@@ -35,62 +46,63 @@
             android:orientation="vertical" >
 
         <RelativeLayout
-                android:layout_width="match_parent"
+                android:id="@+id/tab_section"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_gravity="center_vertical"
                 android:background="#d8d5ce"
-                android:orientation="horizontal" >
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                >
 
             <LinearLayout
-                    android:id="@+id/store_details_block"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="10dp"
+                    android:id="@+id/modeSwitchButtonBar"
                     android:orientation="horizontal"
-                    android:paddingBottom="20dp"
-                    android:paddingTop="20dp" >
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    >
 
-                <TextView
+                <Button
+                        android:id="@+id/storeFavouritesbutton"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Filter by"
-                        android:textColor="#3b3b3b"
-                        android:textSize="20sp" />
+                        android:layout_height="38dp"
+                        android:onClick="storeFavouritesClicked"
+                        android:text="Stores"
+                        />
 
-                <LinearLayout
+                <Button
+                        android:id="@+id/productFavouritesbutton"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal" >
+                        android:layout_height="38dp"
+                        android:onClick="productFavouritesClicked"
+                        android:text="Products"
+                        />
 
-                    <CheckBox
-                            android:id="@+id/products"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="true"
-                            android:text="Products"
-                            android:textColor="#3b3b3b" />
-
-                    <CheckBox
-                            android:id="@+id/stores"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="true"
-                            android:text="Stores"
-                            android:textColor="#3b3b3b" />
-                </LinearLayout>
             </LinearLayout>
+
         </RelativeLayout>
 
         <ListView
-                android:id="@+id/favourites"
+                android:id="@+id/lstStores"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
                 android:divider="#CCCCCC"
                 android:dividerHeight="1sp" >
         </ListView>
+
+        <ListView
+                android:id="@+id/lstStores"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:divider="#CCCCCC"
+                android:dividerHeight="1sp" >
+        </ListView>
+
+
     </LinearLayout>
 
 </RelativeLayout>

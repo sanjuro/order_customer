@@ -73,7 +73,7 @@ public class StoresActivity extends VostoBaseActivity implements OnRestReturn, O
 		}
 		ListView list = (ListView)findViewById(R.id.lstStores);
 		if(list == null){
-			Log.d("ERROR", "List is null");
+			Log.d("ERROR", "List of stores is null");
 		}
 		
 		this.stores = ((GetStoresResult)result).getStores();

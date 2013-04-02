@@ -12,9 +12,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.agimind.widget.SlideHolder;
 import com.vosto.customer.accounts.activities.EditProfileActivity;
 import com.vosto.customer.accounts.activities.SignInActivity;
-import com.vosto.customer.accounts.activities.FavouritesActivity;
+import com.vosto.customer.favourites.activities.ProductFavouritesActivity;
 import com.vosto.customer.cart.activities.CartActivity;
 import com.vosto.customer.cart.vos.Cart;
 import com.vosto.customer.orders.activities.MyOrdersActivity;
@@ -34,9 +35,20 @@ public abstract class VostoBaseActivity extends Activity {
 	
 	// Subclasses can display a basic please wait dialog with spinner:
 	public ProgressDialog pleaseWaitDialog;
+
+    private SlideHolder mSlideHolder;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+
+        View toggleView = findViewById(R.id.menuButton);
+        toggleView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mSlideHolder.toggle();
+            }
+        });
 	}
 	
 	/**
@@ -127,7 +139,7 @@ public abstract class VostoBaseActivity extends Activity {
     }
 
     public void myFavouritesPressed(View v){
-        Intent intent = new Intent(this, FavouritesActivity.class);
+        Intent intent = new Intent(this, ProductFavouritesActivity.class);
         startActivity(intent);
     }
 

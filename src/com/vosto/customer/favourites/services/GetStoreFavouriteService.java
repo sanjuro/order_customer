@@ -1,4 +1,4 @@
-package com.vosto.customer.stores.services;
+package com.vosto.customer.favourites.services;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,7 +19,7 @@ public class GetStoreFavouriteService extends RestService {
     private StoreFavouritesManager favourites;
 
     public GetStoreFavouriteService(OnRestReturn listener, VostoBaseActivity context) {
-        super("http://107.22.211.58:9000/api/v1/stores/by_store_ids", RequestMethod.POST, ResultType.GET_STORES, listener, context);
+        super("http://107.22.211.58:9000/api/v1/stores/by_store_ids", RequestMethod.POST, ResultType.GET_FAVOURITE_STORES, listener, context);
         favourites = new StoreFavouritesManager(context);
     }
 
@@ -38,3 +38,4 @@ public class GetStoreFavouriteService extends RestService {
     }
 
 }
+

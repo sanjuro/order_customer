@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.agimind.widget.SlideHolder;
 import com.vosto.customer.accounts.activities.SignInActivity;
 import com.vosto.customer.accounts.activities.SignUpActivity;
 import com.vosto.customer.services.OnRestReturn;
@@ -33,9 +32,7 @@ import com.vosto.customer.stores.services.SearchService;
  *
  */
 public class HomeActivity extends VostoBaseActivity implements OnRestReturn, LocationListener {
-	
-    private SlideHolder mSlideHolder;
-    
+
     /*
      * If the gps is enabled, this activity will keep listening for location updates
      * for the life of the activity, and it will keep updating this variable.
@@ -56,7 +53,7 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
         TextView notJoinedYet = (TextView)findViewById(R.id.notJoinedYet);
         Button signUpButton = (Button)findViewById(R.id.signUpButton);
 
-        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+//        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
 
 
         // Display either a sign in button or the user's name depending if someone is logged in:
@@ -71,13 +68,13 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
             nameOfUser.setText(settings.getString("userName", "user"));
 
             View toggleView = findViewById(R.id.menuButton);
-            toggleView.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    mSlideHolder.toggle();
-                }
-            });
+//            toggleView.setOnClickListener(new View.OnClickListener() {
+//
+//                @Override
+//                public void onClick(View v) {
+//                    mSlideHolder.toggle();
+//                }
+//            });
         }else{
         	//User not logged in:
 

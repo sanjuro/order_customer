@@ -25,23 +25,21 @@ import com.vosto.customer.accounts.services.AuthenticateResult;
 import com.vosto.customer.accounts.services.CreateAccountResult;
 import com.vosto.customer.accounts.services.RegisterDeviceResult;
 import com.vosto.customer.accounts.services.ResetPasswordResult;
+import com.vosto.customer.favourites.services.GetStoreFavouriteResult;
 import com.vosto.customer.orders.services.GetOrderByIdResult;
 import com.vosto.customer.orders.services.GetPreviousOrdersResult;
 import com.vosto.customer.orders.services.PlaceOrderResult;
 import com.vosto.customer.products.services.GetProductsResult;
 import com.vosto.customer.products.services.GetTaxonsResult;
 import com.vosto.customer.products.services.GetVariantsResult;
-import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.stores.services.GetStoresResult;
 import com.vosto.customer.stores.services.GetTagsResult;
 import com.vosto.customer.stores.services.SearchResult;
-import com.vosto.customer.utils.Constants;
 import com.vosto.customer.utils.NetworkUtils;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.util.Log;
 
 public class RestService extends AsyncTask <Void, Void, RestResult> {
 	
@@ -225,6 +223,14 @@ protected RestResult getRestResult(StatusLine statusLine, String responseJson){
 	if(this.resultType == ResultType.GET_ORDER_BY_ID){
 		result = new GetOrderByIdResult(200, responseJson);
 	}
+
+    if(this.resultType == ResultType.GET_FAVOURITE_STORES){
+        result = new GetStoreFavouriteResult(200, responseJson);
+    }
+
+//    if(this.resultType == ResultType.GET_FAVOURITE_PRODUCTS){
+//        result = new GetProdudctFavouriteResult(200, responseJson);
+//    }
 	
 	if(result != null){
 		if(statusLine != null){

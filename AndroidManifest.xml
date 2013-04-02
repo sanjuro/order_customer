@@ -58,7 +58,10 @@
             android:name="com.vosto.customer.accounts.activities.SignInActivity">
         </activity>
         <activity
-                android:name="com.vosto.customer.accounts.activities.FavouritesActivity">
+                android:name="com.vosto.customer.favourites.activities.ProductFavouritesActivity">
+        </activity>
+        <activity
+                android:name="com.vosto.customer.favourites.activities.StoreFavouritesActivity">
         </activity>
          <activity
             android:name="com.vosto.customer.products.activities.ProductResultsActivity">

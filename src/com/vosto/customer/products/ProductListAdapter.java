@@ -25,7 +25,7 @@ public class ProductListAdapter extends ArrayAdapter<ProductVo>{
         this.layoutResourceId = layoutResourceId;
         this.context = context;
         this.products = products;
-        Log.d("PRD", "First product has variants: " + this.products[0].getVariants().length);
+        // Log.d("PRD", "First product has variants: " + this.products[0].getVariants().length);
     }
 
     @Override
