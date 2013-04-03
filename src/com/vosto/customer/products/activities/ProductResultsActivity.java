@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.agimind.widget.SlideHolder;
 import com.vosto.customer.HomeActivity;
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
@@ -34,12 +35,24 @@ public class ProductResultsActivity extends VostoBaseActivity implements OnRestR
 	
 	private ProductVo[] products;
 	private StoreVo store;
+    private SlideHolder mSlideHolder;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		Log.d("RSM", "Products Activity creating");
 		setContentView(R.layout.activity_product_results);
 		ListView list = (ListView)findViewById(R.id.lstProducts);
+
+        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+
+        View toggleView = findViewById(R.id.menuButton);
+        toggleView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mSlideHolder.toggle();
+            }
+        });
 		
 		this.store = (StoreVo) this.getIntent().getSerializableExtra("store");
 		String categoryName = this.getIntent().getStringExtra("categoryName");
@@ -89,8 +102,8 @@ public class ProductResultsActivity extends VostoBaseActivity implements OnRestR
 		Intent intent = new Intent(this, ProductDetailsActivity.class);
 		intent.putExtra("product", selectedProduct);
 		
-		TextView lblCategoryName = (TextView)findViewById(R.id.lblCategoryName);
-		intent.putExtra("categoryName", lblCategoryName.getText().toString());
+//		TextView lblCategoryName = (TextView)findViewById(R.id.lblCategoryName);
+//		intent.putExtra("categoryName", lblCategoryName.getText().toString());
 		intent.putExtra("store", this.store);
     	startActivity(intent);
 	}

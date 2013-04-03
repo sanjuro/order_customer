@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.agimind.widget.SlideHolder;
 import org.joda.money.Money;
 
 import android.content.Intent;
@@ -48,20 +49,32 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
     private int quantity;
     private Money total;
     private ProductFavouritesManager favourites;
+    private SlideHolder mSlideHolder;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
+
+        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+
+        View toggleView = findViewById(R.id.menuButton);
+        toggleView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mSlideHolder.toggle();
+            }
+        });
 
         this.store = (StoreVo)getIntent().getSerializableExtra("store");
 
         TextView lblSpecialInstructions = (TextView)findViewById(R.id.lblSpecialInstructions);
         lblSpecialInstructions.setText(Html.fromHtml("<u>Special Instructions</u>"));
 
-        String categoryName = this.getIntent().getStringExtra("categoryName");
-        if(categoryName == null){
-            categoryName = "";
-        }
+//        String categoryName = this.getIntent().getStringExtra("categoryName");
+//        if(categoryName == null){
+//            categoryName = "";
+//        }
 //		TextView lblCategoryName = (TextView)findViewById(R.id.lblCategory);
 //		lblCategoryName.setText(categoryName);
 

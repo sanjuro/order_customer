@@ -23,22 +23,34 @@ import com.vosto.customer.stores.StoreListAdapter;
 import com.vosto.customer.stores.services.GetStoresResult;
 import com.vosto.customer.stores.vos.StoreVo;
 import com.vosto.customer.utils.NetworkUtils;
-/**
- * @author flippiescholtz
- *
- */
+
+import com.agimind.widget.SlideHolder;
+
 public class StoresActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener {
 	
 	private StoreVo[] stores;
+    private SlideHolder mSlideHolder;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_stores);
-		ListView list = (ListView)findViewById(R.id.lstStores);
-		list.setOnItemClickListener(this);
+
+        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+
+        View toggleView = findViewById(R.id.menuButton);
+        toggleView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mSlideHolder.toggle();
+            }
+        });
+
+        ListView list = (ListView)findViewById(R.id.lstStores);
+        list.setOnItemClickListener(this);
 		
 		Object[] objects = (Object[]) this.getIntent().getSerializableExtra("stores");
-		this.stores = new StoreVo[objects.length];
+            this.stores = new StoreVo[objects.length];
 		for(int i = 0; i<objects.length; i++){
 			this.stores[i] = (StoreVo)objects[i];
 		}

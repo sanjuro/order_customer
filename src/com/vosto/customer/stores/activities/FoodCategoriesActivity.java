@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.agimind.widget.SlideHolder;
 import com.vosto.customer.HomeActivity;
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
@@ -28,6 +29,7 @@ import com.vosto.customer.stores.vos.StoreTagVo;
  */
 public class FoodCategoriesActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener {
 	private StoreTagVo[] storeTags;
+    private SlideHolder mSlideHolder;
 	
 	//Passed from the HomeActivity:
 	private float latitude;
@@ -38,6 +40,17 @@ public class FoodCategoriesActivity extends VostoBaseActivity implements OnRestR
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_food_categories);
+
+        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+
+        View toggleView = findViewById(R.id.menuButton);
+        toggleView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mSlideHolder.toggle();
+            }
+        });
 		
 		this.latitude = getIntent().getFloatExtra("latitude", 0.0f);
 		this.longitude = getIntent().getFloatExtra("longitude", 0.0f);

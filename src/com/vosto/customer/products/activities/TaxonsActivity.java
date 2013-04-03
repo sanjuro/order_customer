@@ -14,6 +14,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.agimind.widget.SlideHolder;
 import com.vosto.customer.HomeActivity;
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
@@ -31,16 +32,29 @@ import com.vosto.customer.stores.vos.StoreVo;
 import com.vosto.customer.utils.StoreFavouritesManager;
 
 public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnCheckedChangeListener {
+
     private StoreVo store;
     private ArrayList<TaxonVo> taxons;
     private TaxonVo selectedTaxon;
     private StoreFavouritesManager favourites;
+    private SlideHolder mSlideHolder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_taxons);
         this.store = (StoreVo) this.getIntent().getSerializableExtra("store");
+
+        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+
+        View toggleView = findViewById(R.id.menuButton);
+        toggleView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mSlideHolder.toggle();
+            }
+        });
 
         TextView txtStoreName = (TextView)findViewById(R.id.txtStoreName);
         TextView txtStoreAddress = (TextView)findViewById(R.id.txtStoreAddress);

@@ -1,4 +1,202 @@
-<?xml version="1.0" encoding="utf-8"?>
+<com.agimind.widget.SlideHolder xmlns:android="http://schemas.android.com/apk/res/android"
+                                xmlns:tools="http://schemas.android.com/tools"
+                                android:id="@+id/slideHolder"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                tools:context=".MainActivity" >
+
+    <ScrollView
+            android:id="@+id/sideNavigation"
+            android:layout_width="200dp"
+            android:layout_height="fill_parent"
+            android:background="@android:color/black"
+            >
+
+        <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:textSize="18sp"
+                >
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/nameOfUser"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:drawablePadding="6dip"
+                      android:background="#141213"
+                      android:gravity="center_vertical"
+                      android:minHeight="50dp"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="6dip"
+                      android:textSize="18sp"
+                      android:singleLine="true"
+                      android:textAppearance="?android:attr/textAppearanceMedium"
+                      android:textColor="@android:color/white"
+                      android:onClick="profilePressed"
+                      android:clickable="true"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/navCartButton"
+                      android:layout_width="match_parent"
+                      android:layout_height="40dp"
+                      android:background="@drawable/nav_menu_heading"
+                      android:orientation="horizontal"
+                      android:gravity="center_vertical"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="20dp"
+                      android:textSize="16sp"
+                      android:singleLine="true"
+                      android:textColor="@android:color/white"
+                      android:text="MY CART"
+                      android:onClick="myCartPressed"
+                      android:clickable="true"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/navOrdersButton"
+                      android:layout_width="match_parent"
+                      android:layout_height="40dp"
+                      android:background="@drawable/nav_menu_heading"
+                      android:orientation="horizontal"
+                      android:gravity="center_vertical"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="20dp"
+                      android:textSize="16sp"
+                      android:singleLine="true"
+                      android:textColor="@android:color/white"
+                      android:text="MY ORDERS"
+                      android:onClick="myOrdersPressed"
+                      android:clickable="true"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/openOrders"
+                      android:layout_width="match_parent"
+                      android:layout_height="30dp"
+                      android:drawablePadding="6dip"
+                      android:background="#141213"
+                      android:gravity="center_vertical"
+                      android:minHeight="50dp"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="6dip"
+                      android:textSize="14sp"
+                      android:singleLine="true"
+                      android:textAppearance="?android:attr/textAppearanceMedium"
+                      android:textColor="@android:color/white"
+                      android:text="Open Orders"
+                      android:onClick="myOrdersPressed"
+                      android:clickable="true"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/myOrders"
+                      android:layout_width="match_parent"
+                      android:layout_height="40dp"
+                      android:background="@drawable/nav_menu_heading"
+                      android:orientation="horizontal"
+                      android:gravity="center_vertical"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="20dp"
+                      android:textSize="16sp"
+                      android:singleLine="true"
+                      android:textColor="@android:color/white"
+                      android:text="BACK TO SEARCH"
+                      android:onClick="storesPressed"
+                      android:clickable="true"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/navFavoritesButton"
+                      android:layout_width="match_parent"
+                      android:layout_height="40dp"
+                      android:background="@drawable/nav_menu_heading"
+                      android:orientation="horizontal"
+                      android:gravity="center_vertical"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="20dp"
+                      android:textSize="16sp"
+                      android:singleLine="true"
+                      android:textColor="@android:color/white"
+                      android:text="MY FAVOURITES"
+                      android:onClick="myFavouritesPressed"
+                      android:clickable="true"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:layout_width="match_parent"
+                      android:layout_height="50dp"
+                      android:background="@drawable/nav_menu_heading"
+                      android:orientation="horizontal"
+                      android:gravity="center_vertical"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="20dp"
+                      android:textSize="16sp"
+                      android:singleLine="true"
+                      android:textColor="@android:color/white"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/navAccountSettingsButton"
+                      android:layout_width="match_parent"
+                      android:layout_height="30dp"
+                      android:drawablePadding="6dip"
+                      android:background="#141213"
+                      android:gravity="center_vertical"
+                      android:minHeight="50dp"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="6dip"
+                      android:textSize="14sp"
+                      android:singleLine="true"
+                      android:textAppearance="?android:attr/textAppearanceMedium"
+                      android:textColor="@android:color/white"
+                      android:text="Account Settings"
+                      android:onClick="profilePressed"
+                      android:clickable="true"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/navTermsButton"
+                      android:layout_width="match_parent"
+                      android:layout_height="30dp"
+                      android:drawablePadding="6dip"
+                      android:background="#141213"
+                      android:gravity="center_vertical"
+                      android:minHeight="50dp"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="6dip"
+                      android:textSize="14sp"
+                      android:singleLine="true"
+                      android:textAppearance="?android:attr/textAppearanceMedium"
+                      android:textColor="@android:color/white"
+                      android:text="Terms and Policies"
+                      android:onClick="termsPressed"
+                      android:clickable="true"
+                    />
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/navLogoutButton"
+                      android:layout_width="match_parent"
+                      android:layout_height="30dp"
+                      android:drawablePadding="6dip"
+                      android:background="#141213"
+                      android:gravity="center_vertical"
+                      android:minHeight="50dp"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="6dip"
+                      android:textSize="14sp"
+                      android:singleLine="true"
+                      android:textAppearance="?android:attr/textAppearanceMedium"
+                      android:textColor="@android:color/white"
+                      android:text="Logout"
+                      android:onClick="logout"
+                      android:clickable="true"
+                    />
+        </LinearLayout>
+
+
+    </ScrollView>
+
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
@@ -17,6 +215,16 @@
        android:gravity="center_vertical"
        android:paddingLeft="10dp"
        android:paddingRight="10dp">
+
+       <ImageView
+               android:id="@+id/menuButton"
+               android:layout_width="35dp"
+               android:layout_height="35dp"
+               android:src="@drawable/menu"
+               android:layout_alignParentLeft="true"
+               android:layout_centerVertical="true"
+               android:scaleType="fitXY"
+               />
      
        
            <RelativeLayout 
@@ -104,3 +312,5 @@
    </LinearLayout>
 
 </RelativeLayout>
+
+</com.agimind.widget.SlideHolder>

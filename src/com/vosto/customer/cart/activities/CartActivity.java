@@ -49,24 +49,26 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 		setContentView(R.layout.activity_cart);
 
         mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+
+        View toggleView = findViewById(R.id.menuButton);
+        toggleView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mSlideHolder.toggle();
+            }
+        });
+
         SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
         if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
             //User logged in:
             TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
             nameOfUser.setText(settings.getString("userName", "user"));
 
-            View toggleView = findViewById(R.id.menuButton);
-            toggleView.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    mSlideHolder.toggle();
-                }
-            });
         }else{
             //User not logged in:
-
         }
+
 		refreshCart();
 	}
 	

@@ -190,7 +190,7 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
             String email = profileMap.getEmail();
             String validID = profileMap.getValidatedId();
 
-            String userPin = validID.substring(0,6);
+            String userPin = validID.substring(0,5);
 
             createUserFromFacebook(firstName,lastName,email,userPin);
         }

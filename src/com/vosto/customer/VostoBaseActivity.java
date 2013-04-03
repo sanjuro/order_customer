@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.agimind.widget.SlideHolder;
 import com.vosto.customer.accounts.activities.EditProfileActivity;
 import com.vosto.customer.accounts.activities.SignInActivity;
 import com.vosto.customer.favourites.activities.ProductFavouritesActivity;
@@ -35,20 +34,9 @@ public abstract class VostoBaseActivity extends Activity {
 	
 	// Subclasses can display a basic please wait dialog with spinner:
 	public ProgressDialog pleaseWaitDialog;
-
-    private SlideHolder mSlideHolder;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-
-        View toggleView = findViewById(R.id.menuButton);
-        toggleView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                mSlideHolder.toggle();
-            }
-        });
 	}
 	
 	/**

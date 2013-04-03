@@ -24,14 +24,12 @@ import com.vosto.customer.stores.activities.StoresActivity;
 import com.vosto.customer.stores.services.SearchResult;
 import com.vosto.customer.stores.services.SearchService;
 
-/**
- * 
- * @author Flippie Scholtz <flippiescholtz@gmail.com>
- * 
- * This is the home screen containing the search box. It is where the user starts searching for stores.
- *
- */
+import com.agimind.widget.SlideHolder;
+
+
 public class HomeActivity extends VostoBaseActivity implements OnRestReturn, LocationListener {
+
+    private SlideHolder mSlideHolder;
 
     /*
      * If the gps is enabled, this activity will keep listening for location updates
@@ -53,8 +51,6 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
         TextView notJoinedYet = (TextView)findViewById(R.id.notJoinedYet);
         Button signUpButton = (Button)findViewById(R.id.signUpButton);
 
-//        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
-
 
         // Display either a sign in button or the user's name depending if someone is logged in:
         SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
@@ -67,18 +63,20 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
             TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
             nameOfUser.setText(settings.getString("userName", "user"));
 
-            View toggleView = findViewById(R.id.menuButton);
-//            toggleView.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View v) {
-//                    mSlideHolder.toggle();
-//                }
-//            });
         }else{
         	//User not logged in:
-
         }
+
+        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+
+        View toggleView = findViewById(R.id.menuButton);
+        toggleView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mSlideHolder.toggle();
+            }
+        });
         
         //Start listening for gps updates:
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
