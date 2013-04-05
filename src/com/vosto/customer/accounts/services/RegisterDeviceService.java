@@ -5,7 +5,6 @@ import org.json.JSONObject;
 
 import android.provider.Settings.Secure;
 
-import com.vosto.customer.VostoBaseActivity;
 import com.vosto.customer.VostoCustomerApp;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RequestMethod;
@@ -16,8 +15,8 @@ public class RegisterDeviceService extends RestService {
 	private VostoCustomerApp context;
 	private String gcmId; //The id assigned and returned by gcm when registering the device with them
 	
-	public RegisterDeviceService(OnRestReturn listener, VostoBaseActivity activity, VostoCustomerApp context, String gcmId){
-		super("http://107.22.211.58:9000/api/v1/devices/register", RequestMethod.POST, ResultType.REGISTER_DEVICE, listener, activity);
+	public RegisterDeviceService(OnRestReturn listener, VostoCustomerApp context, String gcmId){
+		super("http://107.22.211.58:9000/api/v1/devices/register", RequestMethod.POST, ResultType.REGISTER_DEVICE, listener, context);
 		this.context = context;
 		this.gcmId = gcmId;
 	}

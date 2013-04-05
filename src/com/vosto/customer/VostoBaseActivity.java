@@ -9,18 +9,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.vosto.customer.accounts.activities.EditProfileActivity;
 import com.vosto.customer.accounts.activities.SignInActivity;
-import com.vosto.customer.favourites.activities.ProductFavouritesActivity;
 import com.vosto.customer.cart.activities.CartActivity;
 import com.vosto.customer.cart.vos.Cart;
+import com.vosto.customer.favourites.activities.ProductFavouritesActivity;
 import com.vosto.customer.orders.activities.MyOrdersActivity;
 import com.vosto.customer.orders.vos.OrderVo;
 import com.vosto.customer.pages.activities.TermsActivity;
-import com.vosto.customer.services.RestService;
 
 /**
  * This is the base class from which all activities should inherit.

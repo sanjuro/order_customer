@@ -1,13 +1,13 @@
 package com.vosto.customer;
 
+import android.app.Application;
+import android.content.SharedPreferences;
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.vosto.customer.cart.vos.Cart;
 import com.vosto.customer.orders.vos.OrderVo;
-
-import android.app.Application;
-import android.content.SharedPreferences;
-import android.util.Log;
 
 /**
  * The overridden application context, so that we can store the cart, authtoken, order, etc in the app
@@ -15,7 +15,6 @@ import android.util.Log;
  *
  */
 public class VostoCustomerApp extends Application {
-
   private Cart latestCart;
   private OrderVo currentOrder;
   

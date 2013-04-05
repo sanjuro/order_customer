@@ -21,6 +21,7 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.protocol.HttpContext;
 
 import com.vosto.customer.VostoBaseActivity;
+import com.vosto.customer.VostoCustomerApp;
 import com.vosto.customer.accounts.services.AuthenticateResult;
 import com.vosto.customer.accounts.services.CreateAccountResult;
 import com.vosto.customer.accounts.services.RegisterDeviceResult;
@@ -38,13 +39,16 @@ import com.vosto.customer.stores.services.SearchResult;
 import com.vosto.customer.utils.NetworkUtils;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class RestService extends AsyncTask <Void, Void, RestResult> {
 	
 	protected OnRestReturn listener;
 	protected VostoBaseActivity activity;
+	protected VostoCustomerApp context;
 	protected String url;
 	protected ResultType resultType;
 	
@@ -62,8 +66,36 @@ public class RestService extends AsyncTask <Void, Void, RestResult> {
 	private Exception executeException; // Exception thrown while executing so we can handle the error on the ui thread.
 	
 	
+	public RestService(String url, RequestMethod requestMethod, ResultType resultType, OnRestReturn listener, VostoCustomerApp context, VostoBaseActivity activity){
+		this.url = url;
+		this.resultType = resultType;
+		this.listener = listener;
+		this.activity = activity;
+		this.context = context;
+		this.requestMethod = requestMethod;
+		
+		this.httpClient = new DefaultHttpClient();
+		this.localContext = new BasicHttpContext();
+		this.httpGet = new HttpGet(this.url);
+		this.nameValuePairs = new ArrayList<NameValuePair>();
+		this.hasInternetConnection = true;
+	}	
 	
 	
+	public RestService(String url, RequestMethod requestMethod, ResultType resultType, OnRestReturn listener, VostoCustomerApp context){
+		this.url = url;
+		this.resultType = resultType;
+		this.listener = listener;
+		this.activity = null;
+		this.context = context;
+		this.requestMethod = requestMethod;
+		
+		this.httpClient = new DefaultHttpClient();
+		this.localContext = new BasicHttpContext();
+		this.httpGet = new HttpGet(this.url);
+		this.nameValuePairs = new ArrayList<NameValuePair>();
+		this.hasInternetConnection = true;
+	}	
 	
 
 public RestService(String url, RequestMethod requestMethod, ResultType resultType, OnRestReturn listener, VostoBaseActivity activity){
@@ -107,18 +139,28 @@ public String getRequestJson(){
 @Override
 protected  void onPreExecute()
 {
+	Context tempContext = this.context != null ? this.context : (this.activity != null ? this.activity : null);
+	if(tempContext == null){
+		return;
+	}
    // If we don't have an internet connection, cancel the task and alert the user:
-	if(!NetworkUtils.isNetworkAvailable(this.activity)){
+	if(!NetworkUtils.isNetworkAvailable(tempContext)){
 		cancel(false);
-		this.activity.showAlertDialog("Connection Error", "Please connect to the internet.");
+		if(this.activity != null){
+			this.activity.showAlertDialog("Connection Error", "Please connect to the internet.");
+		}
 	}else{
 		// Everything looks OK. Service can run:
-		this.activity.pleaseWaitDialog = ProgressDialog.show(this.activity, "Loading", "Please wait...", true, true,  new DialogInterface.OnCancelListener(){
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                cancel(true);
-            }
-        });
+		if(this.activity != null){
+			this.activity.pleaseWaitDialog = ProgressDialog.show(this.activity, "Loading", "Please wait...", true, true,  new DialogInterface.OnCancelListener(){
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					cancel(true);
+				}
+			});
+		}else{
+			Log.d("ACT", "Activity is null.");
+		}
 	}
 }
 
@@ -164,11 +206,15 @@ protected RestResult doInBackground(Void... params) {
 }
 
 protected void onPostExecute(RestResult result) {
-	this.activity.dismissPleaseWaitDialog();
+	if(this.activity != null){
+		this.activity.dismissPleaseWaitDialog();
+	}
 	if(this.executeException != null){
 		// An error occured during execution, most likely a loss of connectivity.
-		this.activity.dismissPleaseWaitDialog();
-		this.activity.showAlertDialog("ERROR", "Please check your internet connection and try again.");
+		if(this.activity != null){
+			this.activity.dismissPleaseWaitDialog();
+			this.activity.showAlertDialog("ERROR", "Please check your internet connection and try again.");
+		}
 	}else{
 		// The call completed successfully. Handle the result.
 		this.listener.onRestReturn(result);
