@@ -9,11 +9,13 @@ import com.vosto.customer.services.RequestMethod;
 import com.vosto.customer.services.RestService;
 import com.vosto.customer.services.ResultType;
 
+import static com.vosto.customer.utils.CommonUtilities.SERVER_URL;
+
 public class ResetPasswordService extends RestService {
 	private String email;
 	
 	public ResetPasswordService(OnRestReturn listener, VostoBaseActivity context, String email){
-		super("http://107.22.211.58:9000/api/v1/customers/reset_pin", RequestMethod.POST, ResultType.RESET_PIN, listener, context);
+		super(SERVER_URL + "/customers/reset_pin", RequestMethod.POST, ResultType.RESET_PIN, listener, context);
 		this.email = email;
 	}
 	

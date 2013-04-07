@@ -14,12 +14,14 @@ import com.vosto.customer.services.ResultType;
 import com.vosto.customer.utils.Constants;
 import com.vosto.customer.utils.StoreFavouritesManager;
 
+import static com.vosto.customer.utils.CommonUtilities.SERVER_URL;
+
 public class GetStoreFavouriteService extends RestService {
 
     private StoreFavouritesManager favourites;
 
     public GetStoreFavouriteService(OnRestReturn listener, VostoBaseActivity context) {
-        super("http://107.22.211.58:9000/api/v1/stores/by_store_ids", RequestMethod.POST, ResultType.GET_FAVOURITE_STORES, listener, context);
+        super(SERVER_URL + "/stores/by_store_ids", RequestMethod.POST, ResultType.GET_FAVOURITE_STORES, listener, context);
         favourites = new StoreFavouritesManager(context);
     }
 
