@@ -280,6 +280,7 @@
          
          <ImageButton 
           	android:id="@+id/find_by_location_button"
+
           	android:layout_width="100dp"
           	android:layout_height="150dp"
           	android:scaleType="fitXY"
@@ -369,8 +370,9 @@
 
         </FrameLayout>
     
+
     </LinearLayout>
-    
+
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
@@ -448,3 +450,4 @@
 </RelativeLayout>
 
 </com.agimind.widget.SlideHolder>
+
