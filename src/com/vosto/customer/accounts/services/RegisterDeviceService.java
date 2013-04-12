@@ -11,12 +11,14 @@ import com.vosto.customer.services.RequestMethod;
 import com.vosto.customer.services.RestService;
 import com.vosto.customer.services.ResultType;
 
+import static com.vosto.customer.utils.CommonUtilities.SERVER_URL;
+
 public class RegisterDeviceService extends RestService {
 	private VostoCustomerApp context;
 	private String gcmId; //The id assigned and returned by gcm when registering the device with them
 	
 	public RegisterDeviceService(OnRestReturn listener, VostoCustomerApp context, String gcmId){
-		super("http://107.22.211.58:9000/api/v1/devices/register", RequestMethod.POST, ResultType.REGISTER_DEVICE, listener, context);
+		super(SERVER_URL + "/devices/register", RequestMethod.POST, ResultType.REGISTER_DEVICE, listener, context);
 		this.context = context;
 		this.gcmId = gcmId;
 	}

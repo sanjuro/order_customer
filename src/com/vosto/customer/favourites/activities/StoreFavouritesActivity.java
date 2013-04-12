@@ -3,8 +3,10 @@ package com.vosto.customer.favourites.activities;
 import java.util.Arrays;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.*;
+import com.agimind.widget.SlideHolder;
 import com.vosto.customer.products.activities.TaxonsActivity;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
@@ -26,11 +28,33 @@ import com.vosto.customer.utils.NetworkUtils;
 public class StoreFavouritesActivity extends VostoBaseActivity implements OnRestReturn, AdapterView.OnItemClickListener {
 
     private StoreVo[] stores;
+    private SlideHolder mSlideHolder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_favourites);
+
+        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+
+        View toggleView = findViewById(R.id.menuButton);
+        toggleView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mSlideHolder.toggle();
+            }
+        });
+
+        SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+        if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
+            //User logged in:
+            TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
+            nameOfUser.setText(settings.getString("userName", "user"));
+
+        }else{
+            //User not logged in:
+        }
 
         fetchStores();
     }

@@ -71,13 +71,6 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
         TextView lblSpecialInstructions = (TextView)findViewById(R.id.lblSpecialInstructions);
         lblSpecialInstructions.setText(Html.fromHtml("<u>Special Instructions</u>"));
 
-//        String categoryName = this.getIntent().getStringExtra("categoryName");
-//        if(categoryName == null){
-//            categoryName = "";
-//        }
-//		TextView lblCategoryName = (TextView)findViewById(R.id.lblCategory);
-//		lblCategoryName.setText(categoryName);
-
         this.quantity = 1;
 
         SeekBar quantitySlider = (SeekBar)findViewById(R.id.quantity_slider);

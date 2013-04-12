@@ -18,14 +18,16 @@ import com.vosto.customer.services.RestResult;
 import com.vosto.customer.services.RestService;
 import com.vosto.customer.services.ResultType;
 
+import static com.vosto.customer.utils.CommonUtilities.SERVER_URL;
+
 public class GetProductsService extends RestService {
 	
 	public GetProductsService(OnRestReturn listener, VostoBaseActivity context){
-		super("http://107.22.211.58:9000/api/v1/products", RequestMethod.GET, ResultType.GET_PRODUCTS, listener, context);
+		super(SERVER_URL + "/products", RequestMethod.GET, ResultType.GET_PRODUCTS, listener, context);
 	}
 	
 	public GetProductsService(OnRestReturn listener, VostoBaseActivity context, int taxonId){
-		super("http://107.22.211.58:9000/api/v1/taxons/"+taxonId+"/products", RequestMethod.GET, ResultType.GET_PRODUCTS, listener, context);
+		super(SERVER_URL + "/taxons/"+taxonId+"/products", RequestMethod.GET, ResultType.GET_PRODUCTS, listener, context);
 	}
 	
 	@Override
@@ -47,8 +49,8 @@ public class GetProductsService extends RestService {
 				HttpEntity httpEntity;
 				Log.d("VAR", "Getting variants for " + products.length + " products.");
 				for(int i = 0; i<products.length; i++){
-					Log.d("VAR", "Variants url: " + "http://107.22.211.58:9000/api/v1/products/" + products[i].getId()+"/variants");
-					this.httpGet = new HttpGet("http://107.22.211.58:9000/api/v1/products/" + products[i].getId()+"/variants");
+					Log.d("VAR", "Variants url: " + SERVER_URL + "/products/" + products[i].getId()+"/variants");
+					this.httpGet = new HttpGet(SERVER_URL + "/products/" + products[i].getId()+"/variants");
 					this.response = httpClient.execute(this.httpGet, localContext);
 					httpEntity = response.getEntity();
 					text = getASCIIContentFromEntity(httpEntity);

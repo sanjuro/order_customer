@@ -119,6 +119,8 @@
                       android:singleLine="true"
                       android:textColor="@android:color/white"
                       android:text="MY FAVOURITES"
+                      android:onClick="myFavouritesPressed"
+                      android:clickable="true"
                     />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -303,7 +305,6 @@
                             android:textSize="20sp"
                             android:textColor="#FFFFFF"
                             />
-
 
        </LinearLayout>
 

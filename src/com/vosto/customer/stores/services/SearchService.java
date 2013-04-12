@@ -11,6 +11,8 @@ import com.vosto.customer.services.RequestMethod;
 import com.vosto.customer.services.RestService;
 import com.vosto.customer.services.ResultType;
 
+import static com.vosto.customer.utils.CommonUtilities.SERVER_URL;
+
 public class SearchService extends RestService {
 	
 	public String searchTerm;
@@ -20,7 +22,7 @@ public class SearchService extends RestService {
 	private VostoBaseActivity context;
 	
 	public SearchService(OnRestReturn listener, VostoBaseActivity context){
-		super("http://107.22.211.58:9000/api/v1/stores/search", RequestMethod.POST, ResultType.SEARCH_STORES, listener, context);
+		super(SERVER_URL + "/stores/search", RequestMethod.POST, ResultType.SEARCH_STORES, listener, context);
 		this.context = context;
 		this.hasLocation = false;
 	}

@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.net.Uri;
 
 import com.agimind.widget.SlideHolder;
 import com.vosto.customer.HomeActivity;
@@ -126,6 +127,14 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
         this.selectedTaxon = this.taxons.get(position);
         GetProductsService service = new GetProductsService(this, this, this.taxons.get(position).getId());
         service.execute();
+    }
+
+    public void callPressed(View v){
+        TextView txtStoreTelephone = (TextView)findViewById(R.id.txtStoreTelephone);
+        String telephoneNumber = txtStoreTelephone.getText().toString().trim();
+        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+        callIntent.setData(Uri.parse("tel:" + telephoneNumber));
+        startActivity(callIntent);
     }
 
 

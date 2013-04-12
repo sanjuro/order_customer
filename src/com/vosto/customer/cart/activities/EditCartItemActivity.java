@@ -1,5 +1,7 @@
 package com.vosto.customer.cart.activities;
 
+import android.content.SharedPreferences;
+import com.agimind.widget.SlideHolder;
 import org.joda.money.Money;
 
 import android.content.Intent;
@@ -37,10 +39,32 @@ public class EditCartItemActivity extends VostoBaseActivity implements OnRestRet
 	private VariantVo chosenVariant;
 	private int quantity;
 	private Money total;
+    private SlideHolder mSlideHolder;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_cart_item);
+
+        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+
+        View toggleView = findViewById(R.id.menuButton);
+        toggleView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mSlideHolder.toggle();
+            }
+        });
+
+        SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+        if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
+            //User logged in:
+            TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
+            nameOfUser.setText(settings.getString("userName", "user"));
+
+        }else{
+            //User not logged in:
+        }
 		
 		TextView lblSpecialInstructions = (TextView)findViewById(R.id.lblSpecialInstructions);
 		lblSpecialInstructions.setText(Html.fromHtml("<u>Special Instructions</u>"));

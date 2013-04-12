@@ -14,6 +14,9 @@ import com.vosto.customer.services.ResultType;
 
 import android.util.Log;
 
+import static com.vosto.customer.utils.CommonUtilities.SERVER_URL;
+import static com.vosto.customer.utils.CommonUtilities.SERVER_AUTHENTICATION_TOKEN;
+
 public class CreateAccountService extends RestService {
 	
 	private String firstName;
@@ -24,7 +27,7 @@ public class CreateAccountService extends RestService {
 	private String userPin;
 	
 	public CreateAccountService(OnRestReturn listener, VostoBaseActivity activity){
-		super("http://107.22.211.58:9000/api/v1/users/create_customer", RequestMethod.POST, ResultType.CREATE_CUSTOMER, listener, activity);
+		super(SERVER_URL + "/users/create_customer", RequestMethod.POST, ResultType.CREATE_CUSTOMER, listener, activity);
 	}
 
 	public String getFirstName() {
@@ -79,7 +82,7 @@ public class CreateAccountService extends RestService {
 	public String getRequestJson(){
 		try{
 			JSONObject root = new JSONObject();
-			root.put("authentication_token", "DXTTTTED2ASDBSD3");
+			root.put("authentication_token", SERVER_AUTHENTICATION_TOKEN);
 			JSONObject user = new JSONObject();
 			user.put("first_name", this.firstName);
 			user.put("last_name", this.lastName);
