@@ -265,13 +265,6 @@
             </RelativeLayout>
         </LinearLayout> <!-- buy section -->
 
-        <CheckBox
-                android:id="@+id/star"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/buy_section"
-                android:button="@drawable/favourite_white_button" />
 
     </RelativeLayout> <!-- top bar -->
 
@@ -294,35 +287,37 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
                     android:orientation="vertical" >
 
                 <RelativeLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" >
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        >
 
                     <TextView
                             android:id="@+id/product_name"
                             android:layout_width="220dp"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="35dp"
+                            android:layout_marginTop="10dp"
                             android:maxLines="2"
                             android:singleLine="false"
                             android:text="Breakfast Burrito"
-                            android:textColor="#000000"
+                            android:textColor="#676357"
                             android:textSize="16sp" />
 
-                    <TextView
-                            android:id="@+id/product_price"
-                            android:layout_width="wrap_content"
+                    <CheckBox
+                            android:id="@+id/star"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_alignParentTop="true"
-                            android:text="R35.00"
-                            android:textColor="#000000"
-                            android:textSize="16sp" />
+                            android:layout_toLeftOf="@+id/product_name"
+                            android:button="@drawable/favourite_button" />
+
+
                 </RelativeLayout> <!-- Product name / price -->
 
                 <ImageView
@@ -336,6 +331,8 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
                         android:orientation="horizontal" >
 
                     <ImageView
@@ -354,15 +351,40 @@
                             android:maxLines="6"
                             android:singleLine="false"
                             android:text="Scrambled eggs with avocado and bacon, wrapped in a burrito with cheese and mayonaisse"
-                            android:textColor="#000000"
+                            android:textColor="#676357"
                             android:textSize="14sp" />
+
+
                 </LinearLayout> <!-- description block -->
 
                 <RelativeLayout
                         android:id="@+id/quantity_block"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
                         android:layout_marginTop="10dp" >
+
+                    <TextView
+                            android:id="@+id/product_price"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:text="R35.00"
+                            android:textColor="#676357"
+                            android:textSize="16sp" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                        android:id="@+id/quantity_block"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="10dp" >
+
 
                     <TextView
                             android:id="@+id/amount_title"
@@ -371,7 +393,7 @@
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentTop="true"
                             android:text="Amount:"
-                            android:textColor="#000000"
+                            android:textColor="#676357"
                             android:textSize="14sp" />
 
                     <LinearLayout
@@ -429,6 +451,8 @@
                         android:layout_below="@id/quantity_block"
                         android:layout_marginTop="15dp"
                         android:gravity="center_horizontal"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
                         android:orientation="horizontal" >
                 </LinearLayout> <!-- Variants block -->
 
@@ -438,6 +462,8 @@
                         android:layout_alignParentLeft="true"
                         android:layout_below="@id/variants_block"
                         android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
                         android:gravity="center" >
 
                     <TextView
@@ -445,7 +471,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:text="Special Instructions:"
-                            android:textColor="#000000"
+                            android:textColor="#676357"
                             android:textSize="14sp" />
                 </LinearLayout>
 
@@ -454,6 +480,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/lblSpecialInstructions"
                         android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
                         android:gravity="center" >
 
                     <EditText

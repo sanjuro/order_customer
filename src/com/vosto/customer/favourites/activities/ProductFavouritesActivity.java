@@ -3,11 +3,12 @@ package com.vosto.customer.favourites.activities;
 import java.util.Arrays;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.*;
 import com.vosto.customer.cart.vos.Cart;
 import com.vosto.customer.cart.vos.CartItem;
-import com.vosto.customer.products.ProductListAdapter;
+import com.vosto.customer.favourites.ProductFavouriteListAdapter;
 import com.vosto.customer.favourites.services.GetProductFavouriteService;
 import com.vosto.customer.products.activities.ProductDetailsActivity;
 import com.vosto.customer.products.services.GetProductsResult;
@@ -36,6 +37,25 @@ public class ProductFavouritesActivity extends VostoBaseActivity implements OnRe
 
         mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
 
+        View toggleView = findViewById(R.id.menuButton);
+        toggleView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mSlideHolder.toggle();
+            }
+        });
+
+        SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+        if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
+            //User logged in:
+            TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
+            nameOfUser.setText(settings.getString("userName", "user"));
+
+        }else{
+            //User not logged in:
+        }
+
         fetchProducts();
     }
 
@@ -55,7 +75,7 @@ public class ProductFavouritesActivity extends VostoBaseActivity implements OnRe
 
             //update products and update listview
             ListView list = (ListView)findViewById(R.id.lstProducts);
-            list.setAdapter(new ProductListAdapter(this, R.layout.product_item_row, products));
+            list.setAdapter(new ProductFavouriteListAdapter(this, R.layout.product_favourtie_item_row, products));
         }
 
     }

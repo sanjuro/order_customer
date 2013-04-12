@@ -36,43 +36,48 @@
    </RelativeLayout>
    
    <LinearLayout
+       android:id="@+id/main_section"
        android:layout_below="@+id/top_bar"
        android:layout_width="fill_parent"
        android:layout_height="wrap_content"
        android:orientation="vertical"
-       android:paddingLeft="10dp"
-       android:paddingRight="10dp"
        android:paddingTop="15dp"
        >
        
        <EditText 
-       	android:id="@+id/txtName"
-       	android:layout_width="fill_parent"
-       	android:layout_height="50dp"
-       	android:layout_marginTop="10dp"
-       	android:inputType="textCapWords"
-       	android:hint="@string/name"    
-       />
+            android:id="@+id/txtName"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginTop="10dp"
+            android:inputType="textCapWords"
+            android:hint="@string/name"
+            />
        
-        <EditText 
-       	android:id="@+id/txtEmail"
-       	android:layout_width="fill_parent"
-       	android:layout_height="50dp"
-       	android:layout_marginTop="10dp"
-       	android:inputType="textEmailAddress"
-       	android:hint="@string/email"    
-       />
+       <EditText
+            android:id="@+id/txtEmail"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:inputType="textEmailAddress"
+            android:hint="@string/email"
+            />
         
-        <EditText 
-       	android:id="@+id/txtSecurityPin"
-       	android:layout_width="fill_parent"
-       	android:layout_height="50dp"
-       	android:layout_marginTop="10dp"
-       	android:inputType="numberPassword"
-       	android:hint="@string/security_pin"    
-       />
+       <EditText
+            android:id="@+id/txtSecurityPin"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:inputType="numberPassword"
+            android:hint="@string/security_pin"
+            />
        
-        <RelativeLayout
+       <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -108,56 +113,50 @@
                     android:textSize="14sp"
                     android:textColor="#FFFFFF"
                     />
-        </RelativeLayout>
-        
-        
+       </RelativeLayout>
+
+       <LinearLayout
+           android:id="@+id/bottom_bar"
+           android:layout_below="@+id/main_section"
+           android:layout_width="fill_parent"
+           android:layout_height="65dp"
+           android:layout_marginTop="50dp"
+           android:background="@drawable/bottom_bar_gray"
+           android:orientation="horizontal"
+           android:paddingLeft="10dp"
+           android:paddingRight="10dp"
+           android:layout_alignParentBottom="true"
+           >
+
+           <TextView
+               android:text="@string/already_have_an_account"
+               android:textStyle="italic"
+               android:layout_alignParentLeft="true"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_centerVertical="true"
+               android:paddingRight="30dp"
+               android:layout_marginTop="20dp"
+               />
+
+           <Button
+               android:id="@+id/sign_in_button"
+               android:layout_alignParentRight="true"
+               android:layout_width="95dp"
+               android:layout_height="30dp"
+               android:layout_marginTop="20dp"
+               android:scaleType="fitXY"
+               android:background="@drawable/green_button_background"
+               android:layout_centerVertical="true"
+               android:onClick="signInClicked"
+               android:text="Sign In"
+               android:contentDescription="@string/sign_in_button"
+               android:textSize="14sp"
+               android:textColor="#FFFFFF"
+               />
+
+       </LinearLayout>
         
    </LinearLayout>
-   
-      <RelativeLayout
-       android:id="@+id/bottom_bar"
-       android:layout_width="match_parent"
-       android:layout_height="65dp"
-       android:background="@drawable/bottom_bar_gray" 
-       android:orientation="horizontal"
-       android:paddingLeft="10dp"
-       android:paddingRight="10dp"
-       android:layout_alignParentBottom="true">    
-       
-            <TextView
-                android:text="@string/already_have_an_account"
-                android:textStyle="italic"
-                android:layout_alignParentLeft="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                />
 
-
-            <Button
-                android:id="@+id/sign_in_button"
-                android:layout_alignParentRight="true"
-                android:layout_width="95dp"
-                android:layout_height="30dp"
-                android:scaleType="fitXY"
-                android:background="@drawable/green_button_background"
-                android:layout_centerVertical="true"
-                android:onClick="signInClicked"
-                android:text="Sign In"
-                android:contentDescription="@string/sign_in_button"
-                android:textSize="14sp"
-                android:textColor="#FFFFFF"
-                />
-
-   </RelativeLayout>
-
-    <ListView
-            android:id="@+id/listview"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_margin="10dp"
-            android:scrollingCache="false"
-            android:divider="#e4e4e4"
-            android:dividerHeight="2px"
-            />
 </RelativeLayout>

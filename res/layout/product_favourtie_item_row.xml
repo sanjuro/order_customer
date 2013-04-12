@@ -2,40 +2,42 @@
 
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/product_row_main_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/store_item_background"
         android:orientation="horizontal"
+        android:background="@drawable/store_item_background"
         android:paddingTop="10dp"
         android:paddingLeft="10dp"
         android:paddingBottom="10dp"
+        android:clickable="true"
+        android:onClick="productSelected"
         >
 
     <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/storefront"
+            android:src="@drawable/burrito"
             android:background="@drawable/image_border_white"
             />
 
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        >
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            >
 
         <TextView
-                android:id="@+id/lblStoreName"
+                android:id="@+id/lblProductName"
                 android:layout_width="175dp"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
                 android:textColor="#676357"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
-                android:text="Spur N1 City, Teax Spur"
+                android:text="Spur's Famous Pork Ribs"
                 />
-
 
         <ImageView
                 android:id="@+id/selection_arrow"
@@ -45,36 +47,21 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 />
 
         <TextView
-                android:id="@+id/lblDistance"
+                android:id="@+id/lblPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#d8d5ce"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="10 km"
-                android:textSize="12sp"
-                android:textColor="#676357"
                 android:layout_toLeftOf="@id/selection_arrow"
+                android:textSize="12sp"
+                android:textColor="#7b7461"
+                android:text="R 35.00"
                 />
 
-        <TextView
-                android:id="@+id/lblAddress"
-                android:singleLine="false"
-                android:maxLines="2"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@id/lblStoreName"
-                android:textSize="10sp"
-                android:gravity="fill"
-                android:textColor="#7b7461"
-                android:text="21 Jumper Street,\nCalifornia, United States"
-                />
+
 
     </RelativeLayout>
 
-</LinearLayout>   
+</LinearLayout>

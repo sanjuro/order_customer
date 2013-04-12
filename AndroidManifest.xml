@@ -8,10 +8,10 @@
         android:minSdkVersion="10"
         android:targetSdkVersion="17" />
 
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     
     <permission android:name="com.vosto.customer.permission.C2D_MESSAGE" android:protectionLevel="signature" />
 	<uses-permission android:name="com.vosto.customer.permission.C2D_MESSAGE" /> 
@@ -52,10 +52,12 @@
             android:name="com.vosto.customer.accounts.activities.EditProfileActivity">
         </activity>
         <activity
-            android:name="com.vosto.customer.accounts.activities.SignUpActivity">
+            android:name="com.vosto.customer.accounts.activities.SignUpActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize">
     	</activity>
          <activity
-            android:name="com.vosto.customer.accounts.activities.SignInActivity">
+            android:name="com.vosto.customer.accounts.activities.SignInActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize">
         </activity>
         <activity
                 android:name="com.vosto.customer.favourites.activities.ProductFavouritesActivity">
@@ -76,10 +78,12 @@
             android:name="com.vosto.customer.orders.activities.ReorderActivity">
         </activity>
         <activity
-            android:name="com.vosto.customer.products.activities.ProductDetailsActivity">
+            android:name="com.vosto.customer.products.activities.ProductDetailsActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize">
         </activity>
         <activity
-            android:name="com.vosto.customer.cart.activities.EditCartItemActivity">
+            android:name="com.vosto.customer.cart.activities.EditCartItemActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize">
         </activity>
         <activity
                 android:name="com.vosto.customer.pages.activities.TermsActivity">
