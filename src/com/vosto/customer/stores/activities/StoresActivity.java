@@ -1,6 +1,7 @@
 package com.vosto.customer.stores.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -45,6 +46,16 @@ public class StoresActivity extends VostoBaseActivity implements OnRestReturn, O
                 mSlideHolder.toggle();
             }
         });
+
+        SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+        if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
+            //User logged in:
+            TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
+            nameOfUser.setText(settings.getString("userName", "user"));
+
+        }else{
+            //User not logged in:
+        }
 
         ListView list = (ListView)findViewById(R.id.lstStores);
         list.setOnItemClickListener(this);
