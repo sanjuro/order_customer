@@ -1,22 +1,15 @@
 package com.vosto.customer.favourites.services;
 
-import java.util.ArrayList;
+import static com.vosto.customer.utils.CommonUtilities.SERVER_URL;
 
-import org.apache.http.entity.StringEntity;
-import org.apache.http.message.BasicNameValuePair;
+import java.util.Locale;
+import java.util.concurrent.ConcurrentHashMap;
 
-import com.vosto.customer.products.services.GetProductsResult;
-import com.vosto.customer.products.vos.OptionValueVo;
-import com.vosto.customer.products.vos.ProductVo;
-import com.vosto.customer.products.vos.VariantVo;
-import com.vosto.customer.services.*;
 import org.apache.http.HttpEntity;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,12 +18,16 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.vosto.customer.VostoBaseActivity;
+import com.vosto.customer.products.services.GetProductsResult;
+import com.vosto.customer.products.vos.ProductVo;
+import com.vosto.customer.products.vos.VariantVo;
+import com.vosto.customer.services.OnRestReturn;
+import com.vosto.customer.services.RequestMethod;
+import com.vosto.customer.services.RestResult;
+import com.vosto.customer.services.RestService;
+import com.vosto.customer.services.ResultType;
 import com.vosto.customer.utils.Constants;
 import com.vosto.customer.utils.ProductFavouritesManager;
-
-import java.util.List;
-
-import static com.vosto.customer.utils.CommonUtilities.SERVER_URL;
 
 public class GetProductFavouriteService extends RestService {
 
@@ -164,40 +161,52 @@ public class GetProductFavouriteService extends RestService {
 
 
     private VariantVo[] getVariantsFromJson(String variantJson){
-        try{
-            JSONArray outerArr = new JSONArray(variantJson);
-            VariantVo[] variants = new VariantVo[outerArr.length()];
-            for(int i = 0; i<outerArr.length(); i++){
-                JSONArray variantArr = outerArr.getJSONArray(i);
-                JSONObject variantObj = variantArr.getJSONObject(0).getJSONObject("variant");
-                JSONObject optionValuesObj = variantArr.getJSONObject(1);
-
-                VariantVo variant = new VariantVo();
-                variant.setId(variantObj.getInt("id"));
-                variant.setPrice(variantObj.getDouble("price"));
-                variant.setMaster(variantObj.getBoolean("is_master"));
-                variant.setSku(variantObj.getString("sku"));
-                variant.setPosition(variantObj.getInt("position"));
-                variant.setProduct_id(variantObj.getInt("product_id"));
-
-                OptionValueVo optionValue = new OptionValueVo();
-                optionValue.setName(optionValuesObj.getString("option_values"));
-                optionValue.setPresentation(optionValue.getName());
-
-                OptionValueVo[] optionValues = new OptionValueVo[1];
-                optionValues[0] = optionValue;
-                variant.setOptionValues(optionValues);
-
-                variants[i] = variant;
-
-            }
-
-            return variants;
-
-        }catch(JSONException e){
-            e.printStackTrace();
-            return new VariantVo[0];
-        }
+    	try{
+			JSONArray outerArr = new JSONArray(variantJson);
+			VariantVo[] variants = new VariantVo[outerArr.length()];
+			for(int i = 0; i<outerArr.length(); i++){
+				JSONArray variantArr = outerArr.getJSONArray(i);
+				JSONObject variantObj = variantArr.getJSONObject(0).getJSONObject("variant");
+				JSONObject optionValuesObj = variantArr.getJSONObject(1);
+				
+				VariantVo variant = new VariantVo();
+				variant.setId(variantObj.getInt("id"));
+				variant.setPrice(variantObj.getDouble("price"));
+				variant.setMaster(variantObj.getBoolean("is_master"));
+				variant.setSku(variantObj.getString("sku"));
+				variant.setPosition(variantObj.getInt("position"));
+				variant.setProduct_id(variantObj.getInt("product_id"));
+				
+				
+				String[] optionValueStrings = optionValuesObj.getString("option_values").split(",");
+				ConcurrentHashMap<String, String> optionMap = new ConcurrentHashMap<String, String>();
+				
+				for(int j=0; j<optionValueStrings.length; j++){
+					if(optionValueStrings[j].trim().equals("")){
+						continue;
+					}
+				
+					String[] optionNameAndValue = optionValueStrings[j].trim().split(":");
+			
+					if(optionNameAndValue.length != 2){
+						continue;
+					}
+					
+					optionMap.put(optionNameAndValue[0], optionNameAndValue[1].trim().toLowerCase(Locale.US));
+				}
+				
+				variant.setOptionValueMap(optionMap);
+				
+				variants[i] = variant;
+				
+			}
+			
+			return variants;
+		
+		}catch(JSONException e){
+			e.printStackTrace();
+			return new VariantVo[0];
+		}
     }
 
 }

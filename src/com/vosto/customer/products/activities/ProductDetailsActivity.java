@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 
-
-import android.content.SharedPreferences;
-import com.agimind.widget.SlideHolder;
 import org.joda.money.Money;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
