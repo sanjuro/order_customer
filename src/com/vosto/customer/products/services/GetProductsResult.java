@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.vosto.customer.products.vos.ProductVo;
 import com.vosto.customer.services.IRestResult;
 import com.vosto.customer.services.RestResult;
@@ -40,6 +42,10 @@ public class GetProductsResult extends RestResult implements IRestResult {
 	public ProductVo[] getProducts(){
 		return this.products;
 	}
+	
+	public void setProducts(ProductVo[] products){
+		this.products = products;
+	}
 	 
 	 public ProductVo[] getProductsForStoreId(){
 		 ArrayList<ProductVo> requestedProducts = new ArrayList<ProductVo>();
@@ -67,7 +73,7 @@ public class GetProductsResult extends RestResult implements IRestResult {
 		try{
 			this.jsonArr = new JSONArray(this.getResponseJson());
 			this.products = new ProductVo[this.jsonArr.length()];
-		
+			
 			for(int i = 0; i<this.jsonArr.length(); i++){
 				JSONObject jsonObj = this.jsonArr.getJSONObject(i);
 				

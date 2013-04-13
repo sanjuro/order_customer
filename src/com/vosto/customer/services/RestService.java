@@ -32,7 +32,6 @@ import com.vosto.customer.orders.services.GetPreviousOrdersResult;
 import com.vosto.customer.orders.services.PlaceOrderResult;
 import com.vosto.customer.products.services.GetProductsResult;
 import com.vosto.customer.products.services.GetTaxonsResult;
-import com.vosto.customer.products.services.GetVariantsResult;
 import com.vosto.customer.stores.services.GetStoresResult;
 import com.vosto.customer.stores.services.GetTagsResult;
 import com.vosto.customer.stores.services.SearchResult;
@@ -252,10 +251,6 @@ public class RestService extends AsyncTask <Void, Void, RestResult> {
 
         if(this.resultType == ResultType.GET_TAXONS){
             result = new GetTaxonsResult(200, responseJson);
-        }
-
-        if(this.resultType == ResultType.GET_VARIANTS){
-            result = new GetVariantsResult(200, responseJson);
         }
 
         if(this.resultType == ResultType.PLACE_ORDER){
