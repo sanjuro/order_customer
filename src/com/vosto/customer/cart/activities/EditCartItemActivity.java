@@ -1,5 +1,9 @@
 package com.vosto.customer.cart.activities;
 
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.concurrent.ConcurrentHashMap;
+
 import android.content.SharedPreferences;
 import com.agimind.widget.SlideHolder;
 import org.joda.money.Money;
@@ -37,6 +41,7 @@ public class EditCartItemActivity extends VostoBaseActivity implements OnRestRet
 	private int cartItemIndex;
 	private CartItem cartItem;
 	private VariantVo chosenVariant;
+	private ConcurrentHashMap<String, String> selectedOptionValues; // Maps option values to option types.
 	private int quantity;
 	private Money total;
     private SlideHolder mSlideHolder;
@@ -45,6 +50,8 @@ public class EditCartItemActivity extends VostoBaseActivity implements OnRestRet
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_cart_item);
 
+		this.selectedOptionValues = new ConcurrentHashMap<String, String>();
+		
         mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
 
         View toggleView = findViewById(R.id.menuButton);
@@ -76,6 +83,10 @@ public class EditCartItemActivity extends VostoBaseActivity implements OnRestRet
 		this.quantity = this.cartItem.getQuantity();
 		this.total = this.cartItem.getSubtotal();
 		
+		  
+	    if(this.chosenVariant != null){
+	    	this.selectedOptionValues = new ConcurrentHashMap<String, String>(this.chosenVariant.getOptionValueMap());
+	    }
 		SeekBar quantitySlider = (SeekBar)findViewById(R.id.quantity_slider);
 		quantitySlider.setProgress(this.quantity);
 		quantitySlider.setOnSeekBarChangeListener(this);
@@ -132,53 +143,98 @@ public class EditCartItemActivity extends VostoBaseActivity implements OnRestRet
 	
 	public void updateDisplay(int quantity, VariantVo variant){
 		this.quantity = quantity;
-		this.chosenVariant = variant;
-		TextView lblQuantity = (TextView)findViewById(R.id.lblQuantity);
-		lblQuantity.setText(Integer.toString(quantity));
-		
-		Money unitPrice = this.chosenVariant != null ? this.chosenVariant.getPrice() : this.product.getPrice();
-		
-		TextView lblProductPrice = (TextView)findViewById(R.id.product_price);
-		lblProductPrice.setText(MoneyUtils.getRandString(unitPrice));
-		
-		this.total = unitPrice.multipliedBy(quantity);
-		
-		TextView lblTotal = (TextView)findViewById(R.id.lblTotal);
-		lblTotal.setText(MoneyUtils.getRandString(this.total));
-		
-		Cart cart = getCart();
-		TextView lblBuyButtonPrice = (TextView)findViewById(R.id.buy_button_price);
-		TextView lblBuyButtonQuantity = (TextView)findViewById(R.id.buy_button_quantity);
-		
-		lblBuyButtonPrice.setText(MoneyUtils.getRandString(cart.getTotalPrice()));
-		lblBuyButtonQuantity.setText(cart.getNumberOfItems() + " items");
-		
+        this.chosenVariant = new VariantVo(variant);
+        Log.d("VAR", "Variant changed!");
+        TextView lblQuantity = (TextView)findViewById(R.id.lblQuantity);
+        lblQuantity.setText(Integer.toString(quantity));
+
+        Money unitPrice = this.chosenVariant != null ? this.chosenVariant.getPrice() : this.product.getPrice();
+        Log.d("UNI", "Unit price from variant " + this.chosenVariant.getId() + ": " + MoneyUtils.getRandString(this.chosenVariant.getPrice()));
+        TextView lblProductPrice = (TextView)findViewById(R.id.product_price);
+        lblProductPrice.setText(MoneyUtils.getRandString(unitPrice));
+
+        this.total = unitPrice.multipliedBy(quantity);
+
+        TextView lblTotal = (TextView)findViewById(R.id.lblTotal);
+        lblTotal.setText(MoneyUtils.getRandString(this.total));
+
+        Cart cart = getCart();
+        TextView lblBuyButtonPrice = (TextView)findViewById(R.id.buy_button_price);
+        TextView lblBuyButtonQuantity = (TextView)findViewById(R.id.buy_button_quantity);
+
+        lblBuyButtonPrice.setText(MoneyUtils.getRandString(cart.getTotalPrice()));
+        lblBuyButtonQuantity.setText(cart.getNumberOfItems() + " items");
 	}
 	
 	public void drawVariants(){
-		VariantVo[] variants = this.product.getVariants();
-		if(variants.length < 2){
-			return;
-		}
-		
-		LinearLayout variantsBlock = (LinearLayout)findViewById(R.id.variants_block);
-		
-		 LayoutInflater inflater = getLayoutInflater();
-		 
-		for(int i = 0; i<variants.length; i++){
-			Log.d("DRAW", "Drawing variant: " + variants[i].getOptionValues()[0].getName());
-	        LinearLayout variantButton = (LinearLayout)inflater.inflate(R.layout.variant_button, (ViewGroup)variantsBlock, false);
-			TextView lblVariantName = (TextView)variantButton.findViewById(R.id.lblVariantName);
-			lblVariantName.setText(variants[i].getOptionValues()[0].getName());
-			variantButton.setTag(variants[i]);
-			variantsBlock.addView(variantButton);
-		}
+		 Log.d("VAR", "Drawing variants...");
+	        Log.d("VAR", "Values start drawVariants: " + this.product.getPossibleOptionValues("pasta type"));
+	    	//Outer block in which all the option type rows will appear below each other:
+	        LinearLayout variantsBlock = (LinearLayout)findViewById(R.id.variants_block);
+	        variantsBlock.removeAllViews();
+
+	        LayoutInflater inflater = getLayoutInflater();
+
+	       Log.d("PRV", "Num variants: " + this.product.getVariants().length);
+	        ArrayList<String> optionTypes = this.product.getOptionTypes();
+	        
+	        
+	        for(int i = 0; i<optionTypes.size(); i++){
+	        	
+	        	// Create a label for the option type name:
+	        	TextView optionTypeLabel = (TextView)inflater.inflate(R.layout.option_type_label, (ViewGroup)variantsBlock, false);
+	        	optionTypeLabel.setText(optionTypes.get(i));
+	        	variantsBlock.addView(optionTypeLabel);
+	        	
+	        	//Horizontal layout for this option type. We will put all the buttons inside this layout.
+	        	LinearLayout optionTypeBlock = (LinearLayout)inflater.inflate(R.layout.option_type_block, (ViewGroup)variantsBlock, false);
+	        	
+	        	// Add all the buttons for this option type:
+	        	ArrayList<String> optionValues = this.product.getPossibleOptionValues(optionTypes.get(i));
+	        	 Log.d("OPTS", "Opt values for " + optionTypes.get(i) + ": " + optionValues.size());
+	        	for(int j=0; j<optionValues.size(); j++){
+	        		 LinearLayout variantButton = (LinearLayout)inflater.inflate(R.layout.variant_button, (ViewGroup)variantsBlock, false);
+	        		 TextView lblVariantName = (TextView)variantButton.findViewById(R.id.lblVariantName);
+	                 lblVariantName.setText(optionValues.get(j));
+	                
+	                 if(this.chosenVariant == null){
+	                	 Log.d("VAR", "Chosen variant is null");
+	                 }else{
+	                	 Log.d("VAR", "CHosen variant is NOT null.");
+	                 }
+	                 
+	                 
+
+	                 
+	                 
+	        		 if(this.chosenVariant.hasOptionValue(optionTypes.get(i), optionValues.get(j))){
+	                     // Highlight the selected value:
+	                     variantButton.setBackgroundResource(R.drawable.variant_button_background_highlighted);
+	                 }
+	                 
+	        		 
+	        		 variantButton.setTag(optionTypes.get(i) + ":" + optionValues.get(j));
+	        		 optionTypeBlock.addView(variantButton);
+	        	}
+	        	
+	        	variantsBlock.addView(optionTypeBlock);
+
+	        }
+	        Log.d("VAR", "Values end drawVariants: " + this.product.getPossibleOptionValues("pasta type"));
 	}
 	
 	public void variantChanged(View v){
-		Log.d("VAR", "Variant change clicked.");
-		VariantVo variant = (VariantVo)v.getTag();
-		this.updateDisplay(variant);
+	    	//The button tag is in the format "portion:full"
+	    	String selectedOption = (String)v.getTag();
+	    	String[] selectedOptionSplit = selectedOption.split(":");
+	    	
+	    	//Set the newly selected option value in the HashMap:
+	    	 this.selectedOptionValues.put(selectedOptionSplit[0].trim().toLowerCase(Locale.US), selectedOptionSplit[1].trim().toLowerCase(Locale.US));
+	    	
+	    	// Get the variant for this combination of options:
+	    	VariantVo variant = this.product.getVariantForOptionCombinations(this.selectedOptionValues);
+	        this.updateDisplay(variant);
+	        this.drawVariants();
 	}
 	
 	public void onResume(){

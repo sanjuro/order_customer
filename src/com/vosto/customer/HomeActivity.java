@@ -1,6 +1,5 @@
 package com.vosto.customer;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Criteria;

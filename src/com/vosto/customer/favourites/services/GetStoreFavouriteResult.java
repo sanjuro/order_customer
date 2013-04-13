@@ -4,8 +4,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.vosto.customer.services.IRestResult;
 import com.vosto.customer.services.RestResult;
 import com.vosto.customer.stores.vos.StoreVo;

@@ -3,7 +3,6 @@ package com.vosto.customer.accounts.activities;
 import java.util.Locale;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;

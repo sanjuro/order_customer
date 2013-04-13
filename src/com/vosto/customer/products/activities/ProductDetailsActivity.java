@@ -1,8 +1,9 @@
 package com.vosto.customer.products.activities;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.concurrent.ConcurrentHashMap;
+
 
 import android.content.SharedPreferences;
 import com.agimind.widget.SlideHolder;
@@ -10,9 +11,7 @@ import org.joda.money.Money;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +24,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-import com.google.common.base.Splitter;
-import com.google.common.collect.Lists;
+import com.agimind.widget.SlideHolder;
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
 import com.vosto.customer.cart.activities.CartActivity;
@@ -38,7 +36,6 @@ import com.vosto.customer.products.vos.VariantVo;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
 import com.vosto.customer.stores.vos.StoreVo;
-import com.vosto.customer.utils.Constants;
 import com.vosto.customer.utils.MoneyUtils;
 import com.vosto.customer.utils.ProductFavouritesManager;
 
@@ -47,6 +44,7 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
     private StoreVo store;
     private ProductVo product;
     private VariantVo chosenVariant;
+    private ConcurrentHashMap<String, String> selectedOptionValues; // Maps option values to option types.
     private int quantity;
     private Money total;
     private ProductFavouritesManager favourites;
@@ -55,6 +53,8 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
+        
+        this.selectedOptionValues = new ConcurrentHashMap<String, String>();
 
         mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
 
@@ -91,8 +91,11 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 
         this.total = this.product.getPrice();
 
-        this.chosenVariant = this.product.getVariants().length > 0 ? this.product.getVariants()[0] : null;
-
+        this.chosenVariant = this.product.getVariants().length > 0 ? new VariantVo(this.product.getVariants()[0]) : null;
+        if(this.chosenVariant != null){
+        	this.selectedOptionValues = new ConcurrentHashMap<String, String>(this.chosenVariant.getOptionValueMap());
+        }
+        
         TextView lblProductName = (TextView)findViewById(R.id.product_name);
         lblProductName.setText(this.product.getName());
 
@@ -115,7 +118,6 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 
         // Check if a cart is open with another store, and block this item:
         if(cart.isOpen() && cart.getStore() != null && cart.getStore().getId() != this.product.getStore_id()){
-            Log.d("STO", "cart store: " + cart.getStore().getId() + ", product store: " + product.getStore_id());
             this.showAlertDialog("Error", "You can only order from one store at a time.");
             return;
         }
@@ -156,12 +158,11 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 
     public void updateDisplay(int quantity, VariantVo variant){
         this.quantity = quantity;
-        this.chosenVariant = variant;
+        this.chosenVariant = new VariantVo(variant);
         TextView lblQuantity = (TextView)findViewById(R.id.lblQuantity);
         lblQuantity.setText(Integer.toString(quantity));
 
         Money unitPrice = this.chosenVariant != null ? this.chosenVariant.getPrice() : this.product.getPrice();
-
         TextView lblProductPrice = (TextView)findViewById(R.id.product_price);
         lblProductPrice.setText(MoneyUtils.getRandString(unitPrice));
 
@@ -178,35 +179,61 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
         lblBuyButtonQuantity.setText(cart.getNumberOfItems() + " items");
     }
 
+    /**
+     * Adds the option value buttons to the view and highlights the choices according to the current variant.
+     */
     public void drawVariants(){
-        VariantVo[] variants = this.product.getVariants();
-        if(variants.length < 2){
-            return;
-        }
-
+    	//Outer block in which all the option type rows will appear below each other:
         LinearLayout variantsBlock = (LinearLayout)findViewById(R.id.variants_block);
         variantsBlock.removeAllViews();
 
         LayoutInflater inflater = getLayoutInflater();
 
-        for(int i = 0; i<variants.length; i++){
-            Log.d("DRAW", "Drawing variant: " + variants[i].getOptionValues()[0].getName());
-            LinearLayout variantButton = (LinearLayout)inflater.inflate(R.layout.variant_button, (ViewGroup)variantsBlock, false);
-            if(this.chosenVariant != null && this.chosenVariant.getId() == variants[i].getId()){
-                // Highlight the selected variant:
-                variantButton.setBackgroundResource(R.drawable.variant_button_background_highlighted);
-            }
+        ArrayList<String> optionTypes = this.product.getOptionTypes();
+        
+        
+        for(int i = 0; i<optionTypes.size(); i++){
+        	
+        	// Create a label for the option type name:
+        	TextView optionTypeLabel = (TextView)inflater.inflate(R.layout.option_type_label, (ViewGroup)variantsBlock, false);
+        	optionTypeLabel.setText(optionTypes.get(i));
+        	variantsBlock.addView(optionTypeLabel);
+        	
+        	//Horizontal layout for this option type. We will put all the buttons inside this layout.
+        	LinearLayout optionTypeBlock = (LinearLayout)inflater.inflate(R.layout.option_type_block, (ViewGroup)variantsBlock, false);
+        	
+        	// Add all the buttons for this option type:
+        	ArrayList<String> optionValues = this.product.getPossibleOptionValues(optionTypes.get(i));
 
-            TextView lblVariantName = (TextView)variantButton.findViewById(R.id.lblVariantName);
-            lblVariantName.setText(variants[i].getOptionValues()[0].getName());
-            variantButton.setTag(variants[i]);
-            variantsBlock.addView(variantButton);
+        	for(int j=0; j<optionValues.size(); j++){
+        		 LinearLayout variantButton = (LinearLayout)inflater.inflate(R.layout.variant_button, (ViewGroup)variantsBlock, false);
+        		 TextView lblVariantName = (TextView)variantButton.findViewById(R.id.lblVariantName);
+                 lblVariantName.setText(optionValues.get(j));
+                
+        		 if(this.chosenVariant.hasOptionValue(optionTypes.get(i), optionValues.get(j))){
+                     // Highlight the selected value:
+                     variantButton.setBackgroundResource(R.drawable.variant_button_background_highlighted);
+                 }
+                      		 
+        		 variantButton.setTag(optionTypes.get(i) + ":" + optionValues.get(j));
+        		 optionTypeBlock.addView(variantButton);
+        	}
+        	
+        	variantsBlock.addView(optionTypeBlock);
+
         }
     }
 
     public void variantChanged(View v){
-        Log.d("VAR", "Variant change clicked.");
-        VariantVo variant = (VariantVo)v.getTag();
+    	//The button tag is in the format "portion:full"
+    	String selectedOption = (String)v.getTag();
+    	String[] selectedOptionSplit = selectedOption.split(":");
+    	
+    	//Set the newly selected option value in the HashMap:
+    	 this.selectedOptionValues.put(selectedOptionSplit[0].trim().toLowerCase(Locale.US), selectedOptionSplit[1].trim().toLowerCase(Locale.US));
+    	
+    	 // Get the variant for this combination of options:
+    	VariantVo variant = this.product.getVariantForOptionCombinations(this.selectedOptionValues);
         this.updateDisplay(variant);
         this.drawVariants();
     }

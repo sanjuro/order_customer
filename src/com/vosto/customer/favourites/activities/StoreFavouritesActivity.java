@@ -4,25 +4,24 @@ import java.util.Arrays;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
+
 import com.agimind.widget.SlideHolder;
+import com.vosto.customer.R;
+import com.vosto.customer.VostoBaseActivity;
+import com.vosto.customer.favourites.services.GetStoreFavouriteResult;
+import com.vosto.customer.favourites.services.GetStoreFavouriteService;
 import com.vosto.customer.products.activities.TaxonsActivity;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
-import com.vosto.customer.favourites.services.GetStoreFavouriteService;
-import com.vosto.customer.favourites.services.GetStoreFavouriteResult;
-import com.vosto.customer.products.activities.ProductDetailsActivity;
 import com.vosto.customer.stores.StoreListAdapter;
 import com.vosto.customer.stores.vos.StoreVo;
-import com.vosto.customer.products.vos.ProductVo;
 import com.vosto.customer.utils.Constants;
-
-import com.vosto.customer.R;
-import com.vosto.customer.VostoBaseActivity;
-
-import android.os.Bundle;
-import android.util.Log;
 import com.vosto.customer.utils.NetworkUtils;
 
 public class StoreFavouritesActivity extends VostoBaseActivity implements OnRestReturn, AdapterView.OnItemClickListener {

@@ -59,9 +59,11 @@ public class CartItemAdapter extends ArrayAdapter<CartItem>{
        
         holder.lblProductName.setText(item.getProduct().getName());
         holder.lblPrice.setText(MoneyUtils.getRandString(item.getSubtotal()));
-        if(item.getVariant() != null && item.getVariant().getOptionValues().length > 0){
-        	holder.lblVariant.setText(item.getVariant().getOptionValues()[0].getName());
+       
+        if(item.getVariant() != null){
+        	holder.lblVariant.setText(item.getVariant().getOptionsString());
         }
+        
         Log.d("CRT", "Returning row.");
         
         holder.editButton.setTag(item);
