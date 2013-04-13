@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import android.content.SharedPreferences;
 import com.agimind.widget.SlideHolder;
 import org.joda.money.Money;
 
@@ -66,7 +67,17 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
             }
         });
 
-        this.store = (StoreVo)getIntent().getSerializableExtra("store");
+        SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+        if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
+            //User logged in:
+            TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
+            nameOfUser.setText(settings.getString("userName", "user"));
+
+        }else{
+            //User not logged in:
+        }
+
+//        this.store = (StoreVo)getIntent().getSerializableExtra("store");
 
         TextView lblSpecialInstructions = (TextView)findViewById(R.id.lblSpecialInstructions);
         lblSpecialInstructions.setText(Html.fromHtml("<u>Special Instructions</u>"));
@@ -77,6 +88,7 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
         quantitySlider.setOnSeekBarChangeListener(this);
 
         this.product = (ProductVo)getIntent().getSerializableExtra("product");
+
         this.total = this.product.getPrice();
 
         this.chosenVariant = this.product.getVariants().length > 0 ? this.product.getVariants()[0] : null;

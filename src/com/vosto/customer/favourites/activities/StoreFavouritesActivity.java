@@ -46,15 +46,7 @@ public class StoreFavouritesActivity extends VostoBaseActivity implements OnRest
             }
         });
 
-        SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
-        if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
-            //User logged in:
-            TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
-            nameOfUser.setText(settings.getString("userName", "user"));
-
-        }else{
-            //User not logged in:
-        }
+//
 
         fetchStores();
     }

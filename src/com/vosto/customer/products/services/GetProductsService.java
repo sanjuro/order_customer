@@ -41,7 +41,7 @@ public class GetProductsService extends RestService {
 				this.response = httpClient.execute(this.httpGet, localContext);
 				HttpEntity entity = response.getEntity();
 				text = getASCIIContentFromEntity(entity);
-				GetProductsResult productsResult =  (GetProductsResult)this.getRestResult(response.getStatusLine(), text);
+				GetProductsResult productsResult = (GetProductsResult)this.getRestResult(response.getStatusLine(), text);
 				productsResult.processJsonAndPopulate();
 				
 				// For each product, get the variants:
