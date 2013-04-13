@@ -1,7 +1,6 @@
 package com.vosto.customer.accounts.activities;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;

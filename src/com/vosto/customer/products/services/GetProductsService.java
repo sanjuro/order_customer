@@ -2,6 +2,7 @@ package com.vosto.customer.products.services;
 
 import static com.vosto.customer.utils.CommonUtilities.SERVER_URL;
 
+import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.http.HttpEntity;
@@ -98,7 +99,7 @@ public class GetProductsService extends RestService {
 						continue;
 					}
 					
-					optionMap.put(optionNameAndValue[0], optionNameAndValue[1].trim().toLowerCase());
+					optionMap.put(optionNameAndValue[0], optionNameAndValue[1].trim().toLowerCase(Locale.US));
 				}
 				
 				variant.setOptionValueMap(optionMap);

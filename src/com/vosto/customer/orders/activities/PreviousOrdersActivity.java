@@ -1,9 +1,5 @@
 package com.vosto.customer.orders.activities;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
@@ -15,7 +11,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,7 +18,6 @@ import android.widget.TextView;
 import com.agimind.widget.SlideHolder;
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
-import com.vosto.customer.orders.activities.MyOrdersActivity;
 import com.vosto.customer.orders.PreviousOrderAdapter;
 import com.vosto.customer.orders.services.GetPreviousOrdersResult;
 import com.vosto.customer.orders.services.GetPreviousOrdersService;
@@ -31,9 +25,7 @@ import com.vosto.customer.orders.vos.OrderVo;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
 import com.vosto.customer.stores.services.GetStoresResult;
-import com.vosto.customer.stores.services.GetStoresService;
 import com.vosto.customer.stores.vos.StoreVo;
-import com.vosto.customer.utils.MoneyUtils;
 
 
 public class PreviousOrdersActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnDismissListener, OnClickListener {

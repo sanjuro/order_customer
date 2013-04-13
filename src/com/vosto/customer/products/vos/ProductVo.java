@@ -4,12 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.joda.money.Money;
-
-import android.util.Log;
 
 import com.google.common.base.Objects;
 import com.vosto.customer.utils.MoneyUtils;
@@ -118,8 +117,8 @@ public class ProductVo implements Serializable {
     		 Iterator<Map.Entry<String, String>> it = variant.getOptionValueMap().entrySet().iterator();
     		    while (it.hasNext()) {
     		        Map.Entry<String, String> pairs = (Map.Entry<String, String>)it.next();
-    		        if(!optionTypes.contains(pairs.getKey().trim().toLowerCase())){
-    		        	optionTypes.add(pairs.getKey().trim().toLowerCase());
+    		        if(!optionTypes.contains(pairs.getKey().trim().toLowerCase(Locale.US))){
+    		        	optionTypes.add(pairs.getKey().trim().toLowerCase(Locale.US));
     		        }
     		    }
     	}
@@ -137,8 +136,8 @@ public class ProductVo implements Serializable {
     	ArrayList<String> optionValues = new ArrayList<String>();
     	for(VariantVo variant : this.variants){
     		String value = variant.getValueForOptionType(optionType);
-    		if(value != null && !optionValues.contains(value.trim().toLowerCase())){
-    			optionValues.add(value.trim().toLowerCase());
+    		if(value != null && !optionValues.contains(value.trim().toLowerCase(Locale.US))){
+    			optionValues.add(value.trim().toLowerCase(Locale.US));
     		}
     	}
     	Collections.sort(optionValues);

@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;

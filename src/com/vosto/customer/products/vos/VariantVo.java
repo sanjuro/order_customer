@@ -1,9 +1,8 @@
 package com.vosto.customer.products.vos;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -154,7 +153,7 @@ public class VariantVo implements Serializable {
 	 * @return The value of the option type, or null if it's not set in this variant.
 	 */
 	public String getValueForOptionType(String optionType){
-		return this.optionValueMap.get(optionType.trim().toLowerCase());
+		return this.optionValueMap.get(optionType.trim().toLowerCase(Locale.US));
 	}
 	
 	/**
@@ -165,12 +164,12 @@ public class VariantVo implements Serializable {
 	 * @return
 	 */
 	public boolean hasOptionValue(String optionType, String optionValue){
-		String internalValue =  this.optionValueMap.get(optionType.trim().toLowerCase());
-		return internalValue != null && optionValue.trim().toLowerCase().equals(internalValue);
+		String internalValue =  this.optionValueMap.get(optionType.trim().toLowerCase(Locale.US));
+		return internalValue != null && optionValue.trim().toLowerCase(Locale.US).equals(internalValue);
 	}
 	
 	public void printOptionMap(){
-		 Iterator it = this.optionValueMap.entrySet().iterator();
+		 Iterator<Map.Entry<String, String>> it = this.optionValueMap.entrySet().iterator();
 		    while (it.hasNext()) {
 		        Map.Entry<String, String> pairs = (Map.Entry<String, String>)it.next();
 		        Log.d("MAP", "Map val: " + pairs.getKey() + " = " + pairs.getValue());

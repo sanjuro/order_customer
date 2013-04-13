@@ -1,6 +1,7 @@
 package com.vosto.customer.cart.activities;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 
 import android.content.SharedPreferences;
@@ -228,7 +229,7 @@ public class EditCartItemActivity extends VostoBaseActivity implements OnRestRet
 	    	String[] selectedOptionSplit = selectedOption.split(":");
 	    	
 	    	//Set the newly selected option value in the HashMap:
-	    	 this.selectedOptionValues.put(selectedOptionSplit[0].trim().toLowerCase(), selectedOptionSplit[1].trim().toLowerCase());
+	    	 this.selectedOptionValues.put(selectedOptionSplit[0].trim().toLowerCase(Locale.US), selectedOptionSplit[1].trim().toLowerCase(Locale.US));
 	    	
 	    	// Get the variant for this combination of options:
 	    	VariantVo variant = this.product.getVariantForOptionCombinations(this.selectedOptionValues);
