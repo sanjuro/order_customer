@@ -3,6 +3,7 @@ package com.vosto.customer.products.activities;
 import java.util.ArrayList;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -56,6 +57,16 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
                 mSlideHolder.toggle();
             }
         });
+
+        SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+        if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
+            //User logged in:
+            TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
+            nameOfUser.setText(settings.getString("userName", "user"));
+
+        }else{
+            //User not logged in:
+        }
 
         TextView txtStoreName = (TextView)findViewById(R.id.txtStoreName);
         TextView txtStoreAddress = (TextView)findViewById(R.id.txtStoreAddress);

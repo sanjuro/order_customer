@@ -30,7 +30,7 @@ public class ProductListAdapter extends ArrayAdapter<ProductVo>{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-    	Log.d("StoresList", "Getting view at pos " + position);
+    	Log.d("ProductList", "Getting view at pos " + position);
         View row = convertView;
         ProductListItemHolder holder = null;
         

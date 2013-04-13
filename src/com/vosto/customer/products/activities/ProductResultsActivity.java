@@ -1,6 +1,7 @@
 package com.vosto.customer.products.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -53,6 +54,16 @@ public class ProductResultsActivity extends VostoBaseActivity implements OnRestR
                 mSlideHolder.toggle();
             }
         });
+
+        SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+        if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
+            //User logged in:
+            TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
+            nameOfUser.setText(settings.getString("userName", "user"));
+
+        }else{
+            //User not logged in:
+        }
 		
 		this.store = (StoreVo) this.getIntent().getSerializableExtra("store");
 		String categoryName = this.getIntent().getStringExtra("categoryName");
