@@ -189,10 +189,10 @@ public class VariantVo implements Serializable {
 	        Map.Entry<String, String> pairs = (Map.Entry<String, String>)it.next();
 	        optionsString += pairs.getValue() + ", ";
 	    }
-	    if(optionsString.substring(optionsString.length() - 2, optionsString.length()).equals(", ")){
+	    if(optionsString.length() >= 2 && optionsString.substring(optionsString.length() - 2, optionsString.length()).equals(", ")){
 	    	optionsString = optionsString.substring(0, optionsString.length() - 2);
 	    }
-	    return optionsString;
+	    return optionsString.trim().toLowerCase(Locale.US);
 	}
 
 }
