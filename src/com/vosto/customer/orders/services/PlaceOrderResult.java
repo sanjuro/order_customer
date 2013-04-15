@@ -66,6 +66,7 @@ public class PlaceOrderResult extends RestResult implements IRestResult {
 			this.order = new OrderVo();
 			this.order.setId(jsonObj.getInt("id"));
 			this.order.setNumber(jsonObj.getString("number"));
+            this.order.setStoreOrderNumber(jsonObj.getString("store_order_number"));
 			this.order.setStore_id(jsonObj.getInt("store_id"));
 			this.order.setState(jsonObj.getString("state"));
 			this.order.setCreatedAt(dateFormat.parse(jsonObj.getString("created_at")));

@@ -51,6 +51,7 @@ public class SearchResult extends RestResult implements IRestResult {
 				currentStore.setAddress(jsonObj.getString("address"));
 				currentStore.setEmail(jsonObj.getString("email"));
 				currentStore.setManagerContact(jsonObj.getString("manager_contact"));
+                currentStore.setIsOnline(jsonObj.getBoolean("is_online"));
 				currentStore.setUrl(jsonObj.getString("url"));
 				currentStore.setId(jsonObj.getInt("id"));
 				currentStore.setUniqueId(jsonObj.getString("unique_id"));

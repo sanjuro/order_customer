@@ -1,5 +1,7 @@
 package com.vosto.customer.stores;
 
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import com.vosto.customer.R;
 import com.vosto.customer.stores.vos.StoreVo;
 
@@ -40,6 +42,8 @@ public class StoreListAdapter extends ArrayAdapter<StoreVo>{
             holder.lblStoreName = (TextView)row.findViewById(R.id.lblStoreName);
             holder.lblDistance = (TextView)row.findViewById(R.id.lblDistance);
             holder.lblAddress = (TextView)row.findViewById(R.id.lblAddress);
+            holder.lblSelectionArrow = (ImageView)row.findViewById(R.id.lblSelectionArrow);
+            holder.lblStatus = (ImageView)row.findViewById(R.id.lblStatus);
             
             row.setTag(holder);
         }
@@ -47,6 +51,7 @@ public class StoreListAdapter extends ArrayAdapter<StoreVo>{
         {
             holder = (StoreListItemHolder)row.getTag();
         }
+
         Log.d("POS", "position: " + position);
         StoreVo store = stores[position];
         if(holder == null){
@@ -55,7 +60,7 @@ public class StoreListAdapter extends ArrayAdapter<StoreVo>{
         if(store == null){
         	Log.d("ERROR", "store is null");
         }
-        Log.d("LEN", "Stores length: " + stores.length);
+        // Log.d("LEN", "Stores length: " + stores.length);
         if(holder != null && holder.lblStoreName != null && store != null){
         	holder.lblStoreName.setText(store.getName());
         }
@@ -68,13 +73,39 @@ public class StoreListAdapter extends ArrayAdapter<StoreVo>{
         if(holder != null && holder.lblAddress != null && store != null){
         	holder.lblAddress.setText(store.getAddress());
         }
+
+        Log.d("STO", "Stores name: " + store.getName() + " online: " + store.getIsOnline());
+        // Set stores to unclickable when offline
+        if (!store.getIsOnline()){
+            Log.d("STO", "Stores name: " + store.getName() + " offline ");
+            holder.lblDistance.setVisibility(View.INVISIBLE);
+            holder.lblSelectionArrow.setVisibility(View.INVISIBLE);
+
+            holder.lblStatus.setImageResource(R.drawable.store_status_closed);
+
+            row.setFocusable(true);
+            row.setClickable(true);
+        }else{
+            Log.d("STO", "Stores name: " + store.getName() + " online ");
+            holder.lblDistance.setVisibility(View.VISIBLE);
+            holder.lblSelectionArrow.setVisibility(View.VISIBLE);
+
+            holder.lblStatus.setImageResource(R.drawable.store_status_open);
+
+            row.setFocusable(false);
+            row.setClickable(false);
+        }
         return row;
+
     }
+
     
     static class StoreListItemHolder
     {
         TextView lblStoreName;
         TextView lblDistance;
         TextView lblAddress;
+        ImageView lblStatus;
+        ImageView lblSelectionArrow;
     }
 }

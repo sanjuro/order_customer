@@ -60,6 +60,7 @@ public class GetPreviousOrdersResult extends RestResult implements IRestResult {
 	            	JSONObject currentObj = (JSONObject)outerObj.get(key);
 	            	currentOrder = new OrderVo();
 	            	currentOrder.setNumber(currentObj.getString("number"));
+                    currentOrder.setStoreOrderNumber(currentObj.getString("store_order_number"));
 	            	currentOrder.setCreatedAt(dateFormat.parse(currentObj.getString("created_at")));
 	            	currentOrder.setTotal(Money.parse("ZAR " + currentObj.getDouble("total")));
 	            	currentOrder.setStore_id(currentObj.getInt("store_id"));

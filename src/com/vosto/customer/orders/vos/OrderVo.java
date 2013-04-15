@@ -13,6 +13,7 @@ public class OrderVo implements Serializable {
 	
 	private int id;
 	private String number;
+    private String store_order_number;
 	private String state;
 	private int store_id;
 	private Date createdAt;
@@ -38,6 +39,14 @@ public class OrderVo implements Serializable {
 	public void setNumber(String number) {
 		this.number = number;
 	}
+
+    public String getStoreOrderNumber() {
+        return store_order_number;
+    }
+
+    public void setStoreOrderNumber(String store_order_number) {
+        this.store_order_number = store_order_number;
+    }
 
 	public Date getCreatedAt() {
 		return createdAt;

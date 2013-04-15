@@ -346,22 +346,6 @@
                               android:clickable="true"
                               android:text="Reset Pin"
                             />
-                    <Button xmlns:android="http://schemas.android.com/apk/res/android"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:drawablePadding="6dip"
-                              android:background="#FFF"
-                              android:gravity="center_vertical"
-                              android:minHeight="40dp"
-                              android:layout_marginTop="5dp"
-                              android:paddingLeft="20dip"
-                              android:paddingRight="6dip"
-                              android:textSize="14sp"
-                              android:singleLine="true"
-                              android:onClick="faqPressed"
-                              android:clickable="true"
-                              android:text="FAQ"
-                            />
 
                     <Button xmlns:android="http://schemas.android.com/apk/res/android"
                               android:layout_width="match_parent"

@@ -1,53 +1,342 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="#edeae2"
-        android:orientation="vertical"
-        >
+<com.agimind.widget.SlideHolder xmlns:android="http://schemas.android.com/apk/res/android"
+                                xmlns:tools="http://schemas.android.com/tools"
+                                android:id="@+id/slideHolder"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                tools:context=".MainActivity" >
+
+    <ScrollView
+            android:id="@+id/sideNavigation"
+            android:layout_width="200dp"
+            android:layout_height="fill_parent"
+            android:background="@android:color/black"
+            >
+
+        <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:textSize="18sp"
+                >
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/nameOfUser"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:drawablePadding="6dip"
+                      android:background="#141213"
+                      android:gravity="center_vertical"
+                      android:minHeight="50dp"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="6dip"
+                      android:textSize="18sp"
+                      android:singleLine="true"
+                      android:textAppearance="?android:attr/textAppearanceMedium"
+                      android:textColor="@android:color/white"
+                      android:onClick="profilePressed"
+                      android:clickable="true"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/navCartButton"
+                      android:layout_width="match_parent"
+                      android:layout_height="40dp"
+                      android:background="@drawable/nav_menu_heading"
+                      android:orientation="horizontal"
+                      android:gravity="center_vertical"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="20dp"
+                      android:textSize="16sp"
+                      android:singleLine="true"
+                      android:textColor="@android:color/white"
+                      android:text="MY CART"
+                      android:onClick="myCartPressed"
+                      android:clickable="true"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/navOrdersButton"
+                      android:layout_width="match_parent"
+                      android:layout_height="40dp"
+                      android:background="@drawable/nav_menu_heading"
+                      android:orientation="horizontal"
+                      android:gravity="center_vertical"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="20dp"
+                      android:textSize="16sp"
+                      android:singleLine="true"
+                      android:textColor="@android:color/white"
+                      android:text="MY ORDERS"
+                      android:onClick="myOrdersPressed"
+                      android:clickable="true"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/name_of_user"
+                      android:layout_width="match_parent"
+                      android:layout_height="30dp"
+                      android:drawablePadding="6dip"
+                      android:background="#141213"
+                      android:gravity="center_vertical"
+                      android:minHeight="50dp"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="6dip"
+                      android:textSize="14sp"
+                      android:singleLine="true"
+                      android:textAppearance="?android:attr/textAppearanceMedium"
+                      android:textColor="@android:color/white"
+                      android:text="Open Orders"
+                      android:onClick="myOrdersPressed"
+                      android:clickable="true"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/myOrders"
+                      android:layout_width="match_parent"
+                      android:layout_height="40dp"
+                      android:background="@drawable/nav_menu_heading"
+                      android:orientation="horizontal"
+                      android:gravity="center_vertical"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="20dp"
+                      android:textSize="16sp"
+                      android:singleLine="true"
+                      android:textColor="@android:color/white"
+                      android:text="BACK TO SEARCH"
+                      android:onClick="storesPressed"
+                      android:clickable="true"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/navFavoritesButton"
+                      android:layout_width="match_parent"
+                      android:layout_height="40dp"
+                      android:background="@drawable/nav_menu_heading"
+                      android:orientation="horizontal"
+                      android:gravity="center_vertical"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="20dp"
+                      android:textSize="16sp"
+                      android:singleLine="true"
+                      android:textColor="@android:color/white"
+                      android:text="MY FAVOURITES"
+                      android:onClick="myFavouritesPressed"
+                      android:clickable="true"
+                    />
+
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/name_of_user"
+                      android:layout_width="match_parent"
+                      android:layout_height="50dp"
+                      android:background="@drawable/nav_menu_heading"
+                      android:orientation="horizontal"
+                      android:gravity="center_vertical"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="20dp"
+                      android:textSize="16sp"
+                      android:singleLine="true"
+                      android:textColor="@android:color/white"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/accountSettings"
+                      android:layout_width="match_parent"
+                      android:layout_height="30dp"
+                      android:drawablePadding="6dip"
+                      android:background="@drawable/top_bar_orange"
+                      android:gravity="center_vertical"
+                      android:minHeight="50dp"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="6dip"
+                      android:textSize="14sp"
+                      android:singleLine="true"
+                      android:textAppearance="?android:attr/textAppearanceMedium"
+                      android:textColor="@android:color/white"
+                      android:text="Account Settings"
+                      android:onClick="profilePressed"
+                      android:clickable="true"
+                    />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/termsPolicies"
+                      android:layout_width="match_parent"
+                      android:layout_height="30dp"
+                      android:drawablePadding="6dip"
+                      android:background="#141213"
+                      android:gravity="center_vertical"
+                      android:minHeight="50dp"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="6dip"
+                      android:textSize="14sp"
+                      android:singleLine="true"
+                      android:textAppearance="?android:attr/textAppearanceMedium"
+                      android:textColor="@android:color/white"
+                      android:text="Terms and Policies"
+                      android:onClick="termsPressed"
+                      android:clickable="true"
+                    />
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/logout"
+                      android:layout_width="match_parent"
+                      android:layout_height="30dp"
+                      android:drawablePadding="6dip"
+                      android:background="#141213"
+                      android:gravity="center_vertical"
+                      android:minHeight="50dp"
+                      android:paddingLeft="20dip"
+                      android:paddingRight="6dip"
+                      android:textSize="14sp"
+                      android:singleLine="true"
+                      android:textAppearance="?android:attr/textAppearanceMedium"
+                      android:textColor="@android:color/white"
+                      android:text="Logout"
+                      android:onClick="logout"
+                      android:clickable="true"
+                    />
+        </LinearLayout>
+
+
+    </ScrollView>
 
     <RelativeLayout
-            android:id="@+id/top_bar"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:background="@drawable/top_bar_orange"
-            android:orientation="horizontal"
-            android:layout_alignParentTop="true"
-            android:gravity="center_vertical"
-            android:paddingLeft="15dp"
-            android:paddingRight="10dp">
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:textSize="20sp"
-                android:textColor="#FFFFFF"
-                android:text="Contact Vosto"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                />
-    </RelativeLayout>
-
-
-    <LinearLayout
-            android:id="@+id/middle_section"
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/top_bar"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
-            android:layout_marginTop="0dp"
+            android:layout_height="fill_parent"
+            android:background="#edeae2"
             android:orientation="vertical"
             >
 
+        <RelativeLayout
+                android:id="@+id/top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:background="@drawable/top_bar_orange"
+                android:orientation="horizontal"
+                android:layout_alignParentTop="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp">
 
-    </LinearLayout>
+            <ImageView
+                    android:id="@+id/menuButton"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/menu"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:textSize="20sp"
+                    android:textColor="#FFFFFF"
+                    android:text="Contact Vosto"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    />
+        </RelativeLayout>
 
 
-</RelativeLayout>
+        <LinearLayout
+                android:id="@+id/middle_section"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/top_bar"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="0dp"
+                android:orientation="vertical"
+                >
 
+            <TextView
+                    android:id="@+id/lblHelpCenter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+                    android:textColor="#3b3b3b"
+                    android:text="Contact Us"
+                    />
+
+            <TextView
+                    android:id="@+id/lblHelpCenter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:textColor="#3b3b3b"
+                    android:text="+27 21 8391758"
+                    />
+
+            <TextView
+                    android:id="@+id/lblHelpCenter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:textColor="#3b3b3b"
+                    android:text="info@vosto.co.za"
+                    />
+
+            <TextView
+                    android:id="@+id/lblHelpCenter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+                    android:textColor="#3b3b3b"
+                    android:text="Where to find Us"
+                    />
+
+            <TextView
+                    android:id="@+id/lblHelpCenter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:textColor="#3b3b3b"
+                    android:text="4th Floor, JDN House "
+                    />
+
+            <TextView
+                    android:id="@+id/lblHelpCenter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:textColor="#3b3b3b"
+                    android:text="26a Shortmarket Street "
+                    />
+
+            <TextView
+                    android:id="@+id/lblHelpCenter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:textColor="#3b3b3b"
+                    android:text="Cape Town, 8001 "
+                    />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</com.agimind.widget.SlideHolder>
 
 
 

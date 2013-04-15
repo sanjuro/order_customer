@@ -172,7 +172,13 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 		this.lblOrderTotal.setText("Total: " + MoneyUtils.getRandString(currentOrder.getTotal()));
 		this.currentOrderItemsList.setAdapter(new CurrentOrderItemAdapter(this, R.layout.current_order_item_row, currentOrder.getLineItems()));
 		this.lblOrderNumber = (TextView)findViewById(R.id.lblOrderNumber);
-		this.lblOrderNumber.setText(currentOrder.getNumber());
+
+        if (currentOrder.getStoreOrderNumber() == null){
+            this.lblOrderNumber.setText(currentOrder.getNumber());
+        }else{
+            this.lblOrderNumber.setText(currentOrder.getStoreOrderNumber());
+        }
+
 		this.lblOrderDate = (TextView)findViewById(R.id.lblOrderDate);
 		SimpleDateFormat format = new SimpleDateFormat("HH:mm, d MMMM yyyy", Locale.US);
 		this.lblOrderDate.setText(format.format(currentOrder.getCreatedAt()));

@@ -307,6 +307,7 @@
    			android:layout_marginTop="0dp"
             android:divider="#CCCCCC"
             android:dividerHeight="1sp"
+            android:listSelector="@drawable/list_selector"
    		/>
 
    </LinearLayout>

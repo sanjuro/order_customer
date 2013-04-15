@@ -197,111 +197,111 @@
 
     </ScrollView>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="#ede9e1"
-                android:orientation="vertical" >
-
-    <RelativeLayout
-            android:id="@+id/top_bar"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/top_bar_orange"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp" >
-
-        <ImageView
-                android:id="@+id/menuButton"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/menu"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:scaleType="fitXY"
-                />
-
-        <TextView
-                android:id="@+id/pageHeading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:text="My Favourites"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
-    </RelativeLayout>
-
-    <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/top_bar"
-            android:orientation="vertical" >
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#ede9e1"
+                    android:orientation="vertical" >
 
         <RelativeLayout
-                android:id="@+id/tab_section"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/top_bar_orange"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:layout_gravity="center_vertical"
-                android:background="#d8d5ce"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                >
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" >
 
-            <LinearLayout
-                    android:id="@+id/modeSwitchButtonBar"
-                    android:orientation="horizontal"
+            <ImageView
+                    android:id="@+id/menuButton"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/menu"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    />
+
+            <TextView
+                    android:id="@+id/pageHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    >
-
-                <Button
-                        android:id="@+id/storeFavouritesbutton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="38dp"
-                        android:onClick="storeFavouritesClicked"
-                        android:text="Stores"
-                        />
-
-                <Button
-                        android:id="@+id/productFavouritesbutton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="38dp"
-                        android:onClick="productFavouritesClicked"
-                        android:text="Products"
-                        />
-
-            </LinearLayout>
-
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:text="My Favourites"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
         </RelativeLayout>
 
-        <ListView
-                android:id="@+id/lstStores"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:divider="#CCCCCC"
-                android:dividerHeight="1sp" >
-        </ListView>
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/top_bar"
+                android:orientation="vertical" >
 
-        <ListView
-                android:id="@+id/lstProducts"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:divider="#CCCCCC"
-                android:dividerHeight="1sp" >
-        </ListView>
+            <RelativeLayout
+                    android:id="@+id/tab_section"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:background="#d8d5ce"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    >
+
+                <LinearLayout
+                        android:id="@+id/modeSwitchButtonBar"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        >
+
+                    <Button
+                            android:id="@+id/storeFavouritesbutton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="38dp"
+                            android:onClick="storeFavouritesClicked"
+                            android:text="Stores"
+                            />
+
+                    <Button
+                            android:id="@+id/productFavouritesbutton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="38dp"
+                            android:onClick="productFavouritesClicked"
+                            android:text="Products"
+                            />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <ListView
+                    android:id="@+id/lstStores"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:divider="#CCCCCC"
+                    android:dividerHeight="1sp" >
+            </ListView>
+
+            <ListView
+                    android:id="@+id/lstProducts"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:divider="#CCCCCC"
+                    android:dividerHeight="1sp" >
+            </ListView>
 
 
-    </LinearLayout>
+        </LinearLayout>
 
-</RelativeLayout>
+    </RelativeLayout>
 
 </com.agimind.widget.SlideHolder>

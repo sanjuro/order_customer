@@ -75,7 +75,7 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
             //User not logged in:
         }
 
-//        this.store = (StoreVo)getIntent().getSerializableExtra("store");
+        this.store = (StoreVo)getIntent().getSerializableExtra("store");
 
         TextView lblSpecialInstructions = (TextView)findViewById(R.id.lblSpecialInstructions);
         lblSpecialInstructions.setText(Html.fromHtml("<u>Special Instructions</u>"));

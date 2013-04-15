@@ -18,6 +18,7 @@ public class StoreVo implements Serializable {
     private String email;
     private String telephone;
     private String url;
+    private Boolean is_online;
     private double distance;
 
     public StoreVo(){
@@ -102,6 +103,14 @@ public class StoreVo implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Boolean getIsOnline() {
+        return is_online;
+    }
+
+    public void setIsOnline(Boolean is_online) {
+        this.is_online = is_online;
     }
 
     public double getDistance() {

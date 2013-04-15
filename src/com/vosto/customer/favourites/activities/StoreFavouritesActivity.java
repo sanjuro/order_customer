@@ -3,12 +3,14 @@ package com.vosto.customer.favourites.activities;
 import java.util.Arrays;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import android.widget.TextView;
 import com.agimind.widget.SlideHolder;
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
@@ -43,7 +45,15 @@ public class StoreFavouritesActivity extends VostoBaseActivity implements OnRest
             }
         });
 
-//
+        SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+        if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
+            //User logged in:
+            TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
+            nameOfUser.setText(settings.getString("userName", "user"));
+
+        }else{
+            //User not logged in:
+        }
 
         fetchStores();
     }

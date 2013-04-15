@@ -43,6 +43,7 @@ public class GetStoreFavouriteResult extends RestResult implements IRestResult {
                 currentStore.setEmail(jsonObj.getString("email"));
                 currentStore.setManagerContact(jsonObj.getString("manager_contact"));
                 currentStore.setUrl(jsonObj.getString("url"));
+                currentStore.setIsOnline(jsonObj.getBoolean("is_online"));
                 currentStore.setId(jsonObj.getInt("id"));
                 currentStore.setUniqueId(jsonObj.getString("unique_id"));
                 this.stores[i] = currentStore;

@@ -1,89 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
-      xmlns:android="http://schemas.android.com/apk/res/android"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      android:layout_marginLeft="15dp"
-      android:layout_marginRight="15dp"
- >
- 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/store_item_background"
+    android:orientation="horizontal"
+    android:paddingTop="10dp"
+    android:paddingLeft="10dp"
+    android:paddingBottom="10dp"
+    >
 
         <LinearLayout
-                android:id="@+id/current_order_info_labels"
+            android:id="@+id/current_order_info_labels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            >
+
+            <TextView
+                android:id="@+id/lblOrder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                >
+                android:textSize="14sp"
+                android:textColor="#6c675c"
+                android:textStyle="bold"
+                android:text="Order Number: "
+                />
 
             <TextView
-                    android:id="@+id/lblOrder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textColor="#6c675c"
-                    android:textStyle="bold"
-                    android:text="Order Number: "
-                    />
+                android:id="@+id/lblOrderNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/lblOrder"
+                android:textColor="#6c675c"
+                android:textSize="14sp"
+                android:text="R12341234"
+                />
 
             <TextView
-                    android:id="@+id/lblOrderNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/lblOrder"
-                    android:textColor="#6c675c"
-                    android:textSize="16sp"
-                    android:text="R12341234"
-                    />
-
-            <TextView
-                    android:id="@+id/lblDateOrdered"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#6c675c"
-                    android:textSize="16sp"
-                    android:textStyle="italic"
-                    />
+                android:id="@+id/lblDateOrdered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#6c675c"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                />
 
         </LinearLayout> <!-- Current order info labels -->
 
         <ImageView
-                android:id="@+id/lblStatus"
-                android:src="@drawable/in_progress_badge"
-                android:layout_width="80.6dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:scaleType="fitXY"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                />
+            android:id="@+id/lblStatus"
+            android:src="@drawable/in_progress_badge"
+            android:layout_width="80.6dp"
+            android:layout_height="20dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            />
 
-        <ImageView
-                android:id="@+id/selection_arrow"
-                android:src="@drawable/selection_arrow"
-                android:layout_width="10dp"
-                android:layout_height="13dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="30dp"
-                />
-        
-    </RelativeLayout>
-
-    
 </LinearLayout>
    

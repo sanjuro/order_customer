@@ -48,6 +48,7 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 	private TextView lblOrderNumber;
 	private TextView lblOrderDate;
 	private TextView lblOrderTotal;
+    private TextView lblStoreOrderNumber;
 	private ImageView mOrderStatusBadge;
 	
 	public void onCreate(Bundle savedInstanceState){
@@ -61,9 +62,17 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 		
 		this.lblOrderTotal = (TextView)findViewById(R.id.lblOrderTotal);
 		this.lblOrderTotal.setText("Total: " + MoneyUtils.getRandString(order.getTotal()));
+
 		this.orderItemsList.setAdapter(new CurrentOrderItemAdapter(this, R.layout.current_order_item_row, order.getLineItems()));
+
 		this.lblOrderNumber = (TextView)findViewById(R.id.lblOrderNumber);
 		this.lblOrderNumber.setText(order.getNumber());
+
+        if (order.getStoreOrderNumber() == null){
+            this.lblOrderNumber.setText(order.getNumber());
+        }else{
+            this.lblOrderNumber.setText(order.getStoreOrderNumber());
+        }
 		this.lblOrderDate = (TextView)findViewById(R.id.lblOrderDate);
 		SimpleDateFormat format = new SimpleDateFormat("HH:mm, d MMMM yyyy", Locale.US);
 		this.lblOrderDate.setText(format.format(order.getCreatedAt()));

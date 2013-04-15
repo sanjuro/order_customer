@@ -60,14 +60,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     >
-                   
-                   <TextView
-                    	android:layout_width="wrap_content"
-                    	android:layout_height="wrap_content"
-                    	android:text="Order"
-                    	android:textSize="20sp"
-                    	android:textColor="#6c675c"
-                        />
+
                    
                    <TextView
                        android:id="@+id/lblOrderNumber"
@@ -77,6 +70,7 @@
                        android:textColor="#6c675c"
                        android:text="R12341234"
                        />
+
                    
                    <TextView
                        android:id="@+id/lblOrderDate"
