@@ -46,8 +46,11 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
 
         EditText txtName = (EditText)findViewById(R.id.txtName);
         EditText txtEmail = (EditText)findViewById(R.id.txtEmail);
+        EditText txtMobileNumber = (EditText)findViewById(R.id.txtMobileNumber);
+
         txtName.setText(settings.getString("userName", "user"));
         txtEmail.setText(settings.getString("userEmail", "user"));
+        txtMobileNumber.setText(settings.getString("userMobile", "user"));
 
         mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
 
@@ -78,11 +81,13 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
 
         EditText txtName = (EditText)findViewById(R.id.txtName);
         EditText txtEmail = (EditText)findViewById(R.id.txtEmail);
+        EditText txtMobileNumber = (EditText)findViewById(R.id.txtMobileNumber);
 //        Spinner spinnerGender = (Spinner)findViewById(R.id.spinnerGender);
 //        DatePicker dpResult = (DatePicker)findViewById(R.id.dpResult);
 
         String name = txtName.getText().toString().trim();
         String email = txtEmail.getText().toString().trim();
+        String mobile_number = txtMobileNumber.getText().toString().trim();
 //        String gender = spinnerGender.getSelectedItem().toString();
 //        int day = dpResult.getDayOfMonth();
 //        int month = dpResult.getMonth() + 1;
@@ -103,6 +108,10 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
             txtEmail.setError("Enter your e-mail.");
             inputValid = false;
         }
+        if(mobile_number.equals("")){
+            txtMobileNumber.setError("Enter your mobile number.");
+            inputValid = false;
+        }
 
         if(!inputValid){
             return;
@@ -112,6 +121,7 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
         UpdateCustomerService service = new UpdateCustomerService(this, this);
         service.setName(name);
         service.setEmail(email);
+        service.setMobileNumber(mobile_number);
 //        service.setGender(gender);
 //        service.setBirthday(birthday_date);
         service.execute();
@@ -151,8 +161,9 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
             // Save the auth token in the app's shared preferences.
             editor = settings.edit();
             editor.putString("userToken", authResult.getCustomer().authentication_token);
-            editor.putString("userName", authResult.getCustomer().first_name);
+            editor.putString("userName", authResult.getCustomer().full_name);
             editor.putString("userEmail", authResult.getCustomer().email);
+            editor.putString("userMobile", authResult.getCustomer().mobile_number);
             editor.commit();
 
             // send toast message

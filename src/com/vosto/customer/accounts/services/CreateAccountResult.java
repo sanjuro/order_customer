@@ -39,7 +39,7 @@ public class CreateAccountResult extends RestResult implements IRestResult {
 	 
 	@Override
 	public boolean processJsonAndPopulate(){
-		Log.d("json", this.getResponseJson());
+        Log.d("CreateAccountResponse", "Register response: " + this.getResponseJson());
 		Gson gson =  new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		this.responseWrapper = gson.fromJson(this.getResponseJson(), CreateAccountResponseWrapper.class);
 	//	Log.d("user", "The ID: " + this.responseWrapper.customer.id);

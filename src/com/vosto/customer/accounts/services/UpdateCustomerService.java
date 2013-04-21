@@ -16,6 +16,7 @@ public class UpdateCustomerService extends RestService {
 
     private String name;
     private String email;
+    private String mobileNumber;
 //    private String gender;
 //    private String birthday;
 private VostoBaseActivity context;
@@ -41,6 +42,14 @@ private VostoBaseActivity context;
         this.email = email;
     }
 
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
 //    public String getGender() {
 //        return gender;
 //    }
@@ -64,6 +73,7 @@ private VostoBaseActivity context;
 
             user_object.put("full_name", this.name);
             user_object.put("email", this.email);
+            user_object.put("mobile_number", this.mobileNumber);
 //            user_object.put("gender", this.gender);
 //            user_object.put("birthday", this.birthday);
 

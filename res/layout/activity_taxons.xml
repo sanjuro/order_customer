@@ -307,14 +307,14 @@
                                 android:id="@+id/call_button"
                                 android:layout_alignParentRight="true"
                                 android:layout_width="50dp"
-                                android:layout_height="20dp"
+                                android:layout_height="25dp"
                                 android:layout_marginTop="5dp"
                                 android:scaleType="fitXY"
                                 android:background="@drawable/green_button_background"
                                 android:onClick="callPressed"
                                 android:text="Call"
                                 android:contentDescription="@string/sign_up_button"
-                                android:textSize="12sp"
+                                android:textSize="14sp"
                                 android:textColor="#FFFFFF"
                                 />
                     </LinearLayout>

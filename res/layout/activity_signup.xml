@@ -47,18 +47,29 @@
        <EditText 
             android:id="@+id/txtName"
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:layout_marginTop="10dp"
             android:inputType="textCapWords"
             android:hint="@string/name"
             />
+
+       <EditText
+               android:id="@+id/txtMobile"
+               android:layout_width="fill_parent"
+               android:layout_height="40dp"
+               android:layout_marginTop="10dp"
+               android:paddingLeft="10dp"
+               android:paddingRight="10dp"
+               android:inputType="number"
+               android:hint="@string/mobile_number"
+               />
        
        <EditText
             android:id="@+id/txtEmail"
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
@@ -69,7 +80,7 @@
        <EditText
             android:id="@+id/txtSecurityPin"
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"

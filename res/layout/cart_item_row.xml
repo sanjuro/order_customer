@@ -3,28 +3,20 @@
 <LinearLayout
       xmlns:android="http://schemas.android.com/apk/res/android"
       android:layout_width="fill_parent"
-      android:layout_height="112dp"
+      android:layout_height="80dp"
       android:orientation="vertical"
-      android:paddingTop="10dp"
-      android:paddingLeft="10dp"
-      android:layout_marginBottom="15dp"
-      android:background="#ede9e1"
+      android:background="@drawable/list_selector"
+      android:paddingTop="5dp"
+      android:paddingLeft="5dp"
+      android:paddingRight="5dp"
       >
 
-        <LinearLayout
+      <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="10dp"
             >
 
-            <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/burrito"
-            android:background="@drawable/image_border_white"
-            />
-    
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -32,7 +24,7 @@
                 android:layout_marginRight="15dp"
                 android:orientation="vertical"
                 >
-    
+
                 <TextView
                     android:id="@+id/lblProductName"
                     android:layout_width="fill_parent"
@@ -50,13 +42,6 @@
                     android:textColor="#676357"
                     />
 
-                <TextView
-                    android:id="@+id/lblPrice"
-                    android:layout_width="115dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textColor="#676357"
-                    />
 
             </LinearLayout>
 
@@ -68,9 +53,28 @@
         >
 
         <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                >
+
+        <TextView
+                android:id="@+id/lblPrice"
+                android:layout_width="115dp"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="#676357"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_alignParentRight="true"
+            android:layout_marginLeft="15dp"
+            android:paddingTop="5dp"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             >
 

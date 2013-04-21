@@ -30,10 +30,14 @@ import com.vosto.customer.cart.vos.CartItem;
 import com.vosto.customer.orders.activities.MyOrdersActivity;
 import com.vosto.customer.orders.services.PlaceOrderResult;
 import com.vosto.customer.orders.services.PlaceOrderService;
+import com.vosto.customer.products.activities.TaxonsActivity;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
+import com.vosto.customer.stores.vos.StoreVo;
 import com.vosto.customer.utils.GCMUtils;
 import com.vosto.customer.utils.MoneyUtils;
+import com.vosto.customer.utils.NetworkUtils;
+
 /**
  * @author flippiescholtz
  *
@@ -41,11 +45,23 @@ import com.vosto.customer.utils.MoneyUtils;
 public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnDismissListener {
 	
 	private ListView list;
+    private StoreVo store;
     private SlideHolder mSlideHolder;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cart);
+
+        Cart cart = getCart();
+        this.store = (StoreVo) cart.getStore();
+
+        TextView txtStoreName = (TextView)findViewById(R.id.txtStoreName);
+        TextView txtStoreAddress = (TextView)findViewById(R.id.txtStoreAddress);
+        TextView txtStoreTelephone = (TextView)findViewById(R.id.txtStoreTelephone);
+
+        txtStoreName.setText(this.store.getName());
+        txtStoreAddress.setText(this.store.getAddress());
+        txtStoreTelephone.setText(this.store.getManagerContact());
 
         mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
 
@@ -83,8 +99,8 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 		TextView lblTotal = (TextView)findViewById(R.id.lblTotal);
 		lblTotal.setText("Total: " + MoneyUtils.getRandString(cart.getTotalPrice()));
 		
-		TextView lblSubtotal = (TextView)findViewById(R.id.lblSubtotal);
-		lblSubtotal.setText("Subtotal: " + MoneyUtils.getRandString(cart.getTotalPrice()));
+//		TextView lblSubtotal = (TextView)findViewById(R.id.lblSubtotal);
+//		lblSubtotal.setText("Subtotal: " + MoneyUtils.getRandString(cart.getTotalPrice()));
 	}
 	
 	public void removeButtonClicked(View v){
@@ -196,7 +212,6 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 		refreshCart();
 	}
 
-	
 	/**
 	 * Called from within the base RestService after a rest call completes.
 	 * @param result Can be any result type. This function should check the type and handle accordingly. 
@@ -234,14 +249,22 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		 
 	}
-	
+
+    public void continueButtonPressed(View v){
+        if(!NetworkUtils.isNetworkAvailable(this)){
+            this.showAlertDialog("Connection Error", "Please connect to the internet.");
+            return;
+        }
+
+        Intent intent = new Intent(this, TaxonsActivity.class);
+        intent.putExtra("store", this.store);
+        startActivity(intent);
+    }
 
 	public void ordersPressed(View v) {
 		Intent intent = new Intent(this, MyOrdersActivity.class);
 		startActivity(intent);
 	}
-
-	
 
 	@Override
 	public void onDismiss(DialogInterface dialog) {

@@ -295,11 +295,21 @@
                             </EditText>
 
                     <EditText
+                            android:id="@+id/txtMobileNumber"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:hint="mobile number"
+                            android:layout_width="fill_parent">
+                            </EditText>
+
+                    <EditText
                             android:id="@+id/txtEmail"
                             android:layout_height="wrap_content"
                             android:hint="email address"
                             android:inputType="textEmailAddress"
-                            android:layout_width="fill_parent">
+                            android:layout_width="fill_parent"
+                            android:enabled="false"
+                            >
                             </EditText>
 
 

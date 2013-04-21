@@ -89,6 +89,7 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
 		
 		CreateAccountService service = new CreateAccountService(this, this);
 		TextView txtName = (TextView)findViewById(R.id.txtName);
+        TextView txtMobile = (TextView)findViewById(R.id.txtMobile);
 		TextView txtEmail = (TextView)findViewById(R.id.txtEmail);
 		TextView txtPin = (TextView)findViewById(R.id.txtSecurityPin);
 		
@@ -106,16 +107,22 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
 			}
 		}
 		lastName = lastName.trim();
+
+        String mobilenumber = txtMobile.getText().toString().trim();
+
+        if(mobilenumber.length() == 0){
+            txtMobile.setError("Please enter your mobile number.");
+            return;
+        }
 		
 		String email = txtEmail.getText().toString().trim().toLowerCase(Locale.getDefault());
-		if(email == ""){
+		if(email.length() == 0){
 			txtEmail.setError("Please enter your email.");
 			return;
 		}
 		
 		String pin = txtPin.getText().toString().trim();
-		
-		if(pin == ""){
+		if(pin.length() == 0){
 			txtPin.setError("Please choose a security PIN.");
 			return;
 		}
@@ -124,7 +131,7 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
 		service.setLastName(lastName);
 		service.setEmail(email);
 		service.setUserPin(pin);
-		service.setMobileNumber("0718900136");
+		service.setMobileNumber(mobilenumber);
 		service.execute();
 	}
 
@@ -135,6 +142,7 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
 	@Override
 	public void onRestReturn(RestResult result) {
 		if(result != null && result instanceof CreateAccountResult){
+
             CreateAccountResult createResult = (CreateAccountResult)result;
             SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
             SharedPreferences.Editor editor = settings.edit();

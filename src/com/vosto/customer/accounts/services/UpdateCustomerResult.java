@@ -54,7 +54,8 @@ public class UpdateCustomerResult extends RestResult implements IRestResult {
             this.customer.authentication_token = this.jsonObj.getString("authentication_token");
             this.customer.full_name = this.jsonObj.getString("full_name");
             this.customer.first_name = this.jsonObj.getString("first_name");
-
+            this.customer.mobile_number= this.jsonObj.getString("mobile_number");
+            this.customer.email = this.jsonObj.getString("email");
 
             return true;
         }catch(JSONException e){

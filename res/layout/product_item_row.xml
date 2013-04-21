@@ -14,12 +14,6 @@
     android:onClick="productSelected"
     >
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/burrito"
-        android:background="@drawable/image_border_white"
-        />
     
     <RelativeLayout
     	android:layout_width="fill_parent"
@@ -32,7 +26,7 @@
             android:id="@+id/lblProductName"
             android:layout_width="175dp"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="15sp"
             android:textColor="#676357"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"

@@ -290,11 +290,11 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:layout_marginRight="10dp"
-                   android:textSize="20sp"
+                   android:layout_marginLeft="15dp"
+                   android:textSize="16sp"
                    android:textColor="#3b3830"
                    android:text="Breakfast"
                    android:layout_centerVertical="true"
-                   android:layout_centerHorizontal="true"
                    />
 
        </RelativeLayout>
