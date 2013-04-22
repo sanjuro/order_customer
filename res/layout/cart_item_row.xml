@@ -45,27 +45,28 @@
 
             </LinearLayout>
 
-        </LinearLayout>
+      </LinearLayout>
   
-    <RelativeLayout
+      <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         >
 
         <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                >
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            >
 
-        <TextView
-                android:id="@+id/lblPrice"
-                android:layout_width="115dp"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:textColor="#676357"
-                />
+            <TextView
+                    android:id="@+id/lblPrice"
+                    android:layout_width="115dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="#676357"
+                    android:text="R12.00"
+                    />
 
         </LinearLayout>
 

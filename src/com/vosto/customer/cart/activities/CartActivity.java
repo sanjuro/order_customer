@@ -15,6 +15,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,6 +30,7 @@ import com.vosto.customer.cart.CartItemAdapter;
 import com.vosto.customer.cart.vos.Cart;
 import com.vosto.customer.cart.vos.CartItem;
 import com.vosto.customer.orders.activities.MyOrdersActivity;
+import com.vosto.customer.orders.activities.OrderConfirmationActivity;
 import com.vosto.customer.orders.services.PlaceOrderResult;
 import com.vosto.customer.orders.services.PlaceOrderService;
 import com.vosto.customer.products.activities.TaxonsActivity;
@@ -38,10 +41,7 @@ import com.vosto.customer.utils.GCMUtils;
 import com.vosto.customer.utils.MoneyUtils;
 import com.vosto.customer.utils.NetworkUtils;
 
-/**
- * @author flippiescholtz
- *
- */
+
 public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnDismissListener {
 	
 	private ListView list;
@@ -53,15 +53,21 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 		setContentView(R.layout.activity_cart);
 
         Cart cart = getCart();
-        this.store = (StoreVo) cart.getStore();
+        this.store = cart.getStore();
 
+        LinearLayout store_details_block = (LinearLayout)findViewById(R.id.store_details_block);
         TextView txtStoreName = (TextView)findViewById(R.id.txtStoreName);
         TextView txtStoreAddress = (TextView)findViewById(R.id.txtStoreAddress);
         TextView txtStoreTelephone = (TextView)findViewById(R.id.txtStoreTelephone);
 
-        txtStoreName.setText(this.store.getName());
-        txtStoreAddress.setText(this.store.getAddress());
-        txtStoreTelephone.setText(this.store.getManagerContact());
+        if ( this.store != null )  {
+            txtStoreName.setText(this.store.getName());
+            txtStoreAddress.setText(this.store.getAddress());
+            txtStoreTelephone.setText(this.store.getManagerContact());
+        } else {
+            store_details_block.setVisibility(View.GONE);
+            txtStoreAddress.setVisibility(View.GONE);
+        }
 
         mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
 
@@ -227,9 +233,12 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 				getContext().closeCart();
 				this.showAlertDialog("Thank you", "Your order has been placed.");
 				saveCurrentOrder(orderResult.getOrder());
-			
-				Intent intent = new Intent(this, MyOrdersActivity.class);
-				startActivity(intent);
+                Log.d("ORD", "Order Number " + orderResult.getOrder().getNumber());
+				Intent intent = new Intent(this, OrderConfirmationActivity.class);
+                intent.putExtra("order", orderResult.getOrder());
+                intent.putExtra("store", this.store);
+                intent.putExtra("order_number", orderResult.getOrder().getNumber());
+                startActivity(intent);
 				finish();
 			}else{
 				this.showAlertDialog("Could not place order", orderResult.getErrorMessage());

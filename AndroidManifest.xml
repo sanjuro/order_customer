@@ -72,6 +72,9 @@
             android:name="com.vosto.customer.orders.activities.MyOrdersActivity">
         </activity>
         <activity
+                android:name="com.vosto.customer.orders.activities.OrderConfirmationActivity">
+        </activity>
+        <activity
                 android:name="com.vosto.customer.orders.activities.PreviousOrdersActivity">
         </activity>
         <activity
