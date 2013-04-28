@@ -328,6 +328,16 @@
                      ></TextView>
 
                    <TextView
+                           android:id="@+id/lblOrderReady"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:textSize="14sp"
+                           android:textStyle="bold"
+                           android:textColor="#6c675c"
+                           android:text="Ready in 10mins"
+                           ></TextView>
+
+                   <TextView
                        android:id="@+id/lblOrderDate"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
@@ -350,16 +360,20 @@
                   android:layout_alignParentRight="true"
                   />
 
-               <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="4dp"
-                android:src="@drawable/top_divider"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentBottom="true"
-                />
+
 
 
            </RelativeLayout> <!-- Current Order Main Info Block -->
+
+           <ImageView
+                   android:layout_width="fill_parent"
+                   android:layout_height="4dp"
+                   android:src="@drawable/top_divider"
+                   android:layout_marginTop="10dp"
+                   android:layout_marginBottom="10dp"
+                   android:layout_alignParentLeft="true"
+                   android:layout_alignParentBottom="true"
+                   />
 
            <LinearLayout
                 android:id="@+id/store_details_block"

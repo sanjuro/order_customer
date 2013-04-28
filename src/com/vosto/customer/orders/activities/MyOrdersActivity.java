@@ -44,6 +44,7 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 	private TextView lblOrderNumber;
 	private TextView lblOrderDate;
 	private TextView lblOrderTotal;
+    private TextView lblOrderReady;
 	private TextView lblStoreName;
 	private TextView lblStoreTelephone;
 	private TextView lblStoreAddress;
@@ -179,9 +180,17 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
             this.lblOrderNumber.setText(currentOrder.getStoreOrderNumber());
         }
 
+        this.lblOrderReady = (TextView)findViewById(R.id.lblOrderReady);
+        if (currentOrder.getTimeToReady() == null){
+            this.lblOrderReady.setVisibility(View.GONE);
+        }else {
+            this.lblOrderReady.setText("Ready in " + currentOrder.getTimeToReady() + " minutes.");
+        }
+
 		this.lblOrderDate = (TextView)findViewById(R.id.lblOrderDate);
 		SimpleDateFormat format = new SimpleDateFormat("HH:mm, d MMMM yyyy", Locale.US);
-		this.lblOrderDate.setText(format.format(currentOrder.getCreatedAt()));
+		this.lblOrderDate.setText("Ordered At: " + format.format(currentOrder.getCreatedAt()));
+
 		this.currentOrderButton.setVisibility(View.VISIBLE);
 		
 		Log.d("STATE", "Order state: " + this.currentOrder.getState().toLowerCase(Locale.getDefault()));

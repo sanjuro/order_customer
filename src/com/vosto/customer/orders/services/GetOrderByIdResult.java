@@ -50,6 +50,7 @@ public class GetOrderByIdResult extends RestResult implements IRestResult {
 	        JSONObject orderObj = new JSONObject(this.getResponseJson());
 	        this.order.setNumber(orderObj.getString("number"));
             this.order.setStoreOrderNumber(orderObj.getString("store_order_number"));
+            this.order.setTimeToReady(orderObj.getString("time_to_ready"));
 	        this.order.setCreatedAt(dateFormat.parse(orderObj.getString("created_at")));
 	        this.order.setTotal(Money.parse("ZAR " + orderObj.getDouble("total")));
 	        this.order.setStore_id(orderObj.getInt("store_id"));

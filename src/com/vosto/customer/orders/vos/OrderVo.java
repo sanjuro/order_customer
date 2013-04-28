@@ -15,6 +15,7 @@ public class OrderVo implements Serializable {
 	private String number;
     private String store_order_number;
 	private String state;
+    private String time_to_ready;
 	private int store_id;
 	private Date createdAt;
 	private Date completedAt;
@@ -71,6 +72,14 @@ public class OrderVo implements Serializable {
 	public void setState(String state) {
 		this.state = state;
 	}
+
+    public String getTimeToReady() {
+        return time_to_ready;
+    }
+
+    public void setTimeToReady(String time_to_ready) {
+        this.time_to_ready = time_to_ready;
+    }
 
 	public int getStore_id() {
 		return store_id;
