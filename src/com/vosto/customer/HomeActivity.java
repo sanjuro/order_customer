@@ -85,6 +85,8 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 				20, // will only update for every 20 meters the device moves
 				this);
         Log.d("GPS", "Listening for GPS updates...");
+
+
     }
 	
 	public void onResume(Bundle args){

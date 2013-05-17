@@ -261,7 +261,7 @@
     android:layout_below="@id/top_bar"
     android:layout_marginLeft="15dp"
     android:layout_marginRight="15dp"
-    android:layout_marginTop="40dp"
+    android:layout_marginTop="10dp"
     android:orientation="vertical"   
     >
         
@@ -335,12 +335,12 @@
            android:layout_width="fill_parent"
            android:layout_height="wrap_content"
            android:gravity="center_horizontal"
-           android:layout_marginTop="30dp"
+           android:layout_marginTop="10dp"
            >
        
-        <FrameLayout
+       <FrameLayout
          android:layout_width="fill_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="@null"
         android:gravity="center_horizontal"
         
@@ -353,6 +353,7 @@
             android:background="@drawable/rounded_search_box"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
+            android:hint="enter a name or location"
             android:singleLine="true"
             />
 
@@ -372,17 +373,6 @@
     
 
     </LinearLayout>
-
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:singleLine="true"
-           android:textSize="18sp"
-           android:textAppearance="?android:attr/textAppearanceMedium"
-           android:textColor="#000000"
-           android:text="QUICKSEARCH stores"
-           android:layout_gravity="center_horizontal"
-           />
 
        <LinearLayout
                android:layout_width="fill_parent"

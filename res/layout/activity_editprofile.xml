@@ -262,7 +262,6 @@
                     android:textSize="18sp"
                     android:textColor="#3b3830"
                     android:layout_gravity="center_vertical"
-                    android:text="Shadley Wenztel"
                     />
 
         </LinearLayout>

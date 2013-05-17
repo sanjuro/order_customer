@@ -47,6 +47,7 @@ public class GetStoresResult extends RestResult implements IRestResult {
 				currentStore.setEmail(jsonObj.getString("email"));
 				currentStore.setManagerContact(jsonObj.getString("manager_contact"));
 				currentStore.setUrl(jsonObj.getString("url"));
+                currentStore.setStoreImage(jsonObj.getString("store_image"));
                 currentStore.setIsOnline(jsonObj.getBoolean("is_online"));
 				currentStore.setId(jsonObj.getInt("id"));
 				this.stores[i] = currentStore;
@@ -71,6 +72,7 @@ public class GetStoresResult extends RestResult implements IRestResult {
 			currentStore.setEmail(jsonObj.getString("email"));
 			currentStore.setManagerContact(jsonObj.getString("manager_contact"));
 			currentStore.setUrl(jsonObj.getString("url"));
+            currentStore.setStoreImage(jsonObj.getString("store_image"));
             currentStore.setIsOnline(jsonObj.getBoolean("is_online"));
 			currentStore.setId(jsonObj.getInt("id"));
 			this.stores[0] = currentStore;

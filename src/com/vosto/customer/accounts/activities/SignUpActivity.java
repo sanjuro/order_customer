@@ -126,6 +126,10 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
 			txtPin.setError("Please choose a security PIN.");
 			return;
 		}
+        if(pin.length() != 5){
+            txtPin.setError("Your pin has to be 5 digits long.");
+            return;
+        }
 
 		service.setFirstName(firstName);
 		service.setLastName(lastName);

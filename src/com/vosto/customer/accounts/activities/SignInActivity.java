@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import android.widget.Toast;
+import com.google.android.gcm.GCMRegistrar;
 import com.vosto.customer.HomeActivity;
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
@@ -29,12 +30,15 @@ import org.brickred.socialauth.android.DialogListener;
 import org.brickred.socialauth.android.SocialAuthAdapter;
 import org.brickred.socialauth.android.SocialAuthError;
 
+import static com.vosto.customer.utils.CommonUtilities.SENDER_ID;
+
 /**
  * The Sign In screen where an existing user logs in.
  *
  */
 public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 
+    private String gcmRegistrationId;
     SocialAuthAdapter adapter;
     Profile profileMap;
 
@@ -49,6 +53,12 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 
         // Adapter initialization
         adapter = new SocialAuthAdapter(new ResponseListener());
+
+        if(!GCMUtils.checkGCMAndAlert(this, false)){
+            return;
+        }
+        this.gcmRegistrationId = GCMRegistrar.getRegistrationId(this);
+        Log.d("GCM", "GCM id: " + this.gcmRegistrationId);
     }
 	
 	/**
@@ -162,6 +172,20 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 			this.showAlertDialog("Login Failed", "Please try again.");
 			return;
 		}
+
+        /*
+        *  Register the device with GCM if not already registered.
+        *  GCM will respond and the callback in GCMIntentService will be called.
+        */
+        Log.d("GCM", "GCM Registrsion id: " + this.gcmRegistrationId );
+        if(this.gcmRegistrationId != null && this.gcmRegistrationId.equals("")){
+            // GCM is supported, but device has not been registered yet.
+            Log.d("GCM", "Calling gcm register...");
+            GCMRegistrar.register(this, SENDER_ID);
+        }else{
+            Log.d("GCM", "Not registering with gcm");
+        }
+
 		if(result instanceof AuthenticateResult){
 			processAuthenticateResult((AuthenticateResult)result);
 		}else if(result instanceof ResetPasswordResult){

@@ -52,7 +52,11 @@ public class PreviousOrderAdapter extends ArrayAdapter<OrderVo>{
         
         OrderVo order = orders[position];
 
-        holder.lblOrderNumber.setText(order.getNumber());
+        if (order.getStoreOrderNumber() == null){
+            holder.lblOrderNumber.setText(order.getNumber());
+        }else{
+            holder.lblOrderNumber.setText(order.getStoreOrderNumber());
+        }
         
         SimpleDateFormat format = new SimpleDateFormat("HH:mm, d MMMM yyyy", Locale.US);
         

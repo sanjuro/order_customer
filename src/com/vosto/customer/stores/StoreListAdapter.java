@@ -14,12 +14,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import static com.vosto.customer.utils.CommonUtilities.IMAGE_SERVER_URL;
+
+import com.androidquery.AQuery;
+
 public class StoreListAdapter extends ArrayAdapter<StoreVo>{
 
     Context context; 
     int layoutResourceId;    
     StoreVo stores[] = null;
-    
+    AQuery ag = null;
+
     public StoreListAdapter(Context context, int layoutResourceId, StoreVo[] stores) {
         super(context, layoutResourceId, stores);
         this.layoutResourceId = layoutResourceId;
@@ -32,13 +37,15 @@ public class StoreListAdapter extends ArrayAdapter<StoreVo>{
     	Log.d("StoresList", "Getting view at pos " + position);
         View row = convertView;
         StoreListItemHolder holder = null;
-        
+        ag = new AQuery(convertView);
+
         if(row == null)
         {
             LayoutInflater inflater = ((Activity)context).getLayoutInflater();
             row = inflater.inflate(layoutResourceId, parent, false);
             
             holder = new StoreListItemHolder();
+            holder.lblStoreImage = (ImageView)row.findViewById(R.id.lblStoreImage);
             holder.lblStoreName = (TextView)row.findViewById(R.id.lblStoreName);
             holder.lblDistance = (TextView)row.findViewById(R.id.lblDistance);
             holder.lblAddress = (TextView)row.findViewById(R.id.lblAddress);
@@ -74,6 +81,10 @@ public class StoreListAdapter extends ArrayAdapter<StoreVo>{
         	holder.lblAddress.setText(store.getAddress());
         }
 
+        String imageUrl = IMAGE_SERVER_URL + store.getStoreImage();
+        ag.id(R.id.lblStoreImage).image(imageUrl);
+
+
         Log.d("STO", "Stores name: " + store.getName() + " online: " + store.getIsOnline());
         // Set stores to unclickable when offline
         if (!store.getIsOnline()){
@@ -102,6 +113,7 @@ public class StoreListAdapter extends ArrayAdapter<StoreVo>{
     
     static class StoreListItemHolder
     {
+        ImageView lblStoreImage;
         TextView lblStoreName;
         TextView lblDistance;
         TextView lblAddress;

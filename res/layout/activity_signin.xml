@@ -82,19 +82,6 @@
                     android:textColor="#FFFFFF"
                     />
 
-            <Button
-                    android:id="@+id/facebookLoginButton"
-                    android:layout_below="@+id/sign_in_button"
-                    android:layout_width="200dp"
-                    android:layout_height="45dp"
-                    android:layout_centerHorizontal="true"
-                    android:scaleType="fitXY"
-                    android:background="@drawable/green_button_background"
-                    android:onClick="facebookLoginClicked"
-                    android:text="Sign in using FaceBook"
-                    android:textSize="14sp"
-                    android:textColor="#FFFFFF"
-                    />
 
         </RelativeLayout>
 

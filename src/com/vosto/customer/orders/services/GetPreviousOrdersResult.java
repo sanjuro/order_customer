@@ -6,6 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.LinkedList;
+import java.util.Collections;
 
 import org.joda.money.Money;
 import org.json.JSONArray;
@@ -49,15 +54,19 @@ public class GetPreviousOrdersResult extends RestResult implements IRestResult {
 			Log.d("ORD", "prev Orders response json: " + this.getResponseJson());
 			
 			ArrayList<OrderVo> ordersList = new ArrayList<OrderVo>();
-			
+
 	        Iterator<?> keys = outerObj.keys();
+
+            List orders = listFromJsonSorted(outerObj);
 
 	        OrderVo currentOrder = null;
 	        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
-	        while(keys.hasNext() ){
-	            String key = (String)keys.next();
-	            if(outerObj.get(key) instanceof JSONObject){
-	            	JSONObject currentObj = (JSONObject)outerObj.get(key);
+//	        while(keys.hasNext() ){
+//	            String key = (String)keys.next();
+
+            for( Object order: orders ) {
+	            if(order instanceof JSONObject){
+	            	JSONObject currentObj = (JSONObject)order;
 	            	currentOrder = new OrderVo();
 	            	currentOrder.setNumber(currentObj.getString("number"));
                     currentOrder.setStoreOrderNumber(currentObj.getString("store_order_number"));
@@ -104,5 +113,22 @@ public class GetPreviousOrdersResult extends RestResult implements IRestResult {
 			return false;
 		}
 	}
+
+    public static List listFromJsonSorted(JSONObject json) {
+        if (json == null) return null;
+        SortedMap map = new TreeMap(Collections.reverseOrder());
+        Iterator i = json.keys();
+        while (i.hasNext()) {
+            try {
+                String key = i.next().toString();
+                JSONObject j = json.getJSONObject(key);
+                map.put(key, j);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return new LinkedList(map.values());
+    }
 	
 }

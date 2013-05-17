@@ -30,6 +30,11 @@ public final class CommonUtilities {
     public static final String SERVER_URL = "http://107.22.211.58:9000/api/v1";
 
     /**
+     * IMAGE URL where all image resources are stored
+     */
+    public static final String IMAGE_SERVER_URL = "http://m.vosto.co.za/stores";
+
+    /**
      * Google API project id registered to use GCM.
      * 1091536520954 - shadley's account
      * 263607631818 - flippie
