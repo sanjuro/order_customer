@@ -34,9 +34,7 @@ public class SearchService extends RestService {
 	public void setSearchTerm(String searchTerm) {
 		this.searchTerm = searchTerm;
 	}
-	
-	
-	
+
 	public double getLatitude() {
 		return latitude;
 	}
@@ -53,8 +51,6 @@ public class SearchService extends RestService {
 		this.longitude = longitude;
 	}
 	
-	
-
 	public boolean hasLocation() {
 		return hasLocation;
 	}

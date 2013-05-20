@@ -230,7 +230,7 @@
            <RelativeLayout 
           	android:id="@+id/buy_button"
           	android:layout_width="120dp"
-          	android:layout_height="30dp"
+          	android:layout_height="35dp"
           	android:layout_alignParentRight="true"
           	android:scaleType="fitXY"
           	android:paddingRight="10dp"

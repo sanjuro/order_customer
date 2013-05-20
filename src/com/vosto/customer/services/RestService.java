@@ -33,6 +33,7 @@ import com.vosto.customer.orders.services.PlaceOrderResult;
 import com.vosto.customer.products.services.GetProductsResult;
 import com.vosto.customer.products.services.GetTaxonsResult;
 import com.vosto.customer.stores.services.GetStoresResult;
+import com.vosto.customer.stores.services.GetFeaturedStoresResult;
 import com.vosto.customer.stores.services.GetTagsResult;
 import com.vosto.customer.stores.services.SearchResult;
 import com.vosto.customer.utils.NetworkUtils;
@@ -237,36 +238,32 @@ public class RestService extends AsyncTask <Void, Void, RestResult> {
         if(this.resultType == ResultType.GET_STORES){
             result = new GetStoresResult(200, responseJson);
         }
-
         if(this.resultType == ResultType.GET_TAGS){
             result = new GetTagsResult(200, responseJson);
         }
-
         if(this.resultType == ResultType.SEARCH_STORES){
             result = new SearchResult(200, responseJson);
         }
         if(this.resultType == ResultType.GET_PRODUCTS){
             result = new GetProductsResult(200, responseJson);
         }
-
         if(this.resultType == ResultType.GET_TAXONS){
             result = new GetTaxonsResult(200, responseJson);
         }
-
         if(this.resultType == ResultType.PLACE_ORDER){
             result = new PlaceOrderResult(200, responseJson);
         }
-
         if(this.resultType == ResultType.GET_PREVIOUS_ORDERS){
             result = new GetPreviousOrdersResult(200, responseJson);
         }
-
         if(this.resultType == ResultType.GET_ORDER_BY_ID){
             result = new GetOrderByIdResult(200, responseJson);
         }
-
         if(this.resultType == ResultType.GET_FAVOURITE_STORES){
             result = new GetStoreFavouriteResult(200, responseJson);
+        }
+        if(this.resultType == ResultType.GET_FEATURED_STORES){
+            result = new GetFeaturedStoresResult(200, responseJson);
         }
 
     //    if(this.resultType == ResultType.GET_FAVOURITE_PRODUCTS){
