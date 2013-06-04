@@ -91,7 +91,7 @@ public class CreateAccountService extends RestService {
 			user.put("birthday", this.birthDate);
 			user.put("user_pin", this.userPin);
 			root.put("user", user);
-			Log.d("jsontest", "Request JSON: " + root.toString());
+			// Log.d("jsontest", "Request JSON: " + root.toString());
 			return root.toString();
 		}catch(JSONException e){
 			e.printStackTrace();
