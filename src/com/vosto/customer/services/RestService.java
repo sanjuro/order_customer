@@ -41,6 +41,7 @@ import com.vosto.customer.utils.NetworkUtils;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -52,7 +53,7 @@ public class RestService extends AsyncTask <Void, Void, RestResult> {
 	protected String url;
 	protected ResultType resultType;
 	
-	protected HttpClient httpClient;
+	protected AndroidHttpClient httpClient;
 	protected HttpContext localContext;
 	protected HttpGet httpGet;
 	protected HttpPost httpPost;
@@ -74,7 +75,7 @@ public class RestService extends AsyncTask <Void, Void, RestResult> {
 		this.context = context;
 		this.requestMethod = requestMethod;
 		
-		this.httpClient = new DefaultHttpClient();
+		this.httpClient = AndroidHttpClient.newInstance("Android");
 		this.localContext = new BasicHttpContext();
 		this.httpGet = new HttpGet(this.url);
 		this.nameValuePairs = new ArrayList<NameValuePair>();
@@ -90,7 +91,7 @@ public class RestService extends AsyncTask <Void, Void, RestResult> {
 		this.context = context;
 		this.requestMethod = requestMethod;
 		
-		this.httpClient = new DefaultHttpClient();
+		this.httpClient = AndroidHttpClient.newInstance("Android");
 		this.localContext = new BasicHttpContext();
 		this.httpGet = new HttpGet(this.url);
 		this.nameValuePairs = new ArrayList<NameValuePair>();
@@ -105,7 +106,7 @@ public class RestService extends AsyncTask <Void, Void, RestResult> {
         this.activity = activity;
         this.requestMethod = requestMethod;
 
-        this.httpClient = new DefaultHttpClient();
+        this.httpClient = AndroidHttpClient.newInstance("Android");
         this.localContext = new BasicHttpContext();
         this.httpGet = new HttpGet(this.url);
         this.nameValuePairs = new ArrayList<NameValuePair>();
@@ -166,7 +167,6 @@ public class RestService extends AsyncTask <Void, Void, RestResult> {
 
     @Override
     protected RestResult doInBackground(Void... params) {
-
         String text = null;
         if(this.requestMethod == RequestMethod.POST){
             try {
@@ -181,6 +181,7 @@ public class RestService extends AsyncTask <Void, Void, RestResult> {
                 this.response = httpClient.execute(this.httpPost, localContext);
                 HttpEntity entity = response.getEntity();
                 text = getASCIIContentFromEntity(entity);
+                httpClient.close();
                 return this.getRestResult(response.getStatusLine(), text);
             } catch (Exception e) {
                 this.executeException = e;
@@ -194,6 +195,7 @@ public class RestService extends AsyncTask <Void, Void, RestResult> {
                 this.response = httpClient.execute(this.httpGet, localContext);
                 HttpEntity entity = response.getEntity();
                 text = getASCIIContentFromEntity(entity);
+                httpClient.close();
                 return this.getRestResult(response.getStatusLine(), text);
             } catch (Exception e) {
                 this.executeException = e;
