@@ -42,7 +42,7 @@ import com.vosto.customer.utils.MoneyUtils;
 import com.vosto.customer.utils.NetworkUtils;
 
 
-public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnDismissListener {
+public class DeliveryActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnDismissListener {
 	
 	private ListView list;
     private StoreVo store;
@@ -50,10 +50,20 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_cart);
+		setContentView(R.layout.activity_delivery);
 
         Cart cart = getCart();
         this.store = cart.getStore();
+
+        SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+        if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
+            //User logged in:
+            TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
+            nameOfUser.setText(settings.getString("userName", "user"));
+
+        }else{
+            //User not logged in:
+        }
 
         LinearLayout store_details_block = (LinearLayout)findViewById(R.id.store_details_block);
         TextView txtStoreName = (TextView)findViewById(R.id.txtStoreName);
@@ -68,65 +78,9 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
             store_details_block.setVisibility(View.GONE);
             txtStoreAddress.setVisibility(View.GONE);
         }
-
-        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
-
-        View toggleView = findViewById(R.id.menuButton);
-        toggleView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                mSlideHolder.toggle();
-            }
-        });
-
-        SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
-        if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
-            //User logged in:
-            TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
-            nameOfUser.setText(settings.getString("userName", "user"));
-
-        }else{
-            //User not logged in:
-        }
-
-		refreshCart();
 	}
 	
-	private void refreshCart(){
-		this.list = (ListView)findViewById(R.id.lstCartItems);
-		list.setOnItemClickListener(this);
-		list.setAdapter(new CartItemAdapter(this, R.layout.cart_item_row, getCart().getItems()));
-		updateTotals();
-	}
-	
-	private void updateTotals(){
-		Cart cart = getCart();
-		TextView lblTotal = (TextView)findViewById(R.id.lblTotal);
-		lblTotal.setText("Total: " + MoneyUtils.getRandString(cart.getTotalPrice()));
-		
-//		TextView lblSubtotal = (TextView)findViewById(R.id.lblSubtotal);
-//		lblSubtotal.setText("Subtotal: " + MoneyUtils.getRandString(cart.getTotalPrice()));
-	}
-	
-	public void removeButtonClicked(View v){
-		CartItem item = (CartItem)((ImageButton)v).getTag();
-		Cart cart = getCart();
-		Log.d("REM", "Calling removeitem");
-		cart.removeItem(item);
-		this.list.setAdapter(new CartItemAdapter(this, R.layout.cart_item_row, cart.getItems()));
-		updateTotals();
-		if(cart.getNumberOfItems() == 0){
-			getContext().closeCart();
-			finish();
-		}
-	}
-	
-	public void editButtonClicked(View v){
-		Intent intent = new Intent(this, EditCartItemActivity.class);
-		intent.putExtra("cartItemIndex", getCart().getIndexForItem((CartItem)v.getTag()));
-		startActivity(intent);
-	}
+
 	
 	public void promptForPin(){
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -194,10 +148,6 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	}
 	
 	public void placeOrderClicked(View v){
-		Intent intent = new Intent(this, DeliveryActivity.class);
-		startActivity(intent);
-		
-		/*
 		if(!isUserSignedIn()){
 			Intent intent = new Intent(this, SignInActivity.class);
 			startActivity(intent);
@@ -215,12 +165,11 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 		}else{
 			this.showAlertDialog("Cart Empty", "Please add some items to your cart.");
 		}
-		*/
 	}
 	
 	public void onResume(){
 		super.onResume();
-		refreshCart();
+	
 	}
 
 	/**
@@ -262,22 +211,6 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		 
-	}
-
-    public void continueButtonPressed(View v){
-        if(!NetworkUtils.isNetworkAvailable(this)){
-            this.showAlertDialog("Connection Error", "Please connect to the internet.");
-            return;
-        }
-
-        Intent intent = new Intent(this, TaxonsActivity.class);
-        intent.putExtra("store", this.store);
-        startActivity(intent);
-    }
-
-	public void ordersPressed(View v) {
-		Intent intent = new Intent(this, MyOrdersActivity.class);
-		startActivity(intent);
 	}
 
 	@Override

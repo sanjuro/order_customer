@@ -50,6 +50,10 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
+            android:name="com.vosto.customer.cart.activities.DeliveryActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
             android:name="com.vosto.customer.HomeActivity"
             android:screenOrientation="portrait">
         </activity>
