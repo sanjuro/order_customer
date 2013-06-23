@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -51,6 +52,7 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
         txtName.setText(settings.getString("userName", "user"));
         txtEmail.setText(settings.getString("userEmail", "user"));
         txtMobileNumber.setText(settings.getString("userMobile", "user"));
+        
 
         mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
 

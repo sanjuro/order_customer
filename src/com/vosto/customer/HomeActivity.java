@@ -21,7 +21,6 @@ import com.vosto.customer.products.activities.TaxonsActivity;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
 import com.vosto.customer.stores.StoreListAdapter;
-import com.vosto.customer.stores.FeaturedStoreListAdapter;
 import com.vosto.customer.stores.activities.FoodCategoriesActivity;
 import com.vosto.customer.stores.activities.StoresActivity;
 import com.vosto.customer.stores.services.SearchResult;
