@@ -267,6 +267,9 @@ public class RestService extends AsyncTask <Void, Void, RestResult> {
         if(this.resultType == ResultType.GET_FEATURED_STORES){
             result = new GetFeaturedStoresResult(200, responseJson);
         }
+        if(this.resultType == ResultType.GET_SUBURBS){
+        	result = new GetSuburbsResult(200, responseJson);
+        }
 
     //    if(this.resultType == ResultType.GET_FAVOURITE_PRODUCTS){
     //        result = new GetProdudctFavouriteResult(200, responseJson);
