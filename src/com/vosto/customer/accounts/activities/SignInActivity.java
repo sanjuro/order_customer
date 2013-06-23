@@ -215,7 +215,7 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
             editor.putString("userToken", authResult.getCustomer().authentication_token);
             editor.putString("userName", authResult.getCustomer().full_name);
             editor.putString("userEmail", authResult.getCustomer().email);
-            editor.putString("userMobileNumber", authResult.getCustomer().mobile_number);
+            editor.putString("userMobile", authResult.getCustomer().mobile_number);
             editor.commit();
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);

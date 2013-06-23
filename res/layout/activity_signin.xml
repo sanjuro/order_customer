@@ -32,9 +32,10 @@
            
        </TextView>
        
-   </RelativeLayout>
+   </RelativeLayout> <!-- top bar -->
    
    <LinearLayout
+       android:id="@+id/login_form"
        android:layout_below="@+id/top_bar"
        android:layout_width="fill_parent"
        android:layout_height="wrap_content"
@@ -97,6 +98,10 @@
          	android:onClick="forgotPinClicked"
          	android:text="Forgot Pin?"
          />
+        
+         </LinearLayout>
+        
+        
 
        <LinearLayout
                android:id="@+id/bottom_bar"
@@ -113,10 +118,8 @@
            <TextView
                    android:text="@string/not_joined_yet"
                    android:textStyle="italic"
-                   android:layout_alignParentLeft="true"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:layout_centerVertical="true"
                    android:paddingRight="30dp"
                    android:layout_marginTop="20dp"
                    android:textColor="#FFFFFF"
@@ -124,22 +127,17 @@
 
            <Button
                    android:id="@+id/sign_up_button"
-                   android:layout_alignParentRight="true"
                    android:layout_width="95dp"
                    android:layout_height="30dp"
                    android:layout_marginTop="20dp"
                    android:scaleType="fitXY"
-                   android:background="@drawable/green_button_background"
-                   android:layout_centerVertical="true"
+                   android:background="@drawable/green_button_background" 
                    android:onClick="signUpClicked"
                    android:text="Sign Up"
                    android:contentDescription="@string/sign_up_button"
                    android:textSize="14sp"
                    android:textColor="#FFFFFF"
                    />
-       </LinearLayout>
-        
-   </LinearLayout>
-
+       </LinearLayout> <!-- bottom_bar -->
     
-</RelativeLayout>
+</RelativeLayout> <!-- outer container -->

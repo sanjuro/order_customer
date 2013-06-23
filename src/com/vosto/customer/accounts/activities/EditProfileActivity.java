@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.vosto.customer.pages.activities.TermsActivity;
 import com.vosto.customer.accounts.services.*;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
+import com.vosto.customer.utils.StringUtils;
 
 /**
  * The Sign In screen where an existing user logs in.
@@ -51,6 +53,7 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
         txtName.setText(settings.getString("userName", "user"));
         txtEmail.setText(settings.getString("userEmail", "user"));
         txtMobileNumber.setText(settings.getString("userMobile", "user"));
+        
 
         mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
 
@@ -141,6 +144,9 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
         if(result instanceof UpdateCustomerResult){
             processUpdateResult((UpdateCustomerResult)result);
         }
+        if(result instanceof ResetPasswordResult){
+        	processResetPasswordResult((ResetPasswordResult)result);
+        }
     }
 
     /**
@@ -175,6 +181,14 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
 
         }
     }
+    
+    private void processResetPasswordResult(ResetPasswordResult result){
+    	if(result.wasSuccessful()){
+    		this.showAlertDialog("PIN reset successful", "An e-mail has been sent to you with your new PIN.");
+    	}else{
+    		this.showAlertDialog("ERROR", "Could not reset your PIN. Please check the e-mail address and try again.");
+    	}
+    }
 
     public void resetPinPressed(View v) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -189,6 +203,11 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
 
         alert.setPositiveButton("Reset Password", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
+            	if(!StringUtils.isValidEmail(emailInput.getText())){
+            		emailInput.setError("Invalid e-mail");
+            		EditProfileActivity.this.showAlertDialog("Invalid e-mail", "Please try again.");
+            	    return;
+            	}
                 String email = emailInput.getText().toString().trim();
                 confirmResetPassword(email);
             }
