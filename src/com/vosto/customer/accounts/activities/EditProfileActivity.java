@@ -20,6 +20,7 @@ import com.vosto.customer.pages.activities.TermsActivity;
 import com.vosto.customer.accounts.services.*;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
+import com.vosto.customer.utils.StringUtils;
 
 /**
  * The Sign In screen where an existing user logs in.
@@ -191,6 +192,11 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
 
         alert.setPositiveButton("Reset Password", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
+            	if(!StringUtils.isValidEmail(emailInput.getText())){
+            		emailInput.setError("Invalid e-mail");
+            		EditProfileActivity.this.showAlertDialog("Invalid e-mail", "Please try again.");
+            	    return;
+            	}
                 String email = emailInput.getText().toString().trim();
                 confirmResetPassword(email);
             }
