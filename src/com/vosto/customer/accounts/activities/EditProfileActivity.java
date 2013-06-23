@@ -144,6 +144,9 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
         if(result instanceof UpdateCustomerResult){
             processUpdateResult((UpdateCustomerResult)result);
         }
+        if(result instanceof ResetPasswordResult){
+        	processResetPasswordResult((ResetPasswordResult)result);
+        }
     }
 
     /**
@@ -177,6 +180,14 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
             toast.show();
 
         }
+    }
+    
+    private void processResetPasswordResult(ResetPasswordResult result){
+    	if(result.wasSuccessful()){
+    		this.showAlertDialog("PIN reset successful", "An e-mail has been sent to you with your new PIN.");
+    	}else{
+    		this.showAlertDialog("ERROR", "Could not reset your PIN. Please check the e-mail address and try again.");
+    	}
     }
 
     public void resetPinPressed(View v) {
