@@ -9,16 +9,21 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.protocol.HttpContext;
+
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.net.http.AndroidHttpClient;
+import android.os.AsyncTask;
+import android.util.Log;
 
 import com.vosto.customer.VostoBaseActivity;
 import com.vosto.customer.VostoCustomerApp;
@@ -32,18 +37,11 @@ import com.vosto.customer.orders.services.GetPreviousOrdersResult;
 import com.vosto.customer.orders.services.PlaceOrderResult;
 import com.vosto.customer.products.services.GetProductsResult;
 import com.vosto.customer.products.services.GetTaxonsResult;
-import com.vosto.customer.stores.services.GetStoresResult;
 import com.vosto.customer.stores.services.GetFeaturedStoresResult;
+import com.vosto.customer.stores.services.GetStoresResult;
 import com.vosto.customer.stores.services.GetTagsResult;
 import com.vosto.customer.stores.services.SearchResult;
 import com.vosto.customer.utils.NetworkUtils;
-
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.net.http.AndroidHttpClient;
-import android.os.AsyncTask;
-import android.util.Log;
 
 public class RestService extends AsyncTask <Void, Void, RestResult> {
 	
@@ -181,12 +179,14 @@ public class RestService extends AsyncTask <Void, Void, RestResult> {
                 this.response = httpClient.execute(this.httpPost, localContext);
                 HttpEntity entity = response.getEntity();
                 text = getASCIIContentFromEntity(entity);
-                httpClient.close();
+                this.httpClient.close();
                 return this.getRestResult(response.getStatusLine(), text);
             } catch (Exception e) {
                 this.executeException = e;
                 e.printStackTrace();
                 return null;
+            }finally{
+            	this.httpClient.close();
             }
         }else{
             // GET request:
@@ -195,19 +195,23 @@ public class RestService extends AsyncTask <Void, Void, RestResult> {
                 this.response = httpClient.execute(this.httpGet, localContext);
                 HttpEntity entity = response.getEntity();
                 text = getASCIIContentFromEntity(entity);
-                httpClient.close();
+                this.httpClient.close();
                 return this.getRestResult(response.getStatusLine(), text);
             } catch (Exception e) {
                 this.executeException = e;
                 e.printStackTrace();
                 return null;
+            }finally {
+            	this.httpClient.close();
             }
-
         }
 
     }
 
     protected void onPostExecute(RestResult result) {
+    	if(this.httpClient != null){
+    		this.httpClient.close();
+    	}
         if(this.activity != null){
             this.activity.dismissPleaseWaitDialog();
         }
