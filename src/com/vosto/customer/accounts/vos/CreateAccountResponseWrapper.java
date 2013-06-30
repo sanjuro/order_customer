@@ -6,5 +6,4 @@ public class CreateAccountResponseWrapper {
 	public String first_name;
     public String email;
 	public CustomerVo user;
-	
 }

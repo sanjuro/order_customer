@@ -19,6 +19,7 @@ import com.vosto.customer.accounts.services.CreateAccountService;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
 import com.vosto.customer.utils.GCMUtils;
+import com.vosto.customer.utils.StringUtils;
 import com.vosto.customer.utils.ToastExpander;
 
 import org.brickred.socialauth.Profile;
@@ -114,10 +115,21 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
             txtMobile.setError("Please enter your mobile number.");
             return;
         }
+        
+        if(mobilenumber.length() < 10){
+        	txtMobile.setError("Mobile number should be at least 10 digits.");
+        	return;
+        }
+        
 		
 		String email = txtEmail.getText().toString().trim().toLowerCase(Locale.getDefault());
 		if(email.length() == 0){
 			txtEmail.setError("Please enter your email.");
+			return;
+		}
+		
+		if(!StringUtils.isValidEmail(txtEmail.getText())){
+			txtEmail.setError("Invalid email.");
 			return;
 		}
 		

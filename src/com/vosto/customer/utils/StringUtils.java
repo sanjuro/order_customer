@@ -3,6 +3,8 @@ package com.vosto.customer.utils;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import android.text.TextUtils;
+
 public class StringUtils {
 	
 	public static String escapeJson(String text){
@@ -35,4 +37,14 @@ public class StringUtils {
 	    }
 	    return "";
 	}
+	
+	
+	public static final boolean isValidEmail(CharSequence target) {
+	    if (TextUtils.isEmpty(target)) {
+	        return false;
+	    } else {
+	        return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+	    }
+	}
+	
 }
