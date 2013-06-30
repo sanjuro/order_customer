@@ -39,6 +39,7 @@ import com.vosto.customer.products.services.GetProductsResult;
 import com.vosto.customer.products.services.GetTaxonsResult;
 import com.vosto.customer.stores.services.GetFeaturedStoresResult;
 import com.vosto.customer.stores.services.GetStoresResult;
+import com.vosto.customer.stores.services.GetSuburbsResult;
 import com.vosto.customer.stores.services.GetTagsResult;
 import com.vosto.customer.stores.services.SearchResult;
 import com.vosto.customer.utils.NetworkUtils;
