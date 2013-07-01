@@ -70,13 +70,12 @@ public class StoreListAdapter extends ArrayAdapter<StoreVo>{
         	holder.lblDistance.setVisibility(View.VISIBLE);
         }else{
         	holder.lblDistance.setVisibility(View.INVISIBLE);
-        } 
+        }
 
         String imageUrl = IMAGE_SERVER_URL + store.getStoreImage();
         ag.id(R.id.lblStoreImage).image(imageUrl, false, false, 0, 0, null, AQuery.FADE_IN);
 
-        Log.d("STO", "Stores name: " + store.getName() + " online: " + store.getIsOnline());
-        // Set stores to unclickable when offline
+        // Hide the arrow if the store is offline, and show the appropriate status banner:
         if (!store.getIsOnline()){
             holder.lblSelectionArrow.setVisibility(View.INVISIBLE);
             holder.lblStatus.setImageResource(R.drawable.store_status_closed);
@@ -84,10 +83,17 @@ public class StoreListAdapter extends ArrayAdapter<StoreVo>{
             holder.lblSelectionArrow.setVisibility(View.VISIBLE);
             holder.lblStatus.setImageResource(R.drawable.store_status_open);
         }
-        
-        row.setFocusable(store.getIsOnline());
-        row.setClickable(store.getIsOnline());
+      
         return row;
+    }
+    
+    /**
+     * This is called by Android to determine whether a certain list item should be clickable.
+     * If this method returns false, the list item is not clickable.
+     * The list item should only be clickable if the store is currently online.
+     */
+    public boolean isEnabled(int position){
+    	return this.stores.length > position && this.stores[position] != null && this.stores[position].getIsOnline();
     }
 
     
