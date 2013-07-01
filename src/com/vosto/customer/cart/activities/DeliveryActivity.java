@@ -13,11 +13,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.agimind.widget.SlideHolder;
@@ -26,32 +25,36 @@ import com.vosto.customer.VostoBaseActivity;
 import com.vosto.customer.accounts.activities.SignInActivity;
 import com.vosto.customer.accounts.services.AuthenticateResult;
 import com.vosto.customer.accounts.services.AuthenticationService;
-import com.vosto.customer.cart.CartItemAdapter;
+import com.vosto.customer.cart.SuburbListAdapter;
 import com.vosto.customer.cart.vos.Cart;
-import com.vosto.customer.cart.vos.CartItem;
-import com.vosto.customer.orders.activities.MyOrdersActivity;
 import com.vosto.customer.orders.activities.OrderConfirmationActivity;
+import com.vosto.customer.orders.services.GetDeliveryPriceResult;
+import com.vosto.customer.orders.services.GetDeliveryPriceService;
 import com.vosto.customer.orders.services.PlaceOrderResult;
 import com.vosto.customer.orders.services.PlaceOrderService;
-import com.vosto.customer.products.activities.TaxonsActivity;
+import com.vosto.customer.orders.vos.AddressVo;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
+import com.vosto.customer.stores.services.GetSuburbsResult;
+import com.vosto.customer.stores.services.GetSuburbsService;
 import com.vosto.customer.stores.vos.StoreVo;
+import com.vosto.customer.stores.vos.SuburbVo;
 import com.vosto.customer.utils.GCMUtils;
 import com.vosto.customer.utils.MoneyUtils;
-import com.vosto.customer.utils.NetworkUtils;
 
 
 public class DeliveryActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnDismissListener {
 	
-	private ListView list;
     private StoreVo store;
     private SlideHolder mSlideHolder;
+    private boolean mustDeliver; // Indicates whether the user has chosen delivery.
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_delivery);
-
+		
+		this.mustDeliver = false; // Collect in-store by default.
+		
         Cart cart = getCart();
         this.store = cart.getStore();
 
@@ -78,6 +81,11 @@ public class DeliveryActivity extends VostoBaseActivity implements OnRestReturn,
             store_details_block.setVisibility(View.GONE);
             txtStoreAddress.setVisibility(View.GONE);
         }
+        
+        // Fetch the suburbs:
+        GetSuburbsService suburbsService = new GetSuburbsService(this, this, this.store.getId());
+        suburbsService.execute();
+        
 	}
 	
 
@@ -167,9 +175,81 @@ public class DeliveryActivity extends VostoBaseActivity implements OnRestReturn,
 		}
 	}
 	
+	public void getPriceClicked(View v){
+		// Build an AddressVo object from the form fields:
+		// TODO: Add some address validation here.
+		
+		AddressVo address = this.getAddressVo();
+		if(!this.validateAddress(address)){
+			return;
+		}
+		
+		// Address seems valid, let's query the delivery price:
+		GetDeliveryPriceService getPriceService = new GetDeliveryPriceService(this, this, this.store.getId(), address);
+		getPriceService.execute();
+	}
+	
+	/**
+	 * Reads the address form and builds an AddressVo object with the data.
+	 * @return An AddressVo object with the address fields populated
+	 */
+	private AddressVo getAddressVo(){
+		TextView txtAddressLine1 = (TextView)this.findViewById(R.id.txtAddressLine1);
+		TextView txtAddressLine2 = (TextView)this.findViewById(R.id.txtAddressLine2);
+		Spinner cboAddressSuburb = (Spinner)this.findViewById(R.id.cboAddressSuburb);
+		TextView txtAddressCity = (TextView)this.findViewById(R.id.txtAddressCity);
+		TextView txtAddressPostalCode = (TextView)this.findViewById(R.id.txtAddressPostalCode);
+		
+		AddressVo address = new AddressVo();
+		if(!txtAddressLine1.getText().toString().trim().equals("")){
+			address.setAddress1(txtAddressLine1.getText().toString().trim());
+		}
+		
+		if(!txtAddressLine2.getText().toString().trim().equals("")){
+			address.setAddress2(txtAddressLine2.getText().toString().trim());
+		}
+		
+		if(!txtAddressCity.getText().toString().trim().equals("")){
+			address.setCity(txtAddressCity.getText().toString().trim());
+		}
+		
+		if(!txtAddressPostalCode.getText().toString().trim().equals("")){
+			address.setZipcode(txtAddressPostalCode.getText().toString().trim());
+		}
+		
+		if(cboAddressSuburb.getSelectedItem() != null){
+			address.setSuburb_id(((SuburbVo)cboAddressSuburb.getSelectedItem()).getId());
+		}
+		
+		return address;
+	}
+	
+	/**
+	 * Checks the presence and format of address fields in an AddressVo object, and displays error messages if invalid.
+	 * The validation basically checks if an order could be placed with this address.
+	 * @param address - The address object to check
+	 * @return - boolean indicating whether the address is valid or not
+	 */
+	private boolean validateAddress(AddressVo address){
+		if(address.getAddress1() == null || address.getAddress1().trim().equals("")){
+			this.showAlertDialog("Invalid Address", "Please enter the address line 1");
+			return false;
+		}
+		if(address.getSuburb_id() == null || address.getSuburb_id().intValue() < 1){
+			this.showAlertDialog("Invalid Address", "Please select a suburb");
+			return false;
+		}
+		if(address.getZipcode() == null || address.getZipcode().trim().equals("")){
+			this.showAlertDialog("Invalid Address", "Please enter a postal code");
+			return false;
+		}
+		
+		return true;
+		
+	}
+	
 	public void onResume(){
 		super.onResume();
-	
 	}
 
 	/**
@@ -182,35 +262,90 @@ public class DeliveryActivity extends VostoBaseActivity implements OnRestReturn,
 			return;
 		}
 		if(result instanceof PlaceOrderResult){
-			PlaceOrderResult orderResult = (PlaceOrderResult)result;
-			if(orderResult.wasOrderCreated()){
-				getContext().closeCart();
-				this.showAlertDialog("Thank you", "Your order has been placed.");
-				saveCurrentOrder(orderResult.getOrder());
-                Log.d("ORD", "Order Number " + orderResult.getOrder().getNumber());
-				Intent intent = new Intent(this, OrderConfirmationActivity.class);
-                intent.putExtra("order", orderResult.getOrder());
-                intent.putExtra("store", this.store);
-                intent.putExtra("order_number", orderResult.getOrder().getNumber());
-                startActivity(intent);
-				finish();
-			}else{
-				this.showAlertDialog("Could not place order", orderResult.getErrorMessage());
-			}
-		
+			this.processPlaceOrderResult((PlaceOrderResult)result);
 		}else if(result instanceof AuthenticateResult){
-			AuthenticateResult authResult = (AuthenticateResult)result;
-			if(authResult.wasAuthenticationSuccessful()){
-				sendOrder();
-			}else{
-				this.showAlertDialog("Invalid PIN", "Please check your PIN and try again.");
-			}
+			this.processAuthenticateResult((AuthenticateResult)result);
+		}else if(result instanceof GetSuburbsResult){
+			this.processGetSuburbsResult((GetSuburbsResult)result);
+		}else if(result instanceof GetDeliveryPriceResult){
+			this.processDeliveryPriceResult((GetDeliveryPriceResult)result);
 		}
+	}
+	
+	private void processDeliveryPriceResult(GetDeliveryPriceResult result){
+		TextView priceLabel = (TextView)findViewById(R.id.priceLabel);
+		priceLabel.setText("Price: " + MoneyUtils.getRandString(result.getDeliveryPrice()));
+	}
+	
+	private void processAuthenticateResult(AuthenticateResult authResult){
+		if(authResult.wasAuthenticationSuccessful()){
+			sendOrder();
+		}else{
+			this.showAlertDialog("Invalid PIN", "Please check your PIN and try again.");
+		}
+	}
+	
+	private void processPlaceOrderResult(PlaceOrderResult orderResult){
+		if(orderResult.wasOrderCreated()){
+			getContext().closeCart();
+			this.showAlertDialog("Thank you", "Your order has been placed.");
+			saveCurrentOrder(orderResult.getOrder());
+            Log.d("ORD", "Order Number " + orderResult.getOrder().getNumber());
+			Intent intent = new Intent(this, OrderConfirmationActivity.class);
+            intent.putExtra("order", orderResult.getOrder());
+            intent.putExtra("store", this.store);
+            intent.putExtra("order_number", orderResult.getOrder().getNumber());
+            startActivity(intent);
+			finish();
+		}else{
+			this.showAlertDialog("Could not place order", orderResult.getErrorMessage());
+		}
+	}
+	
+	private void processGetSuburbsResult(GetSuburbsResult suburbResult){
+		 // Populate the suburbs drop down:
+		 SuburbListAdapter suburbListAdapter = new SuburbListAdapter(this, android.R.layout.simple_spinner_item, suburbResult.getSuburbs());
+		 suburbListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		 Spinner cboAddressSuburb = (Spinner)findViewById(R.id.cboAddressSuburb);
+		 cboAddressSuburb.setAdapter(suburbListAdapter);
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		 
+	}
+	
+	/**
+	 * Click handler for the button that chooses the in-store collection option.
+	 * Hide the address form, show the collection details, and set some internal state.
+	 * @param v
+	 */
+	public void collectButtonClicked(View v){
+		LinearLayout addressForm = (LinearLayout)findViewById(R.id.addressForm);
+		addressForm.setVisibility(View.GONE);
+		
+		LinearLayout collectionDetailsSection = (LinearLayout)findViewById(R.id.collectionDetailsSection);
+		collectionDetailsSection.setVisibility(View.VISIBLE);
+		
+		TextView storeCollectionAddress = (TextView)findViewById(R.id.storeCollectionAddress);
+		storeCollectionAddress.setText(this.store.getAddress());
+		
+		this.mustDeliver = false;
+	}
+	
+	/**
+	 * Click handler for the button that chooses the delivery option.
+	 * Hide the collection details, show the address form, and set some internal state
+	 * @param v
+	 */
+	public void deliveryButtonClicked(View v){
+		LinearLayout collectionDetailsSection = (LinearLayout)findViewById(R.id.collectionDetailsSection);
+		collectionDetailsSection.setVisibility(View.GONE);
+		
+		LinearLayout addressForm = (LinearLayout)findViewById(R.id.addressForm);
+		addressForm.setVisibility(View.VISIBLE);
+		
+		this.mustDeliver = true;
 	}
 
 	@Override

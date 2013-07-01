@@ -37,12 +37,13 @@ public class GetSuburbsResult extends RestResult implements IRestResult {
 			this.jsonArr = new JSONArray(this.getResponseJson());
 			this.suburbs = new SuburbVo[this.jsonArr.length()];
 			for(int i = 0; i<this.jsonArr.length(); i++){
-				JSONObject jsonObj = this.jsonArr.getJSONArray(i).getJSONObject(0);
+				JSONObject jsonObj = this.jsonArr.getJSONObject(i);
 				SuburbVo currentSuburb = new SuburbVo();
 				currentSuburb.setId(jsonObj.getInt("id"));
 				currentSuburb.setName(jsonObj.getString("name"));
 				this.suburbs[i] = currentSuburb;
 			}
+			
 			return true;
 		}catch(JSONException e){
 			e.printStackTrace();

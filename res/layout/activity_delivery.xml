@@ -312,6 +312,7 @@
               android:layout_height="40dp"
               android:orientation="horizontal"
               android:layout_marginRight="20dp"
+              android:onClick="collectButtonClicked"
               android:background="@drawable/collect_button_with_text"
           >  
           </LinearLayout>
@@ -321,6 +322,7 @@
               android:layout_width="150dp"
               android:layout_height="40dp"
               android:orientation="horizontal"
+              android:onClick="deliveryButtonClicked"
               android:background="@drawable/delivery_button_with_text"
           >  
           </LinearLayout>
@@ -380,55 +382,99 @@
                android:textSize="14sp"
                android:hint="postal code"
                android:layout_marginBottom="5dp"
+               android:inputType="number"
+               android:maxLength="6"
               />
+              
+               <Button
+                    android:id="@+id/get_price_button"
+                    android:layout_width="fill_parent"
+                    android:layout_height="45dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/green_button_background"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:onClick="getPriceClicked"
+                    android:text="Get Price"
+                    android:textSize="18sp"
+                    android:textColor="#FFFFFF"
+                    />
            
        </LinearLayout> <!-- address form -->
+       
+       <LinearLayout
+       		android:id="@+id/collectionDetailsSection"
+       		android:layout_width="fill_parent"
+       		android:layout_height="wrap_content"
+       		android:orientation="vertical"
+       		android:layout_below="@id/deliveryButtons"
+       		android:layout_marginLeft="10dp"
+       		android:layout_marginRight="10dp"
+       		android:visibility="gone"
+       >
+               
+           <TextView
+           		android:layout_width="fill_parent"
+           		android:layout_height="wrap_content"
+           		android:gravity="center_horizontal"
+           		android:textSize="22sp"
+           		android:text="Please collect your order here:"    
+           		android:textColor="#000000"
+           />
+           
+           <RelativeLayout 
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="15dp"
+               >
+           <TextView 
+            	android:id="@+id/storeCollectionAddress"
+            	android:layout_width="150dp"
+            	android:layout_height="wrap_content"
+            	android:layout_centerInParent="true"
+            	android:textColor="#000000"
+            	android:textSize="14sp"
+            	android:singleLine="false"
+            	android:textIsSelectable="true"
+            />
+           
+           </RelativeLayout>
+               
+           </LinearLayout> <!-- collectionDetailsSection -->
 
         <RelativeLayout
             android:id="@+id/bottomSection"
             android:layout_width="fill_parent"
-            android:layout_height="85dp"
+            android:layout_height="65dp"
             android:paddingTop="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:layout_alignParentBottom="true"
+            android:background="@drawable/accept_and_continue_background"
             >
-
-            <RelativeLayout
-                    android:id="@+id/totalSection"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:background="@drawable/total_background_bar"
-                    android:paddingRight="10dp"
-                    android:layout_alignParentBottom="true"
-                    >
-
+              
             <TextView
-                    android:id="@+id/lblTotal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/lblSubtotal"
-                    android:paddingTop="5dp"
-                    android:textSize="16sp"
-                    android:textColor="#000000"
-                    android:text="Total: R70.00"
-                    />
-
-                <Button
-                        android:id="@+id/place_order_button"
-                        android:layout_below="@+id/lblTotal"
-                        android:layout_width="214.5dp"
-                        android:layout_height="30dp"
-                        android:scaleType="fitXY"
-                        android:background="@drawable/green_button_background"
-                        android:layout_centerHorizontal="true"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:onClick="placeOrderClicked"
-                        android:text="Place Order"
-                        android:layout_marginTop="10dp"
-                        android:textSize="16sp"
-                        android:textColor="#FFFFFF"
-                        />
-            </RelativeLayout>
+                android:id="@+id/priceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="Price: R10.00"
+                android:textSize="18sp"
+                android:textColor="#FFFFFF"  
+                android:layout_alignParentLeft="true"    
+                android:gravity="center_vertical"
+			/>
+            
+            <TextView
+                android:id="@+id/acceptLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="Accept and Continue"
+                android:textSize="18sp"
+                android:textColor="#FFFFFF"  
+                android:layout_alignParentRight="true"    
+                android:textStyle="bold"    
+                android:gravity="center_vertical"
+            />
+          
 
         </RelativeLayout> <!-- bottom section -->
 
