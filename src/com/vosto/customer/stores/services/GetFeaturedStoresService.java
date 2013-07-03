@@ -12,7 +12,7 @@ import static com.vosto.customer.utils.CommonUtilities.SERVER_URL;
 public class GetFeaturedStoresService extends RestService {
 
     public GetFeaturedStoresService(OnRestReturn listener, VostoBaseActivity context){
-        super(SERVER_URL + "/stores/page/1", RequestMethod.GET, ResultType.GET_FEATURED_STORES, listener, context);
+        super(SERVER_URL + "/stores/featured", RequestMethod.GET, ResultType.GET_FEATURED_STORES, listener, context);
         Log.d("STORE", "Calling Featured stores");
     }
 
