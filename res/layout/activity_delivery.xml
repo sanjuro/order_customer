@@ -345,6 +345,7 @@
                android:layout_height="wrap_content"
                android:textSize="14sp"
                android:hint="address line 1"
+               android:inputType="textCapWords"
                android:layout_marginBottom="5dp"
            />
            
@@ -354,6 +355,7 @@
                android:layout_height="wrap_content"
                android:textSize="14sp"
                android:hint="address line 2"
+               android:inputType="textCapWords"
                android:layout_marginBottom="5dp"
            />
             
@@ -372,6 +374,7 @@
                android:layout_height="wrap_content"
                android:textSize="14sp"
                android:hint="city"
+               android:inputType="textCapWords"
                android:layout_marginBottom="5dp"
            />
              
@@ -472,6 +475,8 @@
                 android:textColor="#FFFFFF"  
                 android:layout_alignParentRight="true"    
                 android:textStyle="bold"    
+                android:onClick="acceptClicked"
+                android:clickable="true"
                 android:gravity="center_vertical"
             />
           

@@ -1,6 +1,7 @@
 package com.vosto.customer.orders.vos;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +20,7 @@ public class AddressVo implements Serializable {
 	private Float longitude;
 	
 	public AddressVo(){
+		this.country = "South Africa";
 	}
 
 	public String getAddress1() {
@@ -69,7 +71,7 @@ public class AddressVo implements Serializable {
 		this.country = country;
 	}
 
-	public float getLatitude() {
+	public Float getLatitude() {
 		return latitude;
 	}
 
@@ -83,6 +85,46 @@ public class AddressVo implements Serializable {
 
 	public void setLongitude(Float longitude) {
 		this.longitude = longitude;
+	}
+	
+	public boolean equals(AddressVo otherAddress){
+		if(otherAddress == null){
+			return false;
+		}
+		
+		if(!this.getAddress1().toLowerCase(Locale.getDefault()).trim().equals(otherAddress.getAddress1().toLowerCase(Locale.getDefault()).trim())){
+			return false;
+		}
+		
+		if(!this.getAddress2().toLowerCase(Locale.getDefault()).trim().equals(otherAddress.getAddress2().toLowerCase(Locale.getDefault()).trim())){
+			return false;
+		}
+		
+		if(this.getSuburb_id().intValue() != otherAddress.getSuburb_id().intValue()){
+			return false;
+		}
+		
+		if(!this.getCity().toLowerCase(Locale.getDefault()).trim().equals(otherAddress.getCity().toLowerCase(Locale.getDefault()).trim())){
+			return false;
+		}
+		
+		if(!this.getZipcode().toLowerCase(Locale.getDefault()).trim().equals(otherAddress.getZipcode().toLowerCase(Locale.getDefault()).trim())){
+			return false;
+		}
+		
+		if(!this.getCountry().toLowerCase(Locale.getDefault()).trim().equals(otherAddress.getCountry().toLowerCase(Locale.getDefault()).trim())){
+			return false;
+		}
+		
+		if(this.getLatitude() != otherAddress.getLatitude()){
+			return false;
+		}
+		
+		if(this.getLongitude() != otherAddress.getLongitude()){
+			return false;
+		}
+		
+		return true;
 	}
 	
 	public String toJson(){

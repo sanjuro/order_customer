@@ -2,6 +2,7 @@ package com.vosto.customer.orders.services;
 
 import static com.vosto.customer.utils.CommonUtilities.SERVER_URL;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,8 +33,10 @@ public class GetDeliveryPriceService extends RestService {
 		try{
 			JSONObject root = new JSONObject();
 			root.put("store_id", this.storeId);
-			root.put("address", this.address.toJson());
-			Log.d("PRICE", "Get Price JSON: " + root.toString());
+			
+			JSONArray addressArray = new JSONArray();
+			addressArray.put(new JSONObject(this.address.toJson()));
+			root.put("address", addressArray);
 			return root.toString();
 		}catch(JSONException e){
 			e.printStackTrace();

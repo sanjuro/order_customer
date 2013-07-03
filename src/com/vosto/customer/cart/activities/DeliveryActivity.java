@@ -48,6 +48,7 @@ public class DeliveryActivity extends VostoBaseActivity implements OnRestReturn,
     private StoreVo store;
     private SlideHolder mSlideHolder;
     private boolean mustDeliver; // Indicates whether the user has chosen delivery.
+    private AddressVo currentAddress; // The last address fetched from the text fields. Used to check if the address has changed before the order is placed.
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -81,6 +82,10 @@ public class DeliveryActivity extends VostoBaseActivity implements OnRestReturn,
             store_details_block.setVisibility(View.GONE);
             txtStoreAddress.setVisibility(View.GONE);
         }
+        
+        // Default to collect in-store.
+        LinearLayout collectButton = (LinearLayout)findViewById(R.id.collectButton); 
+        this.collectButtonClicked(collectButton);
         
         // Fetch the suburbs:
         GetSuburbsService suburbsService = new GetSuburbsService(this, this, this.store.getId());
@@ -146,43 +151,41 @@ public class DeliveryActivity extends VostoBaseActivity implements OnRestReturn,
 	}
 	
 	public void sendOrder(){
-		Cart cart = getCart();
-		if(cart.getNumberOfItems() == 0){
+		// Check the address one last time just to be sure:
+		AddressVo address = this.getAddressVo();
+		if(this.mustDeliver && !address.equals(this.currentAddress)){
+			this.showAlertDialog("Address changed", "Please press 'Get price' again before placing your order.");
 			return;
 		}
+		if(this.mustDeliver && !this.validateAddress(address)){
+			return;
+		}
+		
+		
+		Cart cart = getCart();
+		if(cart.getNumberOfItems() == 0){
+			this.showAlertDialog("Cart empty", "Please add some items to your cart first.");
+			return;
+		}
+		
+		if(this.mustDeliver){
+			//Address is valid, attach it to the cart:
+			cart.setDeliveryAddress(this.currentAddress);
+		}else{
+			cart.setDeliveryAddress(null);
+		}
+		
 		PlaceOrderService service = new PlaceOrderService(this, this);
 		service.setCart(cart);
 		service.execute();
 	}
 	
-	public void placeOrderClicked(View v){
-		if(!isUserSignedIn()){
-			Intent intent = new Intent(this, SignInActivity.class);
-			startActivity(intent);
-			finish();
-			return;
-		}
-		
-		if(!GCMUtils.checkGCMAndAlert(this, true)){
-			return;
-		}
-		
-		Cart cart = getCart();
-		if(cart.getNumberOfItems() > 0){
-			promptForPin();
-		}else{
-			this.showAlertDialog("Cart Empty", "Please add some items to your cart.");
-		}
-	}
-	
 	public void getPriceClicked(View v){
-		// Build an AddressVo object from the form fields:
-		// TODO: Add some address validation here.
-		
 		AddressVo address = this.getAddressVo();
 		if(!this.validateAddress(address)){
 			return;
 		}
+		this.currentAddress = address;
 		
 		// Address seems valid, let's query the delivery price:
 		GetDeliveryPriceService getPriceService = new GetDeliveryPriceService(this, this, this.store.getId(), address);
@@ -220,6 +223,8 @@ public class DeliveryActivity extends VostoBaseActivity implements OnRestReturn,
 		if(cboAddressSuburb.getSelectedItem() != null){
 			address.setSuburb_id(((SuburbVo)cboAddressSuburb.getSelectedItem()).getId());
 		}
+		
+		address.setCountry("South Africa");
 		
 		return address;
 	}
@@ -331,6 +336,12 @@ public class DeliveryActivity extends VostoBaseActivity implements OnRestReturn,
 		storeCollectionAddress.setText(this.store.getAddress());
 		
 		this.mustDeliver = false;
+		
+		LinearLayout collectButton = (LinearLayout)findViewById(R.id.collectButton); 
+		LinearLayout deliveryButton = (LinearLayout)findViewById(R.id.deliveryButton); 
+		
+		collectButton.setBackgroundResource(R.drawable.collect_button_with_text_highlighted);
+		deliveryButton.setBackgroundResource(R.drawable.delivery_button_with_text);
 	}
 	
 	/**
@@ -346,6 +357,47 @@ public class DeliveryActivity extends VostoBaseActivity implements OnRestReturn,
 		addressForm.setVisibility(View.VISIBLE);
 		
 		this.mustDeliver = true;
+		
+		LinearLayout collectButton = (LinearLayout)findViewById(R.id.collectButton); 
+		LinearLayout deliveryButton = (LinearLayout)findViewById(R.id.deliveryButton); 
+		
+		collectButton.setBackgroundResource(R.drawable.collect_button_with_text);
+		deliveryButton.setBackgroundResource(R.drawable.delivery_button_with_text_highlighted);
+	}
+	
+	public void acceptClicked(View v){
+		if(!isUserSignedIn()){
+			Intent intent = new Intent(this, SignInActivity.class);
+			startActivity(intent);
+			finish();
+			return;
+		}
+		
+		if(!GCMUtils.checkGCMAndAlert(this, true)){
+			return;
+		}
+		
+	
+		if(this.mustDeliver){
+			AddressVo address = this.getAddressVo();
+			if(!this.validateAddress(address)){
+				return;
+			}
+		
+			if(!address.equals(this.currentAddress)){
+				// Address has changed since we last checked the price. Ask the user to check price again.
+				this.showAlertDialog("Address changed", "Please press 'Get price' again before ordering.");
+				return;
+			}
+			this.currentAddress = address;
+		}
+		
+		Cart cart = getCart();
+		if(cart.getNumberOfItems() > 0){
+			promptForPin();
+		}else{
+			this.showAlertDialog("Cart Empty", "Please add some items to your cart.");
+		}
 	}
 
 	@Override
