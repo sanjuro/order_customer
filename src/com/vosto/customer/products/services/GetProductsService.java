@@ -81,7 +81,7 @@ public class GetProductsService extends RestService {
 				variant.setPrice(variantObj.getDouble("price"));
 				variant.setMaster(variantObj.getBoolean("is_master"));
 				variant.setSku(variantObj.getString("sku"));
-				variant.setPosition(variantObj.getInt("position"));
+				variant.setPosition(!variantObj.isNull("position") ? variantObj.getInt("position") : 1);
 				variant.setProduct_id(variantObj.getInt("product_id"));
 				
 				
