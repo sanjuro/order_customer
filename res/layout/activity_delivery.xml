@@ -326,7 +326,7 @@
               android:background="@drawable/delivery_button_with_text"
           >  
           </LinearLayout>
-
+          
        </LinearLayout> <!-- deliveryButtons -->
        
        <LinearLayout
@@ -338,6 +338,14 @@
        		android:layout_marginLeft="10dp"
        		android:layout_marginRight="10dp"
        >
+          
+           <Button 
+            	android:id="@+id/getAddressButton"
+            	android:layout_width="150dp"
+            	android:layout_height="wrap_content"
+            	android:text="Get from location"
+            	android:onClick="getAddressClicked"
+            />
           
            <EditText 
                android:id="@+id/txtAddressLine1"

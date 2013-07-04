@@ -5,6 +5,10 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -28,6 +32,8 @@ import com.vosto.customer.accounts.services.AuthenticationService;
 import com.vosto.customer.cart.SuburbListAdapter;
 import com.vosto.customer.cart.vos.Cart;
 import com.vosto.customer.orders.activities.OrderConfirmationActivity;
+import com.vosto.customer.orders.services.GetAddressResult;
+import com.vosto.customer.orders.services.GetAddressService;
 import com.vosto.customer.orders.services.GetDeliveryPriceResult;
 import com.vosto.customer.orders.services.GetDeliveryPriceService;
 import com.vosto.customer.orders.services.PlaceOrderResult;
@@ -43,7 +49,7 @@ import com.vosto.customer.utils.GCMUtils;
 import com.vosto.customer.utils.MoneyUtils;
 
 
-public class DeliveryActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnDismissListener {
+public class DeliveryActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnDismissListener, LocationListener {
 	
     private StoreVo store;
     private SlideHolder mSlideHolder;
@@ -90,6 +96,15 @@ public class DeliveryActivity extends VostoBaseActivity implements OnRestReturn,
         // Fetch the suburbs:
         GetSuburbsService suburbsService = new GetSuburbsService(this, this, this.store.getId());
         suburbsService.execute();
+        
+        //Start listening for gps updates:
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(
+				LocationManager.GPS_PROVIDER,
+				1000 * 5, // min 5 seconds between location updates (can't be too frequent...battery life)
+				10, // will only update for every 20 meters the device moves
+				this);
+        Log.d("GPS", "Listening for GPS updates...");
         
 	}
 	
@@ -274,6 +289,8 @@ public class DeliveryActivity extends VostoBaseActivity implements OnRestReturn,
 			this.processGetSuburbsResult((GetSuburbsResult)result);
 		}else if(result instanceof GetDeliveryPriceResult){
 			this.processDeliveryPriceResult((GetDeliveryPriceResult)result);
+		}else if(result instanceof GetAddressResult){
+			this.processGetAddressResult((GetAddressResult)result);
 		}
 	}
 	
@@ -365,6 +382,39 @@ public class DeliveryActivity extends VostoBaseActivity implements OnRestReturn,
 		deliveryButton.setBackgroundResource(R.drawable.delivery_button_with_text_highlighted);
 	}
 	
+	
+	public void getAddressClicked(View v){
+		this.populateAddressFromLocation();
+	}
+	
+	/**
+	 * Gets the current location from the GPS and make a service call to fetch the address.
+	 */
+	private void populateAddressFromLocation(){
+		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+		if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+			this.showAlertDialog("Enable GPS", "Please turn on your GPS.");
+			return;
+		}
+		
+		Criteria criteria = new Criteria();
+		criteria.setAccuracy(Criteria.ACCURACY_FINE);
+		String bestProvider = locationManager.getBestProvider(criteria, true);
+		Location location = locationManager.getLastKnownLocation(bestProvider);
+		
+		if(location == null){
+			this.showAlertDialog("Location problem", "Could not determine your current location. Please wait a moment and try again.");
+			return;
+		}
+		
+		GetAddressService service = new GetAddressService(this, this, location.getLatitude(), location.getLongitude());
+		service.execute();
+	}
+	
+	private void processGetAddressResult(GetAddressResult result){
+		
+	}
+	
 	public void acceptClicked(View v){
 		if(!isUserSignedIn()){
 			Intent intent = new Intent(this, SignInActivity.class);
@@ -402,5 +452,37 @@ public class DeliveryActivity extends VostoBaseActivity implements OnRestReturn,
 
 	@Override
 	public void onDismiss(DialogInterface dialog) {
+	}
+
+
+
+	@Override
+	public void onLocationChanged(Location location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+		
 	} 
 }
