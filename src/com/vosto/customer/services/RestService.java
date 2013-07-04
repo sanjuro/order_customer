@@ -32,6 +32,7 @@ import com.vosto.customer.accounts.services.CreateAccountResult;
 import com.vosto.customer.accounts.services.RegisterDeviceResult;
 import com.vosto.customer.accounts.services.ResetPasswordResult;
 import com.vosto.customer.favourites.services.GetStoreFavouriteResult;
+import com.vosto.customer.orders.services.GetAddressResult;
 import com.vosto.customer.orders.services.GetDeliveryPriceResult;
 import com.vosto.customer.orders.services.GetOrderByIdResult;
 import com.vosto.customer.orders.services.GetPreviousOrdersResult;
@@ -278,6 +279,9 @@ public class RestService extends AsyncTask <Void, Void, RestResult> {
         }
         if(this.resultType == ResultType.GET_DELIVERY_PRICE){
         	result = new GetDeliveryPriceResult(200, responseJson);
+        }
+        if(this.resultType == ResultType.GET_ADDRESS){
+        	result = new GetAddressResult(200, responseJson);
         }
 
     //    if(this.resultType == ResultType.GET_FAVOURITE_PRODUCTS){
