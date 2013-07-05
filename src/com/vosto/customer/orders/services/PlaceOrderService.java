@@ -13,6 +13,7 @@ import com.vosto.customer.VostoBaseActivity;
 import com.vosto.customer.cart.vos.Cart;
 import com.vosto.customer.cart.vos.CartItem;
 import com.vosto.customer.cart.vos.LineItemVo;
+import com.vosto.customer.orders.vos.AddressVo;
 import com.vosto.customer.orders.vos.OrderVo;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RequestMethod;
@@ -62,6 +63,24 @@ public class PlaceOrderService extends RestService {
 			order.put("device_type", "android");
 			order.put("device_identifier", Secure.getString(context.getContentResolver(),
                     Secure.ANDROID_ID));
+			
+			//Shipping address:
+			order.put("is_delivery", this.cart.getDeliveryAddress() != null ? 1 : 0);
+			if(this.cart.getDeliveryAddress() != null){
+				JSONObject shipAddressObj = new JSONObject();
+				AddressVo address = this.cart.getDeliveryAddress();
+				shipAddressObj.put("address1", address.getAddress1());
+				shipAddressObj.put("address2", address.getAddress2());
+				shipAddressObj.put("suburb_id", address.getSuburb_id());
+				shipAddressObj.put("city", address.getCity());
+				shipAddressObj.put("zipcode", address.getZipcode());
+				shipAddressObj.put("country", address.getCountry());
+				shipAddressObj.put("latitude", address.getLatitude());
+				shipAddressObj.put("longitude", address.getLongitude());
+				order.put("ship_address", shipAddressObj);
+			}
+			
+			
 			JSONArray lineItemsArr = new JSONArray();
 			ArrayList<CartItem> items = this.cart.getItems();
 			for(int i = 0; i<items.size(); i++){

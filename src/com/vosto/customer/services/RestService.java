@@ -32,6 +32,8 @@ import com.vosto.customer.accounts.services.CreateAccountResult;
 import com.vosto.customer.accounts.services.RegisterDeviceResult;
 import com.vosto.customer.accounts.services.ResetPasswordResult;
 import com.vosto.customer.favourites.services.GetStoreFavouriteResult;
+import com.vosto.customer.orders.services.GetAddressResult;
+import com.vosto.customer.orders.services.GetDeliveryPriceResult;
 import com.vosto.customer.orders.services.GetOrderByIdResult;
 import com.vosto.customer.orders.services.GetPreviousOrdersResult;
 import com.vosto.customer.orders.services.PlaceOrderResult;
@@ -39,6 +41,7 @@ import com.vosto.customer.products.services.GetProductsResult;
 import com.vosto.customer.products.services.GetTaxonsResult;
 import com.vosto.customer.stores.services.GetFeaturedStoresResult;
 import com.vosto.customer.stores.services.GetStoresResult;
+import com.vosto.customer.stores.services.GetSuburbsResult;
 import com.vosto.customer.stores.services.GetTagsResult;
 import com.vosto.customer.stores.services.SearchResult;
 import com.vosto.customer.utils.NetworkUtils;
@@ -270,6 +273,15 @@ public class RestService extends AsyncTask <Void, Void, RestResult> {
         }
         if(this.resultType == ResultType.GET_FEATURED_STORES){
             result = new GetFeaturedStoresResult(200, responseJson);
+        }
+        if(this.resultType == ResultType.GET_SUBURBS){
+        	result = new GetSuburbsResult(200, responseJson);
+        }
+        if(this.resultType == ResultType.GET_DELIVERY_PRICE){
+        	result = new GetDeliveryPriceResult(200, responseJson);
+        }
+        if(this.resultType == ResultType.GET_ADDRESS){
+        	result = new GetAddressResult(200, responseJson);
         }
 
     //    if(this.resultType == ResultType.GET_FAVOURITE_PRODUCTS){

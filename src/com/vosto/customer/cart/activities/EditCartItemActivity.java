@@ -11,7 +11,6 @@ import org.joda.money.Money;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,9 +67,6 @@ public class EditCartItemActivity extends VostoBaseActivity implements OnRestRet
             //User logged in:
             TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
             nameOfUser.setText(settings.getString("userName", "user"));
-
-        }else{
-            //User not logged in:
         }
 		
 		TextView lblSpecialInstructions = (TextView)findViewById(R.id.lblSpecialInstructions);
@@ -144,12 +140,10 @@ public class EditCartItemActivity extends VostoBaseActivity implements OnRestRet
 	public void updateDisplay(int quantity, VariantVo variant){
 		this.quantity = quantity;
         this.chosenVariant = new VariantVo(variant);
-        Log.d("VAR", "Variant changed!");
         TextView lblQuantity = (TextView)findViewById(R.id.lblQuantity);
         lblQuantity.setText(Integer.toString(quantity));
 
         Money unitPrice = this.chosenVariant != null ? this.chosenVariant.getPrice() : this.product.getPrice();
-        Log.d("UNI", "Unit price from variant " + this.chosenVariant.getId() + ": " + MoneyUtils.getRandString(this.chosenVariant.getPrice()));
         TextView lblProductPrice = (TextView)findViewById(R.id.product_price);
         lblProductPrice.setText(MoneyUtils.getRandString(unitPrice));
 
@@ -167,15 +161,12 @@ public class EditCartItemActivity extends VostoBaseActivity implements OnRestRet
 	}
 	
 	public void drawVariants(){
-		 Log.d("VAR", "Drawing variants...");
-	        Log.d("VAR", "Values start drawVariants: " + this.product.getPossibleOptionValues("pasta type"));
 	    	//Outer block in which all the option type rows will appear below each other:
 	        LinearLayout variantsBlock = (LinearLayout)findViewById(R.id.variants_block);
 	        variantsBlock.removeAllViews();
 
 	        LayoutInflater inflater = getLayoutInflater();
 
-	       Log.d("PRV", "Num variants: " + this.product.getVariants().length);
 	        ArrayList<String> optionTypes = this.product.getOptionTypes();
 	        
 	        
@@ -191,22 +182,12 @@ public class EditCartItemActivity extends VostoBaseActivity implements OnRestRet
 	        	
 	        	// Add all the buttons for this option type:
 	        	ArrayList<String> optionValues = this.product.getPossibleOptionValues(optionTypes.get(i));
-	        	 Log.d("OPTS", "Opt values for " + optionTypes.get(i) + ": " + optionValues.size());
+	        	
 	        	for(int j=0; j<optionValues.size(); j++){
 	        		 LinearLayout variantButton = (LinearLayout)inflater.inflate(R.layout.variant_button, (ViewGroup)variantsBlock, false);
 	        		 TextView lblVariantName = (TextView)variantButton.findViewById(R.id.lblVariantName);
 	                 lblVariantName.setText(optionValues.get(j));
-	                
-	                 if(this.chosenVariant == null){
-	                	 Log.d("VAR", "Chosen variant is null");
-	                 }else{
-	                	 Log.d("VAR", "CHosen variant is NOT null.");
-	                 }
-	                 
-	                 
 
-	                 
-	                 
 	        		 if(this.chosenVariant.hasOptionValue(optionTypes.get(i), optionValues.get(j))){
 	                     // Highlight the selected value:
 	                     variantButton.setBackgroundResource(R.drawable.variant_button_background_highlighted);
@@ -220,7 +201,6 @@ public class EditCartItemActivity extends VostoBaseActivity implements OnRestRet
 	        	variantsBlock.addView(optionTypeBlock);
 
 	        }
-	        Log.d("VAR", "Values end drawVariants: " + this.product.getPossibleOptionValues("pasta type"));
 	}
 	
 	public void variantChanged(View v){

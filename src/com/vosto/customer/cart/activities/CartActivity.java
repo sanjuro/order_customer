@@ -194,6 +194,10 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	}
 	
 	public void placeOrderClicked(View v){
+		Intent intent = new Intent(this, DeliveryActivity.class);
+		startActivity(intent);
+		
+		/*
 		if(!isUserSignedIn()){
 			Intent intent = new Intent(this, SignInActivity.class);
 			startActivity(intent);
@@ -211,6 +215,7 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 		}else{
 			this.showAlertDialog("Cart Empty", "Please add some items to your cart.");
 		}
+		*/
 	}
 	
 	public void onResume(){

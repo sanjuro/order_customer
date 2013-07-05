@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.joda.money.Money;
 
+import com.vosto.customer.orders.vos.AddressVo;
 import com.vosto.customer.stores.vos.StoreVo;
 
 /**
@@ -21,6 +22,7 @@ public class Cart {
 	private StoreVo store;
 	
 	private ArrayList<CartItem> items;
+	private AddressVo deliveryAddress; // if null, the customer will collect in-store
 	private Date opened;
 	private Date closed;
 	
@@ -113,6 +115,14 @@ public class Cart {
 		this.closed = closed;
 	}
 	
+	public AddressVo getDeliveryAddress() {
+		return deliveryAddress;
+	}
+
+	public void setDeliveryAddress(AddressVo deliveryAddress) {
+		this.deliveryAddress = deliveryAddress;
+	}
+
 	public void editItem(int itemIndex, CartItem newItem){
 		if(itemIndex < 0 || itemIndex > this.getNumberOfItems()-1){
 			return;

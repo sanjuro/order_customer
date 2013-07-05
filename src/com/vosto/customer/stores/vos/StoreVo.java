@@ -20,6 +20,7 @@ public class StoreVo implements Serializable {
     private String url;
     private String store_image;
     private Boolean is_online;
+    private boolean can_deliver;
     private double distance;
 
     public StoreVo(){
@@ -130,7 +131,15 @@ public class StoreVo implements Serializable {
         this.distance = distance;
     }
 
-    @Override
+    public boolean canDeliver() {
+		return can_deliver;
+	}
+
+	public void setCanDeliver(boolean can_deliver) {
+		this.can_deliver = can_deliver;
+	}
+
+	@Override
     public String toString() {
         return Objects.toStringHelper(this)
                 .add("id", id)
