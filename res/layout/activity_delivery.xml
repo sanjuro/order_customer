@@ -329,12 +329,18 @@
           
        </LinearLayout> <!-- deliveryButtons -->
        
+       <ScrollView
+           android:layout_width="fill_parent"
+           android:layout_height="fill_parent"
+           android:layout_below="@id/deliveryButtons"
+           android:layout_above="@id/bottomSection"
+           android:fillViewport="false" >
+
        <LinearLayout
        		android:id="@+id/addressForm"
        		android:layout_width="fill_parent"
        		android:layout_height="wrap_content"
        		android:orientation="vertical"
-       		android:layout_below="@id/deliveryButtons"
        		android:layout_marginLeft="10dp"
        		android:layout_marginRight="10dp"
        >
@@ -411,6 +417,7 @@
                     />
            
        </LinearLayout> <!-- address form -->
+       </ScrollView>  <!-- address form scroll view -->
        
        <LinearLayout
        		android:id="@+id/collectionDetailsSection"
@@ -467,7 +474,7 @@
                 android:id="@+id/priceLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
-                android:text="Price: R10.00"
+                android:text="Price: ?"
                 android:textSize="18sp"
                 android:textColor="#FFFFFF"  
                 android:layout_alignParentLeft="true"    
