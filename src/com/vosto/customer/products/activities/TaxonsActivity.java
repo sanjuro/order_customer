@@ -70,11 +70,9 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
 
         TextView txtStoreName = (TextView)findViewById(R.id.txtStoreName);
         TextView txtStoreAddress = (TextView)findViewById(R.id.txtStoreAddress);
-        TextView txtStoreTelephone = (TextView)findViewById(R.id.txtStoreTelephone);
 
         txtStoreName.setText(this.store.getName());
         txtStoreAddress.setText(this.store.getAddress());
-        txtStoreTelephone.setText(this.store.getManagerContact());
 
         Log.d("STO", "Loading taxons for store: " + this.store.getId());
         GetTaxonsService service = new GetTaxonsService(this, this, this.store.getId());
