@@ -19,7 +19,7 @@
                 android:textSize="18sp"
                 >
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView 
                       android:id="@+id/nameOfUser"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView 
                       android:id="@+id/navCartButton"
                       android:layout_width="match_parent"
                       android:layout_height="40dp"
@@ -54,7 +54,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView 
                       android:id="@+id/navOrdersButton"
                       android:layout_width="match_parent"
                       android:layout_height="40dp"
@@ -71,7 +71,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView 
                       android:id="@+id/openOrders"
                       android:layout_width="match_parent"
                       android:layout_height="30dp"
@@ -90,7 +90,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView 
                       android:id="@+id/myOrders"
                       android:layout_width="match_parent"
                       android:layout_height="40dp"
@@ -107,7 +107,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView 
                       android:id="@+id/navFavoritesButton"
                       android:layout_width="match_parent"
                       android:layout_height="40dp"
@@ -124,7 +124,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView 
                       android:layout_width="match_parent"
                       android:layout_height="50dp"
                       android:background="@drawable/nav_menu_heading"
@@ -137,7 +137,7 @@
                       android:textColor="@android:color/white"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView 
                       android:id="@+id/navAccountSettingsButton"
                       android:layout_width="match_parent"
                       android:layout_height="30dp"
@@ -156,7 +156,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView 
                       android:id="@+id/navTermsButton"
                       android:layout_width="match_parent"
                       android:layout_height="30dp"
@@ -174,7 +174,7 @@
                       android:onClick="termsPressed"
                       android:clickable="true"
                     />
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView 
                       android:id="@+id/navLogoutButton"
                       android:layout_width="match_parent"
                       android:layout_height="30dp"
@@ -197,7 +197,7 @@
 
     </ScrollView>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout 
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:background="#ede9e1"
@@ -281,6 +281,16 @@
                 </LinearLayout>
 
             </RelativeLayout>
+            
+               <TextView 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="My Favourite Stores:"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:paddingTop="15dp"
+                />
 
             <ListView
                     android:id="@+id/lstStores"

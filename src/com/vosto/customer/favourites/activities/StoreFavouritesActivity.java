@@ -102,10 +102,10 @@ public class StoreFavouritesActivity extends VostoBaseActivity implements OnRest
     public void productFavouritesClicked(View v) {
         Intent intent = new Intent(this, ProductFavouritesActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void storeFavouritesClicked(View v) {
-        Intent intent = new Intent(this, StoreFavouritesActivity.class);
-        startActivity(intent);
+    	// Already on the store favorites activity. Don't need to do anything.
     }
 }

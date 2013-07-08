@@ -129,13 +129,13 @@ public class ProductFavouritesActivity extends VostoBaseActivity implements OnRe
     }
 
     public void productFavouritesClicked(View v) {
-        Intent intent = new Intent(this, ProductFavouritesActivity.class);
-        startActivity(intent);
+    	// We are already on the favourite products activity. Don't need to do anything.
     }
 
     public void storeFavouritesClicked(View v) {
         Intent intent = new Intent(this, StoreFavouritesActivity.class);
         startActivity(intent);
+        finish();
     }
 
 }
