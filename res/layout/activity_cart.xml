@@ -18,7 +18,7 @@
                 android:textSize="18sp"
                 >
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView
                       android:id="@+id/nameOfUser"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView
                       android:id="@+id/navCartButton"
                       android:layout_width="match_parent"
                       android:layout_height="40dp"
@@ -53,7 +53,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView
                       android:id="@+id/navOrdersButton"
                       android:layout_width="match_parent"
                       android:layout_height="40dp"
@@ -70,7 +70,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView
                       android:id="@+id/openOrders"
                       android:layout_width="match_parent"
                       android:layout_height="30dp"
@@ -89,7 +89,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView
                       android:id="@+id/myOrders"
                       android:layout_width="match_parent"
                       android:layout_height="40dp"
@@ -106,7 +106,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView
                       android:id="@+id/navFavoritesButton"
                       android:layout_width="match_parent"
                       android:layout_height="40dp"
@@ -123,7 +123,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView
                       android:layout_width="match_parent"
                       android:layout_height="50dp"
                       android:background="@drawable/nav_menu_heading"
@@ -136,7 +136,7 @@
                       android:textColor="@android:color/white"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView
                       android:id="@+id/navAccountSettingsButton"
                       android:layout_width="match_parent"
                       android:layout_height="30dp"
@@ -155,7 +155,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView
                       android:id="@+id/navTermsButton"
                       android:layout_width="match_parent"
                       android:layout_height="30dp"
@@ -173,7 +173,7 @@
                       android:onClick="termsPressed"
                       android:clickable="true"
                     />
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView
                       android:id="@+id/navLogoutButton"
                       android:layout_width="match_parent"
                       android:layout_height="30dp"
@@ -194,7 +194,7 @@
         </LinearLayout>
 
 
-    </ScrollView>
+    </ScrollView> <!-- side navigation -->
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -230,12 +230,12 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textColor="#FFFFFF"
-                android:text="Your Cart"
+                android:text="Cart"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
            />
 
-       </RelativeLayout>
+       </RelativeLayout> <!-- top bar -->
 
        <LinearLayout
                 android:id="@+id/store_details_block"
@@ -307,13 +307,14 @@
                         />
             </LinearLayout>
 
-        </LinearLayout>
+        </LinearLayout> <!-- store details block -->
 
        <LinearLayout
             android:id="@+id/itemsSection"
             android:layout_width="fill_parent"
-            android:layout_height="280dp"
+            android:layout_height="fill_parent"
             android:layout_below="@id/store_details_block"
+            android:layout_above="@+id/bottomSection"
             android:orientation="vertical"
             >
 
@@ -325,55 +326,89 @@
                     android:dividerHeight="1sp"
                     />
 
-       </LinearLayout>
+       </LinearLayout> <!-- itemsSection -->
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/bottomSection"
             android:layout_width="fill_parent"
-            android:layout_height="85dp"
+            android:layout_height="165dp"
             android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:layout_alignParentBottom="true"
+            android:orientation="vertical"
             >
+            
+            <LinearLayout
+                android:id="@+id/deliveryButtons"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+            >
+                
+                <Button 
+                 	android:id="@+id/collectButton"
+                 	android:background="@drawable/green_button_background"
+                 	android:layout_width="0dp"
+                	android:layout_weight="1"
+                	android:layout_marginRight="5dp"
+                	android:layout_height="fill_parent"
+                 	android:text="Collect from store"
+                 	android:textSize="16sp"
+                 	android:gravity="center_vertical|center_horizontal"
+                 	android:textColor="#FFFFFF"   
+                 />
+                
+                  <Button 
+                 	android:id="@+id/deliverButton"
+                 	android:background="@drawable/green_button_background"
+                 	android:layout_weight="1"
+                 	android:layout_width="0dp"
+                	android:layout_height="fill_parent"
+                 	android:text="Deliver"
+                 	android:textSize="16sp"
+                 	android:gravity="center_vertical|center_horizontal"
+                 	android:textColor="#FFFFFF"   
+                 />
+                
+             </LinearLayout> <!-- deliveryButtons -->
 
             <RelativeLayout
                     android:id="@+id/totalSection"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="35dp"
                     android:background="@drawable/total_background_bar"
                     android:paddingRight="10dp"
-                    android:layout_alignParentBottom="true"
                     >
 
             <TextView
                     android:id="@+id/lblTotal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="fill_parent"
                     android:layout_alignParentRight="true"
-                    android:layout_below="@+id/lblSubtotal"
+                    android:gravity="center_vertical"
                     android:paddingTop="5dp"
                     android:textSize="16sp"
                     android:textColor="#000000"
                     android:text="Total: R70.00"
                     />
 
-                <Button
+               
+            </RelativeLayout> <!-- totalSection -->
+            
+             <Button
                         android:id="@+id/place_order_button"
-                        android:layout_below="@+id/lblTotal"
-                        android:layout_width="214.5dp"
-                        android:layout_height="30dp"
-                        android:scaleType="fitXY"
+                        android:layout_width="fill_parent"
+                        android:layout_height="55dp"
                         android:background="@drawable/green_button_background"
-                        android:layout_centerHorizontal="true"
-                        android:layout_gravity="center_horizontal|center_vertical"
                         android:onClick="placeOrderClicked"
                         android:text="Place Order"
                         android:layout_marginTop="10dp"
                         android:textSize="16sp"
                         android:textColor="#FFFFFF"
                         />
-            </RelativeLayout>
 
-        </RelativeLayout> <!-- bottom section -->
+        </LinearLayout> <!-- bottom section -->
 
     </RelativeLayout>
 
