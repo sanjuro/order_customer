@@ -13,6 +13,7 @@ public class AddressVo implements Serializable {
 	private String address1;
     private String address2;
 	private Integer suburb_id;
+	private String suburb;
 	private String city;
 	private String zipcode;
 	private String country;
@@ -45,6 +46,15 @@ public class AddressVo implements Serializable {
 
 	public void setSuburb_id(Integer suburb_id) {
 		this.suburb_id = suburb_id;
+	}
+	
+
+	public String getSuburb() {
+		return suburb;
+	}
+
+	public void setSuburb(String suburb) {
+		this.suburb = suburb;
 	}
 
 	public String getCity() {
@@ -85,6 +95,10 @@ public class AddressVo implements Serializable {
 
 	public void setLongitude(Float longitude) {
 		this.longitude = longitude;
+	}
+	
+	public boolean isEmpty(){
+		return this.getAddress1() == null || this.getAddress1().trim().equals("");
 	}
 	
 	public boolean equals(AddressVo otherAddress){
@@ -143,6 +157,28 @@ public class AddressVo implements Serializable {
 			e.printStackTrace();
 			return "";
 		}
+	}
+	
+	public String toString(){
+		String address = getAddress1();
+		if(getAddress2() != null && !getAddress2().trim().equals("")){
+			address += ", " + getAddress2();
+		}
+		
+		if(getSuburb() != null && !getSuburb().trim().equals("")){
+			address += ", " + getSuburb();
+		}
+		
+		if(getCity() != null && !getCity().trim().equals("")){
+			address += ", " + getCity();
+		}
+		
+		if(getZipcode() != null && !getZipcode().trim().equals("")){
+			address += ", " + getZipcode();
+		}
+		
+		return address;
+		
 	}
 	
 }

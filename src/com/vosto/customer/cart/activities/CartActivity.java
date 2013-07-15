@@ -10,12 +10,15 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,12 +34,18 @@ import com.vosto.customer.cart.vos.Cart;
 import com.vosto.customer.cart.vos.CartItem;
 import com.vosto.customer.orders.activities.MyOrdersActivity;
 import com.vosto.customer.orders.activities.OrderConfirmationActivity;
+import com.vosto.customer.orders.services.GetDeliveryPriceResult;
+import com.vosto.customer.orders.services.GetDeliveryPriceService;
 import com.vosto.customer.orders.services.PlaceOrderResult;
 import com.vosto.customer.orders.services.PlaceOrderService;
+import com.vosto.customer.orders.vos.AddressVo;
 import com.vosto.customer.products.activities.TaxonsActivity;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
+import com.vosto.customer.stores.services.GetSuburbsResult;
+import com.vosto.customer.stores.services.GetSuburbsService;
 import com.vosto.customer.stores.vos.StoreVo;
+import com.vosto.customer.stores.vos.SuburbVo;
 import com.vosto.customer.utils.GCMUtils;
 import com.vosto.customer.utils.MoneyUtils;
 import com.vosto.customer.utils.NetworkUtils;
@@ -47,6 +56,9 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	private ListView list;
     private StoreVo store;
     private SlideHolder mSlideHolder;
+    private AddressDialog addressDialog;
+    private SuburbVo[] suburbs;
+    private AddressVo deliverToAddress; // Set to null for in-store collection.
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -89,6 +101,10 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
         }else{
             //User not logged in:
         }
+        
+        // Fetch the suburbs:
+        GetSuburbsService suburbsService = new GetSuburbsService(this, this, this.store.getId());
+        suburbsService.execute();
 
 		refreshCart();
 	}
@@ -97,16 +113,7 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 		this.list = (ListView)findViewById(R.id.lstCartItems);
 		list.setOnItemClickListener(this);
 		list.setAdapter(new CartItemAdapter(this, R.layout.cart_item_row, getCart().getItems()));
-		updateTotals();
-	}
-	
-	private void updateTotals(){
-		Cart cart = getCart();
-		TextView lblTotal = (TextView)findViewById(R.id.lblTotal);
-		lblTotal.setText("Total: " + MoneyUtils.getRandString(cart.getTotalPrice()));
-		
-//		TextView lblSubtotal = (TextView)findViewById(R.id.lblSubtotal);
-//		lblSubtotal.setText("Subtotal: " + MoneyUtils.getRandString(cart.getTotalPrice()));
+		updatePriceLabels();
 	}
 	
 	public void removeButtonClicked(View v){
@@ -115,7 +122,7 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 		Log.d("REM", "Calling removeitem");
 		cart.removeItem(item);
 		this.list.setAdapter(new CartItemAdapter(this, R.layout.cart_item_row, cart.getItems()));
-		updateTotals();
+		updatePriceLabels();
 		if(cart.getNumberOfItems() == 0){
 			getContext().closeCart();
 			finish();
@@ -186,37 +193,42 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	public void sendOrder(){
 		Cart cart = getCart();
 		if(cart.getNumberOfItems() == 0){
+			this.showAlertDialog("Cart empty", "Please add some items to your cart first.");
 			return;
 		}
+		
+		
+		cart.setDeliveryAddress(this.deliverToAddress);
 		PlaceOrderService service = new PlaceOrderService(this, this);
 		service.setCart(cart);
 		service.execute();
 	}
 	
 	public void placeOrderClicked(View v){
-		Intent intent = new Intent(this, DeliveryActivity.class);
-		startActivity(intent);
+			if(!isUserSignedIn()){
+				Intent intent = new Intent(this, SignInActivity.class);
+				startActivity(intent);
+				finish();
+				return;
+			}
+			
+			if(!GCMUtils.checkGCMAndAlert(this, true)){
+				return;
+			}
+			
 		
-		/*
-		if(!isUserSignedIn()){
-			Intent intent = new Intent(this, SignInActivity.class);
-			startActivity(intent);
-			finish();
-			return;
+			if(this.deliverToAddress != null && !this.validateAddress(this.deliverToAddress)){
+				return;
+			}
+			
+			Cart cart = getCart();
+			if(cart.getNumberOfItems() > 0){
+				promptForPin();
+			}else{
+				this.showAlertDialog("Cart Empty", "Please add some items to your cart.");
+			}
 		}
-		
-		if(!GCMUtils.checkGCMAndAlert(this, true)){
-			return;
-		}
-		
-		Cart cart = getCart();
-		if(cart.getNumberOfItems() > 0){
-			promptForPin();
-		}else{
-			this.showAlertDialog("Cart Empty", "Please add some items to your cart.");
-		}
-		*/
-	}
+	
 	
 	public void onResume(){
 		super.onResume();
@@ -256,9 +268,147 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 			}else{
 				this.showAlertDialog("Invalid PIN", "Please check your PIN and try again.");
 			}
+		}else if(result instanceof GetSuburbsResult){
+			this.suburbs = ((GetSuburbsResult) result).getSuburbs();
+		}else if(result instanceof GetDeliveryPriceResult){
+			processDeliveryPriceResult((GetDeliveryPriceResult)result);
 		}
 	}
+	
+	private void processDeliveryPriceResult(GetDeliveryPriceResult result){
+		TextView deliveryCostLabel = (TextView)findViewById(R.id.deliveryCost);
+		deliveryCostLabel.setText(MoneyUtils.getRandString(result.getDeliveryPrice()));
+		
+		Cart cart = getCart();
+		cart.setDeliveryCost(result.getDeliveryPrice());
+		saveCart(cart);
+		
+		updatePriceLabels();
+	}
+	
+	private void updatePriceLabels(){
+		Cart cart = getCart();
+		TextView subtotalLabel = (TextView)findViewById(R.id.subtotal);
+		subtotalLabel.setText("Subtotal: " + MoneyUtils.getRandString(cart.getSubtotalBeforeDelivery()));
+		
+		TextView deliveryCostLabel = (TextView)findViewById(R.id.deliveryCost);
+		deliveryCostLabel.setText(cart.getDeliveryCost() != null ? MoneyUtils.getRandString(cart.getDeliveryCost()) : "R0.00");
+	
+		TextView grandTotalLabel = (TextView)findViewById(R.id.lblTotal);
+		grandTotalLabel.setText("Total: " + MoneyUtils.getRandString(cart.getTotalPrice()));
+	}
+	
+	
+	
+	private void updateAddressDialogAttributes(){
+		if(this.addressDialog == null){
+			return;
+		}
+		this.addressDialog.setContentView(R.layout.dialog_address);
+		
+		Window window = this.addressDialog.getWindow();
+		WindowManager.LayoutParams wlp = window.getAttributes();
 
+		wlp.gravity = Gravity.BOTTOM;
+		wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+		wlp.width = LayoutParams.MATCH_PARENT;
+		window.setAttributes(wlp);
+		
+		this.addressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+	}
+
+	public void updateAddress(AddressVo address) {
+		if(!address.isEmpty()){
+			if(!this.validateAddress(address)){
+				return;
+			}
+			if(this.addressDialog != null){
+				this.addressDialog.dismiss();
+			}
+			this.hideDeliveryButtons();
+			((TextView)findViewById(R.id.deliveryAddress)).setText(address.toString());
+			this.showDeliveryDetails();
+			this.deliverToAddress = address;
+			
+			// Address seems valid, let's query the delivery price:
+			GetDeliveryPriceService getPriceService = new GetDeliveryPriceService(this, this, this.store.getId(), address);
+			getPriceService.execute();
+			
+		}else{
+			this.deliverToAddress = null;
+			this.hideDeliveryDetails();
+			this.showDeliveryButtons();
+		}
+	}
+	
+	public void deliverButtonClicked(View v){
+		if(this.suburbs == null){
+			return;
+		}
+		this.addressDialog = new AddressDialog(this, this.suburbs);
+		
+		this.updateAddressDialogAttributes();
+		
+		this.addressDialog.show();
+		
+	}
+	
+	public void collectButtonClicked(View v){
+		this.hideDeliveryButtons();
+		((TextView)findViewById(R.id.lblDeliveryMethod)).setText("Collect");
+		((TextView)findViewById(R.id.deliveryAddress)).setText("");
+		this.showDeliveryDetails();
+		this.deliverToAddress = null;
+		Cart cart = getCart();
+		cart.setDeliveryCost(null);
+		saveCart(cart);
+	}
+	
+	public void changeButtonClicked(View v){
+		hideDeliveryDetails();
+		showDeliveryButtons();
+	}
+	
+	private void showDeliveryButtons(){
+		((LinearLayout)findViewById(R.id.deliveryButtons)).setVisibility(View.VISIBLE);
+	}
+	
+	private void hideDeliveryButtons(){
+		((LinearLayout)findViewById(R.id.deliveryButtons)).setVisibility(View.GONE);
+	}
+	
+	private void showDeliveryDetails(){
+		((LinearLayout)findViewById(R.id.deliveryDetails)).setVisibility(View.VISIBLE);
+	}
+	
+	private void hideDeliveryDetails(){
+		((LinearLayout)findViewById(R.id.deliveryDetails)).setVisibility(View.GONE);
+	}
+	
+	/**
+	 * Checks the presence and format of address fields in an AddressVo object, and displays error messages if invalid.
+	 * The validation basically checks if an order could be placed with this address.
+	 * @param address - The address object to check
+	 * @return - boolean indicating whether the address is valid or not
+	 */
+	private boolean validateAddress(AddressVo address){
+		if(address.getAddress1() == null || address.getAddress1().trim().equals("")){
+			this.showAlertDialog("Invalid Address", "Please enter the address line 1");
+			return false;
+		}
+		if(address.getSuburb_id() == null || address.getSuburb_id().intValue() < 1){
+			this.showAlertDialog("Invalid Address", "Please select a suburb");
+			return false;
+		}
+		if(address.getZipcode() == null || address.getZipcode().trim().equals("")){
+			this.showAlertDialog("Invalid Address", "Please enter a postal code");
+			return false;
+		}
+		
+		return true;
+		
+	}
+	
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		 
@@ -283,4 +433,8 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	@Override
 	public void onDismiss(DialogInterface dialog) {
 	} 
+	
+	
+	
+	
 }

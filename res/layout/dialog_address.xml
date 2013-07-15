@@ -1,0 +1,108 @@
+ <LinearLayout
+   		    xmlns:android="http://schemas.android.com/apk/res/android"
+       		android:id="@+id/addressForm"
+       		android:layout_width="fill_parent"
+       		android:layout_height="wrap_content"
+       		android:orientation="vertical"
+       		android:paddingLeft="10dp"
+       		android:paddingRight="10dp"
+       		android:background="#ede9e1"
+       >
+          
+           <Button 
+            	android:id="@+id/getAddressButton"
+            	android:layout_width="150dp"
+            	android:layout_height="wrap_content"
+            	android:text="Get from location"
+            	android:onClick="getAddressClicked"
+            />
+          
+           <EditText 
+               android:id="@+id/txtAddressLine1"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:textSize="14sp"
+               android:hint="address line 1"
+               android:inputType="textCapWords"
+               android:layout_marginBottom="5dp"
+           />
+           
+            <EditText 
+               android:id="@+id/txtAddressLine2"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:textSize="14sp"
+               android:hint="address line 2"
+               android:inputType="textCapWords"
+               android:layout_marginBottom="5dp"
+           />
+            
+             <Spinner 
+               android:id="@+id/cboAddressSuburb"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:textSize="14sp"
+               android:hint="suburb"
+               android:layout_marginBottom="5dp"
+           />
+             
+             <EditText 
+               android:id="@+id/txtAddressCity"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:textSize="14sp"
+               android:hint="city"
+               android:inputType="textCapWords"
+               android:layout_marginBottom="5dp"
+           />
+             
+              <EditText 
+               android:id="@+id/txtAddressPostalCode"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:textSize="14sp"
+               android:hint="postal code"
+               android:layout_marginBottom="5dp"
+               android:inputType="number"
+               android:maxLength="6"
+              />
+              
+               
+               
+               <LinearLayout 
+                   android:layout_width="fill_parent"
+                   android:layout_height="45dp"
+                   android:orientation="horizontal"
+                   android:weightSum="4"
+                   >
+                   
+                   <Button
+                       android:id="@+id/backButton"
+                       android:layout_width="0dp"
+                       android:layout_weight="1"
+                       android:layout_height="fill_parent"
+                       android:background="@drawable/green_button_background"
+                       android:text="Back"
+                       android:gravity="center"
+                       android:textSize="18sp"
+                       android:textColor="#FFFFFF"
+                       android:textStyle="bold"
+                  	   android:layout_marginRight="10dp"
+                       />
+                   
+                      <Button
+                       android:id="@+id/updateButton"
+                       android:layout_width="0dp"
+                       android:layout_weight="3"
+                       android:layout_height="fill_parent"
+                       android:background="@drawable/green_button_background"
+                       android:text="Update"
+                       android:gravity="center"
+                       android:textSize="18sp"
+                       android:textColor="#FFFFFF"
+                       android:textStyle="bold"
+                       />
+                   
+               </LinearLayout>
+           
+       </LinearLayout> <!-- address form -->

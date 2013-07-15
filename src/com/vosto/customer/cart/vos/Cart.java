@@ -25,6 +25,7 @@ public class Cart {
 	private AddressVo deliveryAddress; // if null, the customer will collect in-store
 	private Date opened;
 	private Date closed;
+	private Money deliveryCost;
 	
 	public Cart(){
 		this.opened = new Date();
@@ -60,13 +61,31 @@ public class Cart {
 	}
 	
 	public Money getTotalPrice(){
-		Money total = Money.parse("ZAR 0.00");
-		for(int i = 0; i<this.items.size(); i++){
-			total = total.plus(this.items.get(i).getSubtotal());
+		Money total = this.getSubtotalBeforeDelivery();
+		if(this.deliveryCost != null){
+			total = total.plus(this.deliveryCost);
 		}
 		return total;
 	}
 	
+	public Money getSubtotalBeforeDelivery(){
+		Money subtotal = Money.parse("ZAR 0.00");
+		for(int i = 0; i<this.items.size(); i++){
+			subtotal = subtotal.plus(this.items.get(i).getSubtotal());
+		}
+		return subtotal;
+	}
+	
+	
+	
+	public Money getDeliveryCost() {
+		return deliveryCost;
+	}
+
+	public void setDeliveryCost(Money deliveryCost) {
+		this.deliveryCost = deliveryCost;
+	}
+
 	public Date getTimeOpened(){
 		return this.opened;
 	}
