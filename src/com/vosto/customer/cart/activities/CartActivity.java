@@ -241,7 +241,6 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
 				getContext().closeCart();
 				this.showAlertDialog("Thank you", "Your order has been placed.");
 				saveCurrentOrder(orderResult.getOrder());
-                Log.d("ORD", "Order Number " + orderResult.getOrder().getNumber());
 				Intent intent = new Intent(this, OrderConfirmationActivity.class);
                 intent.putExtra("order", orderResult.getOrder());
                 intent.putExtra("store", this.store);
@@ -306,6 +305,12 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
 			GetDeliveryPriceService getPriceService = new GetDeliveryPriceService(this, this, this.store.getId(), address);
 			getPriceService.execute();
 			
+			// Save this address on the device so we can auto-complete it next time:
+			 SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+			 SharedPreferences.Editor editor = settings.edit();
+		     editor.putString("latestDeliveryAddressJson", address.toJson());
+		     editor.commit();
+			
 		}else{
 			this.deliverToAddress = null;
 			this.hideDeliveryDetails();
@@ -332,6 +337,12 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
 		this.addressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 		
 		this.addressDialog.show();
+		
+		// If we have an address saved on the device, auto-populate the dialog's form:
+		  SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+		 if(settings.contains("latestDeliveryAddressJson") && !settings.getString("latestDeliveryAddressJson", "").equals("")){
+			  this.addressDialog.setAddress(new AddressVo(settings.getString("latestDeliveryAddressJson", "")));
+		  }
 		
 	}
 	

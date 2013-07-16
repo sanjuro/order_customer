@@ -71,6 +71,7 @@ public class GetOrderByIdResult extends RestResult implements IRestResult {
 	        	address.setAddress1(addressObj.getString("address1"));
 	        	address.setAddress2(addressObj.getString("address2"));
 	        	address.setSuburb(addressObj.getString("suburb"));
+	        	address.setSuburb_id(!addressObj.isNull("suburb_id") ? addressObj.getInt("suburb_id") : 1);
 	        	address.setCity(addressObj.getString("city"));
 	        	address.setState(addressObj.getString("state"));
 	        	address.setCountry(addressObj.getString("country"));

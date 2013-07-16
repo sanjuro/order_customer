@@ -6,6 +6,8 @@ import java.util.Locale;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 public class AddressVo implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -25,12 +27,44 @@ public class AddressVo implements Serializable {
 		this.country = "South Africa";
 	}
 	
+	public AddressVo(String addressJson){  
+       try{
+    	   JSONObject jsonObj = new JSONObject(addressJson);
+    	   this.setAddress1(jsonObj.getString("address1"));
+    	   if(!jsonObj.isNull("address2")){
+    		   this.setAddress2(jsonObj.getString("address2"));
+    	   }
+    	   this.setSuburb(jsonObj.getString("suburb"));
+    	   this.setSuburb_id(jsonObj.getInt("suburb_id"));
+    	   
+    	   if(!jsonObj.isNull("city")){
+    		   this.setCity(jsonObj.getString("city"));
+    	   }
+    	   if(!jsonObj.isNull("state")){
+    		   this.setState(jsonObj.getString("state"));
+    	   }
+    	   if(!jsonObj.isNull("country")){
+    		   this.setCountry(jsonObj.getString("country"));
+    	   }
+    	   if(!jsonObj.isNull("zipcode")){
+    		   this.setZipcode(jsonObj.getString("zipcode"));
+    	   }
+    	   Log.d("ADR", "AddressVO constructed from json!");
+       }catch(JSONException e){
+    	   e.printStackTrace();
+       }
+	}
+	
 
 	public String getAddress1() {
 		return address1;
 	}
 
 	public void setAddress1(String address1) {
+		if(address1 != null && address1.equalsIgnoreCase("null")){
+			this.address1 = null;
+			return;
+		}
 		this.address1 = address1;
 	}
 
@@ -39,6 +73,10 @@ public class AddressVo implements Serializable {
 	}
 
 	public void setAddress2(String address2) {
+		if(address2 != null && address2.equalsIgnoreCase("null")){
+			this.address2 = null;
+			return;
+		}
 		this.address2 = address2;
 	}
 
@@ -56,14 +94,23 @@ public class AddressVo implements Serializable {
 	}
 
 	public void setSuburb(String suburb) {
+		if(suburb != null && suburb.equalsIgnoreCase("null")){
+			this.suburb = null;
+			return;
+		}
 		this.suburb = suburb;
 	}
 
 	public String getCity() {
+		
 		return city;
 	}
 
 	public void setCity(String city) {
+		if(city != null && city.equalsIgnoreCase("null")){
+			this.city = null;
+			return;
+		}
 		this.city = city;
 	}
 
@@ -72,6 +119,10 @@ public class AddressVo implements Serializable {
 	}
 
 	public void setZipcode(String zipcode) {
+		if(zipcode != null && zipcode.equalsIgnoreCase("null")){
+			this.zipcode = null;
+			return;
+		}
 		this.zipcode = zipcode;
 	}
 	
@@ -80,6 +131,10 @@ public class AddressVo implements Serializable {
 	}
 
 	public void setState(String state) {
+		if(state != null && state.equalsIgnoreCase("null")){
+			this.state = null;
+			return;
+		}
 		this.state = state;
 	}
 
@@ -88,6 +143,10 @@ public class AddressVo implements Serializable {
 	}
 
 	public void setCountry(String country) {
+		if(country != null && country.equalsIgnoreCase("null")){
+			this.country = null;
+			return;
+		}
 		this.country = country;
 	}
 
@@ -153,11 +212,18 @@ public class AddressVo implements Serializable {
 	}
 	
 	public String toJson(){
+		return this.toJson(true);
+	}
+	
+	public String toJson(boolean includeSuburbName){
 		JSONObject address = new JSONObject();
 		try{
 			address.put("address1", this.address1);
 			address.put("address2", this.address2);
 			address.put("suburb_id", this.suburb_id);
+			if(includeSuburbName){
+				address.put("suburb", this.suburb);
+			}
 			address.put("city", this.city);
 			address.put("zipcode", this.zipcode);
 			address.put("country", this.country);

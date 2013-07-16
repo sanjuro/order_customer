@@ -45,7 +45,7 @@ public class AddressDialog extends Dialog implements android.view.View.OnClickLi
 	   suburbListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	   Spinner cboAddressSuburb = (Spinner)findViewById(R.id.cboAddressSuburb);
 	   cboAddressSuburb.setAdapter(suburbListAdapter);
-
+	   
 	 }
 	 
 	 @Override
@@ -59,6 +59,35 @@ public class AddressDialog extends Dialog implements android.view.View.OnClickLi
 		 		dismiss();
 		 		break;
 		 }
+	 }
+	 
+	 /**
+	  * Populates all the address fields from a given address object.
+	  * @param address  The address to show in the fields
+	  */
+	 public void setAddress(AddressVo address){
+		 TextView txtAddressLine1 = (TextView)this.findViewById(R.id.txtAddressLine1);
+	     TextView txtAddressLine2 = (TextView)this.findViewById(R.id.txtAddressLine2);
+		 Spinner cboAddressSuburb = (Spinner)this.findViewById(R.id.cboAddressSuburb);
+		 TextView txtAddressCity = (TextView)this.findViewById(R.id.txtAddressCity);
+		 TextView txtAddressPostalCode = (TextView)this.findViewById(R.id.txtAddressPostalCode);
+		 
+		 txtAddressLine1.setText(address != null && address.getAddress1() != null ? address.getAddress1().trim() : "");
+		 txtAddressLine2.setText(address != null && address.getAddress2() != null ? address.getAddress2().trim() : "");
+		 txtAddressCity.setText(address != null && address.getCity() != null ? address.getCity().trim() : "");
+		 txtAddressPostalCode.setText(address != null && address.getZipcode() != null ? address.getZipcode().trim() : "");
+	 
+		 Log.d("ADR", "suburb_id populating: " + address.getSuburb_id());
+		 // Select the correct suburb in the drop-down:
+		 if(address != null && address.getSuburb_id() != null){
+			 for(int i = 0; i < this.suburbs.length; i++){
+				 if(this.suburbs[i].getId() == address.getSuburb_id().intValue()){
+					 Log.d("ADR", "FOUND suburb in drop down! Selecting...");
+					 cboAddressSuburb.setSelection(i);
+				 }
+			 }
+		 }
+	 
 	 }
 	 
 	 public AddressVo getAddress(){
