@@ -19,7 +19,7 @@
                 android:textSize="18sp"
                 >
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView
                       android:id="@+id/nameOfUser"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView
                       android:id="@+id/navCartButton"
                       android:layout_width="match_parent"
                       android:layout_height="40dp"
@@ -54,7 +54,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView
                       android:id="@+id/navOrdersButton"
                       android:layout_width="match_parent"
                       android:layout_height="40dp"
@@ -71,7 +71,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView
                       android:id="@+id/openOrders"
                       android:layout_width="match_parent"
                       android:layout_height="30dp"
@@ -90,7 +90,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView
                       android:id="@+id/myOrders"
                       android:layout_width="match_parent"
                       android:layout_height="40dp"
@@ -107,7 +107,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView
                       android:id="@+id/navFavoritesButton"
                       android:layout_width="match_parent"
                       android:layout_height="40dp"
@@ -124,7 +124,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView
                       android:layout_width="match_parent"
                       android:layout_height="50dp"
                       android:background="@drawable/nav_menu_heading"
@@ -137,7 +137,7 @@
                       android:textColor="@android:color/white"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView
                       android:id="@+id/navAccountSettingsButton"
                       android:layout_width="match_parent"
                       android:layout_height="30dp"
@@ -156,7 +156,7 @@
                       android:clickable="true"
                     />
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView
                       android:id="@+id/navTermsButton"
                       android:layout_width="match_parent"
                       android:layout_height="30dp"
@@ -172,7 +172,7 @@
                       android:textColor="@android:color/white"
                       android:text="Terms and Policies"
                     />
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView
                       android:id="@+id/navLogoutButton"
                       android:layout_width="match_parent"
                       android:layout_height="30dp"
@@ -448,29 +448,111 @@
             android:layout_marginRight="15dp"
            	android:layout_weight="7"
            />
+           
+           <LinearLayout
+			 	android:id="@+id/deliveryDetails"
+			 	android:orientation="vertical"
+			 	android:layout_width="fill_parent"
+			 	android:layout_height="wrap_content"
+			 >
+			    
+			    <LinearLayout
+			        android:id="@+id/subtotalSection"
+			        android:orientation="horizontal"
+			        android:layout_width="fill_parent"
+			        android:layout_height="35dp"
+			        android:background="@drawable/total_background_bar"
+			        android:paddingLeft="5dp"
+			        android:paddingRight="5dp"
+			        >
+			        
+			        <TextView 
+			            android:id="@+id/subtotal"
+			            android:layout_width="fill_parent"
+			            android:layout_height="fill_parent"
+			            android:textSize="16sp"
+			            android:textColor="#000000"
+			            android:text="Subtotal: R"
+			            android:gravity="right|center_vertical"
+			            
+			            />
+			        
+			    </LinearLayout> <!-- subtotalSection -->
+			    
+			    <RelativeLayout 
+			        android:id="@+id/deliveryPriceSection"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="5dp"
+			        android:layout_marginBottom="5dp"
+			        android:paddingLeft="5dp"
+			        android:paddingRight="5dp"
+			        >
+			        
+			        <TextView
+			            android:id="@+id/lblDeliveryMethod"
+			            android:text="Deliver"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:textSize="16sp"
+			            android:textColor="#000000"
+			            android:layout_alignParentLeft="true"
+			        />
+			        
+			        
+			      
+			        <TextView 
+			            android:id="@+id/deliveryCost"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:textColor="#000000"
+			            android:textSize="16sp"
+			            android:text="R0.00"
+			            android:layout_alignParentRight="true"
+			            />
+			        
+			        
+			    </RelativeLayout> <!-- deliveryPriceSection -->
+			    
+			    <TextView
+			        android:id="@+id/deliveryAddress"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:textColor="#000000"
+			        android:textSize="12sp"
+			        android:textStyle="italic"
+			        android:singleLine="false"
+			        android:paddingLeft="5dp"
+			        android:paddingRight="5dp"
+			        />
+			    		    
+			</LinearLayout> <!-- deliveryDetails -->
+			
+			  <RelativeLayout
+                    android:id="@+id/totalSection"
+                    android:layout_width="fill_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/total_background_bar"
+                    android:paddingRight="5dp"
+                    >
 
-           <RelativeLayout
-            	android:id="@+id/order_total_bar"
-            	android:background="@drawable/total_background_bar"
-            	android:layout_width="fill_parent"
-            	android:layout_height="0dp"
-            	android:layout_weight="1"
-                >
+            <TextView
+                    android:id="@+id/lblTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:paddingTop="5dp"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:text="Total: R70.00"
+                    
+                    />
 
-               <TextView
-               	android:id="@+id/lblOrderTotal"
-               	android:layout_width="wrap_content"
-               	android:layout_height="wrap_content"
-               	android:textColor="#6c675c"
-               	android:textSize="22sp"
-               	android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                />
+               
+            </RelativeLayout> <!-- totalSection -->
 
-           </RelativeLayout>
-
+           
 
        </LinearLayout> <!-- Current Order Section -->
 

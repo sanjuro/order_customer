@@ -21,6 +21,8 @@ public class OrderVo implements Serializable {
 	private Date completedAt;
 	private LineItemVo[] lineItems;
 	private Money total;
+	private Money adjustmentTotal;
+	private AddressVo deliveryAddress;
 	
 	public OrderVo(){
 	}
@@ -109,5 +111,44 @@ public class OrderVo implements Serializable {
 		this.total = Money.parse("ZAR " + dblTotal);
 		this.total = this.total.withAmount(dblTotal);
 	}
+	
+	public Money getSubtotalBeforeDelivery(){
+		Money subtotal = this.total;
+		if(this.adjustmentTotal != null && this.deliveryAddress != null){
+			subtotal = subtotal.minus(this.adjustmentTotal);		
+		}
+		return subtotal;
+	}
+
+	public String getTime_to_ready() {
+		return time_to_ready;
+	}
+
+	public void setTime_to_ready(String time_to_ready) {
+		this.time_to_ready = time_to_ready;
+	}
+
+	public Money getAdjustmentTotal() {
+		return adjustmentTotal;
+	}
+	
+	public void setAdjustmentTotal(double dblAdjustmentTotal){
+		this.adjustmentTotal = Money.parse("ZAR " + dblAdjustmentTotal);
+		this.adjustmentTotal = this.adjustmentTotal.withAmount(dblAdjustmentTotal);
+	}
+
+	public void setAdjustmentTotal(Money adjustmentTotal) {
+		this.adjustmentTotal = adjustmentTotal;
+	}
+
+	public AddressVo getDeliveryAddress() {
+		return deliveryAddress;
+	}
+
+	public void setDeliveryAddress(AddressVo deliveryAddress) {
+		this.deliveryAddress = deliveryAddress;
+	}
+	
+	
 	
 }

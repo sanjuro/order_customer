@@ -15,6 +15,7 @@ public class AddressVo implements Serializable {
 	private Integer suburb_id;
 	private String suburb;
 	private String city;
+	private String state;
 	private String zipcode;
 	private String country;
 	private Float latitude;
@@ -23,6 +24,7 @@ public class AddressVo implements Serializable {
 	public AddressVo(){
 		this.country = "South Africa";
 	}
+	
 
 	public String getAddress1() {
 		return address1;
@@ -72,6 +74,14 @@ public class AddressVo implements Serializable {
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
+	
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 
 	public String getCountry() {
 		return country;
@@ -96,7 +106,8 @@ public class AddressVo implements Serializable {
 	public void setLongitude(Float longitude) {
 		this.longitude = longitude;
 	}
-	
+
+
 	public boolean isEmpty(){
 		return this.getAddress1() == null || this.getAddress1().trim().equals("");
 	}

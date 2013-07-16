@@ -43,7 +43,6 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 	private OrderVo currentOrder;
 	private TextView lblOrderNumber;
 	private TextView lblOrderDate;
-	private TextView lblOrderTotal;
     private TextView lblOrderReady;
 	private TextView lblStoreName;
 	private TextView lblStoreTelephone;
@@ -169,8 +168,28 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 		if(this.currentOrder == null){
 			return;
 		}
-		this.lblOrderTotal = (TextView)findViewById(R.id.lblOrderTotal);
-		this.lblOrderTotal.setText("Total: " + MoneyUtils.getRandString(currentOrder.getTotal()));
+		
+		
+		// Show the amounts and delivery details:
+		TextView lblSubtotal = (TextView)findViewById(R.id.subtotal);
+		TextView lblDeliveryCost = (TextView)findViewById(R.id.deliveryCost);
+		TextView lblDeliveryAddress = (TextView)findViewById(R.id.deliveryAddress);
+		TextView lblDeliveryMethod = (TextView)findViewById(R.id.lblDeliveryMethod);
+		TextView lblGrandTotal = (TextView)findViewById(R.id.lblTotal);
+		
+		lblSubtotal.setText("Subtotal: " + MoneyUtils.getRandString(currentOrder.getSubtotalBeforeDelivery()));
+		
+		if(currentOrder.getDeliveryAddress() != null && !currentOrder.getDeliveryAddress().isEmpty() && currentOrder.getAdjustmentTotal() != null){
+			lblDeliveryCost.setText(MoneyUtils.getRandString(currentOrder.getAdjustmentTotal()));
+			lblDeliveryMethod.setText("Delivery");
+			lblDeliveryAddress.setText(currentOrder.getDeliveryAddress().toString());
+		}else{
+			lblDeliveryCost.setText("R0.00");
+			lblDeliveryMethod.setText("Collected in-store");
+		}
+		
+		lblGrandTotal.setText("Total: " + MoneyUtils.getRandString(currentOrder.getTotal()));
+		
 		this.currentOrderItemsList.setAdapter(new CurrentOrderItemAdapter(this, R.layout.current_order_item_row, currentOrder.getLineItems()));
 		this.lblOrderNumber = (TextView)findViewById(R.id.lblOrderNumber);
 
@@ -192,8 +211,6 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 		this.lblOrderDate.setText("Ordered At: " + format.format(currentOrder.getCreatedAt()));
 
 		this.currentOrderButton.setVisibility(View.VISIBLE);
-		
-		Log.d("STATE", "Order state: " + this.currentOrder.getState().toLowerCase(Locale.getDefault()));
 		
 		//Show the correct status badge based on the order state:
 		if(this.currentOrder.getState().toLowerCase(Locale.getDefault()).equals("ready")){
@@ -248,7 +265,6 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 			this.lstPreviousOrders.setOnItemClickListener(this);
 		}else if(result instanceof GetOrderByIdResult){
 			// We received a specific order that we fetched by id:
-            Log.d("PREV","Specific Order");
 			this.currentOrder = ((GetOrderByIdResult)result).getOrder();
 			
 			/*

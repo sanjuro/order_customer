@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.vosto.customer.cart.vos.LineItemVo;
+import com.vosto.customer.orders.vos.AddressVo;
 import com.vosto.customer.orders.vos.OrderVo;
 import com.vosto.customer.services.IRestResult;
 import com.vosto.customer.services.RestResult;
@@ -49,13 +50,34 @@ public class GetOrderByIdResult extends RestResult implements IRestResult {
 	        
 	        JSONObject orderObj = new JSONObject(this.getResponseJson());
 	        this.order.setNumber(orderObj.getString("number"));
-            this.order.setStoreOrderNumber(orderObj.getString("store_order_number"));
-            this.order.setTimeToReady(orderObj.getString("time_to_ready"));
+	        if(!orderObj.isNull("store_order_number")){
+	        	this.order.setStoreOrderNumber(orderObj.getString("store_order_number"));
+	        }
+	        if(!orderObj.isNull("time_to_ready")){
+	        	this.order.setTimeToReady(orderObj.getString("time_to_ready"));
+	        }
 	        this.order.setCreatedAt(dateFormat.parse(orderObj.getString("created_at")));
 	        this.order.setTotal(Money.parse("ZAR " + orderObj.getDouble("total")));
+	        if(!orderObj.isNull("adjustment_total")){
+	        	this.order.setAdjustmentTotal(Money.parse("ZAR " + orderObj.getDouble("adjustment_total")));
+	        }
 	        this.order.setStore_id(orderObj.getInt("store_id"));
 	        this.order.setState(orderObj.getString("state"));
 	            	
+	        // Delivery Address:
+	        if(!orderObj.isNull("address")){
+	        	AddressVo address = new AddressVo();
+	        	JSONObject addressObj = orderObj.getJSONObject("address");
+	        	address.setAddress1(addressObj.getString("address1"));
+	        	address.setAddress2(addressObj.getString("address2"));
+	        	address.setSuburb(addressObj.getString("suburb"));
+	        	address.setCity(addressObj.getString("city"));
+	        	address.setState(addressObj.getString("state"));
+	        	address.setCountry(addressObj.getString("country"));
+	        	address.setZipcode(addressObj.getString("zip"));
+	        	this.order.setDeliveryAddress(address);
+	        }
+	        
 	         //Add line items:
 	         JSONArray lineItemsArr = orderObj.getJSONArray("line_items");
 	         LineItemVo[] lineItems = new LineItemVo[lineItemsArr.length()];
