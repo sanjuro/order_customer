@@ -94,8 +94,26 @@ public class OrderConfirmationActivity extends VostoBaseActivity implements OnRe
         }
         this.currentOrderItemsList = (ListView)findViewById(R.id.current_order_items_list);
 
-        this.lblOrderTotal = (TextView)findViewById(R.id.lblOrderTotal);
-        this.lblOrderTotal.setText("Total: " + MoneyUtils.getRandString(this.currentOrder.getTotal()));
+        // Show the amounts and delivery details:
+     	TextView lblSubtotal = (TextView)findViewById(R.id.subtotal);
+     	TextView lblDeliveryCost = (TextView)findViewById(R.id.deliveryCost);
+     	TextView lblDeliveryAddress = (TextView)findViewById(R.id.deliveryAddress);
+     	TextView lblDeliveryMethod = (TextView)findViewById(R.id.lblDeliveryMethod);
+     	TextView lblGrandTotal = (TextView)findViewById(R.id.lblTotal);
+     				
+     	lblSubtotal.setText("Subtotal: " + MoneyUtils.getRandString(this.currentOrder.getSubtotalBeforeDelivery()));
+     				
+     	if(this.currentOrder.getDeliveryAddress() != null && !this.currentOrder.getDeliveryAddress().isEmpty() && this.currentOrder.getAdjustmentTotal() != null){
+     		lblDeliveryCost.setText(MoneyUtils.getRandString(this.currentOrder.getAdjustmentTotal()));
+     		lblDeliveryMethod.setText("Delivery");
+     		lblDeliveryAddress.setText(this.currentOrder.getDeliveryAddress().toString());
+     	}else{
+     		lblDeliveryCost.setText("R0.00");
+     		lblDeliveryMethod.setText("Collected in-store");
+     	}
+     				
+     	lblGrandTotal.setText("Total: " + MoneyUtils.getRandString(this.currentOrder.getTotal()));
+     		
         this.currentOrderItemsList.setAdapter(new CurrentOrderItemAdapter(this, R.layout.current_order_item_row, this.currentOrder.getLineItems()));
 
         this.lblOrderNumber = (TextView)findViewById(R.id.lblOrderNumber);

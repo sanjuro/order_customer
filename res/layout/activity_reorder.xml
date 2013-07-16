@@ -173,27 +173,108 @@
                 android:layout_weight="7"
                 />
            
-           <RelativeLayout
-            	android:id="@+id/order_total_bar"
-            	android:background="@drawable/total_background_bar"
-            	android:layout_width="fill_parent"
-            	android:layout_height="0dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-            	android:layout_weight="1"   
-                >
-               
-                <TextView
-                    android:id="@+id/lblOrderTotal"
+          <LinearLayout
+			 	android:id="@+id/deliveryDetails"
+			 	android:orientation="vertical"
+			 	android:layout_width="fill_parent"
+			 	android:layout_height="wrap_content"
+			 >
+			    
+			    <LinearLayout
+			        android:id="@+id/subtotalSection"
+			        android:orientation="horizontal"
+			        android:layout_width="fill_parent"
+			        android:layout_height="35dp"
+			        android:background="@drawable/total_background_bar"
+			        android:paddingLeft="5dp"
+			        android:paddingRight="5dp"
+			        >
+			        
+			        <TextView 
+			            android:id="@+id/subtotal"
+			            android:layout_width="fill_parent"
+			            android:layout_height="fill_parent"
+			            android:textSize="16sp"
+			            android:textColor="#000000"
+			            android:text="Subtotal: R"
+			            android:gravity="right|center_vertical"
+			            
+			            />
+			        
+			    </LinearLayout> <!-- subtotalSection -->
+			    
+			    <RelativeLayout 
+			        android:id="@+id/deliveryPriceSection"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="5dp"
+			        android:layout_marginBottom="5dp"
+			        android:paddingLeft="5dp"
+			        android:paddingRight="5dp"
+			        >
+			        
+			        <TextView
+			            android:id="@+id/lblDeliveryMethod"
+			            android:text="Deliver"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:textSize="16sp"
+			            android:textColor="#000000"
+			            android:layout_alignParentLeft="true"
+			        />
+			        
+			        
+			      
+			        <TextView 
+			            android:id="@+id/deliveryCost"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:textColor="#000000"
+			            android:textSize="16sp"
+			            android:text="R0.00"
+			            android:layout_alignParentRight="true"
+			            />
+			        
+			        
+			    </RelativeLayout> <!-- deliveryPriceSection -->
+			    
+			    <TextView
+			        android:id="@+id/deliveryAddress"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:textColor="#000000"
+			        android:textSize="12sp"
+			        android:textStyle="italic"
+			        android:singleLine="false"
+			        android:paddingLeft="5dp"
+			        android:paddingRight="5dp"
+			        />
+			    		    
+			</LinearLayout> <!-- deliveryDetails -->
+			
+			  <RelativeLayout
+                    android:id="@+id/totalSection"
+                    android:layout_width="fill_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/total_background_bar"
+                    android:paddingRight="5dp"
+                    >
+
+            <TextView
+                    android:id="@+id/lblTotal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#6c675c"
-                    android:textSize="22sp"
+                    android:layout_height="fill_parent"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:paddingTop="5dp"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:text="Total: R"
+                    
                     />
+
                
-           </RelativeLayout>
+            </RelativeLayout> <!-- totalSection -->
 
             <Button
                   android:id="@+id/reorder_button"
@@ -201,8 +282,6 @@
                   android:layout_height="39.5dp"
                   android:scaleType="fitXY"
                   android:background="@drawable/green_button_background"
-                  android:layout_centerHorizontal="true"
-                  android:layout_above="@id/order_total_bar"
                   android:layout_gravity="center_horizontal|center_vertical"
                   android:onClick="reorderClicked"
                   android:text="Re-Order"

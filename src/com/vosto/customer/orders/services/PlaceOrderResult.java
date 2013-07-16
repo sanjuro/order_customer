@@ -5,11 +5,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import org.joda.money.Money;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.vosto.customer.cart.vos.LineItemVo;
+import com.vosto.customer.orders.vos.AddressVo;
 import com.vosto.customer.orders.vos.OrderVo;
 import com.vosto.customer.services.IRestResult;
 import com.vosto.customer.services.RestResult;
@@ -72,7 +74,23 @@ public class PlaceOrderResult extends RestResult implements IRestResult {
 			this.order.setState(jsonObj.getString("state"));
 			this.order.setCreatedAt(dateFormat.parse(jsonObj.getString("created_at")));
 			this.order.setTotal(jsonObj.getDouble("total"));
-		
+			if(!jsonObj.isNull("adjustment_total")){
+	        	this.order.setAdjustmentTotal(Money.parse("ZAR " + jsonObj.getDouble("adjustment_total")));
+	        }
+			
+			// Delivery Address:
+	        if(!jsonObj.isNull("address")){
+	        	AddressVo address = new AddressVo();
+	        	JSONObject addressObj = jsonObj.getJSONObject("address");
+	        	address.setAddress1(addressObj.getString("address1"));
+	        	address.setAddress2(addressObj.getString("address2"));
+	        	address.setSuburb(addressObj.getString("suburb"));
+	        	address.setCity(addressObj.getString("city"));
+	        	address.setState(addressObj.getString("state"));
+	        	address.setCountry(addressObj.getString("country"));
+	        	address.setZipcode(addressObj.getString("zip"));
+	        	this.order.setDeliveryAddress(address);
+	        }
 			
 			JSONArray lineItemsArr = jsonObj.getJSONArray("line_items");
 			LineItemVo[] lineItems = new LineItemVo[lineItemsArr.length()];

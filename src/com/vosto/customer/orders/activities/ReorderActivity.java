@@ -47,8 +47,6 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 	private ListView orderItemsList;
 	private TextView lblOrderNumber;
 	private TextView lblOrderDate;
-	private TextView lblOrderTotal;
-    private TextView lblStoreOrderNumber;
 	private ImageView mOrderStatusBadge;
 	
 	public void onCreate(Bundle savedInstanceState){
@@ -60,8 +58,25 @@ public class ReorderActivity extends VostoBaseActivity implements OnRestReturn, 
 		
 		this.order = (OrderVo)getIntent().getSerializableExtra("order");
 		
-		this.lblOrderTotal = (TextView)findViewById(R.id.lblOrderTotal);
-		this.lblOrderTotal.setText("Total: " + MoneyUtils.getRandString(order.getTotal()));
+		// Show the amounts and delivery details:
+		TextView lblSubtotal = (TextView)findViewById(R.id.subtotal);
+		TextView lblDeliveryCost = (TextView)findViewById(R.id.deliveryCost);
+		TextView lblDeliveryAddress = (TextView)findViewById(R.id.deliveryAddress);
+		TextView lblDeliveryMethod = (TextView)findViewById(R.id.lblDeliveryMethod);
+		TextView lblGrandTotal = (TextView)findViewById(R.id.lblTotal);
+				
+		lblSubtotal.setText("Subtotal: " + MoneyUtils.getRandString(this.order.getSubtotalBeforeDelivery()));
+				
+		if(this.order.getDeliveryAddress() != null && !this.order.getDeliveryAddress().isEmpty() && this.order.getAdjustmentTotal() != null){
+			lblDeliveryCost.setText(MoneyUtils.getRandString(this.order.getAdjustmentTotal()));
+			lblDeliveryMethod.setText("Delivery");
+			lblDeliveryAddress.setText(this.order.getDeliveryAddress().toString());
+		}else{
+			lblDeliveryCost.setText("R0.00");
+			lblDeliveryMethod.setText("Collected in-store");
+		}
+				
+		lblGrandTotal.setText("Total: " + MoneyUtils.getRandString(this.order.getTotal()));
 
 		this.orderItemsList.setAdapter(new CurrentOrderItemAdapter(this, R.layout.current_order_item_row, order.getLineItems()));
 

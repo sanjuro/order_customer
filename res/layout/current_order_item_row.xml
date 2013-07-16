@@ -18,6 +18,17 @@
         android:text="Spur's Famous Beef Ribs"
         />
     
+      <TextView
+        android:id="@+id/lblProductQuantity"
+        android:textSize="14dp"
+        android:textColor="#6c675c"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="x"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/lblProductName"
+        />
+    
     <TextView
         android:id="@+id/lblProductPrice"
         android:textSize="14dp"

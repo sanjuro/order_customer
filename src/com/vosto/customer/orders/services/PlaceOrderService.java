@@ -65,8 +65,8 @@ public class PlaceOrderService extends RestService {
                     Secure.ANDROID_ID));
 			
 			//Shipping address:
-			order.put("is_delivery", this.cart.getDeliveryAddress() != null ? 1 : 0);
-			if(this.cart.getDeliveryAddress() != null){
+			order.put("is_delivery", this.cart.getDeliveryAddress() != null && !this.cart.getDeliveryAddress().isEmpty() ? 1 : 0);
+			if(this.cart.getDeliveryAddress() != null && !this.cart.getDeliveryAddress().isEmpty()){
 				JSONObject shipAddressObj = new JSONObject();
 				AddressVo address = this.cart.getDeliveryAddress();
 				shipAddressObj.put("address1", address.getAddress1());
@@ -142,6 +142,12 @@ public class PlaceOrderService extends RestService {
 				lineItemsArr.put(lineItemObj);
 			}
 			order.put("line_items", lineItemsArr);
+			if(this.previousOrder.getDeliveryAddress() != null && !this.previousOrder.getDeliveryAddress().isEmpty()){
+				root.put("address", new JSONObject(this.previousOrder.getDeliveryAddress().toJson()));
+				root.put("is_delivery", 1);
+			}else{
+				root.put("is_delivery", 0);
+			}
 			
 			root.put("order", order);
 			Log.d("jsontest", "Order Request JSON: " + root.toString());
