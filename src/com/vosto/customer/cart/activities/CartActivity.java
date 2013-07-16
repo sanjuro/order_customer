@@ -2,7 +2,6 @@ package com.vosto.customer.cart.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,8 +14,6 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -32,7 +29,6 @@ import com.vosto.customer.accounts.services.AuthenticationService;
 import com.vosto.customer.cart.CartItemAdapter;
 import com.vosto.customer.cart.vos.Cart;
 import com.vosto.customer.cart.vos.CartItem;
-import com.vosto.customer.orders.activities.MyOrdersActivity;
 import com.vosto.customer.orders.activities.OrderConfirmationActivity;
 import com.vosto.customer.orders.services.GetDeliveryPriceResult;
 import com.vosto.customer.orders.services.GetDeliveryPriceService;
@@ -51,7 +47,7 @@ import com.vosto.customer.utils.MoneyUtils;
 import com.vosto.customer.utils.NetworkUtils;
 
 
-public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnDismissListener {
+public class CartActivity extends VostoBaseActivity implements OnRestReturn {
 	
 	private ListView list;
     private StoreVo store;
@@ -97,9 +93,6 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
             //User logged in:
             TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
             nameOfUser.setText(settings.getString("userName", "user"));
-
-        }else{
-            //User not logged in:
         }
         
         // Fetch the suburbs:
@@ -111,7 +104,6 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	
 	private void refreshCart(){
 		this.list = (ListView)findViewById(R.id.lstCartItems);
-		list.setOnItemClickListener(this);
 		list.setAdapter(new CartItemAdapter(this, R.layout.cart_item_row, getCart().getItems()));
 		updatePriceLabels();
 	}
@@ -119,7 +111,6 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 	public void removeButtonClicked(View v){
 		CartItem item = (CartItem)((ImageButton)v).getTag();
 		Cart cart = getCart();
-		Log.d("REM", "Calling removeitem");
 		cart.removeItem(item);
 		this.list.setAdapter(new CartItemAdapter(this, R.layout.cart_item_row, cart.getItems()));
 		updatePriceLabels();
@@ -297,25 +288,6 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 		TextView grandTotalLabel = (TextView)findViewById(R.id.lblTotal);
 		grandTotalLabel.setText("Total: " + MoneyUtils.getRandString(cart.getTotalPrice()));
 	}
-	
-	
-	
-	private void updateAddressDialogAttributes(){
-		if(this.addressDialog == null){
-			return;
-		}
-		this.addressDialog.setContentView(R.layout.dialog_address);
-		
-		Window window = this.addressDialog.getWindow();
-		WindowManager.LayoutParams wlp = window.getAttributes();
-
-		wlp.gravity = Gravity.BOTTOM;
-		wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-		wlp.width = LayoutParams.MATCH_PARENT;
-		window.setAttributes(wlp);
-		
-		this.addressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-	}
 
 	public void updateAddress(AddressVo address) {
 		if(!address.isEmpty()){
@@ -347,7 +319,17 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 		}
 		this.addressDialog = new AddressDialog(this, this.suburbs);
 		
-		this.updateAddressDialogAttributes();
+		this.addressDialog.setContentView(R.layout.dialog_address);
+		
+		Window window = this.addressDialog.getWindow();
+		WindowManager.LayoutParams wlp = window.getAttributes();
+
+		wlp.gravity = Gravity.BOTTOM;
+		wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+		wlp.width = LayoutParams.MATCH_PARENT;
+		window.setAttributes(wlp);
+		
+		this.addressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 		
 		this.addressDialog.show();
 		
@@ -362,6 +344,7 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 		Cart cart = getCart();
 		cart.setDeliveryCost(null);
 		saveCart(cart);
+		this.updatePriceLabels();
 	}
 	
 	public void changeButtonClicked(View v){
@@ -408,11 +391,6 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
 		return true;
 		
 	}
-	
-	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-		 
-	}
 
     public void continueButtonPressed(View v){
         if(!NetworkUtils.isNetworkAvailable(this)){
@@ -425,16 +403,5 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn, OnI
         startActivity(intent);
     }
 
-	public void ordersPressed(View v) {
-		Intent intent = new Intent(this, MyOrdersActivity.class);
-		startActivity(intent);
-	}
-
-	@Override
-	public void onDismiss(DialogInterface dialog) {
-	} 
-	
-	
-	
 	
 }

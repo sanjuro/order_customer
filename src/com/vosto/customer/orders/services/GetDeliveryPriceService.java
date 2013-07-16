@@ -33,10 +33,7 @@ public class GetDeliveryPriceService extends RestService {
 		try{
 			JSONObject root = new JSONObject();
 			root.put("store_id", this.storeId);
-			
-			JSONArray addressArray = new JSONArray();
-			addressArray.put(new JSONObject(this.address.toJson()));
-			root.put("address", addressArray);
+			root.put("address", new JSONObject(this.address.toJson()));
 			return root.toString();
 		}catch(JSONException e){
 			e.printStackTrace();
