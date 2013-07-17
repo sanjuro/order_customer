@@ -148,7 +148,7 @@ public class ProductVo implements Serializable {
     /**
      * Takes a map of selected option values and returns the variant associated with that combination.
      * If no variant matches the combination, it returns null.
-     * @param optionCombination - List of strings, each in the format "portion:full"
+     * @param optionCombinations - List of strings, each in the format "portion:full"
      * @return The VariantVo for the given combination, or null if no match
      */
     public VariantVo getVariantForOptionCombinations(ConcurrentHashMap<String, String> optionCombinations){

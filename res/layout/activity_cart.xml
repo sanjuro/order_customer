@@ -366,7 +366,7 @@
                  	android:layout_weight="1"
                  	android:layout_width="0dp"
                 	android:layout_height="fill_parent"
-                 	android:text="Deliver"
+                 	android:text="Deliver to me"
                  	android:textSize="16sp"
                  	android:gravity="center_vertical|center_horizontal"
                  	android:textColor="#FFFFFF"   
