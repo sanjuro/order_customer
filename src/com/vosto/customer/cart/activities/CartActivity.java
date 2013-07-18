@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -55,7 +56,8 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
     private AddressDialog addressDialog;
     private SuburbVo[] suburbs;
     private AddressVo deliverToAddress; // Set to null for in-store collection.
-	
+    
+    
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cart);
@@ -311,11 +313,21 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
 		     editor.putString("latestDeliveryAddressJson", address.toJson());
 		     editor.commit();
 			
+		    // Show the place order button:
+			Button btnPlaceOrder = (Button)findViewById(R.id.place_order_button);
+			btnPlaceOrder.setVisibility(View.VISIBLE);
 		}else{
+			this.showAlertDialog("Invalid Address", "Please make sure that you have entered all the fields.");
 			this.deliverToAddress = null;
 			this.hideDeliveryDetails();
 			this.showDeliveryButtons();
+			
+			 // Hide the place order button:
+			Button btnPlaceOrder = (Button)findViewById(R.id.place_order_button);
+			btnPlaceOrder.setVisibility(View.GONE);
 		}
+		
+		
 	}
 	
 	public void deliverButtonClicked(View v){
@@ -356,9 +368,17 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
 		cart.setDeliveryCost(null);
 		saveCart(cart);
 		this.updatePriceLabels();
+		
+		// Show the place order button:
+		Button btnPlaceOrder = (Button)findViewById(R.id.place_order_button);
+		btnPlaceOrder.setVisibility(View.VISIBLE);
 	}
 	
 	public void changeButtonClicked(View v){
+		// Hide the place order button:
+		Button btnPlaceOrder = (Button)findViewById(R.id.place_order_button);
+		btnPlaceOrder.setVisibility(View.GONE);
+		
 		hideDeliveryDetails();
 		showDeliveryButtons();
 	}
