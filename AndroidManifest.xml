@@ -51,12 +51,6 @@
             android:windowSoftInputMode="adjustNothing">
         </activity>
         <activity
-            android:name="com.vosto.customer.cart.activities.DeliveryActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"
-           >
-        </activity>
-        <activity
             android:name="com.vosto.customer.HomeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
