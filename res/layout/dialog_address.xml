@@ -9,14 +9,6 @@
        		android:background="#ede9e1"
        >
           
-           <Button 
-            	android:id="@+id/getAddressButton"
-            	android:layout_width="150dp"
-            	android:layout_height="wrap_content"
-            	android:text="Get from location"
-            	android:onClick="getAddressClicked"
-            />
-          
            <EditText 
                android:id="@+id/txtAddressLine1"
                android:layout_width="fill_parent"
