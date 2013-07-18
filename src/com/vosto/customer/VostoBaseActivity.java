@@ -9,8 +9,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import com.google.analytics.tracking.android.EasyTracker;
 import com.vosto.customer.accounts.activities.EditProfileActivity;
 import com.vosto.customer.accounts.activities.SignInActivity;
 import com.vosto.customer.cart.activities.CartActivity;
@@ -36,6 +38,24 @@ public abstract class VostoBaseActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 	}
+	
+	  @Override
+	  public void onStart() {
+	    super.onStart();
+	    
+	    // Google Analytics:
+	    Log.d("ANL", "G Analytics: Starting activity.");
+	    EasyTracker.getInstance().activityStart(this);
+	  }
+
+	  @Override
+	  public void onStop() {
+	    super.onStop();
+	    
+	    // Google Analytics:
+	    Log.d("ANL", "G Analytics: Stopping activity.");
+	    EasyTracker.getInstance().activityStop(this);
+	  }
 	
 	/**
 	 * Saves the given cart object to the app's context for later retrieval.
