@@ -25,14 +25,17 @@
                 android:orientation="vertical"
                 >
 
+
+
                 <TextView
                     android:id="@+id/lblProductName"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:textColor="#676357"
-                    android:text="Spur's Famous Pork Ribs"
+                    android:text="1 X Spur's Famous Pork Ribs"
                     />
+
 
                 <TextView
                     android:id="@+id/lblVariant"

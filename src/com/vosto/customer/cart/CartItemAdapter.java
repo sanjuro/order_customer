@@ -55,9 +55,8 @@ public class CartItemAdapter extends ArrayAdapter<CartItem>{
         }
         
         CartItem item = cartItems.get(position);
-        
-       
-        holder.lblProductName.setText(item.getProduct().getName());
+
+        holder.lblProductName.setText(String.valueOf(item.getQuantity()) + " x " + item.getProduct().getName());
         holder.lblPrice.setText(MoneyUtils.getRandString(item.getSubtotal()));
        
         if(item.getVariant() != null){
@@ -74,9 +73,9 @@ public class CartItemAdapter extends ArrayAdapter<CartItem>{
     
     static class CartItemHolder
     {
+        // TextView lblProductQuantity;
         TextView lblProductName;
         TextView lblVariant;
-        // TextView lblQuantity;
         TextView lblPrice;
         ImageButton removeButton;
         ImageButton editButton;

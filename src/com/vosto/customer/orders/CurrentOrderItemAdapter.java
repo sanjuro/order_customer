@@ -51,7 +51,7 @@ public class CurrentOrderItemAdapter extends ArrayAdapter<LineItemVo>{
 
         holder.lblProductName.setText(item.getName());
         holder.lblPrice.setText(MoneyUtils.getRandString(item.getPrice()));
-        holder.lblProductQuantity.setText("x " + item.getQuantity());
+        holder.lblProductQuantity.setText(item.getQuantity() + " x ");
 
         return row;
     }

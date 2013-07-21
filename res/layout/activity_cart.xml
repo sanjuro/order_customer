@@ -250,10 +250,9 @@
 
 
             <ImageView
-                    android:id="@+id/store_thumbnail"
+                    android:id="@+id/lblStoreImage"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/image_border_white"
                     android:src="@drawable/storefront" />
 
             <LinearLayout

@@ -25,6 +25,10 @@ import com.vosto.customer.stores.vos.StoreVo;
 import com.vosto.customer.utils.MoneyUtils;
 import com.vosto.customer.utils.NetworkUtils;
 
+import static com.vosto.customer.utils.CommonUtilities.IMAGE_SERVER_URL;
+
+import com.androidquery.AQuery;
+
 /**
  * Created with IntelliJ IDEA.
  * User: macbookpro
@@ -45,10 +49,12 @@ public class OrderConfirmationActivity extends VostoBaseActivity implements OnRe
     private TextView lblStoreTelephone;
     private TextView lblStoreAddress;
     private SlideHolder mSlideHolder;
+    AQuery ag = null;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_confirmation);
+        ag = new AQuery(this.findViewById(android.R.id.content));
 
         mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
 
@@ -118,6 +124,9 @@ public class OrderConfirmationActivity extends VostoBaseActivity implements OnRe
 
         this.lblOrderNumber = (TextView)findViewById(R.id.lblOrderNumber);
         this.lblOrderNumber.setText("Your order: " + this.orderNumber + " has been confirmed.");
+
+        String imageUrl = IMAGE_SERVER_URL + store.getStoreImage();
+        ag.id(R.id.lblStoreImage).image(imageUrl, false, false, 0, 0, null, AQuery.FADE_IN);
 
         this.lblStoreName = (TextView)findViewById(R.id.lblStoreName);
         this.lblStoreName.setText(this.store.getName());

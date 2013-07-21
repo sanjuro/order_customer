@@ -36,6 +36,9 @@ import com.vosto.customer.stores.services.GetStoresService;
 import com.vosto.customer.stores.vos.StoreVo;
 import com.vosto.customer.utils.MoneyUtils;
 
+import static com.vosto.customer.utils.CommonUtilities.IMAGE_SERVER_URL;
+
+import com.androidquery.AQuery;
 
 public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnDismissListener, OnClickListener {
 	
@@ -54,6 +57,7 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 	private Button currentOrderButton;
     private SlideHolder mSlideHolder;
     private ImageView mOrderStatusBadge;
+    AQuery ag = null;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -324,6 +328,11 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 	}
 	
 	private void updateStoreDetails(StoreVo store){
+        ag = new AQuery(this.findViewById(android.R.id.content));
+
+        String imageUrl = IMAGE_SERVER_URL + store.getStoreImage();
+        ag.id(R.id.lblStoreImage).image(imageUrl, false, false, 0, 0, null, AQuery.FADE_IN);
+
 		this.lblStoreName = (TextView)findViewById(R.id.lblStoreName);
 		this.lblStoreName.setText(store.getName());
 		

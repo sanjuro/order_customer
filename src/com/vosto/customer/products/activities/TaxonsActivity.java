@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.net.Uri;
 
 import com.agimind.widget.SlideHolder;
+import com.androidquery.AQuery;
 import com.vosto.customer.HomeActivity;
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
@@ -33,6 +34,10 @@ import com.vosto.customer.services.RestResult;
 import com.vosto.customer.stores.vos.StoreVo;
 import com.vosto.customer.utils.StoreFavouritesManager;
 
+import static com.vosto.customer.utils.CommonUtilities.IMAGE_SERVER_URL;
+
+import com.androidquery.AQuery;
+
 public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, OnItemClickListener, OnCheckedChangeListener {
 
     private StoreVo store;
@@ -40,11 +45,14 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
     private TaxonVo selectedTaxon;
     private StoreFavouritesManager favourites;
     private SlideHolder mSlideHolder;
+    AQuery ag = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_taxons);
+        ag = new AQuery(this.findViewById(android.R.id.content));
+
         this.store = (StoreVo) this.getIntent().getSerializableExtra("store");
 
         mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
@@ -73,6 +81,9 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
 
         txtStoreName.setText(this.store.getName());
         txtStoreAddress.setText(this.store.getAddress());
+
+        String imageUrl = IMAGE_SERVER_URL + store.getStoreImage();
+        ag.id(R.id.lblStoreImage).image(imageUrl, false, false, 0, 0, null, AQuery.FADE_IN);
 
         Log.d("STO", "Loading taxons for store: " + this.store.getId());
         GetTaxonsService service = new GetTaxonsService(this, this, this.store.getId());

@@ -184,12 +184,12 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 				
 		SearchService service = new SearchService(this, this);
 		service.setSearchTerm(queryTerm);	
-		if(location != null){
-			//We have a location, so pass the coordinates on to the search service:
-			service.setHasLocation(true);
-			service.setLatitude(location.getLatitude());
-			service.setLongitude(location.getLongitude());
-		}
+//		if(location != null){
+//			//We have a location, so pass the coordinates on to the search service:
+//			service.setHasLocation(true);
+//			service.setLatitude(location.getLatitude());
+//			service.setLongitude(location.getLongitude());
+//		}
 		service.execute();
 	}
 	

@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.agimind.widget.SlideHolder;
+import com.androidquery.AQuery;
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
 import com.vosto.customer.accounts.activities.SignInActivity;
@@ -46,6 +47,9 @@ import com.vosto.customer.utils.GCMUtils;
 import com.vosto.customer.utils.MoneyUtils;
 import com.vosto.customer.utils.NetworkUtils;
 
+import static com.vosto.customer.utils.CommonUtilities.IMAGE_SERVER_URL;
+
+import com.androidquery.AQuery;
 
 public class CartActivity extends VostoBaseActivity implements OnRestReturn {
 	
@@ -55,10 +59,12 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
     private AddressDialog addressDialog;
     private SuburbVo[] suburbs;
     private AddressVo deliverToAddress; // Set to null for in-store collection.
+    AQuery ag = null;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cart);
+        ag = new AQuery(this.findViewById(android.R.id.content));
 
         Cart cart = getCart();
         this.store = cart.getStore();
@@ -72,6 +78,9 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
             txtStoreName.setText(this.store.getName());
             txtStoreAddress.setText(this.store.getAddress());
             txtStoreTelephone.setText(this.store.getManagerContact());
+            String imageUrl = IMAGE_SERVER_URL + store.getStoreImage();
+            ag.id(R.id.lblStoreImage).image(imageUrl, false, false, 0, 0, null, AQuery.FADE_IN);
+
         } else {
             store_details_block.setVisibility(View.GONE);
             txtStoreAddress.setVisibility(View.GONE);
