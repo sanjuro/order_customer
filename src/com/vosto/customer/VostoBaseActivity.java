@@ -8,6 +8,10 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,13 +34,24 @@ import com.vosto.customer.pages.activities.TermsActivity;
  * @author Flippie Scholtz <flippiescholtz@gmail.com>
  *
  */
-public abstract class VostoBaseActivity extends Activity {
+public abstract class VostoBaseActivity extends Activity implements LocationListener {
 	
 	// Subclasses can display a basic please wait dialog with spinner:
 	public ProgressDialog pleaseWaitDialog;
 	
+	
+    /*
+     * If the gps is enabled, this activity will keep listening for location updates
+     * for the life of the activity, and it will keep updating this variable.
+     * When we need a location, it uses this, or else it just gets the location from
+     * the best available provider.
+     */
+    protected Location currentGpsLocation;
+    protected boolean listenForGpsUpdates; //If false, we don't listen to GPS updates.
+	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+		this.listenForGpsUpdates = false; // Set this to true in the subclass activity to listen for gps updates.
 	}
 	
 	  @Override
@@ -44,8 +59,11 @@ public abstract class VostoBaseActivity extends Activity {
 	    super.onStart();
 	    
 	    // Google Analytics:
-	    Log.d("ANL", "G Analytics: Starting activity.");
 	    EasyTracker.getInstance().activityStart(this);
+	    
+	    if(this.listenForGpsUpdates){
+	    	startListeningForGps(); // Start listening for GPS updates.
+	    }
 	  }
 
 	  @Override
@@ -53,9 +71,20 @@ public abstract class VostoBaseActivity extends Activity {
 	    super.onStop();
 	    
 	    // Google Analytics:
-	    Log.d("ANL", "G Analytics: Stopping activity.");
 	    EasyTracker.getInstance().activityStop(this);
+	    
+	    this.stopListeningForGps();
 	  }
+	  
+	  @Override
+	  public void onResume(){
+		  super.onResume();
+		  if(this.listenForGpsUpdates){
+			  this.startListeningForGps();
+		  }
+	  }
+	  
+	  
 	
 	/**
 	 * Saves the given cart object to the app's context for later retrieval.
@@ -220,6 +249,102 @@ public abstract class VostoBaseActivity extends Activity {
         }
         return sb.toString();
     }
+    
+    /**
+	 * Start listening for GPS updates so long (in case the user wants to populate the address by location).
+	 */
+	public void startListeningForGps(){
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(
+				LocationManager.GPS_PROVIDER,
+				1000 * 10, // min 10 seconds between location updates (can't be too frequent...battery life)
+				20, // will only update for every 20 meters the device moves
+				this);
+        Log.d("GPS", "Cart: Listening for GPS updates...");
+	}
+	
+	protected void stopListeningForGps(){
+		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+		locationManager.removeUpdates(this);
+		Log.d("GPS", "Not listening for GPS updates anymore.");
+	}
+	 
+	/**
+	 *  Gets the best possible location that we have.
+	 *  If GPS is disabled, ask user to enable it and return null.
+	 *  If GPS doesn't work, try other location providers.
+	 *  If that doesn't work, show an error and return null.
+	 *  
+	 *  requireGps: If true, we show an error if the GPS is disabled.
+	 */
+	protected Location getBestLocation(boolean requireGps){
+		// If the GPS is disabled, ask the user to enable it:
+		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+		if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+			if(requireGps){
+				this.showAlertDialog("Enable GPS", "Please turn on your GPS.");
+			}
+			return null;
+		}
+				
+		/*
+		 * Check if we have a recent (less than 30 mins old) updated location from the gps provider, otherwise we just
+		 * try to get one from the best available provider:
+		 */
+		Location bestLocation = null;
+		if(this.currentGpsLocation != null && System.currentTimeMillis() - this.currentGpsLocation.getTime() <= 30 * 60 * 1000){
+			Log.d("GPS", "Current updated location is  NOT null");
+			// We have a recent location updated by the gps provider.
+			bestLocation = this.currentGpsLocation;
+		}else{
+			Log.d("GPS", "Current updated location is null");
+			// We don't have an updated gps location or it's older than 30 mins. Try to get a new one from the best available provider:
+			Criteria criteria = new Criteria();
+			String bestProvider = locationManager.getBestProvider(criteria, false);
+			bestLocation = locationManager.getLastKnownLocation(bestProvider);
+		}
+				
+		if(bestLocation == null){
+			// We've tried everything but couldn't get a location. The gps could still be waiting for a location fix.
+			this.showAlertDialog("Please wait...", "Please wait for your GPS to determine your location and try again.");
+		   	return null;
+		}
+		
+		return bestLocation;
+	}
+	
+
+	@Override
+	public void onLocationChanged(Location location) {
+		/* Location update received from the gps provider. 
+		*  Update the location variable so we have it when the user searches:
+		*/
+		this.currentGpsLocation = location;
+		Log.d("GPS", "Location updated: (" + location.getLatitude() + " , " + location.getLongitude() + " )");
+	}
+
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		if(provider.equals(LocationManager.GPS_PROVIDER)){
+			// GPS has been enabled:
+			Log.d("GPS", "GPS Disabled");
+		}
+	}
+
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		if(provider.equals(LocationManager.GPS_PROVIDER)){
+			// GPS has been enabled:
+			Log.d("GPS", "GPS enabled");
+		}
+	}
+
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+	}
 
 	/*
 	

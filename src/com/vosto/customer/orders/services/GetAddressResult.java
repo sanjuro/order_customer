@@ -5,39 +5,34 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.vosto.customer.orders.vos.AddressVo;
 import com.vosto.customer.services.IRestResult;
 import com.vosto.customer.services.RestResult;
 
 public class GetAddressResult extends RestResult implements IRestResult {
 	
-	private String address;
-	private String zipcode;
-	private String city;
-	private String country;
+	private String addressString;
+	private AddressVo address;
+	private boolean success;
 	
 	 public GetAddressResult(){
 		 super();
+		 this.success = false;
 	 }
 	 
 	 public GetAddressResult(int responseCode, String responseJson){
 		 super(responseCode, responseJson);
 	 }
 	 
-	public String getAddress() {
+	public AddressVo getAddress() {
 		return address;
 	}
-
-	public String getZipcode() {
-		return zipcode;
+	
+	public boolean wasSuccessful(){
+		return this.success;
 	}
 
-	public String getCity() {
-		return city;
-	}
-
-	public String getCountry() {
-		return country;
-	}
+	
 
 	@Override
 	public boolean processJsonAndPopulate(){
@@ -47,14 +42,14 @@ public class GetAddressResult extends RestResult implements IRestResult {
 	        
 	        JSONObject addressObj = new JSONObject(this.getResponseJson());
 	        
-	        this.address = addressObj.getString("address");
-	        this.zipcode = addressObj.getString("zipcode");
-	        this.city = addressObj.getString("city");
-	        this.country = addressObj.getString("country");	
+	        this.addressString = addressObj.getString("address");
+	        this.address = new AddressVo(this.getResponseJson());
 	        
+	        this.success = true;
 	    	return true;
 		}catch(JSONException e){
 			e.printStackTrace();
+			this.success = false;
 			return false;
 		}
 	}

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -31,6 +32,8 @@ import com.vosto.customer.cart.CartItemAdapter;
 import com.vosto.customer.cart.vos.Cart;
 import com.vosto.customer.cart.vos.CartItem;
 import com.vosto.customer.orders.activities.OrderConfirmationActivity;
+import com.vosto.customer.orders.services.GetAddressResult;
+import com.vosto.customer.orders.services.GetAddressService;
 import com.vosto.customer.orders.services.GetDeliveryPriceResult;
 import com.vosto.customer.orders.services.GetDeliveryPriceService;
 import com.vosto.customer.orders.services.PlaceOrderResult;
@@ -60,6 +63,8 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
     
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+		this.listenForGpsUpdates = true;
+		
 		setContentView(R.layout.activity_cart);
 
         Cart cart = getCart();
@@ -264,7 +269,17 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
 			this.suburbs = ((GetSuburbsResult) result).getSuburbs();
 		}else if(result instanceof GetDeliveryPriceResult){
 			processDeliveryPriceResult((GetDeliveryPriceResult)result);
+		}else if(result instanceof GetAddressResult){
+			processGetAddressResult((GetAddressResult)result);
 		}
+	}
+	
+	private void processGetAddressResult(GetAddressResult result){
+		if(!result.wasSuccessful() || result.getAddress().isEmpty()){
+			this.showAlertDialog("Sorry", "We could not determine your current address. Please type it in or try again later.");
+			return;
+		}
+		this.addressDialog.setAddress(result.getAddress());
 	}
 	
 	private void processDeliveryPriceResult(GetDeliveryPriceResult result){
@@ -331,7 +346,9 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
 	}
 	
 	public void deliverButtonClicked(View v){
+		Log.d("DEL", "deliverButtonClicked");
 		if(this.suburbs == null){
+			Log.d("DEL", "Suburbs is null. Returning.");
 			return;
 		}
 		this.addressDialog = new AddressDialog(this, this.suburbs);
@@ -422,6 +439,20 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
 		return true;
 		
 	}
+	
+	/**
+	 * Makes the service call to fetch an address by location so we can auto-populate the address form.
+	 * @return The address for the current location.
+	 */
+	public void fetchAddressFromLocation(){
+		Location bestLocation = this.getBestLocation(true);
+		if(bestLocation == null){
+			return;
+		}
+		
+		GetAddressService service = new GetAddressService(this, this, bestLocation.getLatitude(), bestLocation.getLongitude());
+		service.execute();
+	}
 
     public void continueButtonPressed(View v){
         if(!NetworkUtils.isNetworkAvailable(this)){
@@ -433,6 +464,6 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
         intent.putExtra("store", this.store);
         startActivity(intent);
     }
-
+    
 	
 }
