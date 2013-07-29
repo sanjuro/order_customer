@@ -8,6 +8,13 @@
        		android:paddingRight="10dp"
        		android:background="#ede9e1"
        >
+       
+        <Button
+            android:id="@+id/btnGetAddressFromLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Use current location"
+         />
           
            <EditText 
                android:id="@+id/txtAddressLine1"
