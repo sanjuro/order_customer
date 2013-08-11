@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -47,7 +48,7 @@ import com.vosto.customer.utils.GCMUtils;
 import com.vosto.customer.utils.MoneyUtils;
 import com.vosto.customer.utils.NetworkUtils;
 
-import static com.vosto.customer.utils.CommonUtilities.IMAGE_SERVER_URL;
+import static com.vosto.customer.utils.CommonUtilities.STORE_IMAGE_SERVER_URL;
 
 import com.androidquery.AQuery;
 
@@ -60,7 +61,7 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
     private SuburbVo[] suburbs;
     private AddressVo deliverToAddress; // Set to null for in-store collection.
     AQuery ag = null;
-	
+
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cart);
@@ -78,7 +79,7 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
             txtStoreName.setText(this.store.getName());
             txtStoreAddress.setText(this.store.getAddress());
             txtStoreTelephone.setText(this.store.getManagerContact());
-            String imageUrl = IMAGE_SERVER_URL + store.getStoreImage();
+            String imageUrl = STORE_IMAGE_SERVER_URL + store.getStoreImage();
             ag.id(R.id.lblStoreImage).image(imageUrl, false, false, 0, 0, null, AQuery.FADE_IN);
 
         } else {
@@ -320,11 +321,21 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
 		     editor.putString("latestDeliveryAddressJson", address.toJson());
 		     editor.commit();
 			
+		    // Show the place order button:
+			Button btnPlaceOrder = (Button)findViewById(R.id.place_order_button);
+			btnPlaceOrder.setVisibility(View.VISIBLE);
 		}else{
+			this.showAlertDialog("Invalid Address", "Please make sure that you have entered all the fields.");
 			this.deliverToAddress = null;
 			this.hideDeliveryDetails();
 			this.showDeliveryButtons();
+			
+			 // Hide the place order button:
+			Button btnPlaceOrder = (Button)findViewById(R.id.place_order_button);
+			btnPlaceOrder.setVisibility(View.GONE);
 		}
+		
+		
 	}
 	
 	public void deliverButtonClicked(View v){
@@ -341,6 +352,7 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
 		wlp.gravity = Gravity.BOTTOM;
 		wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
 		wlp.width = LayoutParams.MATCH_PARENT;
+        wlp.dimAmount = 0.7f;
 		window.setAttributes(wlp);
 		
 		this.addressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -365,9 +377,17 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
 		cart.setDeliveryCost(null);
 		saveCart(cart);
 		this.updatePriceLabels();
+		
+		// Show the place order button:
+		Button btnPlaceOrder = (Button)findViewById(R.id.place_order_button);
+		btnPlaceOrder.setVisibility(View.VISIBLE);
 	}
 	
 	public void changeButtonClicked(View v){
+		// Hide the place order button:
+		Button btnPlaceOrder = (Button)findViewById(R.id.place_order_button);
+		btnPlaceOrder.setVisibility(View.GONE);
+		
 		hideDeliveryDetails();
 		showDeliveryButtons();
 	}

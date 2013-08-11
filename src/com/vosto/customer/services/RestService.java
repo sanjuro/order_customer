@@ -44,6 +44,7 @@ import com.vosto.customer.stores.services.GetStoresResult;
 import com.vosto.customer.stores.services.GetSuburbsResult;
 import com.vosto.customer.stores.services.GetTagsResult;
 import com.vosto.customer.stores.services.SearchResult;
+import com.vosto.customer.stores.services.GetDealsResult;
 import com.vosto.customer.utils.NetworkUtils;
 
 public class RestService extends AsyncTask <Void, Void, RestResult> {
@@ -282,6 +283,9 @@ public class RestService extends AsyncTask <Void, Void, RestResult> {
         }
         if(this.resultType == ResultType.GET_ADDRESS){
         	result = new GetAddressResult(200, responseJson);
+        }
+        if(this.resultType == ResultType.GET_DEALS){
+            result = new GetDealsResult(200, responseJson);
         }
 
     //    if(this.resultType == ResultType.GET_FAVOURITE_PRODUCTS){

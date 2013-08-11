@@ -32,7 +32,12 @@ public final class CommonUtilities {
     /**
      * IMAGE URL where all image resources are stored
      */
-    public static final String IMAGE_SERVER_URL = "http://m.vosto.co.za/stores";
+    public static final String STORE_IMAGE_SERVER_URL = "http://m.vosto.co.za/stores";
+
+    /**
+     * IMAGE URL where all image resources are stored
+     */
+    public static final String DEAL_IMAGE_SERVER_URL = "http://m.vosto.co.za/deals";
 
     /**
      * Google API project id registered to use GCM.

@@ -204,67 +204,84 @@
   android:background="#edeae2"
   android:orientation="vertical"
   >
-  
-   <RelativeLayout
-       android:id="@+id/top_bar"
-       android:layout_width="match_parent"
-       android:layout_height="65dp"
-       android:background="@drawable/top_bar_orange" 
-       android:orientation="horizontal"
-       android:layout_alignParentTop="true"
-       android:gravity="center_vertical"
-       android:paddingLeft="10dp"
-       android:paddingRight="10dp">
 
-       <ImageView
-               android:id="@+id/menuButton"
-               android:layout_width="35dp"
-               android:layout_height="35dp"
-               android:src="@drawable/menu"
-               android:layout_alignParentLeft="true"
-               android:layout_centerVertical="true"
-               android:scaleType="fitXY"
-               />
-     
-       
-           <RelativeLayout 
-          	android:id="@+id/buy_button"
-          	android:layout_width="120dp"
-          	android:layout_height="35dp"
-          	android:layout_alignParentRight="true"
-          	android:scaleType="fitXY"
-          	android:paddingRight="10dp"
-          	android:background="@drawable/buy_button"
-          	android:layout_centerVertical="true"
-          	android:contentDescription="@string/filter_button" 
-          	android:onClick="buyButtonClicked"
-          >
-               <TextView
-               	android:id="@+id/buy_button_price"
-               	android:layout_width="wrap_content"
-               	android:layout_height="wrap_content"
-               	android:textSize="14sp"
-               	android:textColor="#000000"
-               	android:text="R100"   
-               	android:layout_alignParentRight="true"
-               	android:layout_alignParentTop="true" 
-               />
+    <RelativeLayout
+            android:id="@+id/top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="#ed6b06"
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true">
 
-               <TextView
-               	android:id="@+id/buy_button_quantity"
-               	android:layout_width="wrap_content"
-               	android:layout_height="wrap_content"
-               	android:textSize="10sp"
-               	android:textColor="#000000"
-               	android:text="3 items"    
-               	android:layout_alignParentRight="true"
-               	android:layout_alignParentBottom="true" 
-               />
-               
-           </RelativeLayout>
 
-       
-   </RelativeLayout>
+        <RelativeLayout
+                android:id="@+id/menuButtonHolder"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:background="#FA8C38"
+                android:orientation="horizontal"
+                android:layout_alignParentTop="true"
+                android:paddingLeft="15dp">
+
+            <ImageView
+                    android:id="@+id/menuButton"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/menu"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:paddingRight="15dp"
+                    />
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+                android:id="@+id/buy_section"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal" >
+
+            <RelativeLayout
+                    android:id="@+id/buy_button"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:background="#FA8C38"
+                    android:contentDescription="@string/filter_button"
+                    android:onClick="buyButtonClicked"
+                    android:scaleType="fitXY"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp">
+
+                <TextView
+                        android:id="@+id/buy_button_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:text="R100"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp" />
+
+                <TextView
+                        android:id="@+id/buy_button_quantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:text="3 items"
+                        android:textColor="#FFFFFF"
+                        android:textSize="10sp" />
+            </RelativeLayout>
+
+        </LinearLayout> <!-- buy section -->
+
+    </RelativeLayout> <!-- top bar -->
    
    
    <LinearLayout

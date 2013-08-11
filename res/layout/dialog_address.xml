@@ -4,12 +4,10 @@
        		android:layout_width="fill_parent"
        		android:layout_height="wrap_content"
        		android:orientation="vertical"
-       		android:paddingLeft="10dp"
-       		android:paddingRight="10dp"
+
        		android:background="#ede9e1"
        >
 
-          
            <EditText 
                android:id="@+id/txtAddressLine1"
                android:layout_width="fill_parent"
@@ -64,8 +62,9 @@
                
                <LinearLayout 
                    android:layout_width="fill_parent"
-                   android:layout_height="45dp"
+                   android:layout_height="35dp"
                    android:orientation="horizontal"
+                   android:background="#3f7e00"
                    android:weightSum="4"
                    >
                    
@@ -74,13 +73,12 @@
                        android:layout_width="0dp"
                        android:layout_weight="1"
                        android:layout_height="fill_parent"
-                       android:background="@drawable/green_button_background"
+                       android:background="#3f7e00"
                        android:text="Back"
-                       android:gravity="center"
-                       android:textSize="18sp"
+                       android:textSize="14sp"
                        android:textColor="#FFFFFF"
                        android:textStyle="bold"
-                  	   android:layout_marginRight="10dp"
+                         android:layout_alignParentLeft="true"
                        />
                    
                       <Button
@@ -88,12 +86,12 @@
                        android:layout_width="0dp"
                        android:layout_weight="3"
                        android:layout_height="fill_parent"
-                       android:background="@drawable/green_button_background"
+                       android:background="#3f7e00"
                        android:text="Update"
-                       android:gravity="center"
-                       android:textSize="18sp"
+                       android:textSize="14sp"
                        android:textColor="#FFFFFF"
                        android:textStyle="bold"
+                       android:layout_alignParentRight="true"
                        />
                    
                </LinearLayout>

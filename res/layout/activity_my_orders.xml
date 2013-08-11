@@ -199,41 +199,54 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
-  android:background="#ede9e1"
+  android:background="#FFFFFF"
   android:orientation="vertical"
   >
 
-   <RelativeLayout
-       android:id="@+id/top_bar"
-       android:layout_width="match_parent"
-       android:layout_height="65dp"
-       android:background="@drawable/top_bar_orange"
-       android:orientation="horizontal"
-       android:layout_alignParentTop="true"
-       android:paddingLeft="15dp"
-       android:paddingRight="15dp">
+    <RelativeLayout
+            android:id="@+id/top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="#ed6b06"
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true">
 
-       <ImageView
-               android:id="@+id/menuButton"
-               android:layout_width="35dp"
-               android:layout_height="35dp"
-               android:src="@drawable/menu"
-               android:layout_alignParentLeft="true"
-               android:layout_centerVertical="true"
-               android:scaleType="fitXY"
-               />
 
-       <TextView
-  			android:layout_width="wrap_content"
-  			android:layout_height="wrap_content"
-  			android:textSize="18sp"
-  			android:textColor="#FFFFFF"
-  			android:text="My Orders"
-  			android:layout_centerHorizontal="true"
-  			android:layout_centerVertical="true"
-       />
+        <RelativeLayout
+                android:id="@+id/menuButtonHolder"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:background="#FA8C38"
+                android:orientation="horizontal"
+                android:layout_alignParentTop="true"
+                android:paddingLeft="15dp">
 
-   </RelativeLayout> <!-- Top Bar -->
+            <ImageView
+                    android:id="@+id/menuButton"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/menu"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:paddingRight="15dp"
+                    />
+
+
+        </RelativeLayout>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="#FFFFFF"
+                android:text="Your Order"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                />
+
+
+    </RelativeLayout> <!-- top bar -->
 
    <RelativeLayout
         android:id="@+id/main_section"

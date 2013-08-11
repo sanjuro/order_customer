@@ -17,7 +17,7 @@ import com.androidquery.AQuery;
 import com.vosto.customer.R;
 import com.vosto.customer.orders.vos.OrderVo;
 
-import static com.vosto.customer.utils.CommonUtilities.IMAGE_SERVER_URL;
+import static com.vosto.customer.utils.CommonUtilities.STORE_IMAGE_SERVER_URL;
 
 public class PreviousOrderAdapter extends ArrayAdapter<OrderVo>{
 

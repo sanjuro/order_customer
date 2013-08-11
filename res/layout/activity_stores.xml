@@ -198,45 +198,62 @@
     </ScrollView>
 
     <RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:background="#edeae2"
-  android:orientation="vertical"
-  >
-  
-   <RelativeLayout
-       android:id="@+id/top_bar"
-       android:layout_width="match_parent"
-       android:layout_height="65dp"
-       android:background="@drawable/top_bar_orange"
-       android:orientation="horizontal"
-       android:layout_alignParentTop="true"
-       android:gravity="center_vertical"
-       android:paddingLeft="15dp"
-       android:paddingRight="10dp">
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
+            >
 
-       <ImageView
-               android:id="@+id/menuButton"
-               android:layout_width="35dp"
-               android:layout_height="35dp"
-               android:src="@drawable/menu"
-               android:layout_alignParentLeft="true"
-               android:layout_centerVertical="true"
-               android:scaleType="fitXY"
-               />
+        <RelativeLayout
+                android:id="@+id/top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:background="#ed6b06"
+                android:orientation="horizontal"
+                android:layout_alignParentTop="true"
+                android:paddingRight="15dp">
 
-       <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginRight="10dp"
-               android:textSize="20sp"
-               android:textColor="#FFFFFF"
-               android:text="Stores"
-               android:layout_centerVertical="true"
-               android:layout_centerHorizontal="true"
-               />
-   </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/menuButtonHolder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+                    android:background="#000000"
+                    android:orientation="horizontal"
+                    android:layout_alignParentTop="true"
+                    android:paddingLeft="15dp">
+
+                <ImageView
+                        android:id="@+id/menuButton"
+                        android:layout_width="50dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/menu"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:scaleType="fitXY"
+                        android:paddingRight="15dp"
+                        />
+
+
+            </RelativeLayout>
+
+            <TextView
+                    android:id="@+id/lblStoresListHeading"
+                    android:text="Close to You"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:textColor="#FFFFFF"
+                    android:layout_gravity="center_vertical"
+                    android:layout_toRightOf="@+id/menuButtonHolder"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="15dp"
+                    />
+
+        </RelativeLayout>
    
    
    <LinearLayout
@@ -260,15 +277,7 @@
 			   android:paddingLeft="15dp"
                >
    		    
-   		     <TextView 
-   		        android:id="@+id/lblStoresListHeading"
-   		     	android:text="Close to You"
-   		     	android:layout_width="wrap_content"
-   		     	android:layout_height="wrap_content"
-   		     	android:textSize="18sp"
-   		     	android:textColor="#3b3830" 
-   		     	android:layout_gravity="center_vertical"
-   		     />
+
    		    
    		 </LinearLayout>
    		

@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import static com.vosto.customer.utils.CommonUtilities.IMAGE_SERVER_URL;
+import static com.vosto.customer.utils.CommonUtilities.STORE_IMAGE_SERVER_URL;
 
 import com.androidquery.AQuery;
 
@@ -56,7 +56,6 @@ public class StoreListAdapter extends ArrayAdapter<StoreVo>{
              holder.lblStoreName = (TextView)row.findViewById(R.id.lblStoreName);
              holder.lblDistance = (TextView)row.findViewById(R.id.lblDistance);
              holder.lblAddress = (TextView)row.findViewById(R.id.lblAddress);
-             holder.lblSelectionArrow = (ImageView)row.findViewById(R.id.lblSelectionArrow);
              holder.lblStatus = (ImageView)row.findViewById(R.id.lblStatus);
         }
         
@@ -72,15 +71,13 @@ public class StoreListAdapter extends ArrayAdapter<StoreVo>{
         	holder.lblDistance.setVisibility(View.INVISIBLE);
         }
 
-        String imageUrl = IMAGE_SERVER_URL + store.getStoreImage();
+        String imageUrl = STORE_IMAGE_SERVER_URL + store.getStoreImage();
         ag.id(R.id.lblStoreImage).image(imageUrl, false, false, 0, 0, null, AQuery.FADE_IN);
 
         // Hide the arrow if the store is offline, and show the appropriate status banner:
         if (!store.getIsOnline()){
-            holder.lblSelectionArrow.setVisibility(View.INVISIBLE);
             holder.lblStatus.setImageResource(R.drawable.store_status_closed);
         }else{
-            holder.lblSelectionArrow.setVisibility(View.VISIBLE);
             holder.lblStatus.setImageResource(R.drawable.store_status_open);
         }
       

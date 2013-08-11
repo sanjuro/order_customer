@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import static com.vosto.customer.utils.CommonUtilities.IMAGE_SERVER_URL;
+import static com.vosto.customer.utils.CommonUtilities.STORE_IMAGE_SERVER_URL;
 
 import com.androidquery.AQuery;
 
@@ -67,7 +67,7 @@ public class FeaturedStoreListAdapter extends ArrayAdapter<StoreVo>{
             holder.lblStoreName.setText(store.getName());
         }
 
-        String imageUrl = IMAGE_SERVER_URL + store.getStoreImage();
+        String imageUrl = STORE_IMAGE_SERVER_URL + store.getStoreImage();
         ag.id(R.id.lblStoreImage).image(imageUrl);
 
 

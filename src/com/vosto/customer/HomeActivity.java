@@ -20,22 +20,22 @@ import com.vosto.customer.accounts.activities.SignUpActivity;
 import com.vosto.customer.products.activities.TaxonsActivity;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
-import com.vosto.customer.stores.StoreListAdapter;
+import com.vosto.customer.stores.DealListAdapter;
 import com.vosto.customer.stores.activities.FoodCategoriesActivity;
 import com.vosto.customer.stores.activities.StoresActivity;
 import com.vosto.customer.stores.services.SearchResult;
 import com.vosto.customer.stores.services.SearchService;
-import com.vosto.customer.stores.services.GetFeaturedStoresService;
-import com.vosto.customer.stores.services.GetFeaturedStoresResult;
+import com.vosto.customer.stores.services.GetDealsService;
+import com.vosto.customer.stores.services.GetDealsResult;
 
 import com.agimind.widget.SlideHolder;
-import com.vosto.customer.stores.vos.StoreVo;
+import com.vosto.customer.stores.vos.DealVo;
 import com.vosto.customer.utils.NetworkUtils;
 
 
 public class HomeActivity extends VostoBaseActivity implements OnRestReturn, LocationListener, OnDismissListener, OnItemClickListener {
 
-    private StoreVo[] stores;
+    private DealVo[] deals;
     private SlideHolder mSlideHolder;
 
     /*
@@ -56,7 +56,6 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 
         initialize();
 
-        ImageButton signInButton = (ImageButton)findViewById(R.id.sign_in_arrow_button);
         TextView notJoinedYet = (TextView)findViewById(R.id.notJoinedYet);
         Button signUpButton = (Button)findViewById(R.id.signUpButton);
         RelativeLayout bottom_bar = (RelativeLayout)findViewById(R.id.bottom_bar);
@@ -66,7 +65,6 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
         SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
         if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
         	//User logged in:
-        	signInButton.setVisibility(View.GONE);
             notJoinedYet.setVisibility(View.GONE);
             signUpButton.setVisibility(View.GONE);
             bottom_bar.setVisibility(View.GONE);
@@ -98,7 +96,7 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 				this);
         Log.d("GPS", "Listening for GPS updates...");
 
-        ListView list = (ListView)findViewById(R.id.lstfeaturedStores);
+        ListView list = (ListView)findViewById(R.id.lstDealofTheWeek);
         list.setOnItemClickListener(this);
 
     }
@@ -119,8 +117,8 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
         if(this.pleaseWaitDialog != null && this.pleaseWaitDialog.isShowing()){
             this.pleaseWaitDialog.dismiss();
         }
-        Log.d("STO", "Get Featured stores");
-        GetFeaturedStoresService service = new GetFeaturedStoresService(this, this);
+        Log.d("DEALS", "Get Deals");
+        GetDealsService service = new GetDealsService(this, this);
         service.execute();
     }
 	
@@ -200,10 +198,13 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 	 */
 	@Override
 	public void onRestReturn(RestResult result) {
-        Log.d("STORE", "Rest Return");
+        Log.d("onRestReturn", "Rest Return");
+
 		if(result == null){
+            Log.d("onRestReturn", "Result is Null");
 			return;
 		}
+        Log.d("onRestReturn", "Got Result");
 
 		if(result instanceof SearchResult){
 			// Stop listening for gps updates:
@@ -220,13 +221,16 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
 			intent.putExtra("hasLocation", searchResult.hasLocation());
 	    	startActivity(intent);
 	    	finish();
-		} else if(result instanceof GetFeaturedStoresResult){
-            GetFeaturedStoresResult featuredStoresResult = (GetFeaturedStoresResult)result;
-            this.stores = featuredStoresResult.getStores();
+		} else if(result instanceof GetDealsResult){
+            Log.d("DEAL", "Got Deals" );
 
-            Log.d("STORE", "Got Stores Count:" + featuredStoresResult.getStores().length);
-            ListView list = (ListView)findViewById(R.id.lstfeaturedStores);
-            list.setAdapter(new StoreListAdapter(this, R.layout.store_item_row, this.stores));
+            GetDealsResult getDealsResult = (GetDealsResult)result;
+            this.deals = getDealsResult.getDeals();
+
+            Log.d("DEAL", "Got Deals Count:" + this.deals.length);
+
+            ListView list = (ListView)findViewById(R.id.lstDealofTheWeek);
+            list.setAdapter(new DealListAdapter(this, R.layout.deal_item_row, this.deals));
         }
 	}
 
@@ -241,12 +245,11 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, Loc
             this.showAlertDialog("Connection Error", "Please connect to the internet.");
             return;
         }
-        Log.d("STO", "Passing store to TaxonActivity: " + this.stores[position].getId());
+        Log.d("STO", "Passing store to TaxonActivity: " + this.deals[position].getId());
         Intent intent = new Intent(this, TaxonsActivity.class);
-        intent.putExtra("store", this.stores[position]);
-        intent.putExtra("storeName", this.stores[position].getName());
-        intent.putExtra("storeTel", this.stores[position].getManagerContact());
-        intent.putExtra("storeAddress", this.stores[position].getAddress());
+        intent.putExtra("deal", this.deals[position]);
+        intent.putExtra("dealName", this.deals[position].getName());
+        intent.putExtra("dealDescription", this.deals[position].getDescription());
         intent.putExtra("callingActivity", "StoresActivity");
         startActivity(intent);
         // finish();

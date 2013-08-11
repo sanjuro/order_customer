@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/relativelayout"
+        android:layout_width="fill_parent"
+        android:layout_height="220dp"
+        android:orientation="vertical"
+        >
+
+    <TextView
+            android:id="@+id/lblDealDescription"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:background="#000000"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:text="Spur N1 City, Teax Spur"
+            android:textColor="#FFFFFF" />
+
+
+    <ImageView
+            android:id="@+id/lblDealImage"
+            android:layout_width="fill_parent"
+            android:layout_height="200dp"
+            android:scaleType="fitXY"
+            />
+
+
+</LinearLayout>

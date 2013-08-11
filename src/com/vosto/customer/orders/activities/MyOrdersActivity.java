@@ -36,7 +36,7 @@ import com.vosto.customer.stores.services.GetStoresService;
 import com.vosto.customer.stores.vos.StoreVo;
 import com.vosto.customer.utils.MoneyUtils;
 
-import static com.vosto.customer.utils.CommonUtilities.IMAGE_SERVER_URL;
+import static com.vosto.customer.utils.CommonUtilities.STORE_IMAGE_SERVER_URL;
 
 import com.androidquery.AQuery;
 
@@ -330,7 +330,7 @@ public class MyOrdersActivity extends VostoBaseActivity implements OnRestReturn,
 	private void updateStoreDetails(StoreVo store){
         ag = new AQuery(this.findViewById(android.R.id.content));
 
-        String imageUrl = IMAGE_SERVER_URL + store.getStoreImage();
+        String imageUrl = STORE_IMAGE_SERVER_URL + store.getStoreImage();
         ag.id(R.id.lblStoreImage).image(imageUrl, false, false, 0, 0, null, AQuery.FADE_IN);
 
 		this.lblStoreName = (TextView)findViewById(R.id.lblStoreName);

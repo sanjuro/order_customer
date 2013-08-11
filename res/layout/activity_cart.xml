@@ -200,42 +200,56 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="#ede9e1"
+        android:background="#FFFFFF"
         android:orientation="vertical"
         >
 
-       <RelativeLayout
-           android:id="@+id/top_bar"
-           android:layout_width="match_parent"
-           android:layout_height="65dp"
-           android:background="@drawable/top_bar_orange"
-           android:orientation="horizontal"
-           android:layout_alignParentTop="true"
-           android:paddingLeft="10dp"
-           android:paddingRight="10dp"
-           >
+        <RelativeLayout
+                android:id="@+id/top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:background="#ed6b06"
+                android:orientation="horizontal"
+                android:layout_alignParentTop="true">
 
-           <ImageView
-                   android:id="@+id/menuButton"
-                   android:layout_width="35dp"
-                   android:layout_height="35dp"
-                   android:src="@drawable/menu"
-                   android:layout_alignParentLeft="true"
-                   android:layout_centerVertical="true"
-                   android:scaleType="fitXY"
-                   />
 
-           <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textColor="#FFFFFF"
-                android:text="Cart"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-           />
+            <RelativeLayout
+                    android:id="@+id/menuButtonHolder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+                    android:background="#FA8C38"
+                    android:orientation="horizontal"
+                    android:layout_alignParentTop="true"
+                    android:paddingLeft="15dp">
 
-       </RelativeLayout> <!-- top bar -->
+                <ImageView
+                        android:id="@+id/menuButton"
+                        android:layout_width="50dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/menu"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:scaleType="fitXY"
+                        android:paddingRight="15dp"
+                        />
+
+
+            </RelativeLayout>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="#FFFFFF"
+                    android:text="Cart"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    />
+
+
+        </RelativeLayout> <!-- top bar -->
+
+
 
        <LinearLayout
                 android:id="@+id/store_details_block"
@@ -297,7 +311,7 @@
                         android:layout_height="25dp"
                         android:layout_marginTop="5dp"
                         android:scaleType="fitXY"
-                        android:background="@drawable/green_button_background"
+                        android:background="#3f7e00"
                         android:onClick="continueButtonPressed"
                         android:text="Continue Shopping"
                         android:contentDescription="@string/sign_up_button"
@@ -307,6 +321,31 @@
             </LinearLayout>
 
         </LinearLayout> <!-- store details block -->
+
+        <RelativeLayout
+                android:id="@+id/totalSection"
+                android:layout_below="@id/store_details_block"
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/total_background_bar"
+                android:paddingRight="10dp"
+                >
+
+            <TextView
+                    android:id="@+id/lblTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:paddingTop="5dp"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:text="Total: R70.00"
+
+                    />
+
+
+        </RelativeLayout> <!-- totalSection -->
 
        <LinearLayout
             android:id="@+id/itemsSection"
@@ -332,8 +371,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
             android:layout_alignParentBottom="true"
             android:orientation="vertical"
             >
@@ -341,35 +378,36 @@
             <LinearLayout
                 android:id="@+id/deliveryButtons"
                 android:layout_width="fill_parent"
-                android:layout_height="50dp"
+                android:layout_height="30dp"
                 android:orientation="horizontal"
-            >
+                android:background="#3f7e00"
+                >
                 
-                <Button 
+                <Button
                  	android:id="@+id/collectButton"
-                 	android:background="@drawable/green_button_background"
+                    android:background="#3f7e00"
                  	android:layout_width="0dp"
                 	android:layout_weight="1"
                 	android:layout_marginRight="5dp"
-                	android:layout_height="fill_parent"
+                	android:layout_height="30dp"
                  	android:text="Collect from store"
                  	android:textSize="16sp"
-                 	android:gravity="center_vertical|center_horizontal"
-                 	android:textColor="#FFFFFF" 
-                 	android:onClick="collectButtonClicked"  
+                 	android:textColor="#FFFFFF"
+                 	android:onClick="collectButtonClicked"
+                    android:layout_alignParentLeft="true"
                  />
-                
-                  <Button 
+
+                <Button
                  	android:id="@+id/deliverButton"
-                 	android:background="@drawable/green_button_background"
+                    android:background="#3f7e00"
                  	android:layout_weight="1"
                  	android:layout_width="0dp"
-                	android:layout_height="fill_parent"
+                    android:layout_height="30dp"
                  	android:text="Deliver to me"
                  	android:textSize="16sp"
-                 	android:gravity="center_vertical|center_horizontal"
-                 	android:textColor="#FFFFFF"   
+                 	android:textColor="#FFFFFF"
                  	android:onClick="deliverButtonClicked"
+                    android:layout_alignParentRight="true"
                  />
                 
              </LinearLayout> <!-- deliveryButtons -->
@@ -380,7 +418,7 @@
 			 	android:layout_width="fill_parent"
 			 	android:layout_height="wrap_content"
 			 	android:visibility="gone"
-			 >
+			    >
 			    
 			    <LinearLayout
 			        android:id="@+id/subtotalSection"
@@ -398,7 +436,6 @@
 			            android:textColor="#000000"
 			            android:text="Subtotal: R"
 			            android:gravity="right|center_vertical"
-			            
 			            />
 			        
 			    </LinearLayout> <!-- subtotalSection -->
@@ -409,6 +446,8 @@
 			        android:layout_height="wrap_content"
 			        android:layout_marginTop="5dp"
 			        android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
 			        >
 			        
 			        <TextView
@@ -459,41 +498,18 @@
 			        android:singleLine="false"/>
 			    		    
 			</LinearLayout> <!-- deliveryDetails -->
-
-            <RelativeLayout
-                    android:id="@+id/totalSection"
-                    android:layout_width="fill_parent"
-                    android:layout_height="35dp"
-                    android:background="@drawable/total_background_bar"
-                    android:paddingRight="10dp"
-                    >
-
-            <TextView
-                    android:id="@+id/lblTotal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center_vertical"
-                    android:paddingTop="5dp"
-                    android:textSize="16sp"
-                    android:textColor="#000000"
-                    android:text="Total: R70.00"
-                    
-                    />
-
-               
-            </RelativeLayout> <!-- totalSection -->
             
              <Button
                         android:id="@+id/place_order_button"
                         android:layout_width="fill_parent"
-                        android:layout_height="55dp"
-                        android:background="@drawable/green_button_background"
+                        android:layout_height="50dp"
+                        android:background="#3f7e00"
                         android:onClick="placeOrderClicked"
                         android:text="Place Order"
                         android:layout_marginTop="10dp"
                         android:textSize="16sp"
                         android:textColor="#FFFFFF"
+                        android:visibility="gone"
                         />
 
         </LinearLayout> <!-- bottom section -->

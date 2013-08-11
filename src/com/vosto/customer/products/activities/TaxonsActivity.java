@@ -34,7 +34,7 @@ import com.vosto.customer.services.RestResult;
 import com.vosto.customer.stores.vos.StoreVo;
 import com.vosto.customer.utils.StoreFavouritesManager;
 
-import static com.vosto.customer.utils.CommonUtilities.IMAGE_SERVER_URL;
+import static com.vosto.customer.utils.CommonUtilities.STORE_IMAGE_SERVER_URL;
 
 import com.androidquery.AQuery;
 
@@ -82,7 +82,7 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
         txtStoreName.setText(this.store.getName());
         txtStoreAddress.setText(this.store.getAddress());
 
-        String imageUrl = IMAGE_SERVER_URL + store.getStoreImage();
+        String imageUrl = STORE_IMAGE_SERVER_URL + store.getStoreImage();
         ag.id(R.id.lblStoreImage).image(imageUrl, false, false, 0, 0, null, AQuery.FADE_IN);
 
         Log.d("STO", "Loading taxons for store: " + this.store.getId());
