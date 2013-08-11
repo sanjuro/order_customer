@@ -46,6 +46,10 @@ public class AddressDialog extends Dialog implements android.view.View.OnClickLi
 	   Spinner cboAddressSuburb = (Spinner)findViewById(R.id.cboAddressSuburb);
 	   cboAddressSuburb.setAdapter(suburbListAdapter);
 	   
+	   //Add click handler for get from location:
+	   Button getFromLocationButton = (Button)dialogLayout.findViewById(R.id.btnGetAddressFromLocation);
+	   getFromLocationButton.setOnClickListener(this);
+	   
 	 }
 	 
 	 @Override
@@ -58,7 +62,17 @@ public class AddressDialog extends Dialog implements android.view.View.OnClickLi
 		 		this.getWindow().getAttributes().windowAnimations = R.style.DialogSlideAnim;
 		 		dismiss();
 		 		break;
+		 	case R.id.btnGetAddressFromLocation:
+		 		this.getAddressFromLocation();
+		 		break;
 		 }
+	 }
+	 
+	 /**
+	  * Fetches the address based on the current GPS location, then auto-populates the form.
+	  */
+	 private void getAddressFromLocation(){
+		 this.cartActivity.fetchAddressFromLocation();
 	 }
 	 
 	 /**

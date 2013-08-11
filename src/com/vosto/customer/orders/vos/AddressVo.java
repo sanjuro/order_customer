@@ -34,8 +34,19 @@ public class AddressVo implements Serializable {
     	   if(!jsonObj.isNull("address2")){
     		   this.setAddress2(jsonObj.getString("address2"));
     	   }
-    	   this.setSuburb(jsonObj.getString("suburb"));
-    	   this.setSuburb_id(jsonObj.getInt("suburb_id"));
+    	   
+    	   if(jsonObj.has("suburb") && !jsonObj.isNull("suburb")){
+    		   this.setSuburb(jsonObj.getString("suburb"));
+    	   }else{
+    		   this.setSuburb("");
+    	   }
+    	   
+    	   // TODO: The get_address service should return the suburb id but it doesn't at the moment so we'll have to default:
+    	   if(jsonObj.has("suburb_id") && !jsonObj.isNull("suburb_id")){
+    		   this.setSuburb_id(jsonObj.getInt("suburb_id"));
+    	   }else{
+    		   this.setSuburb_id(1);
+    	   }
     	   
     	   if(!jsonObj.isNull("city")){
     		   this.setCity(jsonObj.getString("city"));
@@ -45,6 +56,8 @@ public class AddressVo implements Serializable {
     	   }
     	   if(!jsonObj.isNull("country")){
     		   this.setCountry(jsonObj.getString("country"));
+    	   }else{
+    		   this.country = "South Africa";
     	   }
     	   if(!jsonObj.isNull("zipcode")){
     		   this.setZipcode(jsonObj.getString("zipcode"));

@@ -7,8 +7,7 @@
 
        		android:background="#ede9e1"
        >
-
-           <EditText 
+           <EditText
                android:id="@+id/txtAddressLine1"
                android:layout_width="fill_parent"
                android:layout_height="wrap_content"
