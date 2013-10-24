@@ -215,7 +215,7 @@
 			        android:orientation="horizontal"
 			        android:layout_width="fill_parent"
 			        android:layout_height="35dp"
-			        android:background="@drawable/total_background_bar"
+			        android:background="#d8d5ce"
 			        android:paddingLeft="5dp"
 			        android:paddingRight="5dp"
 			        >
@@ -286,7 +286,7 @@
                     android:id="@+id/totalSection"
                     android:layout_width="fill_parent"
                     android:layout_height="35dp"
-                    android:background="@drawable/total_background_bar"
+                    android:background="#d8d5ce"
                     android:paddingRight="5dp"
                     >
 

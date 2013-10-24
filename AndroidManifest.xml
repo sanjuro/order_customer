@@ -86,16 +86,16 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
+                android:name="com.vosto.customer.orders.activities.MyOrderActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
                 android:name="com.vosto.customer.orders.activities.OrderConfirmationActivity"
                 android:screenOrientation="portrait">
         </activity>
         <activity
                 android:name="com.vosto.customer.orders.activities.PreviousOrdersActivity"
                 android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name="com.vosto.customer.orders.activities.ReorderActivity"
-            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="com.vosto.customer.products.activities.ProductDetailsActivity"

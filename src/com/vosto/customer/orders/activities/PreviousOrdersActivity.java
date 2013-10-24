@@ -155,9 +155,7 @@ public class PreviousOrdersActivity extends VostoBaseActivity implements OnRestR
 
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-        Intent intent = new Intent(this, ReorderActivity.class);
-        intent.putExtra("order", this.previousOrders[position]);
-        startActivity(intent);
+
     }
 
     public void orderHistoryClicked(View v){
