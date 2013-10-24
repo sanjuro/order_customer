@@ -9,190 +9,13 @@
             android:id="@+id/sideNavigation"
             android:layout_width="200dp"
             android:layout_height="fill_parent"
-            android:background="@android:color/black"
+            android:background="#ede9e1"
             >
 
-        <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:textSize="18sp"
-                >
-
-            <TextView
-                      android:id="@+id/nameOfUser"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="18sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:onClick="profilePressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/navCartButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="MY CART"
-                      android:onClick="myCartPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/navOrdersButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="MY ORDERS"
-                      android:onClick="myOrdersPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/openOrders"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Open Orders"
-                      android:onClick="myOrdersPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/myOrders"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="BACK TO SEARCH"
-                      android:onClick="storesPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/navFavoritesButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="MY FAVOURITES"
-                      android:onClick="myFavouritesPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:layout_width="match_parent"
-                      android:layout_height="50dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                    />
-
-            <TextView
-                      android:id="@+id/navAccountSettingsButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Account Settings"
-                      android:onClick="profilePressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/navTermsButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Terms and Policies"
-                      android:onClick="termsPressed"
-                      android:clickable="true"
-                    />
-            <TextView
-                      android:id="@+id/navLogoutButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Logout"
-                      android:onClick="logout"
-                      android:clickable="true"
-                    />
-        </LinearLayout>
+        <include
+                android:id="@+id/menu"
+                layout="@layout/menu"
+                />
 
 
     </ScrollView>
@@ -201,7 +24,7 @@
       xmlns:android="http://schemas.android.com/apk/res/android"
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
-      android:background="#FFFFFF"
+      android:background="#ede9e1"
       android:orientation="vertical"
       >
 
@@ -246,7 +69,7 @@
 
                 <RelativeLayout
                         android:id="@+id/buy_button"
-                        android:layout_width="100dp"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="7dp"
                         android:background="#FA8C38"
@@ -256,6 +79,18 @@
                         android:paddingTop="10dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="10dp">
+
+                    <ImageView
+                            android:id="@+id/cartImage"
+                            android:layout_width="50dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/cart_icon"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:scaleType="fitXY"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="15dp"
+                            />
 
                     <TextView
                             android:id="@+id/buy_button_price"
@@ -356,7 +191,7 @@
                                   <TextView
                                         android:id="@+id/lblProductDescription"
                                         android:layout_width="fill_parent"
-                                        android:layout_height="95dp"
+                                        android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="5dp"
                                         android:singleLine="false"
@@ -373,6 +208,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
+                                android:layout_marginLeft="5dp"
                                 >
 
                             <TextView
@@ -383,53 +219,19 @@
                                     android:layout_alignParentTop="true"
                                     android:textSize="14sp"
                                     android:textColor="#676357"
-                                    android:text="Amount:"
+                                    android:text="How many would you like:"
                                     />
 
-                            <LinearLayout
-                                    android:id="@+id/seekbar_section"
-                                    android:layout_width="wrap_content"
+                            <EditText
+                                    android:id="@+id/lblQuantity"
+                                    android:layout_below="@id/amount_title"
+                                    android:layout_width="50dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_alignParentRight="true"
-                                    android:orientation="horizontal"
-                                    >
-
-                                <SeekBar
-                                        android:id="@+id/quantity_slider"
-                                        android:layout_width="125dp"
-                                        android:layout_height="25dp"
-                                        android:layout_marginTop="0dp"
-                                        android:paddingLeft="5dp"
-                                        android:paddingRight="5dp"
-                                        android:max="10"
-                                        android:progress="0"
-                                        android:secondaryProgress="0"
-                                        android:progressDrawable="@drawable/quantity_scrollbar_progress"
-                                        android:thumb="@drawable/scrollbox_handle"
-                                        />
-
-                                <LinearLayout
-                                        android:layout_width="25dp"
-                                        android:layout_height="25dp"
-                                        android:background="@drawable/quantity_circle"
-                                        android:layout_marginTop="0dp"
-                                        android:layout_marginLeft="10dp"
-                                        android:gravity="center"
-                                        >
-
-                                    <TextView
-                                            android:id="@+id/lblQuantity"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textColor="#FFFFFF"
-                                            android:textSize="18sp"
-                                            android:layout_gravity="center_vertical|center_horizontal"
-                                            android:text="1"
-                                            />
-
-                                </LinearLayout> <!-- Quantity Circle -->
-
-                            </LinearLayout> <!-- Seekbar section -->
+                                    android:textColor="#000000"
+                                    android:textSize="18sp"
+                                    android:text="1"
+                                    android:inputType="number"
+                                    />
 
 
                         </RelativeLayout> <!-- Quantity block -->
@@ -453,6 +255,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
+                                android:layout_marginLeft="5dp"
                                 android:layout_alignParentLeft="true"
                                 android:layout_below="@id/variants_block"
                                 android:gravity="center"
@@ -472,6 +275,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
+                                android:layout_marginLeft="5dp"
                                 android:layout_below="@id/lblSpecialInstructions"
                                 android:gravity="center"
                                 >
@@ -487,39 +291,6 @@
                                     />
                         </LinearLayout> <!-- special instructions block -->
 
-                        <LinearLayout
-                                android:id="@+id/bottom_section"
-                                android:orientation="vertical"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginBottom="68dp"
-                                >
-
-                            <RelativeLayout
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="35dp"
-                                    android:background="@drawable/total_background_bar"
-                                    android:layout_marginBottom="10dp"
-                                    android:paddingRight="10dp"
-                                    >
-
-                                <TextView
-                                        android:id="@+id/lblTotal"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerVertical="true"
-                                        android:layout_alignParentRight="true"
-                                        android:textSize="22sp"
-                                        android:textColor="#000000"
-                                        android:text="Total: R70.00"
-                                        />
-
-                            </RelativeLayout> <!-- total section -->
-
-                        </LinearLayout>
-
                     </LinearLayout> <!-- product details block -->
 
                 </ScrollView>
@@ -530,25 +301,49 @@
                 android:id="@+id/bottom_bar"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
-                android:background="#3f7e00"
+                android:background="#2ecc71"
                 android:orientation="horizontal"
                 android:layout_alignParentBottom="true"
+                android:gravity="center_horizontal"
                 >
+
+            <ImageView
+                    android:id="@+id/confirmImage"
+                    android:layout_width="25dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/confirm"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:paddingLeft="10dp"
+                    android:onClick="addToCartClicked"
+                    />
 
             <Button
                     android:id="@+id/save_button"
-                    android:layout_width="214.5dp"
+                    android:layout_toRightOf="@+id/confirmImage"
+                    android:layout_width="50dp"
                     android:layout_height="39.5dp"
                     android:scaleType="fitXY"
-                    android:background="#3f7e00"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:background="#2ecc71"
+                    android:layout_centerVertical="true"
                     android:onClick="saveClicked"
                     android:text="Save"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:layout_marginTop="10dp"
                     android:textColor="#FFFFFF"
                     />
+
+            <TextView
+                    android:id="@+id/lblTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/save_button"
+                    android:text="Total: R70.00"
+                    android:textColor="#FFFFFF"
+                    android:onClick="saveClicked"
+                    android:textSize="16sp" />
 
         </RelativeLayout>
 

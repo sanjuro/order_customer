@@ -6,16 +6,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.view.*;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.agimind.widget.SlideHolder;
 import com.google.android.gcm.GCMRegistrar;
 import com.vosto.customer.HomeActivity;
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
 import com.vosto.customer.accounts.services.CreateAccountResult;
 import com.vosto.customer.accounts.services.CreateAccountService;
+import com.vosto.customer.accounts.vos.CustomerVo;
+import com.vosto.customer.cart.activities.AddressDialog;
 import com.vosto.customer.services.OnRestReturn;
 import com.vosto.customer.services.RestResult;
 import com.vosto.customer.utils.GCMUtils;
@@ -36,12 +39,25 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
     // SocialAuth Components
     SocialAuthAdapter adapter;
     Profile profileMap;
+    private SlideHolder mSlideHolder;
+    private SignUpDialog signupDialog;
 
 	@Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+
+        View toggleView = findViewById(R.id.menuButton);
+        toggleView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mSlideHolder.toggle();
+            }
+        });
 
         if(!GCMUtils.checkGCMAndAlert(this, false)){
         	return;
@@ -68,18 +84,22 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
         adapter.authorize(this, SocialAuthAdapter.Provider.FACEBOOK);
     }
 
-    public void createUserFromFacebook(String firstName, String lastName, String email, String userPin){
+    public void createUserFromFacebook(String firstName, String lastName, String email, String validID, String birthday, String gender){
 
-        Toast aToast = Toast.makeText(this, "Your Order Pin is : " + userPin + " , please keep it in a safe place.", Toast.LENGTH_LONG);
-        ToastExpander.showFor(aToast, 6000);
+        this.signupDialog = new SignUpDialog(this, firstName, lastName, email, birthday, gender);
 
-        CreateAccountService service = new CreateAccountService(this,this);
-        service.setFirstName(firstName);
-        service.setLastName(lastName);
-        service.setEmail(email);
-        service.setUserPin(userPin);
-        service.setMobileNumber("0718900136");
-        service.execute();
+        this.signupDialog.setContentView(R.layout.dialog_signup);
+
+        Window window = this.signupDialog.getWindow();
+        WindowManager.LayoutParams lp = this.signupDialog.getWindow().getAttributes();
+        lp.dimAmount=0.8f;
+        lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        this.signupDialog.getWindow().setAttributes(lp);
+        this.signupDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
+        this.signupDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        this.signupDialog.show();
     }
 	
 	public void submitClicked(View v){
@@ -171,6 +191,7 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
                 editor.putString("userToken", createResult.getAccountResponseWrapper().authentication_token);
                 editor.putString("userName", createResult.getAccountResponseWrapper().first_name);
                 editor.putString("userEmail", createResult.getAccountResponseWrapper().email);
+                editor.putString("userMobile", createResult.getAccountResponseWrapper().mobile_number);
                 editor.commit();
 
                 /*
@@ -196,6 +217,18 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
 
 	}
 
+    public void updateCustomer(CustomerVo customer) {
+        CreateAccountService service = new CreateAccountService(this,this);
+        service.setFirstName(customer.getFirstName());
+        service.setLastName(customer.getLastName());
+        service.setEmail(customer.getEmail());
+        service.setUserPin(customer.getUserPin());
+        service.setGender(customer.getGender());
+        service.setBirthDate(customer.getBirthday());
+        service.setMobileNumber(customer.getMobileNumber());
+        service.execute();
+    }
+
 
     // To receive the response after authentication
     private final class ResponseListener implements DialogListener {
@@ -207,17 +240,20 @@ public class SignUpActivity extends VostoBaseActivity implements OnRestReturn {
             profileMap = adapter.getUserProfile();
             Log.d("SOCIAL",  "ID = "       + profileMap.getValidatedId());
             Log.d("SOCIAL",  "First Name = "       + profileMap.getFirstName());
-            Log.d("SOCIAL", "Last Name  = " + profileMap.getLastName());
+            Log.d("SOCIAL",  "Last Name  = " + profileMap.getLastName());
             Log.d("SOCIAL",  "Email      = "       + profileMap.getEmail());
+            Log.d("SOCIAL",  "Gender  = " + profileMap.getGender());
+            Log.d("SOCIAL",  "Profile Image URL  = " + profileMap.getProfileImageURL());
+
 
             String firstName = profileMap.getFirstName();
             String lastName = profileMap.getLastName();
             String email = profileMap.getEmail();
             String validID = profileMap.getValidatedId();
+            String gender = profileMap.getGender();
+            String birthday = profileMap.getDob().toString();
 
-            String userPin = validID.substring(0,5);
-
-            createUserFromFacebook(firstName,lastName,email,userPin);
+            createUserFromFacebook(firstName,lastName,email,validID,birthday,gender);
         }
 
         @Override

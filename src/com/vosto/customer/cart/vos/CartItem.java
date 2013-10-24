@@ -1,5 +1,6 @@
 package com.vosto.customer.cart.vos;
 
+import android.util.Log;
 import org.joda.money.Money;
 
 import com.vosto.customer.products.vos.ProductVo;
@@ -39,7 +40,7 @@ public class CartItem {
 	
 	public CartItem(ProductVo product, int quantity){
 		this.product = product;
-		
+        Log.d("PROD", "Variant Count: " + product.getVariants().length);
 		// Default to first variant:
 		if(product.getVariants().length > 0){
 			this.variant = product.getVariants()[0];

@@ -47,8 +47,8 @@ public class AddressDialog extends Dialog implements android.view.View.OnClickLi
 	   cboAddressSuburb.setAdapter(suburbListAdapter);
 	   
 	   //Add click handler for get from location:
-	   Button getFromLocationButton = (Button)dialogLayout.findViewById(R.id.btnGetAddressFromLocation);
-	   getFromLocationButton.setOnClickListener(this);
+	   // Button getFromLocationButton = (Button)dialogLayout.findViewById(R.id.btnGetAddressFromLocation);
+	   // getFromLocationButton.setOnClickListener(this);
 	   
 	 }
 	 
@@ -62,9 +62,9 @@ public class AddressDialog extends Dialog implements android.view.View.OnClickLi
 		 		this.getWindow().getAttributes().windowAnimations = R.style.DialogSlideAnim;
 		 		dismiss();
 		 		break;
-		 	case R.id.btnGetAddressFromLocation:
-		 		this.getAddressFromLocation();
-		 		break;
+//		 	case R.id.btnGetAddressFromLocation:
+//		 		this.getAddressFromLocation();
+//		 		break;
 		 }
 	 }
 	 

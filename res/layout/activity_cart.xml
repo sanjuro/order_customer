@@ -9,198 +9,22 @@
             android:id="@+id/sideNavigation"
             android:layout_width="200dp"
             android:layout_height="fill_parent"
+            android:background="#ede9e1"
             >
 
-        <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:textSize="18sp"
-                >
-
-            <TextView
-                      android:id="@+id/nameOfUser"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="18sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:onClick="profilePressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/navCartButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/top_bar_orange"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="MY CART"
-                      android:onClick="myCartPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/navOrdersButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="MY ORDERS"
-                      android:onClick="myOrdersPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/openOrders"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Open Orders"
-                      android:onClick="myOrdersPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/myOrders"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="BACK TO SEARCH"
-                      android:onClick="storesPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/navFavoritesButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="MY FAVOURITES"
-                      android:onClick="myFavouritesPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:layout_width="match_parent"
-                      android:layout_height="50dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                    />
-
-            <TextView
-                      android:id="@+id/navAccountSettingsButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Account Settings"
-                      android:onClick="profilePressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/navTermsButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Terms and Policies"
-                      android:onClick="termsPressed"
-                      android:clickable="true"
-                    />
-            <TextView
-                      android:id="@+id/navLogoutButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Logout"
-                      android:onClick="logout"
-                      android:clickable="true"
-                    />
-        </LinearLayout>
+        <include
+                android:id="@+id/menu"
+                layout="@layout/menu"
+                />
 
 
-    </ScrollView> <!-- side navigation -->
+    </ScrollView>
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="#FFFFFF"
+        android:background="#ede9e1"
         android:orientation="vertical"
         >
 
@@ -311,7 +135,7 @@
                         android:layout_height="25dp"
                         android:layout_marginTop="5dp"
                         android:scaleType="fitXY"
-                        android:background="#3f7e00"
+                        android:background="#2ecc71"
                         android:onClick="continueButtonPressed"
                         android:text="Continue Shopping"
                         android:contentDescription="@string/sign_up_button"
@@ -320,32 +144,7 @@
                         />
             </LinearLayout>
 
-        </LinearLayout> <!-- store details block -->
-
-        <RelativeLayout
-                android:id="@+id/totalSection"
-                android:layout_below="@id/store_details_block"
-                android:layout_width="fill_parent"
-                android:layout_height="35dp"
-                android:background="@drawable/total_background_bar"
-                android:paddingRight="10dp"
-                >
-
-            <TextView
-                    android:id="@+id/lblTotal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center_vertical"
-                    android:paddingTop="5dp"
-                    android:textSize="16sp"
-                    android:textColor="#000000"
-                    android:text="Total: R70.00"
-
-                    />
-
-
-        </RelativeLayout> <!-- totalSection -->
+       </LinearLayout> <!-- store details block -->
 
        <LinearLayout
             android:id="@+id/itemsSection"
@@ -353,6 +152,7 @@
             android:layout_height="fill_parent"
             android:layout_below="@id/store_details_block"
             android:layout_above="@+id/bottomSection"
+            android:layout_margin="5dp"
             android:orientation="vertical"
             >
 
@@ -366,7 +166,7 @@
 
        </LinearLayout> <!-- itemsSection -->
 
-        <LinearLayout
+       <LinearLayout
             android:id="@+id/bottomSection"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -374,43 +174,88 @@
             android:layout_alignParentBottom="true"
             android:orientation="vertical"
             >
-            
+
+
+
             <LinearLayout
                 android:id="@+id/deliveryButtons"
                 android:layout_width="fill_parent"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:orientation="horizontal"
-                android:background="#3f7e00"
+                android:background="#2ecc71"
                 >
-                
-                <Button
-                 	android:id="@+id/collectButton"
-                    android:background="#3f7e00"
-                 	android:layout_width="0dp"
-                	android:layout_weight="1"
-                	android:layout_marginRight="5dp"
-                	android:layout_height="30dp"
-                 	android:text="Collect from store"
-                 	android:textSize="16sp"
-                 	android:textColor="#FFFFFF"
-                 	android:onClick="collectButtonClicked"
-                    android:layout_alignParentLeft="true"
-                 />
 
-                <Button
-                 	android:id="@+id/deliverButton"
-                    android:background="#3f7e00"
-                 	android:layout_weight="1"
-                 	android:layout_width="0dp"
-                    android:layout_height="30dp"
-                 	android:text="Deliver to me"
-                 	android:textSize="16sp"
-                 	android:textColor="#FFFFFF"
-                 	android:onClick="deliverButtonClicked"
-                    android:layout_alignParentRight="true"
-                 />
+                <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:background="#2ecc71"
+                        >
+
+                        <ImageView
+                                android:id="@+id/collectionImage"
+                                android:layout_height="25dp"
+                                android:layout_width="40dp"
+                                android:layout_marginTop="5dp"
+                                android:src="@drawable/collection_icon"
+                                android:layout_alignParentLeft="true"
+                                android:scaleType="fitXY"
+                                android:paddingLeft="10dp"
+                                android:onClick="collectButtonClicked"
+                                />
+
+                        <Button
+                            android:id="@+id/collectButton"
+                            android:background="#2ecc71"
+                            android:layout_width="60dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:text="Collect"
+                            android:textSize="16sp"
+                            android:textColor="#FFFFFF"
+                            android:onClick="collectButtonClicked"
+                         />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:background="#2ecc71"
+                        >
+                        <ImageView
+                                android:id="@+id/delioveryImage"
+                                android:layout_height="25dp"
+                                android:layout_width="35dp"
+                                android:layout_marginTop="5dp"
+                                android:src="@drawable/delivery_icon"
+                                android:layout_alignParentRight="true"
+                                android:scaleType="fitXY"
+                                android:onClick="deliverButtonClicked"
+                                />
+
+                        <Button
+                            android:id="@+id/deliverButton"
+                            android:background="#2ecc71"
+                            android:layout_width="100dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:text="Deliver to me"
+                            android:textSize="16sp"
+                            android:textColor="#FFFFFF"
+                            android:onClick="deliverButtonClicked"
+                            android:layout_alignParentRight="true"
+                         />
+
+                </LinearLayout>
                 
-             </LinearLayout> <!-- deliveryButtons -->
+            </LinearLayout> <!-- deliveryButtons -->
 
 			<LinearLayout
 			 	android:id="@+id/deliveryDetails"
@@ -425,7 +270,8 @@
 			        android:orientation="horizontal"
 			        android:layout_width="fill_parent"
 			        android:layout_height="35dp"
-			        android:background="@drawable/total_background_bar"
+			        android:background="#e0ddd8"
+                    android:paddingRight="15dp"
 			        >
 			        
 			        <TextView 
@@ -448,6 +294,7 @@
 			        android:layout_marginBottom="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:orientation="horizontal"
 			        >
 			        
 			        <TextView
@@ -459,33 +306,33 @@
 			            android:textColor="#000000"
 			            android:layout_alignParentLeft="true"
 			        />
-			        
-			        
-			        <Button
-			            android:id="@+id/changeButton"
-			            android:background="@drawable/orange_arrow_button"
-			            android:scaleType="fitXY"
-                		android:layout_width="70.5dp"
-               			android:layout_height="21.45dp" 
-               			android:layout_alignParentRight="true"
-               			android:text="change"
-               			android:textColor="#FFFFFF"
-               			android:textSize="14sp"
-               			android:onClick="changeButtonClicked"
-               			/>
-			        
-			        <TextView 
-			            android:id="@+id/deliveryCost"
-			            android:layout_width="wrap_content"
-			            android:layout_height="wrap_content"
-			            android:textColor="#000000"
-			            android:textSize="16sp"
-			            android:text="R0.00"
-			            android:layout_toLeftOf="@id/changeButton"
-			            android:layout_marginRight="5dp"
-			            />
-			        
-			        
+
+                    <ImageButton
+                                android:id="@+id/changeButton"
+                                android:src="@drawable/remove"
+                                android:layout_toRightOf="@id/lblDeliveryMethod"
+                                android:background="@null"
+                                android:scaleType="fitXY"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:onClick="changeButtonClicked"
+
+                                />
+
+
+                    <TextView
+                            android:id="@+id/deliveryCost"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000000"
+                            android:textSize="16sp"
+                            android:text="R0.00"
+                            android:layout_marginRight="5dp"
+                            android:layout_alignParentRight="true"
+                            />
+
+
+
 			    </RelativeLayout> <!-- deliveryPriceSection -->
 			    
 			    <TextView
@@ -498,19 +345,61 @@
 			        android:singleLine="false"/>
 			    		    
 			</LinearLayout> <!-- deliveryDetails -->
+
+
+
+           <RelativeLayout
+                   android:id="@+id/bottom_bar"
+                   android:layout_width="fill_parent"
+                   android:layout_height="40dp"
+                   android:background="#2ecc71"
+                   android:orientation="horizontal"
+                   android:layout_alignParentBottom="true"
+                   android:gravity="center_horizontal"
+                   android:onClick="placeOrderClicked"
+                   android:visibility="gone"
+                   >
+
+                   <ImageView
+                           android:id="@+id/confirmImage"
+                           android:layout_width="25dp"
+                           android:layout_height="15dp"
+                           android:src="@drawable/confirm"
+                           android:layout_marginRight="5dp"
+                           android:layout_alignParentLeft="true"
+                           android:layout_centerVertical="true"
+                           android:scaleType="fitXY"
+                           android:paddingLeft="10dp"
+                           android:onClick="addToCartClicked"
+                           />
+
+
             
-             <Button
-                        android:id="@+id/place_order_button"
-                        android:layout_width="fill_parent"
-                        android:layout_height="50dp"
-                        android:background="#3f7e00"
-                        android:onClick="placeOrderClicked"
-                        android:text="Place Order"
-                        android:layout_marginTop="10dp"
-                        android:textSize="16sp"
-                        android:textColor="#FFFFFF"
-                        android:visibility="gone"
-                        />
+                   <Button
+                                android:id="@+id/place_order_button"
+                                android:layout_toRightOf="@+id/confirmImage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="#97c159"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="5dp"
+                                android:text="Place Order"
+                                android:textSize="16sp"
+                                android:textColor="#FFFFFF"
+                                />
+
+                   <TextView
+                           android:id="@+id/lblTotal"
+                           android:layout_toRightOf="@+id/place_order_button"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_centerVertical="true"
+                           android:text="Total: R70.00"
+                           android:textColor="#FFFFFF"
+                           android:onClick="saveClicked"
+                           android:textSize="16sp" />
+
+           </RelativeLayout>
 
         </LinearLayout> <!-- bottom section -->
 

@@ -5,6 +5,8 @@ import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 
 import android.content.SharedPreferences;
+import android.text.Editable;
+import android.text.TextWatcher;
 import com.agimind.widget.SlideHolder;
 import org.joda.money.Money;
 
@@ -81,11 +83,11 @@ public class EditCartItemActivity extends VostoBaseActivity implements OnRestRet
 		
 		  
 	    if(this.chosenVariant != null){
+
 	    	this.selectedOptionValues = new ConcurrentHashMap<String, String>(this.chosenVariant.getOptionValueMap());
 	    }
-		SeekBar quantitySlider = (SeekBar)findViewById(R.id.quantity_slider);
-		quantitySlider.setProgress(this.quantity);
-		quantitySlider.setOnSeekBarChangeListener(this);
+
+        EditText lblQuantity = (EditText)findViewById(R.id.lblQuantity);
 		
 		TextView lblProductName = (TextView)findViewById(R.id.product_name);
 		lblProductName.setText(this.product.getName());
@@ -98,6 +100,32 @@ public class EditCartItemActivity extends VostoBaseActivity implements OnRestRet
 		
 		EditText txtSpecialInstructions = (EditText)findViewById(R.id.txtSpecialInstructions);
 		txtSpecialInstructions.setText(this.cartItem.getSpecialInstructions());
+
+        TextWatcher textWatcher = new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                //here, after we introduced something in the EditText we get the string from it
+
+                EditText lblQuantity = (EditText)findViewById(R.id.lblQuantity);
+                if(!lblQuantity.getText().toString().equals("") && lblQuantity.getText().toString().matches("^\\d+$")){
+                    updateDisplay(Integer.valueOf(lblQuantity.getText().toString().trim()));
+                }
+
+            }
+        };
+
+        lblQuantity.addTextChangedListener(textWatcher);
 		
 		updateDisplay(this.quantity);
 		drawVariants();
@@ -106,6 +134,9 @@ public class EditCartItemActivity extends VostoBaseActivity implements OnRestRet
 	
 	public void saveClicked(View v){
 		Cart cart = getCart();
+
+        TextView lblQuantity = (TextView)findViewById(R.id.lblQuantity);
+        this.quantity = Integer.valueOf(lblQuantity.getText().toString().trim());
 		
 		this.cartItem.setQuantity(this.quantity);
 		this.cartItem.setVariant(this.chosenVariant);
@@ -140,8 +171,6 @@ public class EditCartItemActivity extends VostoBaseActivity implements OnRestRet
 	public void updateDisplay(int quantity, VariantVo variant){
 		this.quantity = quantity;
         this.chosenVariant = new VariantVo(variant);
-        TextView lblQuantity = (TextView)findViewById(R.id.lblQuantity);
-        lblQuantity.setText(Integer.toString(quantity));
 
         Money unitPrice = this.chosenVariant != null ? this.chosenVariant.getPrice() : this.product.getPrice();
         TextView lblProductPrice = (TextView)findViewById(R.id.product_price);

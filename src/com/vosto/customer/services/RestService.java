@@ -31,7 +31,10 @@ import com.vosto.customer.accounts.services.AuthenticateResult;
 import com.vosto.customer.accounts.services.CreateAccountResult;
 import com.vosto.customer.accounts.services.RegisterDeviceResult;
 import com.vosto.customer.accounts.services.ResetPasswordResult;
+import com.vosto.customer.accounts.services.SocialSignInResult;
 import com.vosto.customer.favourites.services.GetStoreFavouriteResult;
+import com.vosto.customer.loyalties.services.GetLoyaltyCardsResult;
+import com.vosto.customer.loyalties.services.GetLoyaltyCardByIdResult;
 import com.vosto.customer.orders.services.GetAddressResult;
 import com.vosto.customer.orders.services.GetDeliveryPriceResult;
 import com.vosto.customer.orders.services.GetOrderByIdResult;
@@ -242,6 +245,9 @@ public class RestService extends AsyncTask <Void, Void, RestResult> {
         if(this.resultType == ResultType.AUTHENTICATE_CUSTOMER){
             result = new AuthenticateResult(200, responseJson);
         }
+        if(this.resultType == ResultType.SOCIAL_SIGNIN){
+            result = new SocialSignInResult(200, responseJson);
+        }
         if(this.resultType == ResultType.RESET_PIN){
             result = new ResetPasswordResult(200, responseJson);
         }
@@ -286,6 +292,12 @@ public class RestService extends AsyncTask <Void, Void, RestResult> {
         }
         if(this.resultType == ResultType.GET_DEALS){
             result = new GetDealsResult(200, responseJson);
+        }
+        if(this.resultType == ResultType.GET_LOYALTY_CARDS){
+            result = new GetLoyaltyCardsResult(200, responseJson);
+        }
+        if(this.resultType == ResultType.GET_LOYALTY_CARD_BY_ID){
+            result = new GetLoyaltyCardByIdResult(200, responseJson);
         }
 
     //    if(this.resultType == ResultType.GET_FAVOURITE_PRODUCTS){

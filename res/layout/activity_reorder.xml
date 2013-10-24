@@ -1,35 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:background="#ede9e1"
-  android:orientation="vertical"
-  >
-  
-   <RelativeLayout
-       android:id="@+id/top_bar"
-       android:layout_width="match_parent"
-       android:layout_height="65dp"
-       android:background="@drawable/top_bar_orange" 
-       android:orientation="horizontal"
-       android:layout_alignParentTop="true"
-       android:paddingLeft="15dp"
-       android:paddingRight="15dp"
-       >
 
-       <TextView
-  			android:layout_width="wrap_content"
-  			android:layout_height="wrap_content"
-  			android:textSize="18sp"
-  			android:textColor="#FFFFFF"
-  			android:text="Re-order"
-  			android:layout_centerHorizontal="true"
-  			android:layout_centerVertical="true"         
-            />
-      
-   </RelativeLayout> <!-- Top Bar -->
-   
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ede9e1"
+        android:orientation="vertical"
+        >
+
+    <RelativeLayout
+            android:id="@+id/top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="#ed6b06"
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true">
+
+
+        <RelativeLayout
+                android:id="@+id/menuButtonHolder"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:background="#FA8C38"
+                android:orientation="horizontal"
+                android:layout_alignParentTop="true"
+                android:paddingLeft="15dp">
+
+            <ImageView
+                    android:id="@+id/menuButton"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/menu"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:paddingRight="15dp"
+                    />
+
+
+        </RelativeLayout>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="#FFFFFF"
+                android:text="Your order was placed"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                />
+
+
+    </RelativeLayout> <!-- top bar -->
+
+    <RelativeLayout
+            android:id="@+id/main_Section"
+            android:layout_below="@id/top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
 
   
   <LinearLayout
@@ -38,7 +69,6 @@
        	android:layout_height="wrap_content"
        	android:layout_below="@id/top_bar"
        	android:orientation="vertical"
-       	android:background="#ede9e1"
        	android:layout_marginTop="10dp"
        	android:layout_marginBottom="10dp"
         >
@@ -276,18 +306,36 @@
                
             </RelativeLayout> <!-- totalSection -->
 
-            <Button
-                  android:id="@+id/reorder_button"
-                  android:layout_width="214.5dp"
-                  android:layout_height="39.5dp"
-                  android:scaleType="fitXY"
-                  android:background="@drawable/green_button_background"
-                  android:layout_gravity="center_horizontal|center_vertical"
-                  android:onClick="reorderClicked"
-                  android:text="Re-Order"
-                  android:layout_marginTop="10dp"
-                  android:textSize="20sp"
-                  android:textColor="#FFFFFF"
-                  />
       </LinearLayout> <!-- Order Section -->
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/bottom_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:background="#2ecc71"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            >
+
+
+        <Button
+                android:id="@+id/add_to_cart_big_button"
+                android:layout_below="@+id/totals_section"
+                android:layout_width="214.5dp"
+                android:layout_height="39.5dp"
+                android:scaleType="fitXY"
+                android:background="#2ecc71"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:onClick="reorderClicked"
+                android:text="Re-Order"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:textColor="#FFFFFF"
+                />
+
+    </RelativeLayout>
+
 </RelativeLayout>

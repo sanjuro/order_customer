@@ -1,6 +1,8 @@
 package com.vosto.customer;
 
 import java.util.Random;
+import java.util.List;
+
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,12 +18,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import android.widget.TextView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.vosto.customer.accounts.activities.EditProfileActivity;
 import com.vosto.customer.accounts.activities.SignInActivity;
 import com.vosto.customer.cart.activities.CartActivity;
 import com.vosto.customer.cart.vos.Cart;
-import com.vosto.customer.favourites.activities.ProductFavouritesActivity;
+import com.vosto.customer.favourites.activities.StoreFavouritesActivity;
+import com.vosto.customer.loyalties.activities.LoyaltyActivity;
 import com.vosto.customer.orders.activities.MyOrdersActivity;
 import com.vosto.customer.orders.vos.OrderVo;
 import com.vosto.customer.pages.activities.TermsActivity;
@@ -59,6 +63,14 @@ public abstract class VostoBaseActivity extends Activity implements LocationList
 	    
 	    // Google Analytics:
 	    EasyTracker.getInstance().activityStart(this);
+
+          TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
+
+          SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+          if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
+              //User logged in:
+              nameOfUser.setText(settings.getString("userName", "user"));
+          }
 	    
 	    if(this.listenForGpsUpdates){
 	    	startListeningForGps(); // Start listening for GPS updates.
@@ -173,13 +185,25 @@ public abstract class VostoBaseActivity extends Activity implements LocationList
     }
 
     public void myFavouritesPressed(View v){
-        Intent intent = new Intent(this, ProductFavouritesActivity.class);
+        Intent intent = new Intent(this, StoreFavouritesActivity.class);
+        startActivity(intent);
+    }
+
+    public void myLoyaltyCardsPressed(View v){
+        Intent intent = new Intent(this, LoyaltyActivity.class);
         startActivity(intent);
     }
 
     public void profilePressed(View v){
         Intent intent = new Intent(this, EditProfileActivity.class);
         startActivity(intent);
+    }
+
+    public void feedbackPressed(View v){
+        Intent mailer = new Intent(Intent.ACTION_SEND);
+        mailer.setType("text/plain");
+        mailer.putExtra(Intent.EXTRA_EMAIL, new String[]{"customerservice@vosto.co.za"});
+        startActivity(Intent.createChooser(mailer, "Send email..."));
     }
 
     public void termsPressed(View v){
@@ -259,7 +283,7 @@ public abstract class VostoBaseActivity extends Activity implements LocationList
 				1000 * 10, // min 10 seconds between location updates (can't be too frequent...battery life)
 				20, // will only update for every 20 meters the device moves
 				this);
-        Log.d("GPS", "Cart: Listening for GPS updates...");
+        Log.d("GPS", "Listening for GPS updates...");
 	}
 	
 	protected void stopListeningForGps(){
@@ -277,6 +301,9 @@ public abstract class VostoBaseActivity extends Activity implements LocationList
 	 *  requireGps: If true, we show an error if the GPS is disabled.
 	 */
 	protected Location getBestLocation(boolean requireGps){
+        int minDistance = 5;
+        long minTime = 10;
+
 		// If the GPS is disabled, ask the user to enable it:
 		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 		if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
@@ -290,22 +317,49 @@ public abstract class VostoBaseActivity extends Activity implements LocationList
 		 * Check if we have a recent (less than 30 mins old) updated location from the gps provider, otherwise we just
 		 * try to get one from the best available provider:
 		 */
-		Location bestLocation = null;
-		if(this.currentGpsLocation != null && System.currentTimeMillis() - this.currentGpsLocation.getTime() <= 30 * 60 * 1000){
-			Log.d("GPS", "Current updated location is  NOT null");
-			// We have a recent location updated by the gps provider.
-			bestLocation = this.currentGpsLocation;
-		}else{
-			Log.d("GPS", "Current updated location is null");
-			// We don't have an updated gps location or it's older than 30 mins. Try to get a new one from the best available provider:
-			Criteria criteria = new Criteria();
-			String bestProvider = locationManager.getBestProvider(criteria, false);
-			bestLocation = locationManager.getLastKnownLocation(bestProvider);
-		}
+
+        Location bestLocation = null;
+        float bestAccuracy = Float.MAX_VALUE;
+        long bestTime = Long.MIN_VALUE;
+
+
+        List<String> matchingProviders = locationManager.getAllProviders();
+        for (String provider: matchingProviders) {
+            Location location = locationManager.getLastKnownLocation(provider);
+            if (location != null) {
+                float accuracy = location.getAccuracy();
+                long time = location.getTime();
+
+                if ((time > minTime && accuracy < bestAccuracy)) {
+                    bestLocation = location;
+                    bestAccuracy = accuracy;
+                    bestTime = time;
+                }
+                else if (time < minTime &&
+                    bestAccuracy == Float.MAX_VALUE && time > bestTime){
+                    bestLocation = location;
+                    bestTime = time;
+                }
+            }
+        }
+
+
+
+//		if(this.currentGpsLocation != null && System.currentTimeMillis() - this.currentGpsLocation.getTime() <= 10 * 60 * 1000){
+//			Log.d("GPS", "Current updated location is  NOT null");
+//			// We have a recent location updated by the gps provider.
+//			bestLocation = this.currentGpsLocation;
+//		}else{
+//			Log.d("GPS", "Current updated location is null");
+//			// We don't have an updated gps location or it's older than 10 mins. Try to get a new one from the best available provider:
+//			Criteria criteria = new Criteria();
+//			String bestProvider = locationManager.getBestProvider(criteria, false);
+//			bestLocation = locationManager.getLastKnownLocation(bestProvider);
+//		}
 				
 		if(bestLocation == null){
 			// We've tried everything but couldn't get a location. The gps could still be waiting for a location fix.
-			this.showAlertDialog("Please wait...", "Please wait for your GPS to determine your location and try again.");
+			this.showAlertDialog("Finding your location", "Vosto is waiting for your GPS to send your co-ordinates. Please retry you action in a few seconds.");
 		   	return null;
 		}
 		

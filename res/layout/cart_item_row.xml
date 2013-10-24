@@ -3,12 +3,10 @@
 <LinearLayout
       xmlns:android="http://schemas.android.com/apk/res/android"
       android:layout_width="fill_parent"
-      android:layout_height="80dp"
+      android:layout_height="wrap_content"
       android:orientation="vertical"
       android:background="#FFFFFF"
-      android:paddingTop="5dp"
-      android:paddingLeft="5dp"
-      android:paddingRight="5dp"
+      android:layout_marginBottom="5dp"
       >
 
       <LinearLayout
@@ -17,92 +15,110 @@
             android:orientation="horizontal"
             >
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:orientation="vertical"
-                >
+                <LinearLayout
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="0.7"
+                          android:layout_alignParentRight="true"
+                          android:orientation="vertical"
+                          >
+
+                          <TextView
+                                  android:id="@+id/lblProductName"
+                                  android:layout_width="fill_parent"
+                                  android:layout_height="wrap_content"
+                                  android:paddingLeft="10dp"
+                                  android:paddingTop="2dp"
+                                  android:layout_alignParentLeft="true"
+                                  android:background="#2ecc71"
+                                  android:textSize="14sp"
+                                  android:textColor="#FFFFFF"
+                                  android:text="1 X Spur's Famous Pork Ribs"
+                                  />
+
+                          <TextView
+                                  android:id="@+id/lblVariant"
+                                  android:layout_width="115dp"
+                                  android:layout_height="wrap_content"
+                                  android:layout_marginLeft="9dp"
+                                  android:textSize="12sp"
+                                  android:textColor="#676357"
+                                  android:text="single"
+                                  />
 
 
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/lblProductName"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="#676357"
-                    android:text="1 X Spur's Famous Pork Ribs"
-                    />
+                <RelativeLayout
+                      android:layout_width="0dp"
+                      android:layout_height="50dp"
+                      android:layout_weight="0.12"
+                      android:layout_alignParentRight="true"
+                      android:background="#27ae60"
+                      android:orientation="horizontal"
+                      >
 
+                      <ImageButton
+                          android:id="@+id/edit_button"
+                          android:src="@drawable/edit"
+                          android:layout_margin="10dp"
+                          android:scaleType="fitXY"
+                          android:layout_width="25dp"
+                          android:layout_height="25dp"
+                          android:background="@null"
+                          android:onClick="editButtonClicked"
+                          />
 
-                <TextView
-                    android:id="@+id/lblVariant"
-                    android:layout_width="115dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textColor="#676357"
-                    />
-
-
-            </LinearLayout>
+                  </RelativeLayout>
 
       </LinearLayout>
-  
-      <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        >
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            >
+      <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="5dp"
+                android:paddingTop="5dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal"
+                >
 
-            <TextView
-                    android:id="@+id/lblPrice"
-                    android:layout_width="115dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textColor="#676357"
-                    android:text="R12.00"
-                    />
+                <RelativeLayout
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:background="#af4455"
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal"
+                        >
 
-        </LinearLayout>
+                        <ImageButton
+                                android:id="@+id/remove_button"
+                                android:src="@drawable/remove"
+                                android:scaleType="fitXY"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginTop="2dp"
+                                android:background="@null"
+                                android:onClick="removeButtonClicked"
+                                />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="15dp"
-            android:paddingTop="5dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            >
+                </RelativeLayout>
 
-            <ImageButton
-                android:id="@+id/edit_button"
-                android:src="@drawable/edit_button"
-                android:scaleType="fitXY"
-                android:layout_width="70.5dp"
-                android:layout_height="21.45dp"
-                android:background="@null"
-                android:onClick="editButtonClicked"
-                />
 
-              <ImageButton
-                android:id="@+id/remove_button"
-                android:src="@drawable/remove_button"
-                android:scaleType="fitXY"
-                android:layout_width="70.5dp"
-                android:layout_height="21.45dp"
-                android:background="@null"
-                android:onClick="removeButtonClicked"
-                />
+                <TextView
+                        android:id="@+id/lblPrice"
+                        android:layout_width="115dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="230dp"
+                        android:textSize="12sp"
+                        android:textColor="#676357"
+                        android:text="R12.00"
+                        />
 
-        </LinearLayout>
 
-    </RelativeLayout>
+       </LinearLayout>
+
+
 </LinearLayout>

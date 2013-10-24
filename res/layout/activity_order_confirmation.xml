@@ -9,188 +9,13 @@
             android:id="@+id/sideNavigation"
             android:layout_width="200dp"
             android:layout_height="fill_parent"
-            android:background="@android:color/black"
+            android:background="#ede9e1"
             >
 
-        <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:textSize="18sp"
-                >
-
-            <TextView
-                      android:id="@+id/nameOfUser"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="18sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:onClick="profilePressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/navCartButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="MY CART"
-                      android:onClick="myCartPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/navOrdersButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/top_bar_orange"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="MY ORDERS"
-                      android:onClick="myOrdersPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/openOrders"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Open Orders"
-                      android:onClick="myOrdersPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/myOrders"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="BACK TO SEARCH"
-                      android:onClick="storesPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/navFavoritesButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="MY FAVOURITES"
-                      android:onClick="myFavouritesPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:layout_width="match_parent"
-                      android:layout_height="50dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                    />
-
-            <TextView
-                      android:id="@+id/navAccountSettingsButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Account Settings"
-                      android:onClick="profilePressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/navTermsButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Terms and Policies"
-                    />
-            <TextView
-                      android:id="@+id/navLogoutButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Logout"
-                      android:onClick="logout"
-                      android:clickable="true"
-                    />
-        </LinearLayout>
+        <include
+                android:id="@+id/menu"
+                layout="@layout/menu"
+                />
 
 
     </ScrollView>
@@ -199,7 +24,7 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="#FFFFFF"
+            android:background="#ede9e1"
             android:orientation="vertical"
             >
 
@@ -257,43 +82,25 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp">
 
-            <LinearLayout
-                    android:id="@+id/order_message"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
-
-                <TextView
-                        android:id="@+id/lblOrderNumber"
-                        android:layout_height="20dp"
+                <LinearLayout
+                        android:id="@+id/order_message"
                         android:layout_width="fill_parent"
-                        android:textSize="16sp"
-                        android:textColor="#6c675c"
-                        android:text="Your order: 12341234 has been confirmed"
-                        android:layout_centerHorizontal="true"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        />
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
 
-                <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@android:color/darker_gray"/>
-
-                <TextView
-                        android:id="@+id/store_message"
-                        android:layout_height="20dp"
-                        android:layout_width="fill_parent"
-                        android:layout_marginTop="10dp"
-                        android:textSize="14sp"
-                        android:textColor="#6c675c"
-                        android:text="Your order has been sent to"
-                        android:layout_centerHorizontal="true"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        />
+                        <TextView
+                                android:id="@+id/store_message"
+                                android:layout_height="20dp"
+                                android:layout_width="fill_parent"
+                                android:layout_marginTop="10dp"
+                                android:textSize="14sp"
+                                android:textColor="#6c675c"
+                                android:text="Your order has been sent to"
+                                android:layout_centerHorizontal="true"
+                                android:paddingLeft="15dp"
+                                android:paddingRight="15dp"
+                                />
 
                 <LinearLayout
                     android:id="@+id/store_details_block"
@@ -362,26 +169,93 @@
                         android:layout_marginTop="15dp"
                         android:background="@android:color/darker_gray"/>
 
-                <TextView
-                        android:id="@+id/store_message"
-                        android:layout_height="20dp"
+                <LinearLayout
                         android:layout_width="fill_parent"
-                        android:layout_marginTop="10dp"
-                        android:textSize="14sp"
-                        android:textColor="#6c675c"
-                        android:textStyle="italic"
-                        android:text="What was in your order?"
-                        android:layout_centerHorizontal="true"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        />
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:paddingTop="5dp"
+                        android:orientation="horizontal">
 
+                    <TextView
+                            android:id="@+id/textDelivery"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:textSize="16sp"
+                            android:text="Delivery Order"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="#39393e"
+                            android:textStyle="bold" />
 
-                <View
+                    <TextView
+                            android:id="@+id/lblOrderNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_marginBottom="1dp"
+                            android:layout_marginLeft="15dp"
+                            android:text="R12341234"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="#000000"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                            />
+
+                </LinearLayout>
+
+                <LinearLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@android:color/darker_gray"/>
+                        android:layout_height="15dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/border"
+                        android:orientation="horizontal">
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dp"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="5dp"
+                        android:orientation="horizontal">
+
+                    <TextView
+                            android:id="@+id/lblQuantity"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:paddingLeft="14sp"
+                            android:textSize="12sp"
+                            android:text="Quantity"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="#39393e"
+                            android:textStyle="bold" />
+
+                    <TextView
+                            android:id="@+id/lblItem"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:paddingLeft="14sp"
+                            android:textSize="12sp"
+                            android:text="Item"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="#39393e"
+                            android:textStyle="bold" />
+
+                    <TextView
+                            android:id="@+id/lblPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginLeft="20dp"
+                            android:paddingLeft="14sp"
+                            android:textSize="12sp"
+                            android:text="Price"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="#39393e"
+                            android:textStyle="bold" />
+
+                </LinearLayout>
 
                 <ListView
                         android:id="@+id/current_order_items_list"
@@ -400,28 +274,28 @@
                     android:layout_height="wrap_content"
                  >
 			    
-                        <LinearLayout
-                            android:id="@+id/subtotalSection"
-                            android:orientation="horizontal"
-                            android:layout_width="fill_parent"
-                            android:layout_height="35dp"
-                            android:background="@drawable/total_background_bar"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            >
-			        
-                            <TextView
-                                android:id="@+id/subtotal"
-                                android:layout_width="fill_parent"
-                                android:layout_height="fill_parent"
-                                android:textSize="16sp"
-                                android:textColor="#000000"
-                                android:text="Subtotal: R"
-                                android:gravity="right|center_vertical"
 
-                                />
-			        
-			            </LinearLayout> <!-- subtotalSection -->
+
+                       <LinearLayout
+                               android:id="@+id/subtotalSection"
+                               android:orientation="horizontal"
+                               android:layout_width="fill_parent"
+                               android:layout_height="35dp"
+                               android:background="#e0ddd8"
+                               android:paddingRight="5dp"
+                               >
+
+                           <TextView
+                                   android:id="@+id/subtotal"
+                                   android:layout_width="fill_parent"
+                                   android:layout_height="fill_parent"
+                                   android:textSize="16sp"
+                                   android:textColor="#000000"
+                                   android:text="Subtotal: R"
+                                   android:gravity="right|center_vertical"
+                                   />
+
+                       </LinearLayout> <!-- subtotalSection -->
 			    
                         <RelativeLayout
                             android:id="@+id/deliveryPriceSection"
@@ -438,7 +312,7 @@
                                 android:text="Deliver"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="16sp"
+                                android:textSize="14sp"
                                 android:textColor="#000000"
                                 android:layout_alignParentLeft="true"
                             />
@@ -450,7 +324,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="#000000"
-                                android:textSize="16sp"
+                                android:textSize="14sp"
                                 android:text="R0.00"
                                 android:layout_alignParentRight="true"
                                 />
@@ -471,31 +345,31 @@
                             />
 			    		    
 			       </LinearLayout> <!-- deliveryDetails -->
-			
-			       <RelativeLayout
-                    android:id="@+id/totalSection"
-                    android:layout_width="fill_parent"
-                    android:layout_height="35dp"
-                    android:background="@drawable/total_background_bar"
-                    android:paddingRight="5dp"
-                    >
+
+                    <RelativeLayout
+                            android:id="@+id/totalSection"
+                            android:layout_width="fill_parent"
+                            android:layout_height="35dp"
+                            android:background="#e0ddd8"
+                            android:paddingRight="5dp"
+                            >
 
                         <TextView
-                            android:id="@+id/lblTotal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="fill_parent"
-                            android:layout_alignParentRight="true"
-                            android:gravity="center_vertical"
-                            android:paddingTop="5dp"
-                            android:textSize="16sp"
-                            android:textColor="#000000"
-                            android:text="Total: R"
+                                android:id="@+id/lblTotal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="fill_parent"
+                                android:layout_alignParentRight="true"
+                                android:gravity="center_vertical"
+                                android:paddingTop="5dp"
+                                android:textSize="18sp"
+                                android:textColor="#000000"
+                                android:text="Total: R70.00"
 
-                            />
+                                />
 
 
                     </RelativeLayout> <!-- totalSection -->
-
+			
 
             </LinearLayout>
 
@@ -506,14 +380,14 @@
                 android:id="@+id/bottom_bar"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
-                android:background="#3f7e00"
+                android:background="#2ecc71"
                 android:orientation="horizontal"
                 android:layout_alignParentBottom="true"
                 >
 
             <Button
                     android:id="@+id/continue_button"
-                    android:background="#3f7e00"
+                    android:background="#2ecc71"
                     android:layout_width="150dp"
                     android:layout_marginRight="5dp"
                     android:layout_height="40dp"
@@ -526,7 +400,7 @@
 
             <Button
                     android:id="@+id/view_order_button"
-                    android:background="#3f7e00"
+                    android:background="#2ecc71"
                     android:layout_width="120dp"
                     android:layout_height="40dp"
                     android:text="View my Orders"

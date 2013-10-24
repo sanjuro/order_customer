@@ -6,6 +6,7 @@ import com.vosto.customer.stores.vos.StoreVo;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,7 @@ public class StoreListAdapter extends ArrayAdapter<StoreVo>{
     Context context; 
     int layoutResourceId;    
     StoreVo stores[] = null;
-    AQuery ag = null;
+
 
     public StoreListAdapter(Context context, int layoutResourceId, StoreVo[] stores) {
         super(context, layoutResourceId, stores);
@@ -35,7 +36,7 @@ public class StoreListAdapter extends ArrayAdapter<StoreVo>{
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
         StoreListItemHolder holder = null;
-        ag = new AQuery(convertView);
+        AQuery ag = new AQuery(convertView);
 
         if(row == null)
         {
@@ -51,12 +52,14 @@ public class StoreListAdapter extends ArrayAdapter<StoreVo>{
         if(holder == null || store == null){
         	return row;
         }
-        if(holder.lblStoreImage == null || holder.lblStoreName == null || holder.lblDistance == null || holder.lblAddress == null || holder.lblSelectionArrow == null || holder.lblStatus == null){
+        if(holder.lblStoreImage == null || holder.lblStoreName == null || holder.lblDistance == null || holder.lblAddress == null || holder.lblSelectionArrow == null ){
         	 holder.lblStoreImage = (ImageView)row.findViewById(R.id.lblStoreImage);
              holder.lblStoreName = (TextView)row.findViewById(R.id.lblStoreName);
              holder.lblDistance = (TextView)row.findViewById(R.id.lblDistance);
              holder.lblAddress = (TextView)row.findViewById(R.id.lblAddress);
-             holder.lblStatus = (ImageView)row.findViewById(R.id.lblStatus);
+             holder.lblStatusOpen = (TextView)row.findViewById(R.id.lblStatusOpen);
+             holder.lblStatusClosed = (TextView)row.findViewById(R.id.lblStatusClosed);
+             holder.lblStatusDelivery = (TextView)row.findViewById(R.id.lblStatusDelivery);
         }
         
         row.setTag(holder);      
@@ -72,13 +75,23 @@ public class StoreListAdapter extends ArrayAdapter<StoreVo>{
         }
 
         String imageUrl = STORE_IMAGE_SERVER_URL + store.getStoreImage();
-        ag.id(R.id.lblStoreImage).image(imageUrl, false, false, 0, 0, null, AQuery.FADE_IN);
+        Bitmap preset = ag.getCachedImage(imageUrl);
+
+        ag.id(R.id.lblStoreImage).image(imageUrl, true, true, 0, 0, null, AQuery.FADE_IN);
 
         // Hide the arrow if the store is offline, and show the appropriate status banner:
-        if (!store.getIsOnline()){
-            holder.lblStatus.setImageResource(R.drawable.store_status_closed);
+        if (store.getIsOnline()){
+            holder.lblStatusOpen.setVisibility(View.VISIBLE);
+            holder.lblStatusClosed.setVisibility(View.GONE);
         }else{
-            holder.lblStatus.setImageResource(R.drawable.store_status_open);
+            holder.lblStatusClosed.setVisibility(View.VISIBLE);
+            holder.lblStatusOpen.setVisibility(View.GONE);
+        }
+
+        if (store.canDeliver()){
+            holder.lblStatusDelivery.setVisibility(View.VISIBLE);
+        }else{
+            holder.lblStatusDelivery.setVisibility(View.GONE);
         }
       
         return row;
@@ -100,7 +113,9 @@ public class StoreListAdapter extends ArrayAdapter<StoreVo>{
         TextView lblStoreName;
         TextView lblDistance;
         TextView lblAddress;
-        ImageView lblStatus;
+        TextView lblStatusOpen;
+        TextView lblStatusClosed;
+        TextView lblStatusDelivery;
         ImageView lblSelectionArrow;
     }
 }

@@ -9,190 +9,13 @@
             android:id="@+id/sideNavigation"
             android:layout_width="200dp"
             android:layout_height="fill_parent"
-            android:background="@android:color/black"
+            android:background="#ede9e1"
             >
 
-        <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:textSize="18sp"
-                >
-
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/nameOfUser"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="18sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:onClick="profilePressed"
-                      android:clickable="true"
-                    />
-
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/navCartButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="MY CART"
-                      android:onClick="myCartPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/navOrdersButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="MY ORDERS"
-                      android:onClick="myOrdersPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/openOrders"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Open Orders"
-                      android:onClick="myOrdersPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/myOrders"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="BACK TO SEARCH"
-                      android:onClick="storesPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/navFavoritesButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="MY FAVOURITES"
-                      android:onClick="myFavouritesPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:layout_width="match_parent"
-                      android:layout_height="50dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                    />
-
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/navAccountSettingsButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Account Settings"
-                      android:onClick="profilePressed"
-                      android:clickable="true"
-                    />
-
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/navTermsButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Terms and Policies"
-                      android:onClick="termsPressed"
-                      android:clickable="true"
-                    />
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/navLogoutButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Logout"
-                      android:onClick="logout"
-                      android:clickable="true"
-                    />
-        </LinearLayout>
+        <include
+                android:id="@+id/menu"
+                layout="@layout/menu"
+                />
 
 
     </ScrollView>
@@ -201,7 +24,7 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="#FFFFFF"
+            android:background="#ede9e1"
             android:orientation="vertical"
             android:descendantFocusability="beforeDescendants"
             android:focusableInTouchMode="true"
@@ -221,7 +44,7 @@
                     android:id="@+id/menuButtonHolder"
                     android:layout_width="wrap_content"
                     android:layout_height="55dp"
-                    android:background="#000000"
+                    android:background="#FA8C38"
                     android:orientation="horizontal"
                     android:layout_alignParentTop="true"
                     android:paddingLeft="15dp">
@@ -265,34 +88,151 @@
     android:layout_marginLeft="0dp"
     android:layout_marginRight="0dp"
     android:layout_marginTop="0dp"
-    android:orientation="vertical"   
+    android:orientation="vertical"
     >
 
-   		 <LinearLayout 
-   		       android:id="@+id/closeToYouBar"
-               android:orientation="horizontal"
-               android:layout_width="fill_parent"
-               android:layout_height="42dp"
-   			   android:background="#d8d5ce"
-			   android:paddingLeft="15dp"
-               >
-   		    
+   	        <LinearLayout
+                android:id="@+id/storesResults"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:orientation="vertical"
+                >
 
-   		    
-   		 </LinearLayout>
+            <TextView
+                    android:text="Vosto could not find any stores that match your search, please try one of our other searches."
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="#575b5c"
+                    android:layout_gravity="center_vertical"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="15dp"
+                    android:textStyle="italic"
+                    />
+
+       <LinearLayout
+               android:layout_width="fill_parent"
+               android:layout_height="80dp"
+               android:layout_alignParentLeft="true"
+               android:paddingTop="15dp"
+               android:layout_marginLeft="15dp"
+               android:layout_marginRight="15dp"
+               >
+
+           <ImageButton
+                   android:id="@+id/find_by_location_button"
+                   android:layout_width="60dp"
+                   android:layout_height="60dp"
+                   android:scaleType="fitXY"
+                   android:src="@drawable/find_by_location_button"
+                   android:background="@null"
+                   android:contentDescription="@string/sign_up_button"
+                   android:onClick="findByLocationClicked"
+                   />
+
+           <LinearLayout
+                   android:layout_width="fill_parent"
+                   android:layout_height="100dp"
+                   android:layout_alignParentLeft="true"
+                   android:orientation="vertical"
+                   >
+
+               <TextView
+                       android:id="@+id/find_by_location_text"
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:paddingTop="10dp"
+                       android:paddingLeft="20dp"
+                       android:textSize="16sp"
+                       android:textColor="#ed6b06"
+                       android:text="SEARCH BY LOCATION"
+                       />
+
+               <TextView
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:paddingTop="2dp"
+                       android:paddingLeft="20dp"
+                       android:textSize="14sp"
+                       android:textColor="#000000"
+                       android:text="Find stores near to you"
+                       />
+
+           </LinearLayout>
+
+       </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="80dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    >
+
+                <ImageButton
+                        android:id="@+id/find_by_category_button"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_alignParentLeft="true"
+                        android:src="@drawable/find_by_food_type_button"
+                        android:background="@null"
+                        android:contentDescription="@string/sign_up_button"
+                        android:onClick="findByCategoryClicked"
+                        android:scaleType="fitXY"
+                        />
+
+                <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="100dp"
+                        android:layout_alignParentLeft="true"
+                        android:orientation="vertical"
+                        >
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="0dp"
+                            android:paddingLeft="20dp"
+                            android:textSize="16sp"
+                            android:textColor="#ed6b06"
+                            android:text="SEARCH BY CUISINE"
+                            />
+
+                    <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/find_by_location_text"
+                            android:paddingTop="2dp"
+                            android:paddingLeft="20dp"
+                            android:textSize="14sp"
+                            android:textColor="#000000"
+                            android:text="Maybe you want something specific"
+                            />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+       </LinearLayout>
    		
-   		<ListView 
+   		<ListView
    			android:id="@+id/lstStores"
    			android:layout_width="fill_parent"
-   			android:layout_height="wrap_content"   
+   			android:layout_height="wrap_content"
    			android:layout_marginLeft="0dp"
    			android:layout_marginTop="0dp"
             android:divider="#CCCCCC"
   			android:dividerHeight="1sp"
             android:listSelector="@drawable/list_selector"
    		></ListView>
-   
-       
+
+
+
    </LinearLayout>
 
     

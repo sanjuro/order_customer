@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 
+import android.util.Log;
 import org.joda.money.Money;
 
 import android.content.Intent;
@@ -20,6 +21,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.agimind.widget.SlideHolder;
@@ -36,6 +40,8 @@ import com.vosto.customer.services.RestResult;
 import com.vosto.customer.stores.vos.StoreVo;
 import com.vosto.customer.utils.MoneyUtils;
 import com.vosto.customer.utils.ProductFavouritesManager;
+
+import static com.vosto.customer.utils.CommonUtilities.SERVER_URL;
 
 public class ProductDetailsActivity extends VostoBaseActivity implements OnRestReturn, OnSeekBarChangeListener, OnCheckedChangeListener {
 
@@ -82,9 +88,6 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 
         this.quantity = 1;
 
-        SeekBar quantitySlider = (SeekBar)findViewById(R.id.quantity_slider);
-        quantitySlider.setOnSeekBarChangeListener(this);
-
         this.product = (ProductVo)getIntent().getSerializableExtra("product");
 
         this.total = this.product.getPrice();
@@ -93,7 +96,7 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
         if(this.chosenVariant != null){
         	this.selectedOptionValues = new ConcurrentHashMap<String, String>(this.chosenVariant.getOptionValueMap());
         }
-        
+
         TextView lblProductName = (TextView)findViewById(R.id.product_name);
         lblProductName.setText(this.product.getName());
 
@@ -101,12 +104,39 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
         lblProductDescription.setText(this.product.getDescription());
 
         TextView lblProductPrice = (TextView)findViewById(R.id.product_price);
-        lblProductPrice.setText(MoneyUtils.getRandString(this.total));
+
+        // lblProductPrice.setText(MoneyUtils.getRandString(this.total));
         favourites = new ProductFavouritesManager(this);
-        CheckBox star = (CheckBox)findViewById(R.id.star);
-        star.setChecked(favourites.isFavourite(Integer.toString(product.getId())));
-        star.setOnCheckedChangeListener(this);
-        updateDisplay(1);
+
+
+        TextWatcher textWatcher = new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                //here, after we introduced something in the EditText we get the string from it
+
+                EditText lblQuantity = (EditText)findViewById(R.id.lblQuantity);
+                if(!lblQuantity.getText().toString().equals("") && lblQuantity.getText().toString().matches("^\\d+$")){
+                    updateDisplay(Integer.valueOf(lblQuantity.getText().toString().trim()));
+                }
+
+            }
+        };
+
+        EditText lblQuantity = (EditText)findViewById(R.id.lblQuantity);
+        lblQuantity.addTextChangedListener(textWatcher);
+
+        updateDisplay(this.quantity);
         drawVariants();
     }
 
@@ -121,6 +151,9 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
         }
 
         cart.setStore(this.store);
+
+        EditText lblQuantity = (EditText)findViewById(R.id.lblQuantity);
+        this.quantity = Integer.valueOf(lblQuantity.getText().toString().trim());
 
         CartItem item;
         if(this.chosenVariant != null){
@@ -157,17 +190,13 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
     public void updateDisplay(int quantity, VariantVo variant){
         this.quantity = quantity;
         this.chosenVariant = new VariantVo(variant);
-        TextView lblQuantity = (TextView)findViewById(R.id.lblQuantity);
-        lblQuantity.setText(Integer.toString(quantity));
 
         Money unitPrice = this.chosenVariant != null ? this.chosenVariant.getPrice() : this.product.getPrice();
-        TextView lblProductPrice = (TextView)findViewById(R.id.product_price);
-        lblProductPrice.setText(MoneyUtils.getRandString(unitPrice));
 
         this.total = unitPrice.multipliedBy(quantity);
 
         TextView lblTotal = (TextView)findViewById(R.id.lblTotal);
-        lblTotal.setText(MoneyUtils.getRandString(this.total));
+        lblTotal.setText("Total: " + MoneyUtils.getRandString(this.total));
 
         Cart cart = getCart();
         TextView lblBuyButtonPrice = (TextView)findViewById(R.id.buy_button_price);
@@ -252,7 +281,6 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
 
     }
 
-
     public void ordersPressed(View v) {
         Intent intent = new Intent(this, MyOrdersActivity.class);
         startActivity(intent);
@@ -297,5 +325,6 @@ public class ProductDetailsActivity extends VostoBaseActivity implements OnRestR
         }
 
     }
+
 
 }

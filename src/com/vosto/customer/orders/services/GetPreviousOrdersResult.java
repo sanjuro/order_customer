@@ -28,7 +28,8 @@ import com.vosto.customer.services.RestResult;
 public class GetPreviousOrdersResult extends RestResult implements IRestResult {
 	
 	private JSONArray jsonArr;
-	private OrderVo[] orders;
+    private OrderVo[] orders;
+
 	
 	 public GetPreviousOrdersResult(){
 		 super();
@@ -37,9 +38,7 @@ public class GetPreviousOrdersResult extends RestResult implements IRestResult {
 	 public GetPreviousOrdersResult(int responseCode, String responseJson){
 		 super(responseCode, responseJson);
 	 }
-	 
-	 
-	
+
 	public JSONArray getJSONArray(){
 		 return this.jsonArr;
 	 }
@@ -51,24 +50,25 @@ public class GetPreviousOrdersResult extends RestResult implements IRestResult {
 	@Override
 	public boolean processJsonAndPopulate(){
 		try{
-			JSONObject outerObj = new JSONObject(this.getResponseJson());
-			Log.d("ORD", "prev Orders response json: " + this.getResponseJson());
-			
-			ArrayList<OrderVo> ordersList = new ArrayList<OrderVo>();
+            JSONObject outerObj = new JSONObject(this.getResponseJson());
 
-	        Iterator<?> keys = outerObj.keys();
+            Log.d("ORD", "prev Orders response json: " + this.getResponseJson());
+
+		    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
+
+            ArrayList<OrderVo> orderList = new ArrayList<OrderVo>();
+
+            Iterator<?> keys = outerObj.keys();
 
             List orders = listFromJsonSorted(outerObj);
 
-	        OrderVo currentOrder = null;
-	        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
-//	        while(keys.hasNext() ){
-//	            String key = (String)keys.next();
 
             for( Object order: orders ) {
-	            if(order instanceof JSONObject){
-	            	JSONObject currentObj = (JSONObject)order;
-	            	currentOrder = new OrderVo();
+
+                if(order instanceof JSONObject){
+                    JSONObject currentObj = (JSONObject)order;
+                    OrderVo currentOrder = new OrderVo();
+
 	            	currentOrder.setNumber(currentObj.getString("number"));
 	            	if(!currentObj.isNull("store_order_number")){
 	            		currentOrder.setStoreOrderNumber(currentObj.getString("store_order_number"));
@@ -82,6 +82,7 @@ public class GetPreviousOrdersResult extends RestResult implements IRestResult {
 	            	currentOrder.setCreatedAt(dateFormat.parse(currentObj.getString("created_at")));
 	            	currentOrder.setTotal(Money.parse("ZAR " + currentObj.getDouble("total")));
 	            	currentOrder.setStore_id(currentObj.getInt("store_id"));
+                    currentOrder.setStoreName(currentObj.getString("store_name"));
 	            	currentOrder.setState(currentObj.getString("state"));
 	            	
 	            	// Delivery Address:
@@ -118,16 +119,24 @@ public class GetPreviousOrdersResult extends RestResult implements IRestResult {
 	    			}
 	    			
 	    			currentOrder.setLineItems(lineItems);
-	            	
-	            	ordersList.add(currentOrder);
-	            }
+
+//                    Log.d("ORD", "Current Order: " + currentOrder.getNumber());
+//                    Log.d("ORD", "Current Order: " + currentOrder.getStoreOrderNumber());
+//                    Log.d("ORD", "Current Order: " + currentOrder.getState());
+
+                    orderList.add(currentOrder);
+                }
+
 	        }
-		
-	        this.orders = new OrderVo[ordersList.size()];
-			for(int i = 0; i<ordersList.size(); i++){
-				this.orders[i] = ordersList.get(i);
-			}
-			return true;
+
+            this.orders = new OrderVo[orderList.size()];
+            for(int i = 0; i<orderList.size(); i++){
+                this.orders[i] = orderList.get(i);
+            }
+
+
+            return true;
+
 		}catch(JSONException e){
 			e.printStackTrace();
 			return false;

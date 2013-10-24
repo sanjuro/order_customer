@@ -1,30 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/relativelayout"
         android:layout_width="fill_parent"
-        android:layout_height="220dp"
+        android:layout_height="180dp"
         android:orientation="vertical"
         >
 
-    <TextView
-            android:id="@+id/lblDealDescription"
-            android:layout_width="fill_parent"
-            android:layout_height="20dp"
-            android:background="#000000"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:text="Spur N1 City, Teax Spur"
-            android:textColor="#FFFFFF" />
+        <ImageView
+                android:id="@+id/lblDealImage"
+                android:layout_width="fill_parent"
+                android:layout_height="180dp"
+                android:scaleType="fitXY"
+                />
 
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#000000"
+                    android:gravity="center"
+                    android:layout_alignLeft="@+id/lblDealImage"
+                    android:layout_alignTop="@+id/lblDealImage"
+                    android:layout_alignRight="@+id/lblDealImage"
+                    android:layout_alignBottom="@+id/lblDealImage"
+                    android:layout_margin="50dp"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="0dp"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    >
 
-    <ImageView
-            android:id="@+id/lblDealImage"
-            android:layout_width="fill_parent"
-            android:layout_height="200dp"
-            android:scaleType="fitXY"
-            />
+                    <TextView
+                        android:id="@+id/lblDealName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:textSize="14sp"
+                        android:text="Spur N1 City, Texas Spur"
+                        android:textColor="#FFFFFF"
+                        />
 
+                    <TextView
+                        android:id="@+id/lblDealDescription"
+                        android:layout_below="@id/lblDealName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="14dp"
+                        android:textSize="12sp"
+                        android:text="Free breakfast with Vosto Order"
+                        android:textColor="#FFFFFF"
+                        />
 
-</LinearLayout>
+                </RelativeLayout>
+
+</RelativeLayout>

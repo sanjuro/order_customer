@@ -28,6 +28,7 @@ public final class CommonUtilities {
      * Base URL of the Demo Server (such as http://my_host:8080/gcm-demo)
      */
     public static final String SERVER_URL = "http://107.22.211.58:9000/api/v1";
+    // public static final String SERVER_URL = "http://10.0.2.2:9000/api/v1";
 
     /**
      * IMAGE URL where all image resources are stored
@@ -37,7 +38,7 @@ public final class CommonUtilities {
     /**
      * IMAGE URL where all image resources are stored
      */
-    public static final String DEAL_IMAGE_SERVER_URL = "http://m.vosto.co.za/deals";
+    public static final String DEAL_IMAGE_SERVER_URL = "https://s3.amazonaws.com/Vosto/deals";
 
     /**
      * Google API project id registered to use GCM.

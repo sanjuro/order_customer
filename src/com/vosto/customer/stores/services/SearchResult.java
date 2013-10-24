@@ -1,5 +1,6 @@
 package com.vosto.customer.stores.services;
 
+import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,7 +10,8 @@ import com.vosto.customer.services.IRestResult;
 import com.vosto.customer.services.RestResult;
 import com.vosto.customer.stores.vos.StoreVo;
 
-public class SearchResult extends RestResult implements IRestResult {
+public class
+        SearchResult extends RestResult implements IRestResult {
 	
 	private JSONArray jsonArr;
 	private StoreVo[] stores;
@@ -43,6 +45,7 @@ public class SearchResult extends RestResult implements IRestResult {
 			this.hasLocation = false;
 			this.jsonArr = new JSONArray(this.getResponseJson());
 			this.stores = new StoreVo[this.jsonArr.length()];
+            Log.d("Stores", "Length of store: " + this.jsonArr);
 			for(int i = 0; i<this.jsonArr.length(); i++){
 				JSONObject jsonObj = this.jsonArr.getJSONObject(i);
 				StoreVo currentStore = new StoreVo();
@@ -55,6 +58,8 @@ public class SearchResult extends RestResult implements IRestResult {
                 currentStore.setCanDeliver(jsonObj.getBoolean("can_deliver"));
 				currentStore.setUrl(jsonObj.getString("url"));
                 currentStore.setStoreImage(jsonObj.getString("store_image"));
+                currentStore.setLatitude(jsonObj.getDouble("latitude"));
+                currentStore.setLongitude(jsonObj.getDouble("longitude"));
 				currentStore.setId(jsonObj.getInt("id"));
 				currentStore.setUniqueId(jsonObj.getString("unique_id"));
 				if(jsonObj.has("distance")){
@@ -65,7 +70,7 @@ public class SearchResult extends RestResult implements IRestResult {
 				}
 				this.stores[i] = currentStore;
 			}
-			
+
 			// Order by distance if we have a location:
 			if(this.hasLocation){
 				for(int i = 0; i<this.stores.length-1; i++){

@@ -6,6 +6,7 @@ import com.vosto.customer.stores.vos.DealVo;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,16 +61,21 @@ public class DealListAdapter extends ArrayAdapter<DealVo>{
         }
         if(holder.lblDealImage == null || holder.lblDealDescription == null){
             holder.lblDealImage = (ImageView)row.findViewById(R.id.lblDealImage);
+            holder.lblDealName = (TextView)row.findViewById(R.id.lblDealName);
             holder.lblDealDescription = (TextView)row.findViewById(R.id.lblDealDescription);
         }
-        Log.d("DEAL", "Deal Image ");
+
         row.setTag(holder);
 
+        Log.d("DEAL", "Deal Name " + deal.getName());
+        Log.d("DEAL", "Deal Description " + deal.getDescription());
+
+        holder.lblDealName.setText(deal.getName());
         holder.lblDealDescription.setText(deal.getDescription());
 
         String imageUrl = DEAL_IMAGE_SERVER_URL + deal.getDealImage();
 
-        ag.id(R.id.lblDealImage).image(imageUrl, false, false, 0, 0, null, AQuery.FADE_IN);
+        ag.id(R.id.lblDealImage).image(imageUrl, false, true, 0, 0, null, AQuery.FADE_IN);
 
         return row;
     }
@@ -86,6 +92,7 @@ public class DealListAdapter extends ArrayAdapter<DealVo>{
     static class DealListItemHolder
     {
         ImageView lblDealImage;
+        TextView lblDealName;
         TextView lblDealDescription;
     }
 

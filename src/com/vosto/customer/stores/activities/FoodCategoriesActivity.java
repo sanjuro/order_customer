@@ -86,6 +86,8 @@ public class FoodCategoriesActivity extends VostoBaseActivity implements OnRestR
 			intent.putExtra("hasLocation", searchResult.hasLocation());
 	    	startActivity(intent);
 	    	//finish();
+
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 		}
 	}
 
@@ -96,6 +98,7 @@ public class FoodCategoriesActivity extends VostoBaseActivity implements OnRestR
         Log.d("SEA", "Query Term " + this.storeTags[position].getName());
 		SearchService service = new SearchService(this, this);
 		service.setSearchTerm(queryTerm);
+        service.setPage(1);
 		if(this.hasLocation){
 			// We have a location, so pass the coordinates on to the search service:
 			service.setHasLocation(true);

@@ -9,198 +9,22 @@
             android:id="@+id/sideNavigation"
             android:layout_width="200dp"
             android:layout_height="fill_parent"
-            android:background="@android:color/black"
+            android:background="#ede9e1"
             >
 
-        <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:textSize="18sp"
-                >
-
-            <TextView 
-                      android:id="@+id/nameOfUser"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="18sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:onClick="profilePressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/navCartButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="MY CART"
-                      android:onClick="myCartPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/navOrdersButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="MY ORDERS"
-                      android:onClick="myOrdersPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/openOrders"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Open Orders"
-                      android:onClick="myOrdersPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/myOrders"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="BACK TO SEARCH"
-                      android:onClick="storesPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/navFavoritesButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="MY FAVOURITES"
-                      android:onClick="myFavouritesPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:layout_width="match_parent"
-                      android:layout_height="50dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                    />
-
-            <TextView
-                      android:id="@+id/navAccountSettingsButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Account Settings"
-                      android:onClick="profilePressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/navTermsButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Terms and Policies"
-                      android:onClick="termsPressed"
-                      android:clickable="true"
-                    />
-            <TextView
-                      android:id="@+id/navLogoutButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Logout"
-                      android:onClick="logout"
-                      android:clickable="true"
-                    />
-        </LinearLayout>
+        <include
+                android:id="@+id/menu"
+                layout="@layout/menu"
+                />
 
 
     </ScrollView>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="#FFFFFF"
+                android:background="#ede9e1"
                 android:orientation="vertical" >
 
 
@@ -246,7 +70,7 @@
 
                 <RelativeLayout
                         android:id="@+id/buy_button"
-                        android:layout_width="100dp"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="7dp"
                         android:background="#FA8C38"
@@ -256,6 +80,18 @@
                         android:paddingTop="10dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="10dp">
+
+                    <ImageView
+                            android:id="@+id/cartImage"
+                            android:layout_width="50dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/cart_icon"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:scaleType="fitXY"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="15dp"
+                            />
 
                     <TextView
                             android:id="@+id/buy_button_price"
@@ -311,27 +147,19 @@
 
                     <TextView
                             android:id="@+id/product_name"
-                            android:layout_width="220dp"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="35dp"
                             android:layout_marginTop="10dp"
                             android:maxLines="2"
                             android:singleLine="false"
-                            android:text="Breakfast Burrito"
+                            android:text="Breakfast Burrito wiht egs avo and a sdie salal"
+                            android:layout_alignParentLeft="true"
                             android:textColor="#676357"
                             android:textSize="16sp" />
 
-                    <CheckBox
-                            android:id="@+id/star"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_toLeftOf="@+id/product_name"
-                            android:button="@drawable/favourite_button" />
-
 
                 </RelativeLayout> <!-- Product name / price -->
+
 
                 <ImageView
                         android:layout_width="fill_parent"
@@ -352,7 +180,7 @@
                     <TextView
                             android:id="@+id/lblProductDescription"
                             android:layout_width="fill_parent"
-                            android:layout_height="95dp"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="5dp"
                             android:maxLines="6"
@@ -364,34 +192,16 @@
 
                 </LinearLayout> <!-- description block -->
 
-                <RelativeLayout
-                        android:id="@+id/quantity_block"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginTop="10dp" >
 
-                    <TextView
-                            android:id="@+id/product_price"
-                            android:layout_alignParentRight="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="20dp"
-                            android:text="R35.00"
-                            android:textColor="#676357"
-                            android:textSize="16sp" />
-
-                </RelativeLayout>
 
 
                 <RelativeLayout
                         android:id="@+id/quantity_block"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginTop="10dp" >
-
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="20dp"
+                        >
 
                     <TextView
                             android:id="@+id/amount_title"
@@ -399,49 +209,21 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentTop="true"
-                            android:text="Amount:"
+                            android:textSize="14sp"
                             android:textColor="#676357"
-                            android:textSize="14sp" />
+                            android:text="How many would you like?"
+                            />
 
-                    <LinearLayout
-                            android:id="@+id/seekbar_section"
-                            android:layout_width="wrap_content"
+                    <EditText
+                            android:id="@+id/lblQuantity"
+                            android:layout_below="@id/amount_title"
+                            android:layout_width="50dp"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:orientation="horizontal" >
-
-                        <SeekBar
-                                android:id="@+id/quantity_slider"
-                                android:layout_width="125dp"
-                                android:layout_height="25dp"
-                                android:layout_marginTop="0dp"
-                                android:max="10"
-                                android:paddingLeft="5dp"
-                                android:paddingRight="5dp"
-                                android:progress="0"
-                                android:progressDrawable="@drawable/quantity_scrollbar_progress"
-                                android:secondaryProgress="0"
-                                android:thumb="@drawable/scrollbox_handle" />
-
-                        <LinearLayout
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="0dp"
-                                android:background="@drawable/quantity_circle"
-                                android:gravity="center" >
-
-                            <TextView
-                                    android:id="@+id/lblQuantity"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical|center_horizontal"
-                                    android:text="1"
-                                    android:textColor="#FFFFFF"
-                                    android:textSize="18sp" />
-                        </LinearLayout> <!-- Quantity Circle -->
-
-                    </LinearLayout> <!-- Seekbar section -->
+                            android:textColor="#000000"
+                            android:textSize="18sp"
+                            android:text="1"
+                            android:inputType="number"
+                            />
 
                 </RelativeLayout> <!-- Quantity block -->
 
@@ -465,7 +247,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_below="@id/variants_block"
                         android:layout_marginTop="10dp"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginRight="15dp"
                         android:gravity="center" >
 
@@ -483,8 +265,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/lblSpecialInstructions"
                         android:layout_marginTop="10dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:gravity="center" >
 
                     <EditText
@@ -506,23 +288,7 @@
                         android:layout_marginBottom="68dp"
                         android:orientation="vertical" >
 
-                    <RelativeLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="35dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/total_background_bar"
-                            android:paddingRight="10dp" >
 
-                        <TextView
-                                android:id="@+id/lblTotal"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:text="Total: R70.00"
-                                android:textColor="#000000"
-                                android:textSize="22sp" />
-                    </RelativeLayout> <!-- total section -->
 
 
                 </LinearLayout>
@@ -536,25 +302,51 @@
             android:id="@+id/bottom_bar"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
-            android:background="#3f7e00"
+            android:background="#2ecc71"
             android:orientation="horizontal"
             android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
             >
+
+        <ImageView
+                android:id="@+id/plusImage"
+                android:layout_below="@+id/totals_section"
+                android:layout_width="25dp"
+                android:layout_height="15dp"
+                android:src="@drawable/plus"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:paddingLeft="10dp"
+                android:onClick="addToCartClicked"
+                />
 
         <Button
                 android:id="@+id/add_to_cart_big_button"
-                android:layout_below="@+id/totals_section"
-                android:layout_width="214.5dp"
+                android:layout_toRightOf="@+id/plusImage"
+                android:layout_width="100dp"
                 android:layout_height="39.5dp"
+                android:layout_centerVertical="true"
                 android:scaleType="fitXY"
-                android:background="#3f7e00"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal|center_vertical"
+                android:background="#2ecc71"
                 android:onClick="addToCartClicked"
                 android:text="Add to Cart"
-                android:layout_marginTop="10dp"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textColor="#FFFFFF"
+                />
+
+
+        <TextView
+                android:id="@+id/lblTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:layout_toRightOf="@+id/add_to_cart_big_button"
+                android:text="Total: R70.00"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:onClick="addToCartClicked"
                 />
 
     </RelativeLayout>

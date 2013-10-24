@@ -1,0 +1,260 @@
+<com.agimind.widget.SlideHolder xmlns:android="http://schemas.android.com/apk/res/android"
+                                xmlns:tools="http://schemas.android.com/tools"
+                                android:id="@+id/slideHolder"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                tools:context=".MainActivity" >
+
+    <ScrollView
+            android:id="@+id/sideNavigation"
+            android:layout_width="200dp"
+            android:layout_height="fill_parent"
+            android:background="#ede9e1"
+            >
+
+        <include
+                android:id="@+id/menu"
+                layout="@layout/menu"
+                />
+
+
+    </ScrollView>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:background="#ede9e1"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+
+        <RelativeLayout
+                android:id="@+id/top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:background="#ed6b06"
+                android:orientation="horizontal"
+                android:layout_alignParentTop="true"
+                android:paddingRight="15dp">
+
+
+            <RelativeLayout
+                    android:id="@+id/menuButtonHolder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+                    android:background="#FA8C38"
+                    android:orientation="horizontal"
+                    android:layout_alignParentTop="true"
+                    android:paddingLeft="15dp">
+
+                <ImageView
+                        android:id="@+id/menuButton"
+                        android:layout_width="50dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/menu"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:scaleType="fitXY"
+                        android:paddingRight="15dp"
+                        />
+
+
+            </RelativeLayout>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="#FFFFFF"
+                    android:text="Loyatly Card"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    />
+
+        </RelativeLayout>
+
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/top_bar"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical" >
+
+            <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    >
+
+                <TextView
+                        android:id="@+id/lblLoyaltyName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:textSize="16sp"
+                        android:textColor="#ed6b06"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:text="Sticky Fingers Ribs Deal"
+                        />
+
+
+                <TextView
+                        android:id="@+id/lblLoyaltyDescription"
+                        android:singleLine="false"
+                        android:maxLines="2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@id/lblLoyaltyName"
+                        android:layout_marginRight="60dp"
+                        android:textSize="12sp"
+                        android:gravity="fill"
+                        android:textColor="#7b7461"
+                        android:text="Buy a Half, Full or Double rake of ribs and get the your eleventh ribs free"
+                        />
+
+                <RelativeLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/lblLoyaltyCountHolder"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/lblLoyaltyDescription"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="#2ecc71"
+                        android:orientation="vertical"
+                        >
+
+                    <RelativeLayout
+                            android:id="@+id/lblLoyaltyIsWonHolder"
+                            android:layout_width="fill_parent"
+                            android:layout_height="150dp"
+                            android:layout_alignParentRight="true"
+                            android:background="#27ae60"
+                            android:orientation="horizontal"
+                            >
+
+                        <LinearLayout
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                android:layout_marginTop="5dp"
+                                android:orientation="vertical"
+                                >
+
+                                <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="fill_parent"
+                                        android:paddingTop="10dp"
+                                        android:paddingBottom="0dp"
+                                        android:paddingRight="10dp"
+                                        android:paddingLeft="10dp"
+                                        android:text="How many left"
+                                        android:textSize="18sp"
+                                        android:textColor="#FFFFFF"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_alignParentLeft="true"
+                                        />
+
+                                <TextView
+                                        android:id="@+id/lblLoyaltyCount"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="fill_parent"
+                                        android:paddingBottom="0dp"
+                                        android:paddingRight="10dp"
+                                        android:paddingLeft="10dp"
+                                        android:text="8"
+                                        android:textSize="80sp"
+                                        android:textColor="#FFFFFF"
+                                        android:layout_centerHorizontal="true"
+                                        android:gravity="center"
+                                        />
+                        </LinearLayout>
+
+                        <ImageView
+                                android:id="@+id/viewButton"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_weight="0.5"
+                                android:src="@drawable/tick_white"
+                                android:layout_margin="25dp"
+                                android:scaleType="fitXY"
+                                android:background="@null"
+                                android:layout_alignParentRight="true"
+                                />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/lblLoyaltyIsWonHolder"
+                            android:orientation="vertical"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingLeft="10dp"
+                            >
+
+                        <TextView
+                                android:id="@+id/lblLoyaltyPrizeWords"
+                                android:maxLines="1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:gravity="fill"
+                                android:textSize="18sp"
+                                android:textColor="#FFFFFF"
+                                android:text="What do I get:"
+                                />
+
+                        <TextView
+                                android:id="@+id/lblLoyaltyPrize"
+                                android:maxLines="3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:gravity="fill"
+                                android:textSize="14sp"
+                                android:textColor="#FFFFFF"
+                                android:text="one Full Ribs and a one litere of coke for the fine of it"
+                                />
+
+                        <TextView
+                                android:id="@+id/lblLoyaltyPrizeWords"
+                                android:maxLines="1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginTop="10dp"
+                                android:gravity="fill"
+                                android:textSize="18sp"
+                                android:textColor="#FFFFFF"
+                                android:text="Which stores:"
+                                />
+
+                        <ListView
+                                android:id="@+id/lstStores"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="0dp"
+                                android:layout_marginTop="0dp"
+                                android:divider="#CCCCCC"
+                                android:dividerHeight="1sp"
+                                android:listSelector="@drawable/list_selector"
+                                ></ListView>
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+       </LinearLayout>
+
+    </RelativeLayout>
+
+</com.agimind.widget.SlideHolder>

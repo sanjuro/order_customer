@@ -1,10 +1,16 @@
 package com.vosto.customer;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Address;
 import android.location.Location;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,8 +32,6 @@ import com.vosto.customer.services.RestResult;
 import com.vosto.customer.stores.DealListAdapter;
 import com.vosto.customer.stores.activities.FoodCategoriesActivity;
 import com.vosto.customer.stores.activities.StoresActivity;
-import com.vosto.customer.stores.services.GetFeaturedStoresResult;
-import com.vosto.customer.stores.services.GetFeaturedStoresService;
 import com.vosto.customer.stores.services.SearchResult;
 import com.vosto.customer.stores.services.SearchService;
 import com.vosto.customer.stores.services.GetDealsService;
@@ -41,6 +45,7 @@ import com.vosto.customer.utils.NetworkUtils;
 
 public class HomeActivity extends VostoBaseActivity implements OnRestReturn, OnDismissListener, OnItemClickListener {
 
+    public Location bestLocation;
     private DealVo[] deals;
     private SlideHolder mSlideHolder;
 	
@@ -57,8 +62,8 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, OnD
         initialize();
 
         TextView notJoinedYet = (TextView)findViewById(R.id.notJoinedYet);
+        TextView username = (TextView)findViewById(R.id.username);
         Button signUpButton = (Button)findViewById(R.id.signUpButton);
-        RelativeLayout bottom_bar = (RelativeLayout)findViewById(R.id.bottom_bar);
 
 
         // Display either a sign in button or the user's name depending if someone is logged in:
@@ -67,13 +72,13 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, OnD
         	//User logged in:
             notJoinedYet.setVisibility(View.GONE);
             signUpButton.setVisibility(View.GONE);
-            bottom_bar.setVisibility(View.GONE);
+            username.setVisibility(View.VISIBLE);
 
-            TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
-            nameOfUser.setText(settings.getString("userName", "user"));
+            username.setText("Welcome, " + settings.getString("userName", "user"));
 
         }else{
         	//User not logged in:
+            username.setVisibility(View.GONE);
         }
 
         mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
@@ -96,6 +101,32 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, OnD
         if(this.pleaseWaitDialog != null && this.pleaseWaitDialog.isShowing()){
             this.pleaseWaitDialog.dismiss();
         }
+
+        this.bestLocation = this.getBestLocation(true);
+        if(bestLocation == null){
+            // The getBestLocation() method will show any errors to the user.
+            return;
+        }else{
+            double LATITUDE = this.bestLocation.getLatitude();
+            double LONGITUDE = this.bestLocation.getLongitude();
+            Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
+
+            try {
+                List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
+                if (addresses != null && addresses.size() > 0) {
+                    // Help here to get only the street name
+                    String address = addresses.get(0).getAddressLine(0);
+                    String city = addresses.get(0).getAddressLine(1);
+
+                    TextView current_location = (TextView)findViewById(R.id.current_location);
+                    current_location.setText(address + ", " + city);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
         Log.d("DEALS", "Get Deals");
         GetDealsService service = new GetDealsService(this, this);
         service.execute();
@@ -104,7 +135,7 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, OnD
 	public void signInClicked(View v){
 		Intent intent = new Intent(this, SignInActivity.class);
     	startActivity(intent);
-    	finish();
+    	// finish();
 	}
 	
 	/**
@@ -129,7 +160,9 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, OnD
     public void signUpClicked(View v){
         Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
-        finish();
+        // finish();
+
+        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
     }
 	
 	/**
@@ -140,7 +173,8 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, OnD
 		Location location = getBestLocation(false); 
 				
 		SearchService service = new SearchService(this, this);
-		service.setSearchTerm(queryTerm);	
+		service.setSearchTerm(queryTerm);
+        service.setPage(1);
 //		if(location != null){
 //			//We have a location, so pass the coordinates on to the search service:
 //			service.setHasLocation(true);
@@ -174,7 +208,9 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, OnD
 			intent.putExtra("stores", searchResult.getStores());
 			intent.putExtra("hasLocation", searchResult.hasLocation());
 	    	startActivity(intent);
-	    	finish();
+	    	// finish();
+
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 		} else if(result instanceof GetDealsResult){
             Log.d("DEAL", "Got Deals" );
 
@@ -199,14 +235,17 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, OnD
             this.showAlertDialog("Connection Error", "Please connect to the internet.");
             return;
         }
-        Log.d("STO", "Passing store to TaxonActivity: " + this.deals[position].getId());
+        Log.d("STO", "Passing deal to StoreActivity: " + this.deals[position].getId());
         Intent intent = new Intent(this, TaxonsActivity.class);
-        intent.putExtra("deal", this.deals[position]);
-        intent.putExtra("dealName", this.deals[position].getName());
-        intent.putExtra("dealDescription", this.deals[position].getDescription());
+        intent.putExtra("store", this.deals[position].getStore());
+        intent.putExtra("storeName", this.deals[position].getStore().getName());
+        intent.putExtra("storeTel", this.deals[position].getStore().getTelephone());
+        intent.putExtra("storeAddress", this.deals[position].getStore().getAddress());
         intent.putExtra("callingActivity", "StoresActivity");
         startActivity(intent);
         // finish();
+
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
 	/**
@@ -221,11 +260,32 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, OnD
 			// The getBestLocation() method will show any errors to the user.
 			return;
 		}
-	 
-	    // We have a location. Make the search call:
+
+
+//        double LATITUDE = bestLocation.getLatitude();
+//        double LONGITUDE = bestLocation.getLongitude();
+//        Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
+//
+//        try {
+//            List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
+//            if (addresses != null && addresses.size() > 0) {
+//                // Help here to get only the street name
+//                String address = addresses.get(0).getAddressLine(0);
+//                String city = addresses.get(0).getAddressLine(1);
+//                String country = addresses.get(0).getAddressLine(2);
+//
+//                TextView current_location = (TextView)findViewById(R.id.current_location);
+//                current_location.setText(address + ", " + city);
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+        // We have a location. Make the search call:
 		SearchService service = new SearchService(this, this);
 		//Set the search term blank because we are searching by location only:
 		service.setSearchTerm("");
+        service.setPage(1);
 		service.setHasLocation(true);
 		service.setLatitude(bestLocation.getLatitude());
 		service.setLongitude(bestLocation.getLongitude());
@@ -246,7 +306,35 @@ public class HomeActivity extends VostoBaseActivity implements OnRestReturn, OnD
 			intent.putExtra("longitude", location.getLongitude());
 		}
 		startActivity(intent);
+
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 	}
+
+
+    @Override
+    public void onLocationChanged(Location location) {
+        double LATITUDE = location.getLatitude();
+        double LONGITUDE = location.getLongitude();
+        Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
+        Log.d("GPS", "Got New Location onLocationChanged: (" + location.getLatitude() + " , " + location.getLongitude() + " )");
+
+        try {
+            List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
+            Log.d("GPS", "Checking Location: (" + addresses.get(0).getAddressLine(0) + " )");
+
+            if (addresses != null && addresses.size() > 0) {
+                Log.d("GPS", "Setting Location: (" + location.getLatitude() + " , " + location.getLongitude() + " )");
+                // Help here to get only the street name
+                String address = addresses.get(0).getAddressLine(0);
+                String city = addresses.get(0).getAddressLine(1);
+
+                TextView current_location = (TextView)findViewById(R.id.current_location);
+                current_location.setText(address + ", " + city);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     @Override

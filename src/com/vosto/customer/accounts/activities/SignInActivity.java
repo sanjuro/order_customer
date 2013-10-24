@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import android.widget.Toast;
+import com.agimind.widget.SlideHolder;
 import com.google.android.gcm.GCMRegistrar;
 import com.vosto.customer.HomeActivity;
 import com.vosto.customer.R;
@@ -41,12 +42,24 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
     private String gcmRegistrationId;
     SocialAuthAdapter adapter;
     Profile profileMap;
+    private SlideHolder mSlideHolder;
 
 	@Override
     public void onCreate(Bundle args)
     {
         super.onCreate(args);
         setContentView(R.layout.activity_signin);
+
+        mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+
+        View toggleView = findViewById(R.id.menuButton);
+        toggleView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mSlideHolder.toggle();
+            }
+        });
         
         TextView lblForgotPin = (TextView)findViewById(R.id.lblForgotPin);
         lblForgotPin.setText(Html.fromHtml("<u>Forgot Pin?</u>"));
@@ -107,6 +120,8 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 	}
 
     public void facebookLoginClicked(View v){
+        Toast aToast = Toast.makeText(this, "Signning in using Facebook.", Toast.LENGTH_LONG);
+        ToastExpander.showFor(aToast, 2000);
         adapter.authorize(this, SocialAuthAdapter.Provider.FACEBOOK);
     }
 
@@ -115,9 +130,8 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
         Toast aToast = Toast.makeText(this, "You have successfully signed in using your Facebook Account.", Toast.LENGTH_LONG);
         ToastExpander.showFor(aToast, 4000);
 
-        AuthenticationService service = new AuthenticationService(this, this);
+        SocialSignInService service = new SocialSignInService(this, this);
         service.setEmail(email);
-        service.setPin(userPin);
         service.execute();
     }
 
@@ -188,6 +202,8 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
 
 		if(result instanceof AuthenticateResult){
 			processAuthenticateResult((AuthenticateResult)result);
+        }else if(result instanceof SocialSignInResult){
+            processSocialSignInResult((SocialSignInResult)result);
 		}else if(result instanceof ResetPasswordResult){
 			processResetPasswordResult((ResetPasswordResult)result);
 		}
@@ -222,6 +238,36 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
             finish();
 		}
 	}
+
+    /**
+     * Called when the authentication rest call returns.
+     * If the auth is successful, save the token, etc and redirect to the home screen.
+     * @param authResult
+     */
+    private void processSocialSignInResult(SocialSignInResult authResult){
+        SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("userToken", "");
+        editor.putString("userName", "");
+        editor.putString("userEmail", "");
+        editor.putString("userMobile", "");
+        editor.commit();
+
+        if(!authResult.wasAuthenticationSuccessful()){
+            this.showAlertDialog("Login Failed", authResult.getErrorMessage());
+        }else{
+            // Save the auth token in the app's shared preferences.
+            editor = settings.edit();
+            editor.putString("userToken", authResult.getCustomer().authentication_token);
+            editor.putString("userName", authResult.getCustomer().full_name);
+            editor.putString("userEmail", authResult.getCustomer().email);
+            editor.putString("userMobile", authResult.getCustomer().mobile_number);
+            editor.commit();
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 	
 	/**
 	 * Called when the reset pin rest call returns. Asks the user to check their email for a new pin.
@@ -250,7 +296,7 @@ public class SignInActivity extends VostoBaseActivity implements OnRestReturn {
             String email = profileMap.getEmail();
             String validID = profileMap.getValidatedId();
 
-            String userPin = validID.substring(0,6);
+            String userPin = validID.substring(0,5);
 
             signInUserFromFacebook(email,userPin);
         }

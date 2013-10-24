@@ -61,6 +61,7 @@ public class ProductFavouriteListAdapter extends ArrayAdapter<ProductVo>{
         Log.d("LEN", "Products length: " + products.length);
         holder.lblProductName.setText(product.getName());
         holder.lblPrice.setText(MoneyUtils.getRandString(product.getPrice()));
+        holder.addToCartButton.setTag(product);
 
         row.setTag(product);
         return row;

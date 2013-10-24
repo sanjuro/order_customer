@@ -16,7 +16,8 @@ public class OrderVo implements Serializable {
     private String store_order_number;
 	private String state;
     private String time_to_ready;
-	private int store_id;
+    private String store_name;
+    private int store_id;
 	private Date createdAt;
 	private Date completedAt;
 	private LineItemVo[] lineItems;
@@ -74,6 +75,14 @@ public class OrderVo implements Serializable {
 	public void setState(String state) {
 		this.state = state;
 	}
+
+    public String getStoreName() {
+        return store_name;
+    }
+
+    public void setStoreName(String store_name) {
+        this.store_name = store_name;
+    }
 
     public String getTimeToReady() {
         return time_to_ready;
@@ -148,7 +157,5 @@ public class OrderVo implements Serializable {
 	public void setDeliveryAddress(AddressVo deliveryAddress) {
 		this.deliveryAddress = deliveryAddress;
 	}
-	
-	
-	
+
 }

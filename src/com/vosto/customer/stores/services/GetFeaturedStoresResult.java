@@ -45,6 +45,8 @@ public class GetFeaturedStoresResult extends RestResult implements IRestResult {
                 currentStore.setEmail(jsonObj.getString("email"));
                 currentStore.setManagerContact(jsonObj.getString("manager_contact"));
                 currentStore.setIsOnline(jsonObj.getBoolean("is_online"));
+                currentStore.setLatitude(jsonObj.getDouble("latitude"));
+                currentStore.setLongitude(jsonObj.getDouble("longitude"));
                 currentStore.setCanDeliver(jsonObj.getBoolean("can_deliver"));
                 currentStore.setUrl(jsonObj.getString("url"));
                 currentStore.setStoreImage(jsonObj.getString("store_image"));

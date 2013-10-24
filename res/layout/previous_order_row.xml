@@ -3,65 +3,154 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:background="#FFFFFF"
+    android:layout_height="100dp"
+    android:background="#ede9e1"
     android:orientation="horizontal"
-    android:paddingTop="10dp"
-    android:paddingLeft="10dp"
-    android:paddingBottom="10dp"
+    android:padding="5dp"
     >
 
         <LinearLayout
-            android:id="@+id/current_order_info_labels"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            >
-
-            <TextView
-                android:id="@+id/lblOrder"
-                android:layout_width="wrap_content"
+                android:id="@+id/current_order_section"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="#6c675c"
-                android:textStyle="bold"
-                android:text="Order Number: "
-                />
+                android:orientation="vertical"
+                android:layout_marginTop="0dp"
+                android:layout_below="@id/tab_section"
+                >
 
-            <TextView
-                android:id="@+id/lblOrderNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/lblOrder"
-                android:textColor="#6c675c"
-                android:textSize="14sp"
-                android:text="R12341234"
-                />
+            <LinearLayout
+                    android:id="@+id/orderStateBackground"
+                    android:layout_width="fill_parent"
+                    android:layout_height="20dp"
+                    android:background="#c00000"
+                    android:paddingLeft="5dp"
+                    android:layout_margin="0dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/lblDateOrdered"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#6c675c"
-                android:textSize="12sp"
-                android:textStyle="italic"
-                />
+                <TextView
+                        android:id="@+id/orderState"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="12sp"
+                        android:text="UNCONFIRMED"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold" />
 
-        </LinearLayout> <!-- Current order info labels -->
+            </LinearLayout>  <!-- Order State Block -->
 
-        <ImageView
-            android:id="@+id/lblStatus"
-            android:src="@drawable/in_progress_badge"
-            android:layout_width="80.6dp"
-            android:layout_height="20dp"
-            android:scaleType="fitXY"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            />
+            <RelativeLayout
+                    android:id="@+id/current_order_main_info"
+                    android:layout_width="fill_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="15dp"
+                    android:background="#d8d5ce"
+                    android:orientation="horizontal"
+                    >
+
+                <ImageView
+                        android:id="@+id/orderDeliveryImage"
+                        android:src="@drawable/delivery_icon"
+                        android:layout_width="30dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="fitXY"
+                        android:layout_gravity="center"
+                        android:layout_alignParentLeft="true"
+                        />
+
+                <TextView
+                        android:id="@+id/deliveryType"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="#6c675c"
+                        android:layout_below="@+id/orderDeliveryImage"
+                        android:layout_marginLeft="10dp"
+                        android:text="Delivery"
+                        android:textSize="12sp"
+                        android:paddingTop="10dp"
+                        android:layout_alignParentLeft="true"
+                        />
+
+                <LinearLayout
+                        android:id="@+id/current_order_info_labels"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_toRightOf="@+id/deliveryType"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginRight="15dp"
+                        >
+
+                    <LinearLayout
+                            android:id="@+id/store_details_block"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="15dp"
+                            android:orientation="horizontal"
+                            >
+
+
+                        <LinearLayout
+                                android:id="@+id/store_details_labels"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginLeft="5dp"
+                                >
+
+                            <TextView
+                                    android:id="@+id/lblOrderNumber"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="#6c675c"
+                                    android:text="R12341234"
+                                    android:textSize="12sp"
+                                    />
+
+                            <TextView
+                                    android:id="@+id/lblStoreName"
+                                    android:layout_below="@+id/lblOrderNumber"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:singleLine="true"
+                                    android:textColor="#3b3b3b"
+                                    android:text="Kauai - Greenmarket Square"
+                                    />
+
+                            <TextView
+                                    android:id="@+id/lblDateOrdered"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textColor="#6c675c"
+                                    android:paddingLeft="0dp"
+                                    android:paddingRight="12dp"
+                                    android:text="Ordered at 10:00, 10 February"
+                                    ></TextView>
+
+
+
+                        </LinearLayout>
+
+                    </LinearLayout> <!-- Store details block -->
+
+
+                </LinearLayout> <!-- Current order info labels -->
+
+
+            </RelativeLayout> <!-- Current Order Main Info Block -->
+
+        </LinearLayout>
 
 </LinearLayout>
-   

@@ -106,16 +106,19 @@ public class OrderConfirmationActivity extends VostoBaseActivity implements OnRe
      	TextView lblDeliveryAddress = (TextView)findViewById(R.id.deliveryAddress);
      	TextView lblDeliveryMethod = (TextView)findViewById(R.id.lblDeliveryMethod);
      	TextView lblGrandTotal = (TextView)findViewById(R.id.lblTotal);
+        TextView textDelivery = (TextView)findViewById(R.id.textDelivery);
      				
      	lblSubtotal.setText("Subtotal: " + MoneyUtils.getRandString(this.currentOrder.getSubtotalBeforeDelivery()));
      				
      	if(this.currentOrder.getDeliveryAddress() != null && !this.currentOrder.getDeliveryAddress().isEmpty() && this.currentOrder.getAdjustmentTotal() != null){
      		lblDeliveryCost.setText(MoneyUtils.getRandString(this.currentOrder.getAdjustmentTotal()));
      		lblDeliveryMethod.setText("Delivery");
+            textDelivery.setText("Delivery Order");
      		lblDeliveryAddress.setText(this.currentOrder.getDeliveryAddress().toString());
      	}else{
      		lblDeliveryCost.setText("R0.00");
-     		lblDeliveryMethod.setText("Collected in-store");
+             textDelivery.setText("Collection Order");
+     		lblDeliveryMethod.setText("Collect in-store");
      	}
      				
      	lblGrandTotal.setText("Total: " + MoneyUtils.getRandString(this.currentOrder.getTotal()));
@@ -123,7 +126,7 @@ public class OrderConfirmationActivity extends VostoBaseActivity implements OnRe
         this.currentOrderItemsList.setAdapter(new CurrentOrderItemAdapter(this, R.layout.current_order_item_row, this.currentOrder.getLineItems()));
 
         this.lblOrderNumber = (TextView)findViewById(R.id.lblOrderNumber);
-        this.lblOrderNumber.setText("Your order: " + this.orderNumber + " has been confirmed.");
+        this.lblOrderNumber.setText(this.orderNumber);
 
         String imageUrl = STORE_IMAGE_SERVER_URL + store.getStoreImage();
         ag.id(R.id.lblStoreImage).image(imageUrl, false, false, 0, 0, null, AQuery.FADE_IN);

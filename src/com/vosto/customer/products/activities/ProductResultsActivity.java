@@ -117,6 +117,8 @@ public class ProductResultsActivity extends VostoBaseActivity implements OnRestR
 //		intent.putExtra("categoryName", lblCategoryName.getText().toString());
 		intent.putExtra("store", this.store);
     	startActivity(intent);
+
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 	}
 	
 	public void addToCartClicked(View v){

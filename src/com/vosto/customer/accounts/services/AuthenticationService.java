@@ -70,7 +70,5 @@ public class AuthenticationService extends RestService {
 		}
 		return result;
 	}
-	
-	
-	
+
 }

@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -87,6 +88,30 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
             String imageUrl = STORE_IMAGE_SERVER_URL + store.getStoreImage();
             ag.id(R.id.lblStoreImage).image(imageUrl, false, false, 0, 0, null, AQuery.FADE_IN);
 
+
+            if (this.store.canDeliver()){
+
+            }else{
+                Log.d("STORE", "Store cant Deliver" + this.store.canDeliver());
+                this.hideDeliveryButtons();
+                ((TextView)findViewById(R.id.lblDeliveryMethod)).setText("Collect");
+                ((TextView)findViewById(R.id.deliveryAddress)).setText("");
+                ImageButton changeButton = (ImageButton)findViewById(R.id.changeButton);
+                changeButton.setVisibility(View.GONE);
+
+                this.showDeliveryDetails();
+                this.deliverToAddress = null;
+                cart = getCart();
+                cart.setDeliveryCost(null);
+                saveCart(cart);
+                this.updatePriceLabels();
+
+                // Show the place order button:
+                RelativeLayout bottom_bar = (RelativeLayout)findViewById(R.id.bottom_bar);
+                bottom_bar.setVisibility(View.VISIBLE);
+
+            }
+
         } else {
             store_details_block.setVisibility(View.GONE);
             txtStoreAddress.setVisibility(View.GONE);
@@ -109,10 +134,13 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
             TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
             nameOfUser.setText(settings.getString("userName", "user"));
         }
-        
-        // Fetch the suburbs:
-        GetSuburbsService suburbsService = new GetSuburbsService(this, this, this.store.getId());
-        suburbsService.execute();
+
+        if ( this.store != null )  {
+            // Fetch the suburbs:
+            GetSuburbsService suburbsService = new GetSuburbsService(this, this, this.store.getId());
+            suburbsService.execute();
+        }
+
 
 		refreshCart();
 	}
@@ -337,8 +365,8 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
 		     editor.commit();
 			
 		    // Show the place order button:
-			Button btnPlaceOrder = (Button)findViewById(R.id.place_order_button);
-			btnPlaceOrder.setVisibility(View.VISIBLE);
+            RelativeLayout bottom_bar = (RelativeLayout)findViewById(R.id.bottom_bar);
+            bottom_bar.setVisibility(View.VISIBLE);
 		}else{
 			this.showAlertDialog("Invalid Address", "Please make sure that you have entered all the fields.");
 			this.deliverToAddress = null;
@@ -346,8 +374,8 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
 			this.showDeliveryButtons();
 			
 			 // Hide the place order button:
-			Button btnPlaceOrder = (Button)findViewById(R.id.place_order_button);
-			btnPlaceOrder.setVisibility(View.GONE);
+            RelativeLayout bottom_bar = (RelativeLayout)findViewById(R.id.bottom_bar);
+            bottom_bar.setVisibility(View.GONE);
 		}
 		
 		
@@ -377,10 +405,10 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
 		this.addressDialog.show();
 		
 		// If we have an address saved on the device, auto-populate the dialog's form:
-		  SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
-		 if(settings.contains("latestDeliveryAddressJson") && !settings.getString("latestDeliveryAddressJson", "").equals("")){
+		SharedPreferences settings = getSharedPreferences("VostoPreferences", 0);
+		if(settings.contains("latestDeliveryAddressJson") && !settings.getString("latestDeliveryAddressJson", "").equals("")){
 			  this.addressDialog.setAddress(new AddressVo(settings.getString("latestDeliveryAddressJson", "")));
-		  }
+		}
 		
 	}
 	
@@ -396,14 +424,14 @@ public class CartActivity extends VostoBaseActivity implements OnRestReturn {
 		this.updatePriceLabels();
 		
 		// Show the place order button:
-		Button btnPlaceOrder = (Button)findViewById(R.id.place_order_button);
-		btnPlaceOrder.setVisibility(View.VISIBLE);
+        RelativeLayout bottom_bar = (RelativeLayout)findViewById(R.id.bottom_bar);
+        bottom_bar.setVisibility(View.VISIBLE);
 	}
 	
 	public void changeButtonClicked(View v){
 		// Hide the place order button:
-		Button btnPlaceOrder = (Button)findViewById(R.id.place_order_button);
-		btnPlaceOrder.setVisibility(View.GONE);
+        RelativeLayout bottom_bar = (RelativeLayout)findViewById(R.id.bottom_bar);
+		bottom_bar.setVisibility(View.GONE);
 		
 		hideDeliveryDetails();
 		showDeliveryButtons();

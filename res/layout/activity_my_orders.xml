@@ -9,590 +9,233 @@
             android:id="@+id/sideNavigation"
             android:layout_width="200dp"
             android:layout_height="fill_parent"
-            android:background="@android:color/black"
+            android:background="#ede9e1"
             >
 
-        <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:textSize="18sp"
-                >
-
-            <TextView
-                      android:id="@+id/nameOfUser"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="18sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:onClick="profilePressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/navCartButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="MY CART"
-                      android:onClick="myCartPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/navOrdersButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/top_bar_orange"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="MY ORDERS"
-                      android:onClick="myOrdersPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/openOrders"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Open Orders"
-                      android:onClick="myOrdersPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/myOrders"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="BACK TO SEARCH"
-                      android:onClick="storesPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/navFavoritesButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                      android:text="MY FAVOURITES"
-                      android:onClick="myFavouritesPressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:layout_width="match_parent"
-                      android:layout_height="50dp"
-                      android:background="@drawable/nav_menu_heading"
-                      android:orientation="horizontal"
-                      android:gravity="center_vertical"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="20dp"
-                      android:textSize="16sp"
-                      android:singleLine="true"
-                      android:textColor="@android:color/white"
-                    />
-
-            <TextView
-                      android:id="@+id/navAccountSettingsButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Account Settings"
-                      android:onClick="profilePressed"
-                      android:clickable="true"
-                    />
-
-            <TextView
-                      android:id="@+id/navTermsButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Terms and Policies"
-                    />
-            <TextView
-                      android:id="@+id/navLogoutButton"
-                      android:layout_width="match_parent"
-                      android:layout_height="30dp"
-                      android:drawablePadding="6dip"
-                      android:background="#141213"
-                      android:gravity="center_vertical"
-                      android:minHeight="50dp"
-                      android:paddingLeft="20dip"
-                      android:paddingRight="6dip"
-                      android:textSize="14sp"
-                      android:singleLine="true"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:textColor="@android:color/white"
-                      android:text="Logout"
-                      android:onClick="logout"
-                      android:clickable="true"
-                    />
-        </LinearLayout>
+        <include
+                android:id="@+id/menu"
+                layout="@layout/menu"
+                />
 
 
     </ScrollView>
 
-<RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:background="#FFFFFF"
-  android:orientation="vertical"
-  >
-
     <RelativeLayout
-            android:id="@+id/top_bar"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:background="#ed6b06"
-            android:orientation="horizontal"
-            android:layout_alignParentTop="true">
-
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#ede9e1"
+            android:orientation="vertical"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
+            >
 
         <RelativeLayout
-                android:id="@+id/menuButtonHolder"
-                android:layout_width="wrap_content"
-                android:layout_height="55dp"
-                android:background="#FA8C38"
+                android:id="@+id/top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:background="#ed6b06"
                 android:orientation="horizontal"
                 android:layout_alignParentTop="true"
-                android:paddingLeft="15dp">
+                android:paddingRight="15dp">
 
-            <ImageView
-                    android:id="@+id/menuButton"
-                    android:layout_width="50dp"
-                    android:layout_height="35dp"
-                    android:src="@drawable/menu"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:scaleType="fitXY"
-                    android:paddingRight="15dp"
+
+            <RelativeLayout
+                    android:id="@+id/menuButtonHolder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+                    android:background="#FA8C38"
+                    android:orientation="horizontal"
+                    android:layout_alignParentTop="true"
+                    android:paddingLeft="15dp">
+
+                <ImageView
+                        android:id="@+id/menuButton"
+                        android:layout_width="50dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/menu"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:scaleType="fitXY"
+                        android:paddingRight="15dp"
+                        />
+
+
+            </RelativeLayout>
+
+            <TextView
+                    android:id="@+id/lblStoresListHeading"
+                    android:text="Your Orders"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:textColor="#FFFFFF"
+                    android:layout_gravity="center_vertical"
+                    android:layout_toRightOf="@+id/menuButtonHolder"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="15dp"
                     />
-
 
         </RelativeLayout>
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textColor="#FFFFFF"
-                android:text="Your Order"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                />
 
-
-    </RelativeLayout> <!-- top bar -->
-
-   <RelativeLayout
-        android:id="@+id/main_section"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/top_bar"
-        android:orientation="vertical"
-        >
-
-        <RelativeLayout
-            android:id="@+id/tab_section"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center_vertical"
-            android:background="#d8d5ce"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            >
-
-   		    <LinearLayout
-                android:id="@+id/modeSwitchButtonBar"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                >
-
-                <Button
-                    android:id="@+id/current_order_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="38dp"
-                    android:onClick="currentOrderClicked"
-                    android:text="Current Order"
-                    />
-
-                <Button
-                    android:id="@+id/previous_orders_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="38dp"
-                    android:onClick="orderHistoryClicked"
-                    android:text="Previous Orders"
-                    />
-
-           </LinearLayout>
-
-   		</RelativeLayout>
-
-       <LinearLayout
-            android:id="@+id/current_order_section"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="8dp"
-            android:layout_below="@id/tab_section"
-            >
-
-           <RelativeLayout
-               android:id="@+id/current_order_main_info"
-               android:layout_width="fill_parent"
-               android:layout_height="79dp"
-               android:layout_marginBottom="10dp"
-               >
-
-               <LinearLayout
-               		android:id="@+id/current_order_info_labels"
-               		android:layout_width="wrap_content"
-               		android:layout_height="wrap_content"
-               		android:orientation="vertical"
-               		android:layout_alignParentTop="true"
-               		android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    >
-
-                   <TextView
-                    	android:layout_width="wrap_content"
-                    	android:layout_height="wrap_content"
-                    	android:text="Current Open Order"
-                    	android:textSize="16sp"
-                    	android:textColor="#6c675c"
-                        />
-
-                   <TextView
-                       android:id="@+id/lblOrderNumber"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:textSize="14sp"
-                       android:textStyle="bold"
-                       android:textColor="#6c675c"
-                       android:text="R12341234"
-                     ></TextView>
-
-                   <TextView
-                           android:id="@+id/lblOrderReady"
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:textSize="14sp"
-                           android:textStyle="bold"
-                           android:textColor="#6c675c"
-                           android:text="Ready in 10mins"
-                           ></TextView>
-
-                   <TextView
-                       android:id="@+id/lblOrderDate"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:textSize="14sp"
-                       android:textColor="#6c675c"
-                       android:text="Ordered at 10:00, 10 February"
-                     ></TextView>
-
-               </LinearLayout> <!-- Current order info labels -->
-
-               <ImageView
-                  android:id="@+id/order_status_badge"
-                  android:src="@drawable/in_progress_badge"
-                  android:layout_width="80.6dp"
-                  android:layout_height="20dp"
-                  android:layout_marginLeft="15dp"
-                  android:layout_marginRight="15dp"
-                  android:scaleType="fitXY"
-                  android:layout_alignParentTop="true"
-                  android:layout_alignParentRight="true"
-                  />
-
-
-
-
-           </RelativeLayout> <!-- Current Order Main Info Block -->
-
-           <ImageView
-                   android:layout_width="fill_parent"
-                   android:layout_height="4dp"
-                   android:src="@drawable/top_divider"
-                   android:layout_marginTop="10dp"
-                   android:layout_marginBottom="10dp"
-                   android:layout_alignParentLeft="true"
-                   android:layout_alignParentBottom="true"
-                   />
-
-           <LinearLayout
-                android:id="@+id/store_details_block"
+        <LinearLayout
+                android:id="@+id/middle_section"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:orientation="horizontal"
+                android:layout_below="@id/top_bar"
+                android:layout_above="@id/bottom_bar"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="0dp"
+                android:orientation="vertical"
                 >
 
-               <ImageView
-                	android:id="@+id/lblStoreImage"
-                	android:layout_width="50dp"
-                	android:layout_height="50dp"
-                	android:src="@drawable/storefront"
-                    />
-
-               <LinearLayout
-               	android:id="@+id/store_details_labels"
-               	android:layout_width="wrap_content"
-               	android:layout_height="wrap_content"
-               	android:orientation="vertical"
-               	android:layout_marginLeft="5dp"
-               >
-
-                  <TextView
-                   android:id="@+id/lblStoreName"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:textSize="12sp"
-                   android:textStyle="bold"
-                   android:singleLine="true"
-                   android:textColor="#3b3b3b"
-                   android:text="Kauai - Greenmarket Square"
-                   />
-
-
-                  <TextView
-                   android:id="@+id/lblStoreAddress"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:textSize="10sp"
-                   android:singleLine="false"
-                   android:textColor="#3b3b3b"
-                   android:text="21 Jump Street, \nLos Angeles, California"
-                   />
-
-                  <TextView
-                   android:id="@+id/lblStoreTelephone"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:textSize="10sp"
-                   android:singleLine="true"
-                   android:textColor="#3b3b3b"
-                   android:text="555-1234"
-                   />
-
-
-
-               </LinearLayout>
-
-           </LinearLayout> <!-- Store details block -->
-
-           <ListView
-           	android:id="@+id/current_order_items_list"
-           	android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-           	android:layout_marginBottom="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-           	android:layout_weight="7"
-           />
-           
-           <LinearLayout
-			 	android:id="@+id/deliveryDetails"
-			 	android:orientation="vertical"
-			 	android:layout_width="fill_parent"
-			 	android:layout_height="wrap_content"
-			 >
-			    
-			    <LinearLayout
-			        android:id="@+id/subtotalSection"
-			        android:orientation="horizontal"
-			        android:layout_width="fill_parent"
-			        android:layout_height="35dp"
-			        android:background="@drawable/total_background_bar"
-			        android:paddingLeft="5dp"
-			        android:paddingRight="5dp"
-			        >
-			        
-			        <TextView 
-			            android:id="@+id/subtotal"
-			            android:layout_width="fill_parent"
-			            android:layout_height="fill_parent"
-			            android:textSize="16sp"
-			            android:textColor="#000000"
-			            android:text="Subtotal: R"
-			            android:gravity="right|center_vertical"
-			            
-			            />
-			        
-			    </LinearLayout> <!-- subtotalSection -->
-			    
-			    <RelativeLayout 
-			        android:id="@+id/deliveryPriceSection"
-			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content"
-			        android:layout_marginTop="5dp"
-			        android:layout_marginBottom="5dp"
-			        android:paddingLeft="5dp"
-			        android:paddingRight="5dp"
-			        >
-			        
-			        <TextView
-			            android:id="@+id/lblDeliveryMethod"
-			            android:text="Deliver"
-			            android:layout_width="wrap_content"
-			            android:layout_height="wrap_content"
-			            android:textSize="16sp"
-			            android:textColor="#000000"
-			            android:layout_alignParentLeft="true"
-			        />
-			        
-			        
-			      
-			        <TextView 
-			            android:id="@+id/deliveryCost"
-			            android:layout_width="wrap_content"
-			            android:layout_height="wrap_content"
-			            android:textColor="#000000"
-			            android:textSize="16sp"
-			            android:text="R0.00"
-			            android:layout_alignParentRight="true"
-			            />
-			        
-			        
-			    </RelativeLayout> <!-- deliveryPriceSection -->
-			    
-			    <TextView
-			        android:id="@+id/deliveryAddress"
-			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content"
-			        android:textColor="#000000"
-			        android:textSize="12sp"
-			        android:textStyle="italic"
-			        android:singleLine="false"
-			        android:paddingLeft="5dp"
-			        android:paddingRight="5dp"
-			        />
-			    		    
-			</LinearLayout> <!-- deliveryDetails -->
-			
-			  <RelativeLayout
-                    android:id="@+id/totalSection"
+            <LinearLayout
+                    android:id="@+id/ordersResults"
                     android:layout_width="fill_parent"
-                    android:layout_height="35dp"
-                    android:background="@drawable/total_background_bar"
-                    android:paddingRight="5dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="vertical"
                     >
 
-            <TextView
-                    android:id="@+id/lblTotal"
-                    android:layout_width="wrap_content"
+                <TextView
+                        android:text="You have not placed any orders yet, search for the store you want using the buttons below."
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="#575b5c"
+                        android:layout_gravity="center_vertical"
+                        android:paddingTop="15dp"
+                        android:paddingLeft="15dp"
+                        android:textStyle="italic"
+                        />
+
+                <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="80dp"
+                        android:layout_alignParentLeft="true"
+                        android:paddingTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        >
+
+                    <ImageButton
+                            android:id="@+id/find_by_location_button"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/find_by_location_button"
+                            android:background="@null"
+                            android:contentDescription="@string/sign_up_button"
+                            android:onClick="storesPressed"
+                            />
+
+                    <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="100dp"
+                            android:layout_alignParentLeft="true"
+                            android:orientation="vertical"
+                            android:onClick="storesPressed"
+                            >
+
+                        <TextView
+                                android:id="@+id/find_by_location_text"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="10dp"
+                                android:paddingLeft="20dp"
+                                android:textSize="16sp"
+                                android:textColor="#ed6b06"
+                                android:text="SEARCH BY LOCATION"
+                                />
+
+                        <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="2dp"
+                                android:paddingLeft="20dp"
+                                android:textSize="14sp"
+                                android:textColor="#000000"
+                                android:text="Find stores near to you"
+                                />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="80dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        >
+
+                    <ImageButton
+                            android:id="@+id/find_by_category_button"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_alignParentLeft="true"
+                            android:src="@drawable/find_by_food_type_button"
+                            android:background="@null"
+                            android:contentDescription="@string/sign_up_button"
+                            android:onClick="storesPressed"
+                            android:scaleType="fitXY"
+                            />
+
+                    <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="100dp"
+                            android:layout_alignParentLeft="true"
+                            android:orientation="vertical"
+                            android:onClick="storesPressed"
+                            >
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="0dp"
+                                android:paddingLeft="20dp"
+                                android:textSize="16sp"
+                                android:textColor="#ed6b06"
+                                android:text="SEARCH BY CUISINE"
+                                />
+
+                        <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/find_by_location_text"
+                                android:paddingTop="2dp"
+                                android:paddingLeft="20dp"
+                                android:textSize="14sp"
+                                android:textColor="#000000"
+                                android:text="Maybe you want something specific"
+                                />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <ListView
+                    android:id="@+id/ordersList"
+                    android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center_vertical"
-                    android:paddingTop="5dp"
-                    android:textSize="16sp"
-                    android:textColor="#000000"
-                    android:text="Total: R70.00"
-                    
+                    android:dividerHeight="5dp"
+                    android:divider="@android:color/transparent"
+                    android:visibility="gone"
                     />
 
-               
-            </RelativeLayout> <!-- totalSection -->
-
-           
-
-       </LinearLayout> <!-- Current Order Section -->
 
 
-    <LinearLayout
-      android:id="@+id/order_history_section"
-      android:orientation="vertical"
-      android:layout_below="@id/tab_section"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      >
-
-      <ListView
-       android:id="@+id/lstPreviousOrders"
-       android:layout_width="fill_parent"
-       android:layout_height="fill_parent"
-       android:dividerHeight="20dp"
-       android:divider="@android:color/transparent"
-       android:visibility="gone"
-      />
-
-      </LinearLayout>
+        </LinearLayout>
 
 
-   </RelativeLayout> <!-- Main Section -->
-
-
-</RelativeLayout>
+    </RelativeLayout>
 
 </com.agimind.widget.SlideHolder>

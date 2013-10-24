@@ -19,6 +19,7 @@ public class SearchService extends RestService {
 	public double latitude;
 	public double longitude;
 	public boolean hasLocation;
+    public int page;
 	private VostoBaseActivity context;
 	
 	public SearchService(OnRestReturn listener, VostoBaseActivity context){
@@ -34,6 +35,14 @@ public class SearchService extends RestService {
 	public void setSearchTerm(String searchTerm) {
 		this.searchTerm = searchTerm;
 	}
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
 
 	public double getLatitude() {
 		return latitude;
@@ -64,11 +73,13 @@ public class SearchService extends RestService {
 			JSONObject root = new JSONObject();
 			root.put("authentication_token", context.getAuthenticationToken());
 			root.put("query_term", this.searchTerm);
+            root.put("page", this.page);
+
 			if(this.hasLocation){
 				root.put("latitude", this.latitude);
 				root.put("longitude", this.longitude);
 			}
-			Log.d("Location", "search json: " + root.toString());
+
 			return root.toString();
 		}catch(JSONException e){
 			e.printStackTrace();

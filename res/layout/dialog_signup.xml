@@ -1,0 +1,125 @@
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/addressForm"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="15dp"
+        android:padding="15dp"
+        android:background="#ede9e1"
+        >
+
+    <TextView
+            android:text="Nearly there, we just need some final details."
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="16sp"
+            android:textColor="#ed6b06"
+            />
+
+    <EditText
+            android:id="@+id/txtName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:hint="full name"
+            android:inputType="textCapWords"
+            android:layout_marginBottom="5dp"
+            />
+
+    <EditText
+            android:id="@+id/txtFirstName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:hint="first name"
+            android:inputType="textCapWords"
+            android:layout_marginBottom="5dp"
+            />
+
+    <EditText
+            android:id="@+id/txtLastName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:hint="last name"
+            android:inputType="textCapWords"
+            android:layout_marginBottom="5dp"
+            />
+
+    <EditText
+            android:id="@+id/txtMobile"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:hint="mobile number"
+            android:inputType="textCapWords"
+            android:layout_marginBottom="5dp"
+            />
+
+    <EditText
+            android:id="@+id/txtEmail"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:hint="email"
+            android:inputType="textCapWords"
+            android:layout_marginBottom="5dp"
+            />
+
+    <EditText
+            android:id="@+id/txtBirthday"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:hint="birthday"
+            android:inputType="textCapWords"
+            android:layout_marginBottom="5dp"
+            />
+
+    <EditText
+            android:id="@+id/txtGender"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:hint="gender"
+            android:layout_marginBottom="5dp"
+            android:inputType="textCapWords"
+            />
+
+    <EditText
+            android:id="@+id/txtUserPin"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:hint="5 digit pin"
+            android:layout_marginBottom="5dp"
+            android:inputType="number"
+            android:maxLength="6"
+            />
+
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:background="#2ecc71"
+            android:weightSum="4"
+            >
+
+
+        <Button
+                android:id="@+id/updateButton"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="#2ecc71"
+                android:text="Update"
+                android:textSize="16sp"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                />
+
+    </LinearLayout>
+
+</LinearLayout> <!-- address form -->

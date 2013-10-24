@@ -53,23 +53,22 @@ public class EditProfileActivity extends VostoBaseActivity implements OnRestRetu
         txtName.setText(settings.getString("userName", "user"));
         txtEmail.setText(settings.getString("userEmail", "user"));
         txtMobileNumber.setText(settings.getString("userMobile", "user"));
-        
 
         mSlideHolder = (SlideHolder) findViewById(R.id.slideHolder);
+
+        View toggleView = findViewById(R.id.menuButton);
+        toggleView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mSlideHolder.toggle();
+            }
+        });
 
         if(!settings.getString("userToken", "").equals("") &&  settings.getString("userName", "user") != "user"){
             //User logged in:
             TextView nameOfUser = (TextView)findViewById(R.id.nameOfUser);
             nameOfUser.setText(settings.getString("userName", "user"));
-
-            View toggleView = findViewById(R.id.menuButton);
-            toggleView.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    mSlideHolder.toggle();
-                }
-            });
         }else{
             //User not logged in:
 

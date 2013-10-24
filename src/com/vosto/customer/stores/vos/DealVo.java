@@ -16,6 +16,7 @@ public class DealVo implements Serializable {
     private String dealableType;
     private String dealImage;
     private Boolean isActive;
+    private StoreVo store;
 
     public DealVo(){
 
@@ -83,6 +84,14 @@ public class DealVo implements Serializable {
 
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
+    }
+
+    public StoreVo getStore() {
+        return store;
+    }
+
+    public void setStore(StoreVo store) {
+        this.store = store;
     }
 
     @Override

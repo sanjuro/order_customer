@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.view.*;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
@@ -22,6 +22,7 @@ import com.vosto.customer.HomeActivity;
 import com.vosto.customer.R;
 import com.vosto.customer.VostoBaseActivity;
 import com.vosto.customer.orders.activities.MyOrdersActivity;
+import com.vosto.customer.stores.activities.StoreMapActivity;
 import com.vosto.customer.products.TaxonListAdapter;
 import com.vosto.customer.products.services.GetProductsResult;
 import com.vosto.customer.products.services.GetProductsService;
@@ -88,6 +89,7 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
         Log.d("STO", "Loading taxons for store: " + this.store.getId());
         GetTaxonsService service = new GetTaxonsService(this, this, this.store.getId());
         service.execute();
+
         favourites = new StoreFavouritesManager(this);
         CheckBox star = (CheckBox)findViewById(R.id.star);
         star.setOnCheckedChangeListener(this);
@@ -127,6 +129,8 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
         intent.putExtra("categoryName", this.selectedTaxon.getName());
         intent.putExtra("products", products);
         startActivity(intent);
+
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     private void processTaxonsResult(GetTaxonsResult result){
@@ -149,12 +153,12 @@ public class TaxonsActivity extends VostoBaseActivity implements OnRestReturn, O
         service.execute();
     }
 
-    public void callPressed(View v){
-        TextView txtStoreTelephone = (TextView)findViewById(R.id.txtStoreTelephone);
-        String telephoneNumber = txtStoreTelephone.getText().toString().trim();
-        Intent callIntent = new Intent(Intent.ACTION_DIAL);
-        callIntent.setData(Uri.parse("tel:" + telephoneNumber));
-        startActivity(callIntent);
+    public void mapPressed(View v){
+        Intent intent = new Intent(this, StoreMapActivity.class);
+        intent.putExtra("store", this.store);
+        startActivity(intent);
+
+        overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.nothing);
     }
 
 

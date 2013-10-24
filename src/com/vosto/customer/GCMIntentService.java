@@ -19,7 +19,7 @@ public class GCMIntentService extends com.google.android.gcm.GCMBaseIntentServic
 	public GCMIntentService(){
 		super("1091536520954"); // The Vosto project id as assigned by GCM at the beginning.
 		//1091536520954 - shadley's account - used for production
-		   //263607631818 - flippie test account
+		//263607631818 -  test account
 	}
 	
 	@Override
@@ -32,11 +32,12 @@ public class GCMIntentService extends com.google.android.gcm.GCMBaseIntentServic
 	protected void onMessage(Context context, Intent intent) {
 		// A message has been received from GCM.
 		Log.d("GCM", "GCM message received.");
-		
+
+        Log.d("GCM", "msg received from gcm: " + intent.getStringExtra("msg"));
+        Log.d("GCM", "order_id received from gcm: " + intent.getStringExtra("order_id"));
 		// MyOrdersActivity will open when the notification is clicked, passing through the order id:
 		Intent notificationIntent = new Intent(context, MyOrdersActivity.class);
 		notificationIntent.putExtra("order_id", Integer.parseInt(intent.getStringExtra("order_id")));
-		Log.d("GCM", "order_id received from gcm: " + Integer.parseInt(intent.getStringExtra("order_id")));
 		generateNotification(context, intent.getStringExtra("msg"), notificationIntent);
 	}
 	

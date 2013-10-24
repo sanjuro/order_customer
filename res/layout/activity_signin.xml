@@ -1,11 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:background="#FFFFFF"
-  android:orientation="vertical"
-  >
+<com.agimind.widget.SlideHolder xmlns:android="http://schemas.android.com/apk/res/android"
+                                xmlns:tools="http://schemas.android.com/tools"
+                                android:id="@+id/slideHolder"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                tools:context=".MainActivity" >
+
+    <ScrollView
+            android:id="@+id/sideNavigation"
+            android:layout_width="200dp"
+            android:layout_height="fill_parent"
+            android:background="#ede9e1"
+            >
+
+        <include
+                android:id="@+id/menu"
+                layout="@layout/menu"
+                />
+
+
+    </ScrollView>
+
+
+    <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#ede9e1"
+            android:orientation="vertical"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
+            >
 
     <RelativeLayout
             android:id="@+id/top_bar"
@@ -57,9 +81,10 @@
     <LinearLayout
             android:layout_below="@+id/top_bar"
             android:layout_width="fill_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:background="#FFFFFF"
             android:orientation="horizontal"
+            android:paddingBottom="10dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             >
@@ -80,7 +105,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="10dp"
                 android:scaleType="fitXY"
-                android:background="#3f7e00"
+                android:background="#2ecc71"
                 android:onClick="signUpClicked"
                 android:text="Sign Up"
                 android:contentDescription="@string/sign_up_button"
@@ -97,6 +122,46 @@
        android:orientation="vertical"
        android:paddingTop="35dp"
        >
+
+       <TextView
+               android:id="@+id/lblFacebookSignin"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentRight="true"
+               android:layout_gravity="center_horizontal"
+               android:layout_marginTop="30dp"
+               android:textColor="#000000"
+               android:textSize="16sp"
+               android:clickable="true"
+               android:text="Sign in with Facebook"
+               android:paddingRight="15dp"
+               />
+
+       <ImageView
+               android:layout_width="fill_parent"
+               android:layout_height="60dp"
+               android:paddingLeft="10dp"
+               android:paddingRight="10dp"
+               android:layout_marginTop="10dp"
+               android:layout_marginLeft="10dp"
+               android:layout_marginRight="10dp"
+               android:src="@drawable/facebook_button"
+               android:onClick="facebookLoginClicked"
+               />
+
+       <TextView
+               android:id="@+id/lblAccountAlready"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentRight="true"
+               android:layout_gravity="center_horizontal"
+               android:layout_marginTop="30dp"
+               android:textColor="#000000"
+               android:textSize="16sp"
+               android:clickable="true"
+               android:text="You have an account already, Great! ."
+               android:paddingRight="15dp"
+               />
        
         <EditText 
        	android:id="@+id/txtEmail"
@@ -116,6 +181,21 @@
        	android:hint="@string/security_pin"    
        />
 
+       <TextView
+               android:id="@+id/lblForgotPin"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentRight="true"
+               android:layout_gravity="center_horizontal"
+               android:layout_marginTop="10dp"
+               android:textColor="#FA8C38"
+               android:textSize="16sp"
+               android:clickable="true"
+               android:onClick="forgotPinClicked"
+               android:text="Forgot Pin?"
+               android:paddingRight="15dp"
+               />
+
 
 
         
@@ -126,39 +206,25 @@
             android:id="@+id/bottom_bar"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
-            android:background="#3f7e00"
+            android:background="#2ecc71"
             android:orientation="horizontal"
             android:layout_alignParentBottom="true"
             >
 
         <Button
                 android:id="@+id/sign_in_button"
-                android:layout_width="100dp"
+                android:layout_width="fill_parent"
                 android:layout_height="40dp"
-                android:layout_alignParentLeft="true"
-                android:background="#3f7e00"
+                android:background="#2ecc71"
                 android:onClick="signInClicked"
                 android:text="Sign in"
                 android:contentDescription="@string/sign_in_button"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textColor="#FFFFFF"
-                />
-
-        <TextView
-                android:id="@+id/lblForgotPin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp"
-                android:clickable="true"
-                android:onClick="forgotPinClicked"
-                android:text="Forgot Pin?"
-                android:paddingRight="15dp"
                 />
 
     </RelativeLayout> <!-- bottom_bar -->
-    
-</RelativeLayout> <!-- outer container -->
+
+    </RelativeLayout>
+
+</com.agimind.widget.SlideHolder>

@@ -22,7 +22,8 @@ public class CreateAccountService extends RestService {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private Date birthDate;
+    private String gender;
+	private String birthDate;
 	private String mobileNumber;
 	private String userPin;
 	
@@ -54,11 +55,19 @@ public class CreateAccountService extends RestService {
 		this.email = email;
 	}
 
-	public Date getBirthDate() {
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+	public String getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
 

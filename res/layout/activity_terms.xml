@@ -1,34 +1,80 @@
-<?xml version="1.0" encoding="utf-8"?>
+<com.agimind.widget.SlideHolder xmlns:android="http://schemas.android.com/apk/res/android"
+                                xmlns:tools="http://schemas.android.com/tools"
+                                android:id="@+id/slideHolder"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                tools:context=".MainActivity" >
+
+    <ScrollView
+            android:id="@+id/sideNavigation"
+            android:layout_width="200dp"
+            android:layout_height="fill_parent"
+            android:background="#ede9e1"
+            >
+
+        <include
+                android:id="@+id/menu"
+                layout="@layout/menu"
+                />
+
+
+    </ScrollView>
+
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="#edeae2"
+        android:background="#FFFFFF"
         android:orientation="vertical"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         >
 
-    <LinearLayout
+
+    <RelativeLayout
             android:id="@+id/top_bar"
             android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:background="@drawable/top_bar_orange"
+            android:background="#ed6b06"
             android:orientation="horizontal"
-            android:layout_alignParentTop="true"
-            android:gravity="center_vertical"
-            android:paddingLeft="15dp"
-            android:paddingRight="10dp">
+            android:layout_alignParentTop="true">
+
+
+        <RelativeLayout
+                android:id="@+id/menuButtonHolder"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:background="#FA8C38"
+                android:orientation="horizontal"
+                android:layout_alignParentTop="true"
+                android:paddingLeft="15dp">
+
+            <ImageView
+                    android:id="@+id/menuButton"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/menu"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:paddingRight="15dp"
+                    />
+
+
+        </RelativeLayout>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textColor="#FFFFFF"
                 android:text="Terms and Conditions"
-                android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 />
-    </LinearLayout>
+
+
+    </RelativeLayout> <!-- top bar -->
 
     <ScrollView
             android:id="@+id/sideNavigation"
@@ -60,6 +106,7 @@
     </ScrollView>
 </RelativeLayout>
 
+</com.agimind.widget.SlideHolder>
 
 
 

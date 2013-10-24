@@ -6,7 +6,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@drawable/store_item_background"
+        android:background="#ede9e1"
         android:paddingTop="10dp"
         android:paddingLeft="10dp"
         android:paddingBottom="10dp"
@@ -14,12 +14,6 @@
         android:onClick="productSelected"
         >
 
-    <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/burrito"
-            android:background="@drawable/image_border_white"
-            />
 
     <RelativeLayout
             android:layout_width="fill_parent"
@@ -32,36 +26,45 @@
                 android:id="@+id/lblProductName"
                 android:layout_width="175dp"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:textColor="#676357"
+                android:textSize="15sp"
+                android:textColor="#6c675c"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:text="Spur's Famous Pork Ribs"
                 />
 
-        <ImageView
-                android:id="@+id/selection_arrow"
-                android:src="@drawable/selection_arrow"
-                android:layout_width="10dp"
-                android:layout_height="13dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="20dp"
-                />
+
 
         <TextView
                 android:id="@+id/lblPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/selection_arrow"
+                android:background="#ed6b06"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:text="R35.00"
                 android:textSize="12sp"
-                android:textColor="#7b7461"
-                android:text="R 35.00"
+                android:textColor="#FFFFFF"
+                android:layout_alignParentRight="true"
                 />
 
 
-
+        <Button
+                android:id="@+id/add_to_cart_button"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/lblProductName"
+                android:scaleType="fitXY"
+                android:layout_marginTop="5dp"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:background="#2ecc71"
+                android:onClick="addToCartClicked"
+                android:text="Add to Cart"
+                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                />
     </RelativeLayout>
 
 </LinearLayout>

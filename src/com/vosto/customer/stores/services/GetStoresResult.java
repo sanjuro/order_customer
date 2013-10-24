@@ -49,6 +49,8 @@ public class GetStoresResult extends RestResult implements IRestResult {
 				currentStore.setUrl(jsonObj.getString("url"));
                 currentStore.setStoreImage(jsonObj.getString("store_image"));
                 currentStore.setIsOnline(jsonObj.getBoolean("is_online"));
+                currentStore.setLatitude(jsonObj.getDouble("latitude"));
+                currentStore.setLongitude(jsonObj.getDouble("longitude"));
                 currentStore.setCanDeliver(jsonObj.getBoolean("can_deliver"));
 				currentStore.setId(jsonObj.getInt("id"));
 				this.stores[i] = currentStore;
@@ -74,6 +76,8 @@ public class GetStoresResult extends RestResult implements IRestResult {
 			currentStore.setManagerContact(jsonObj.getString("manager_contact"));
 			currentStore.setUrl(jsonObj.getString("url"));
             currentStore.setStoreImage(jsonObj.getString("store_image"));
+            currentStore.setLatitude(jsonObj.getDouble("latitude"));
+            currentStore.setLongitude(jsonObj.getDouble("longitude"));
             currentStore.setIsOnline(jsonObj.getBoolean("is_online"));
             currentStore.setCanDeliver(jsonObj.getBoolean("can_deliver"));
 			currentStore.setId(jsonObj.getInt("id"));
