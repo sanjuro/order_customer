@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="socialauth-android-2.0">
+  <library name="socialauth-android">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/socialauth-android-2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/socialauth-android.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
